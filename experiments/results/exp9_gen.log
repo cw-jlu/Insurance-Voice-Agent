@@ -1,0 +1,3 @@
+{'model': 'qwen-plus', 'n': 80, 'regex': 0.9125, 'judge_deepseek': 0.9125, 'both': 0.8875, 'fallback': 8, 'retries': 14, 'latency_p50': 3.46, 'latency_p90': 4.97, 'ttft_p50': 0.31}
+{'model': 'deepseek-v4-flash', 'n': 80, 'regex': 0.9125, 'judge_deepseek': 0.8625, 'both': 0.8375, 'fallback': 8, 'retries': 19, 'latency_p50': 3.55, 'latency_p90': 6.06, 'ttft_p50': 0.64}
+{'model': 'deepseek-v4-pro', 'n': 80, 'regex': 0.875, 'judge_deepseek': 0.8875, 'both': 0.8375, 'fallback': 2, 'retries': 15, 'latency_p50': 4.2, 'latency_p90': 6.96, 'ttft_p50': 0.88}
