@@ -1,0 +1,5 @@
+固定路由 {'n': 30, 'regex': 0.6667, 'judge': 0.7333, 'both': 0.6, 'heldout_both': 0.7, 'steps_mean': 0, 'steps_max': 0, 'latency_p50': 3.82, 'latency_p90': 5.76, 'latency_max': 8.35, 'fallbacks': 5}
+最多1步 {'n': 30, 'regex': 0.6667, 'judge': 0.7667, 'both': 0.6, 'heldout_both': 0.6, 'steps_mean': 1, 'steps_max': 1, 'latency_p50': 4.83, 'latency_p90': 7.05, 'latency_max': 8.73, 'fallbacks': 5}
+最多3步 {'n': 30, 'regex': 0.7, 'judge': 0.8667, 'both': 0.6667, 'heldout_both': 0.7, 'steps_mean': 2.13, 'steps_max': 3, 'latency_p50': 6.27, 'latency_p90': 9.46, 'latency_max': 11.8, 'fallbacks': 5}
+最多5步 {'n': 30, 'regex': 0.7, 'judge': 0.9333, 'both': 0.7, 'heldout_both': 0.8, 'steps_mean': 2.3, 'steps_max': 5, 'latency_p50': 5.92, 'latency_p90': 8.96, 'latency_max': 11.97, 'fallbacks': 3}
+5步/预算3秒 {'n': 30, 'regex': 0.6333, 'judge': 0.7, 'both': 0.5333, 'heldout_both': 0.6, 'steps_mean': 2, 'steps_max': 4, 'latency_p50': 6.88, 'latency_p90': 14.97, 'latency_max': 44.4, 'fallbacks': 8}

@@ -164,9 +164,11 @@ def _catalog() -> str:
 def understand(question: str, known: dict, client=None, model: str | None = None) -> dict:
     sys = _UNDERSTAND_SYS % {"intents": INTENTS, "topics": TOPIC_NAMES, "gaps": GAP_NAMES, "catalog": _catalog()}
     prev = known.get("_prev_utterance")
+    history = known.get("_history")
     shown = {k: v for k, v in known.items() if not k.startswith("_")}
     user = (f"已知条件：{json.dumps(shown, ensure_ascii=False)}\n"
-            + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev else "")
+            + (f"【最近对话】\n{history}\n" if history else "")
+            + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev and not history else "")
             + f"用户：{question}")
     raw = cloud.chat([{"role": "system", "content": sys}, {"role": "user", "content": user}],
                      model=model or cloud.FAST_MODEL, client=client, temperature=0,
@@ -194,7 +196,7 @@ _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用�
 6. 如果【必须原样包含的话】不为空，把它自然地放进回答里。
 7. 如果相关责任属于加油包（资料里写着"××加油包"），要说明这是需要另外选购的加油包，不在基础版里。
 8. 资料按【组】给出，每组只属于一项责任或一份文件。每句话只能依据同一组资料，不同责任的规则（免赔额、共享范围、比例、天数）不能互相套用。
-9. 说赔付比例时，如果资料里还有"未以社保身份就诊结算"的比例，要一并说明。"""
+9. 说赔付比例时，如果资料里还有"未以社保身份就诊结算"的比例，要一并说明。注意：这个降低后的比例只适用于"按有社保身份投保、但看病没用社保结算"的情况；按无社保投保的人，扣除免赔额后仍按资料中的正常比例赔付。"""
 
 
 @dataclass
@@ -274,7 +276,11 @@ class Pipeline:
         self.slow_model = slow_model or cloud.SLOW_MODEL
         self.fast_model = fast_model or cloud.FAST_MODEL
 
-    def answer(self, question: str, known: dict | None = None, voice: bool = False) -> Answer:
+    def answer(self, question: str, known: dict | None = None, voice: bool = False,
+               agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None) -> Answer:
+        """``known`` carries the call's profile; ``known["_history"]`` (recent turns, as text) and
+        ``known["_prev_utterance"]`` come from CallSession. ``agent_steps`` > 0 lets the evidence
+        agent add tool calls on top of the fixed routing, within ``agent_budget_s`` seconds."""
         known = dict(known or {})
         t0 = time.perf_counter()
         timings: dict = {}
@@ -283,7 +289,7 @@ class Pipeline:
             return Answer(f"{IDENTITY_REPLY}价格和保障我都能帮您讲清楚，您想先了解哪方面？", route="身份(规则)",
                           timings={"total": time.perf_counter() - t0})
 
-        u = understand(question, known, client=self.client, model=self.fast_model)
+        u = understanding or understand(question, known, client=self.client, model=self.fast_model)
         timings["understand"] = time.perf_counter() - t0
         slots = {**known, **{k: v for k, v in (u.get("slots") or {}).items() if v is not None}}
         intent = u.get("intent", "其他")
@@ -336,9 +342,23 @@ class Pipeline:
                 ev.append(c)
         evidence = ev
 
-        ctx = "\n".join(f"[{i + 1}] {c.text}（出处：{c.source}）" for i, c in enumerate(evidence))
-        user = (f"已知用户条件：{json.dumps(slots, ensure_ascii=False)}\n"
-                f"【报价结果】{must_say[0] if intent == '报价' and must_say else '无'}\n"
+        if agent_steps > 0:
+            from agent.evidence_agent import gather
+
+            t1 = time.perf_counter()
+            extra, steps = gather(question, slots, known.get("_history", ""), evidence, client=self.client,
+                                  max_steps=agent_steps, budget_s=agent_budget_s, retriever=self.retriever)
+            seen = {c.chunk_id for c in evidence}
+            evidence += [c for c in extra if c.chunk_id not in seen]
+            timings["agent"] = time.perf_counter() - t1
+            timings["agent_steps"] = steps
+
+        ctx = grouped_context(evidence)
+        shown = {k: v for k, v in slots.items() if not str(k).startswith("_")}
+        history = known.get("_history", "")
+        user = (f"已知用户条件：{json.dumps(shown, ensure_ascii=False)}\n"
+                + (f"【最近对话】\n{history}\n" if history else "")
+                + f"【报价结果】{must_say[0] if intent == '报价' and must_say else '无'}\n"
                 f"【必须原样包含的话】{'；'.join(must_say[1:] if intent == '报价' else must_say) or '无'}\n"
                 f"【资料】\n{ctx}\n\n用户：{question}")
         msgs = [{"role": "system", "content": _ANSWER_SYS + (VOICE_RULES if voice else "")}, {"role": "user", "content": user}]

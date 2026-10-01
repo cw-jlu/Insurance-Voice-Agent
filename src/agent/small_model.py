@@ -116,3 +116,25 @@ def fact_check(answer: str, grouped_evidence: str, client=None) -> list[str]:
     except json.JSONDecodeError:
         return []
     return [] if d.get("ok", True) else [str(p) for p in d.get("problems", [])][:3]
+
+
+# --- dialogue act (for the sales flow) ------------------------------------------------------------
+
+ACTS = ["提问", "提供信息", "附和", "同意投保", "拒绝", "异议", "要人工", "投诉", "身份"]
+_ACT_SYS = """判断电话里用户这句话在销售对话中的作用，只输出 JSON：{"act": 以下之一}
+提问：问保障、价格、规则等；提供信息：回答坐席的问题或补充、纠正自己的情况（年龄、社保、给谁买、病史）；
+附和：嗯、好的、你说；同意投保：愿意买、要链接、怎么买、发给我；拒绝：不需要、没兴趣、别打了、不买；
+异议：嫌贵、要考虑、已经有医保或别的保险、不信任；要人工：要求转人工或真人；投诉：表达不满、要投诉；
+身份：问是不是真人、机器人、AI、录音。
+一句话里既有信息又有提问时选"提问"。"""
+
+
+def classify_act(text: str, history: str = "", client=None) -> str:
+    raw = cloud.chat([{"role": "system", "content": _ACT_SYS},
+                      {"role": "user", "content": (f"最近对话：\n{history}\n" if history else "") + f"用户：{text}"}],
+                     model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
+    try:
+        act = json.loads(raw).get("act", "提问")
+    except json.JSONDecodeError:
+        act = "提问"
+    return act if act in ACTS else "提问"
