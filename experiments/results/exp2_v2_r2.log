@@ -1,0 +1,7 @@
+pipeline dev {'n': 112, 'regex': 0.9643, 'judge': 0.9821, 'both': 0.9554, 'fallback': 5, 'latency_p50': 3.27, 'latency_p90': 4.19}
+pipeline heldout {'n': 97, 'regex': 0.9072, 'judge': 0.9175, 'both': 0.8763, 'fallback': 3, 'latency_p50': 3.22, 'latency_p90': 5.13}
+pipeline heldout_paraphrase {'n': 31, 'regex': 0.871, 'judge': 0.9355, 'both': 0.871, 'fallback': 2, 'latency_p50': 3.69, 'latency_p90': 5.24}
+baseline dev {'n': 112, 'regex': 0.6161, 'judge': 0.6429, 'both': 0.5179, 'fallback': 0, 'latency_p50': 1.11, 'latency_p90': 1.44}
+baseline heldout {'n': 97, 'regex': 0.4845, 'judge': 0.6701, 'both': 0.4433, 'fallback': 0, 'latency_p50': 1.06, 'latency_p90': 1.49}
+baseline heldout_paraphrase {'n': 31, 'regex': 0.5484, 'judge': 0.6774, 'both': 0.5161, 'fallback': 0, 'latency_p50': 1.05, 'latency_p90': 1.46}
+by category (heldout, judge): {'价格': 0.85, '优惠': 1.0, '保障': 0.8667, '免责': 1.0, '多轮': 1.0, '投保条件': 1.0, '缺口': 0.9474, '身份': 1.0}

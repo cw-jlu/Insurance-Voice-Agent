@@ -1,0 +1,340 @@
+{
+  "model": "qwen-flash",
+  "barge_in": {
+    "cases": 240,
+    "rule": {
+      "false_stop": 0.1833,
+      "interrupt_recall": 0.9583
+    },
+    "rule+model": {
+      "false_stop": 0.0,
+      "interrupt_recall": 0.9917
+    },
+    "model_path_share": 0.3833,
+    "model_latency_s": {
+      "p50": 0.235,
+      "p90": 0.279
+    },
+    "errors": [
+      {
+        "u": "我有社保的",
+        "exp": "interrupt",
+        "rule": "interrupt",
+        "hybrid": "backchannel",
+        "path": "model",
+        "t": 0.22519690000626724
+      }
+    ]
+  },
+  "slots": {
+    "rule": {
+      "all_correct": 0.265,
+      "per_slot": {
+        "age": 0.36,
+        "relation": 1.0,
+        "gender": 1.0,
+        "has_social": 0.5827,
+        "pay": 1.0
+      },
+      "errors": []
+    },
+    "model": {
+      "all_correct": 0.535,
+      "per_slot": {
+        "age": 1.0,
+        "relation": 1.0,
+        "gender": 0.3451,
+        "has_social": 1.0,
+        "pay": 1.0
+      },
+      "errors": [
+        {
+          "text": "我女儿快5了，单位给交社保，每个月付，一年多少",
+          "gold": {
+            "age": 5,
+            "relation": "子女",
+            "gender": "女",
+            "has_social": true,
+            "pay": "月缴"
+          },
+          "got": {
+            "age": 5,
+            "has_social": true,
+            "pay": "月缴",
+            "relation": "子女"
+          }
+        },
+        {
+          "text": "我老婆五十一了，社保停了，按月交，一年多少",
+          "gold": {
+            "age": 51,
+            "relation": "配偶",
+            "gender": "女",
+            "has_social": false,
+            "pay": "月缴"
+          },
+          "got": {
+            "age": 51,
+            "has_social": false,
+            "pay": "月缴",
+            "relation": "配偶"
+          }
+        },
+        {
+          "text": "我儿子今年14，有社保，年缴，怎么买",
+          "gold": {
+            "age": 14,
+            "relation": "子女",
+            "gender": "男",
+            "has_social": true,
+            "pay": "年缴"
+          },
+          "got": {
+            "age": 14,
+            "has_social": true,
+            "pay": "年缴",
+            "relation": "子女"
+          }
+        },
+        {
+          "text": "我女儿十六了，每个月付，价格是多少",
+          "gold": {
+            "age": 16,
+            "relation": "子女",
+            "gender": "女",
+            "pay": "月缴"
+          },
+          "got": {
+            "age": 16,
+            "pay": "月缴",
+            "relation": "子女"
+          }
+        },
+        {
+          "text": "我老公55岁，社保停了，价格是多少",
+          "gold": {
+            "age": 55,
+            "relation": "配偶",
+            "gender": "男",
+            "has_social": false
+          },
+          "got": {
+            "age": 55,
+            "has_social": false,
+            "relation": "配偶"
+          }
+        },
+        {
+          "text": "我老婆三十六岁，年缴，多少钱",
+          "gold": {
+            "age": 36,
+            "relation": "配偶",
+            "gender": "女",
+            "pay": "年缴"
+          },
+          "got": {
+            "age": 36,
+            "pay": "年缴",
+            "relation": "配偶"
+          }
+        },
+        {
+          "text": "我儿子快11了，社保断了，一年交一次，多少钱",
+          "gold": {
+            "age": 11,
+            "relation": "子女",
+            "gender": "男",
+            "has_social": false,
+            "pay": "年缴"
+          },
+          "got": {
+            "age": 11,
+            "has_social": false,
+            "pay": "年缴",
+            "relation": "子女"
+          }
+        },
+        {
+          "text": "我爸51周岁，能买吗",
+          "gold": {
+            "age": 51,
+            "relation": "父母",
+            "gender": "男"
+          },
+          "got": {
+            "age": 51,
+            "relation": "父母"
+          }
+        },
+        {
+          "text": "我儿子十三了，有社保，一年多少",
+          "gold": {
+            "age": 13,
+            "relation": "子女",
+            "gender": "男",
+            "has_social": true
+          },
+          "got": {
+            "age": 13,
+            "has_social": true,
+            "relation": "子女"
+          }
+        },
+        {
+          "text": "我老婆四十二，没有社保，价格是多少",
+          "gold": {
+            "age": 42,
+            "relation": "配偶",
+            "gender": "女",
+            "has_social": false
+          },
+          "got": {
+            "age": 42,
+            "has_social": false,
+            "relation": "配偶"
+          }
+        },
+        {
+          "text": "我爸五十四，按月交，多少钱",
+          "gold": {
+            "age": 54,
+            "relation": "父母",
+            "gender": "男",
+            "pay": "月缴"
+          },
+          "got": {
+            "age": 54,
+            "pay": "月缴",
+            "relation": "父母"
+          }
+        },
+        {
+          "text": "我女儿今年14，多少钱",
+          "gold": {
+            "age": 14,
+            "relation": "子女",
+            "gender": "女"
+          },
+          "got": {
+            "age": 14,
+            "relation": "子女"
+          }
+        }
+      ]
+    },
+    "model_latency_s": {
+      "p50": 0.418,
+      "p90": 0.494
+    },
+    "cases": 200
+  },
+  "identity": {
+    "positives": 120,
+    "negatives": 36,
+    "rule": {
+      "recall": 0.9333,
+      "false_alarm": 0.0833
+    },
+    "model": {
+      "recall": 0.9833,
+      "false_alarm": 0.1111
+    },
+    "rule_or_model": {
+      "recall": 1.0,
+      "false_alarm": 0.1944
+    },
+    "model_latency_s": {
+      "p50": 0.231,
+      "p90": 0.257
+    },
+    "model_errors": [
+      "您是语音助手对吧",
+      "你是语音助手吗",
+      "能找个真人跟我说吗",
+      "能找个真人跟我说吗",
+      "录音能发我一份吗",
+      "录音能发我一份吗"
+    ]
+  },
+  "gap_review": {
+    "cases": 270,
+    "rule": {
+      "recall": 0.7411,
+      "false_block": 0.0
+    },
+    "model": {
+      "recall": 1.0,
+      "false_block": 0.3354
+    },
+    "rule_or_model": {
+      "recall": 1.0,
+      "false_block": 0.3354
+    },
+    "model_latency_s": {
+      "p50": 0.229,
+      "p90": 0.255
+    },
+    "model_errors": [
+      {
+        "q": "腰椎间盘突出能不能投保",
+        "a": "如果核保通过，腰椎间盘突出相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "我妈有乳腺增生，能给她买吗",
+        "a": "如果核保通过，乳腺增生相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "有肺结节的人能买这个吗",
+        "a": "如果核保通过，肺结节相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "查出过甲状腺结节还能保吗",
+        "a": "如果核保通过，甲状腺结节相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "查出过哮喘还能保吗",
+        "a": "如果核保通过，哮喘相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "我肾结石好多年了，买了能报吗",
+        "a": "如果核保通过，肾结石相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "我妈有乳腺增生，能给她买吗",
+        "a": "如果核保通过，乳腺增生相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "有抑郁症的人能买这个吗",
+        "a": "如果核保通过，抑郁症相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "心律不齐能不能投保",
+        "a": "如果核保通过，心律不齐相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "查出过糖尿病还能保吗",
+        "a": "如果核保通过，糖尿病相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "我有高血压能买吗",
+        "a": "如果核保通过，高血压相关的费用属于既往症，不赔。",
+        "expected": false
+      },
+      {
+        "q": "查出过肾结石还能保吗",
+        "a": "如果核保通过，肾结石相关的费用属于既往症，不赔。",
+        "expected": false
+      }
+    ]
+  }
+}

@@ -31,7 +31,8 @@ COVERAGE = {i["id"]: i for i in coverage_items()}
 TOPICS: dict[str, list[tuple[str, str]]] = {
     "总保额": [("投保须知", "国内医疗总保额为600万元")],
     "既往症": [("责任免除", "既往症或先天性疾病，不予理赔"), ("责任免除", "因既往症，性病")],
-    "等待期": [("投保须知", "必选计划的等待期为30天"), ("责任免除", "等待期内被保险人确诊疾病")],
+    "等待期": [("投保须知", "必选计划的等待期为30天"), ("责任免除", "等待期内被保险人确诊疾病"),
+             ("保障计划表", "被保险人因遭受意外伤害事故或在等待期30天后因罹患疾病")],
     "补偿原则": [("责任免除", "补偿原则")],
     "医院范围": [("责任免除", "非中国公立二级"), ("投保须知", "二级及二级以上的公立医院及本保单约定的指定民营医疗机构普通部发生的")],
     "社保结算比例": [("责任免除", "未以基本医疗保险或公费医疗身份就诊并结算的，则保险人根据本合同单独约定的给付比例")],
@@ -54,7 +55,7 @@ GAP_NAMES = [g.name for g in GAPS] + ["条款清单"]
 GAP_FALLBACK = {g.name: g.fallback for g in GAPS}
 GAP_FALLBACK["条款清单"] = "具体清单以保险条款为准，我可以把条款发给您，或者帮您转专员确认。"
 
-INTENTS = ["报价", "保障", "投保条件", "免责", "缺口", "身份", "闲聊", "其他"]
+INTENTS = ["报价", "优惠", "保障", "投保条件", "免责", "缺口", "身份", "闲聊", "其他"]
 
 
 def _find(doc: str, needle: str) -> list[Chunk]:
@@ -70,6 +71,12 @@ def topic_chunks(topic: str) -> list[Chunk]:
     return out
 
 
+def _ded_label(it: dict) -> str:
+    """The table's "免赔额/免赔天数" column holds the daily payout for 护工/津贴 items, not a deductible."""
+    v = it["免赔额/免赔天数"]
+    return "给付标准" if ("元/天" in v and "护工" in it["责任名称"]) or "日津贴" in v else "免赔额"
+
+
 def item_chunks(item_id: str) -> list[Chunk]:
     it = COVERAGE[item_id]
     name = it["责任名称"]
@@ -77,7 +84,7 @@ def item_chunks(item_id: str) -> list[Chunk]:
         chunk_id=f"{item_id}:head",
         doc="保障计划表",
         text=(f"{name}（{it['责任&加油包']}）：人群{it['人群']}；等待期{it['等待期']}；保额{it['保额']}；"
-              f"赔付比例{'；'.join(it['赔付比例'])}；免赔额{it['免赔额/免赔天数']}；医院范围{'；'.join(it['医院范围'])}"),
+              f"赔付比例{'；'.join(it['赔付比例'])}；{_ded_label(it)}{it['免赔额/免赔天数']}；医院范围{'；'.join(it['医院范围'])}"),
         source=f"保障计划表 第{it['source_rows'][0]}–{it['source_rows'][1]}行",
         meta={"item": item_id},
     )
@@ -135,6 +142,12 @@ _UNDERSTAND_SYS = """你是保险电销外呼对话的理解模块，只输出 J
 - 用户说自己（或家人）患有某种病、做过手术、在吃药，问能不能买/能不能报 → intent=缺口，gaps 含"疾病核保"，topics 含"既往症"和"如实告知"。
 - 只是问某类疾病或费用本身在不在保障范围（如职业病、先天性疾病、精神疾病、美容、牙科、分娩、体检），没有说自己患病 → intent=免责，topics 含"其他免责"或"既往症"，gaps 为空。
 - 问总共保多少、保额多少、能报什么 → topics 含"总保额"。
+- 问优惠、打折、便宜点、全家几口人一起买 → intent=优惠，topics 含"家庭单优惠"（不是报价，不需要年龄）。
+- 比较按月交和按年交、问明年/以后价格 → intent=报价。"明年X岁"表示现在 X-1 岁，age 填现在的年龄。
+- 用户只是补充或修改条件（如"有社保呢""我35岁""按月交呢""不对，我没有社保"）→ 沿用【上一句】的意图。
+- "得了某病能报吗""某病的费用报不报"（没说自己已经患病）→ intent=免责；只有"我有/我妈有某病，能不能买、买了能不能报"才是疾病核保缺口。
+- 问到期怎么续、明年还能不能买、老了能不能续 → gaps 含"续保"。
+- 问等待期、刚买就生病、意外要不要等 → topics 含"等待期"。
 - 问职业（如高空作业、司机、矿工）能不能买 → intent=投保条件，topics 含"职业"，gaps 为空。
 - 问能不能多买几份、重复投保 → intent=投保条件，topics 含"一人一份"。
 - 问续保、停售 → gaps 含"续保"；问医保报销部分能否抵扣/算进免赔额 → gaps 含"社保抵扣免赔额"；问疾病清单、药品清单 → gaps 含"条款清单"。
@@ -150,7 +163,11 @@ def _catalog() -> str:
 
 def understand(question: str, known: dict, client=None, model: str | None = None) -> dict:
     sys = _UNDERSTAND_SYS % {"intents": INTENTS, "topics": TOPIC_NAMES, "gaps": GAP_NAMES, "catalog": _catalog()}
-    user = f"已知条件：{json.dumps(known, ensure_ascii=False)}\n用户：{question}"
+    prev = known.get("_prev_utterance")
+    shown = {k: v for k, v in known.items() if not k.startswith("_")}
+    user = (f"已知条件：{json.dumps(shown, ensure_ascii=False)}\n"
+            + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev else "")
+            + f"用户：{question}")
     raw = cloud.chat([{"role": "system", "content": sys}, {"role": "user", "content": user}],
                      model=model or cloud.FAST_MODEL, client=client, temperature=0,
                      response_format={"type": "json_object"})
@@ -175,7 +192,9 @@ _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用�
 4. 讲保障时顺带说一个最重要的限制（免赔额、等待期、医院范围或既往症）。
 5. 禁止说"什么病都能报""保证续保""肯定能赔"之类的承诺；涉及病史要提醒如实告知，能否投保以核保结果为准，不要替核保下结论。
 6. 如果【必须原样包含的话】不为空，把它自然地放进回答里。
-7. 如果相关责任属于加油包（资料里写着"××加油包"），要说明这是需要另外选购的加油包，不在基础版里。"""
+7. 如果相关责任属于加油包（资料里写着"××加油包"），要说明这是需要另外选购的加油包，不在基础版里。
+8. 资料按【组】给出，每组只属于一项责任或一份文件。每句话只能依据同一组资料，不同责任的规则（免赔额、共享范围、比例、天数）不能互相套用。
+9. 说赔付比例时，如果资料里还有"未以社保身份就诊结算"的比例，要一并说明。"""
 
 
 @dataclass
@@ -191,9 +210,33 @@ class Answer:
     timings: dict = field(default_factory=dict)
 
 
-def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gaps: list[str] | None = None) -> list[str]:
+def grouped_context(evidence: list[Chunk]) -> str:
+    """Evidence grouped by coverage item (or by document), each group labelled with what it belongs to."""
+    groups: dict[str, list[Chunk]] = {}
+    for c in evidence:
+        key = c.meta.get("item") or c.doc
+        groups.setdefault(key, []).append(c)
+    out = []
+    for key, cs in groups.items():
+        if key in COVERAGE:
+            it = COVERAGE[key]
+            label = f"{it['责任名称']}（{'基础版必选责任' if it['责任&加油包'] == '必选责任' else it['责任&加油包'] + '，需另外选购'}）"
+        else:
+            label = key
+        out.append(f"【组：{label}】\n" + "\n".join(f"- {c.text}（出处：{c.source}）" for c in cs))
+    return "\n".join(out)
+
+
+def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gaps: list[str] | None = None,
+           fact_check: bool = True) -> list[str]:
     v = number_guard(text, [c.text for c in evidence], structured).violations
     v += gap_guard(question, text, gaps).violations
+    from agent import small_model
+    if gaps and small_model.gap_review(question, text):
+        v.append("模型复核：对缺口问题给出了结论")
+    if fact_check and evidence and not v:
+        problems = small_model.fact_check(text, grouped_context(evidence))
+        v += [f"事实核对：{p}" for p in problems]
     v += compliance_guard(text).violations
     return v
 
@@ -254,6 +297,8 @@ class Pipeline:
         must_say: list[str] = []
         route = intent
 
+        if intent == "优惠" and "家庭单优惠" not in u.get("topics", []):
+            u["topics"] = u.get("topics", []) + ["家庭单优惠"]
         if intent == "报价":
             qt = _quote_text(slots)
             if qt is None:
@@ -267,6 +312,11 @@ class Pipeline:
 
         for g in u.get("gaps", []):
             must_say.append(GAP_FALLBACK[g])
+        # Underwriting questions: only the pre-existing-condition and disclosure clauses, so other
+        # items' rules (e.g. an add-on's 20% for nodules) are not dragged into the answer.
+        underwriting_only = intent == "缺口" and "疾病核保" in u.get("gaps", [])
+        if underwriting_only:
+            u["items"], u["topics"] = [], ["既往症", "如实告知"]
         for item in u.get("items", []):
             evidence += item_chunks(item)
         for t in u.get("topics", []):
@@ -274,7 +324,7 @@ class Pipeline:
                 evidence.append(Chunk("family", "费率表", FAMILY_RULE, "费率表 家庭单用户优享价格规则说明"))
             else:
                 evidence += topic_chunks(t)
-        if self.retriever is not None:
+        if self.retriever is not None and not underwriting_only:
             t1 = time.perf_counter()
             evidence += self.retriever.search(u.get("rewrite") or question, k=4)
             timings["retrieve"] = time.perf_counter() - t1

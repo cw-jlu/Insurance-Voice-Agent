@@ -1,0 +1,96 @@
+{
+  "gap_review": {
+    "cases": 180,
+    "rule": {
+      "recall": 0.3793,
+      "false_block": 0.0
+    },
+    "model": {
+      "recall": 1.0,
+      "false_block": 0.172
+    },
+    "rule_or_model": {
+      "recall": 1.0,
+      "false_block": 0.172
+    },
+    "model_latency_s": {
+      "p50": 0.24,
+      "p90": 0.287
+    },
+    "model_errors": [
+      {
+        "q": "我老婆能买吗",
+        "a": "可以给配偶买。",
+        "expected": false
+      },
+      {
+        "q": "我老婆能买吗",
+        "a": "可以给配偶买。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "我老婆能买吗",
+        "a": "可以给配偶买。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      },
+      {
+        "q": "我老婆能买吗",
+        "a": "可以给配偶买。",
+        "expected": false
+      },
+      {
+        "q": "能按月交吗",
+        "a": "可以按月交。",
+        "expected": false
+      },
+      {
+        "q": "住院能报多少",
+        "a": "一般住院扣除1万免赔额后按100%报。",
+        "expected": false
+      }
+    ]
+  },
+  "identity": {
+    "positives": 10,
+    "negatives": 10,
+    "rule": {
+      "recall": 0.6,
+      "false_alarm": 0.0
+    },
+    "model": {
+      "recall": 1.0,
+      "false_alarm": 0.0
+    },
+    "model_errors": []
+  }
+}

@@ -13,7 +13,9 @@
   "turns": null,
   "source": "人工",
   "id": "V001",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -29,7 +31,9 @@
   "turns": null,
   "source": "人工",
   "id": "V002",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -45,7 +49,9 @@
   "turns": null,
   "source": "人工",
   "id": "V003",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -62,7 +68,9 @@
   "turns": null,
   "source": "人工",
   "id": "V004",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -79,7 +87,9 @@
   "turns": null,
   "source": "人工",
   "id": "V005",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -95,7 +105,9 @@
   "turns": null,
   "source": "人工",
   "id": "V006",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -111,7 +123,9 @@
   "turns": null,
   "source": "人工",
   "id": "V007",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -127,7 +141,9 @@
   "turns": null,
   "source": "人工",
   "id": "V008",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -144,7 +160,9 @@
   "turns": null,
   "source": "人工",
   "id": "V009",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -161,7 +179,9 @@
   "turns": null,
   "source": "人工",
   "id": "V010",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -178,7 +198,9 @@
   "turns": null,
   "source": "人工",
   "id": "V011",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -195,7 +217,9 @@
   "turns": null,
   "source": "人工",
   "id": "V012",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -211,7 +235,9 @@
   "turns": null,
   "source": "人工",
   "id": "V013",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -227,7 +253,9 @@
   "turns": null,
   "source": "人工",
   "id": "V014",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -243,7 +271,9 @@
   "turns": null,
   "source": "人工",
   "id": "V015",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -260,7 +290,9 @@
   "turns": null,
   "source": "人工",
   "id": "V016",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -277,7 +309,9 @@
   "turns": null,
   "source": "人工",
   "id": "V017",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -294,7 +328,9 @@
   "turns": null,
   "source": "人工",
   "id": "V018",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -311,7 +347,9 @@
   "turns": null,
   "source": "人工",
   "id": "V019",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -328,7 +366,9 @@
   "turns": null,
   "source": "人工",
   "id": "V020",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -345,7 +385,9 @@
   "turns": null,
   "source": "人工",
   "id": "V021",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -361,7 +403,9 @@
   "turns": null,
   "source": "人工",
   "id": "V022",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -377,7 +421,9 @@
   "turns": null,
   "source": "人工",
   "id": "V023",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -394,7 +440,9 @@
   "turns": null,
   "source": "人工",
   "id": "V024",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -411,7 +459,9 @@
   "turns": null,
   "source": "人工",
   "id": "V025",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -427,7 +477,9 @@
   "turns": null,
   "source": "人工",
   "id": "V026",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -443,7 +495,9 @@
   "turns": null,
   "source": "人工",
   "id": "V027",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -460,7 +514,9 @@
   "turns": null,
   "source": "人工",
   "id": "V028",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -477,7 +533,9 @@
   "turns": null,
   "source": "人工",
   "id": "V029",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -494,7 +552,9 @@
   "turns": null,
   "source": "人工",
   "id": "V030",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -511,7 +571,9 @@
   "turns": null,
   "source": "人工",
   "id": "V031",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -527,7 +589,9 @@
   "turns": null,
   "source": "人工",
   "id": "V032",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -543,7 +607,9 @@
   "turns": null,
   "source": "人工",
   "id": "V033",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -560,7 +626,9 @@
   "turns": null,
   "source": "人工",
   "id": "V034",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -577,7 +645,9 @@
   "turns": null,
   "source": "人工",
   "id": "V035",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -591,7 +661,9 @@
   "turns": null,
   "source": "人工",
   "id": "V036",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -608,7 +680,9 @@
   "turns": null,
   "source": "人工",
   "id": "V037",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -623,7 +697,9 @@
   "turns": null,
   "source": "人工",
   "id": "V038",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -637,7 +713,9 @@
   "turns": null,
   "source": "人工",
   "id": "V039",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -652,7 +730,9 @@
   "turns": null,
   "source": "人工",
   "id": "V040",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -668,7 +748,9 @@
   "turns": null,
   "source": "人工",
   "id": "V041",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -682,7 +764,9 @@
   "turns": null,
   "source": "人工",
   "id": "V042",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -698,7 +782,9 @@
   "turns": null,
   "source": "人工",
   "id": "V043",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -715,7 +801,9 @@
   "turns": null,
   "source": "人工",
   "id": "V044",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "保障",
@@ -731,7 +819,9 @@
   "turns": null,
   "source": "人工",
   "id": "V045",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -747,7 +837,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V046",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -763,7 +855,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V047",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -779,7 +873,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V048",
-  "split": "dev"
+  "split": "dev",
+  "valid": false,
+  "invalid_reason": "生成器缺陷：配偶年龄不合理"
  },
  {
   "category": "价格",
@@ -795,7 +891,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V049",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": false,
+  "invalid_reason": "生成器缺陷：未成年人自述投保"
  },
  {
   "category": "价格",
@@ -811,7 +909,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V050",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -827,7 +927,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V051",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -843,7 +945,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V052",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -859,7 +963,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V053",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": false,
+  "invalid_reason": "生成器缺陷：未成年人自述投保"
  },
  {
   "category": "价格",
@@ -875,7 +981,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V054",
-  "split": "dev"
+  "split": "dev",
+  "valid": false,
+  "invalid_reason": "生成器缺陷：配偶年龄不合理"
  },
  {
   "category": "价格",
@@ -891,7 +999,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V055",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -907,7 +1017,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V056",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -923,7 +1035,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V057",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -939,7 +1053,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V058",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -955,7 +1071,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V059",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -971,7 +1089,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V060",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -987,7 +1107,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V061",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1003,7 +1125,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V062",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1019,7 +1143,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V063",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1035,7 +1161,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V064",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1051,7 +1179,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V065",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1067,7 +1197,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V066",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1083,7 +1215,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V067",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1099,7 +1233,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V068",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1115,7 +1251,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V069",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1131,7 +1269,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V070",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1147,7 +1287,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V071",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1163,7 +1305,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V072",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1179,7 +1323,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V073",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1195,7 +1341,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V074",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1211,7 +1359,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V075",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1227,7 +1377,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V076",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1243,7 +1395,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V077",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1259,7 +1413,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V078",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1275,7 +1431,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V079",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1291,7 +1449,9 @@
   "turns": null,
   "source": "费率表抽样",
   "id": "V080",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1307,7 +1467,9 @@
   "turns": null,
   "source": "人工",
   "id": "V081",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1323,7 +1485,9 @@
   "turns": null,
   "source": "人工",
   "id": "V082",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1339,7 +1503,9 @@
   "turns": null,
   "source": "人工",
   "id": "V083",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1355,7 +1521,9 @@
   "turns": null,
   "source": "人工",
   "id": "V084",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1371,7 +1539,9 @@
   "turns": null,
   "source": "人工",
   "id": "V085",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1387,7 +1557,9 @@
   "turns": null,
   "source": "人工",
   "id": "V086",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1407,7 +1579,9 @@
   "turns": null,
   "source": "人工",
   "id": "V087",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1426,7 +1600,9 @@
   "turns": null,
   "source": "人工",
   "id": "V088",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "价格",
@@ -1443,7 +1619,9 @@
   "turns": null,
   "source": "人工",
   "id": "V089",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1457,7 +1635,9 @@
   "turns": null,
   "source": "人工",
   "id": "V090",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1471,7 +1651,9 @@
   "turns": null,
   "source": "人工",
   "id": "V091",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1485,7 +1667,9 @@
   "turns": null,
   "source": "人工",
   "id": "V092",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1499,7 +1683,9 @@
   "turns": null,
   "source": "人工",
   "id": "V093",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1513,7 +1699,9 @@
   "turns": null,
   "source": "人工",
   "id": "V094",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1529,7 +1717,9 @@
   "turns": null,
   "source": "人工",
   "id": "V095",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "优惠",
@@ -1545,7 +1735,9 @@
   "turns": null,
   "source": "人工",
   "id": "V096",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1560,7 +1752,9 @@
   "turns": null,
   "source": "人工",
   "id": "V097",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1576,7 +1770,9 @@
   "turns": null,
   "source": "人工",
   "id": "V098",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1592,7 +1788,9 @@
   "turns": null,
   "source": "人工",
   "id": "V099",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1606,7 +1804,9 @@
   "turns": null,
   "source": "人工",
   "id": "V100",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1622,7 +1822,9 @@
   "turns": null,
   "source": "人工",
   "id": "V101",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1636,7 +1838,9 @@
   "turns": null,
   "source": "人工",
   "id": "V102",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1651,7 +1855,9 @@
   "turns": null,
   "source": "人工",
   "id": "V103",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1665,7 +1871,9 @@
   "turns": null,
   "source": "人工",
   "id": "V104",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1680,7 +1888,9 @@
   "turns": null,
   "source": "人工",
   "id": "V105",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1696,7 +1906,9 @@
   "turns": null,
   "source": "人工",
   "id": "V106",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1712,7 +1924,9 @@
   "turns": null,
   "source": "人工",
   "id": "V107",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1726,7 +1940,9 @@
   "turns": null,
   "source": "人工",
   "id": "V108",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1742,7 +1958,9 @@
   "turns": null,
   "source": "人工",
   "id": "V109",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1756,7 +1974,9 @@
   "turns": null,
   "source": "人工",
   "id": "V110",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "投保条件",
@@ -1772,7 +1992,9 @@
   "turns": null,
   "source": "人工",
   "id": "V111",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1789,7 +2011,9 @@
   "turns": null,
   "source": "人工",
   "id": "V112",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1805,7 +2029,9 @@
   "turns": null,
   "source": "人工",
   "id": "V113",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1822,7 +2048,9 @@
   "turns": null,
   "source": "人工",
   "id": "V114",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1838,7 +2066,9 @@
   "turns": null,
   "source": "人工",
   "id": "V115",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1854,7 +2084,9 @@
   "turns": null,
   "source": "人工",
   "id": "V116",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1870,7 +2102,9 @@
   "turns": null,
   "source": "人工",
   "id": "V117",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1886,7 +2120,9 @@
   "turns": null,
   "source": "人工",
   "id": "V118",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1902,7 +2138,9 @@
   "turns": null,
   "source": "人工",
   "id": "V119",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1918,7 +2156,9 @@
   "turns": null,
   "source": "人工",
   "id": "V120",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1934,7 +2174,9 @@
   "turns": null,
   "source": "人工",
   "id": "V121",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1950,7 +2192,9 @@
   "turns": null,
   "source": "人工",
   "id": "V122",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1966,7 +2210,9 @@
   "turns": null,
   "source": "人工",
   "id": "V123",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1982,7 +2228,9 @@
   "turns": null,
   "source": "人工",
   "id": "V124",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -1998,7 +2246,9 @@
   "turns": null,
   "source": "人工",
   "id": "V125",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2014,7 +2264,9 @@
   "turns": null,
   "source": "人工",
   "id": "V126",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2030,7 +2282,9 @@
   "turns": null,
   "source": "人工",
   "id": "V127",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2046,7 +2300,9 @@
   "turns": null,
   "source": "人工",
   "id": "V128",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2062,7 +2318,9 @@
   "turns": null,
   "source": "人工",
   "id": "V129",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2078,7 +2336,9 @@
   "turns": null,
   "source": "人工",
   "id": "V130",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "免责",
@@ -2094,7 +2354,9 @@
   "turns": null,
   "source": "人工",
   "id": "V131",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2111,7 +2373,9 @@
   "turns": null,
   "source": "人工",
   "id": "V132",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2128,7 +2392,9 @@
   "turns": null,
   "source": "人工",
   "id": "V133",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2145,7 +2411,9 @@
   "turns": null,
   "source": "人工",
   "id": "V134",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2162,7 +2430,9 @@
   "turns": null,
   "source": "人工",
   "id": "V135",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2179,7 +2449,9 @@
   "turns": null,
   "source": "人工",
   "id": "V136",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2196,7 +2468,9 @@
   "turns": null,
   "source": "人工",
   "id": "V137",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2213,7 +2487,9 @@
   "turns": null,
   "source": "人工",
   "id": "V138",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2230,7 +2506,9 @@
   "turns": null,
   "source": "人工",
   "id": "V139",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2247,7 +2525,9 @@
   "turns": null,
   "source": "人工",
   "id": "V140",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2264,7 +2544,9 @@
   "turns": null,
   "source": "人工",
   "id": "V141",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2281,7 +2563,9 @@
   "turns": null,
   "source": "人工",
   "id": "V142",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2298,7 +2582,9 @@
   "turns": null,
   "source": "人工",
   "id": "V143",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2315,7 +2601,9 @@
   "turns": null,
   "source": "人工",
   "id": "V144",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2332,7 +2620,9 @@
   "turns": null,
   "source": "人工",
   "id": "V145",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2349,7 +2639,9 @@
   "turns": null,
   "source": "人工",
   "id": "V146",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2366,7 +2658,9 @@
   "turns": null,
   "source": "人工",
   "id": "V147",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2383,7 +2677,9 @@
   "turns": null,
   "source": "人工",
   "id": "V148",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2400,7 +2696,9 @@
   "turns": null,
   "source": "人工",
   "id": "V149",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2417,7 +2715,9 @@
   "turns": null,
   "source": "人工",
   "id": "V150",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2434,7 +2734,9 @@
   "turns": null,
   "source": "人工",
   "id": "V151",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2451,7 +2753,9 @@
   "turns": null,
   "source": "人工",
   "id": "V152",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2468,7 +2772,9 @@
   "turns": null,
   "source": "人工",
   "id": "V153",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2485,7 +2791,9 @@
   "turns": null,
   "source": "人工",
   "id": "V154",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2502,7 +2810,9 @@
   "turns": null,
   "source": "人工",
   "id": "V155",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2518,7 +2828,9 @@
   "turns": null,
   "source": "人工",
   "id": "V156",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2534,7 +2846,9 @@
   "turns": null,
   "source": "人工",
   "id": "V157",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2550,7 +2864,9 @@
   "turns": null,
   "source": "人工",
   "id": "V158",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2566,7 +2882,9 @@
   "turns": null,
   "source": "人工",
   "id": "V159",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2582,7 +2900,9 @@
   "turns": null,
   "source": "人工",
   "id": "V160",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2598,7 +2918,9 @@
   "turns": null,
   "source": "人工",
   "id": "V161",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2614,7 +2936,9 @@
   "turns": null,
   "source": "人工",
   "id": "V162",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2630,7 +2954,9 @@
   "turns": null,
   "source": "人工",
   "id": "V163",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2644,7 +2970,9 @@
   "turns": null,
   "source": "人工",
   "id": "V164",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2658,7 +2986,9 @@
   "turns": null,
   "source": "人工",
   "id": "V165",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "缺口",
@@ -2672,7 +3002,9 @@
   "turns": null,
   "source": "人工",
   "id": "V166",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2688,7 +3020,9 @@
   "turns": null,
   "source": "人工",
   "id": "V167",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2704,7 +3038,9 @@
   "turns": null,
   "source": "人工",
   "id": "V168",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2720,7 +3056,9 @@
   "turns": null,
   "source": "人工",
   "id": "V169",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2736,7 +3074,9 @@
   "turns": null,
   "source": "人工",
   "id": "V170",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2752,7 +3092,9 @@
   "turns": null,
   "source": "人工",
   "id": "V171",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2768,7 +3110,9 @@
   "turns": null,
   "source": "人工",
   "id": "V172",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2784,7 +3128,9 @@
   "turns": null,
   "source": "人工",
   "id": "V173",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "身份",
@@ -2800,7 +3146,9 @@
   "turns": null,
   "source": "人工",
   "id": "V174",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2819,7 +3167,9 @@
   ],
   "source": "人工",
   "id": "V175",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2838,7 +3188,9 @@
   ],
   "source": "人工",
   "id": "V176",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2855,7 +3207,9 @@
   ],
   "source": "人工",
   "id": "V177",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2872,7 +3226,9 @@
   ],
   "source": "人工",
   "id": "V178",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2889,7 +3245,9 @@
   ],
   "source": "人工",
   "id": "V179",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2909,7 +3267,9 @@
   ],
   "source": "人工",
   "id": "V180",
-  "split": "heldout"
+  "split": "heldout",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2926,7 +3286,9 @@
   ],
   "source": "人工",
   "id": "V181",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
  },
  {
   "category": "多轮",
@@ -2945,6 +3307,876 @@
   ],
   "source": "人工",
   "id": "V182",
-  "split": "dev"
+  "split": "dev",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "哎呀，得了癌症住院了，那花的这些钱，到底要怎么报销啊？",
+  "must": [
+   "(没有|无|不设|不用扣|0).{0,6}免赔|免赔.{0,4}(为)?0|零免赔|300\\s*万"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R03 重大疾病医疗：100种重疾，无免赔额，100%，300万",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P001",
+  "split": "heldout",
+  "paraphrase_of": "V008",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "哎呀，那这个保险以后还能不能一直续下去呀？",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直续|停售(了)?也(能|可以)续"
+  ],
+  "facts": "数据中无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P002",
+  "split": "heldout",
+  "paraphrase_of": "V157",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "老兄，你住院的话，自己得先垫多少块钱啊？",
+  "must": [
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R01 一般医疗：年免赔1万，扣除后100%，未用社保结算60%，限额300万，与门急诊共享",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P003",
+  "split": "heldout",
+  "paraphrase_of": "V002",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎，按月交跟按年交，您觉得哪个更划算点啊？",
+  "must": [
+   "年缴|按年|一年交",
+   "318|372|31"
+  ],
+  "must_not": [
+   "(一样|相同)(划算|的价)"
+  ],
+  "facts": "30岁有社保年缴318，月缴31×12=372",
+  "context": {
+   "age": 30,
+   "has_social": true
+  },
+  "turns": null,
+  "source": "改写",
+  "id": "P004",
+  "split": "heldout",
+  "paraphrase_of": "V087",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "广告里写着几百万保额，是不是啥病都能报销啊？",
+  "must": [
+   "600\\s*万|300\\s*万",
+   "免赔|既往症|等待期|二级"
+  ],
+  "must_not": [
+   "(?<!不是)(?<!并不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "总保额600万；有免赔额、等待期、医院范围、既往症限制",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P005",
+  "split": "heldout",
+  "paraphrase_of": "V037",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "免责",
+  "question": "那个，我问问啊，不孕不育的治疗，这个能不能报销啊？",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "不孕不育不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P006",
+  "split": "heldout",
+  "paraphrase_of": "V128",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎，我老婆今年58了，有社保，一年得交多少钱呢？",
+  "must": [
+   "(?<!\\d)1,?645(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)5,?436(?!\\d)"
+  ],
+  "facts": "58岁有社保年缴1645元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P007",
+  "split": "heldout",
+  "paraphrase_of": "V074",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "哎，我这儿有糖尿病，假如买了保险，将来住院能报销吗？",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能|应该能)(买|投保|承保)[。！]|没问题|不影响投保|标准体",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)"
+  ],
+  "facts": "数据中无核保规则，以健康告知和核保为准；既往症不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P008",
+  "split": "heldout",
+  "paraphrase_of": "V135",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "哎，那门急诊加油包的话，每次最高能报销多少呀？",
+  "must": [
+   "300\\s*元|三百",
+   "50\\s*%|一半"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R13 门急诊加油包：次限额300元，50%，年1万，限30天-55周岁",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P009",
+  "split": "heldout",
+  "paraphrase_of": "V028",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "明年我还能继续交钱买吗？",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直续|停售(了)?也(能|可以)续"
+  ],
+  "facts": "数据中无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P010",
+  "split": "heldout",
+  "paraphrase_of": "V159",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "投保条件",
+  "question": "唉，您问的是门急诊加油包对吧，那我想先确认一下，这个产品对年龄有没有啥限制啊，您今年多大呀？",
+  "must": [
+   "55\\s*(周)?岁"
+  ],
+  "must_not": [],
+  "facts": "门急诊加油包30天至55周岁",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P011",
+  "split": "heldout",
+  "paraphrase_of": "V100",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成了坐席反问用户年龄"
+ },
+ {
+  "category": "缺口",
+  "question": "哎呀，我血压有点高，要是买了保险之后住院了，那这个能报销吗？",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能|应该能)(买|投保|承保)[。！]|没问题|不影响投保|标准体",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)"
+  ],
+  "facts": "数据中无核保规则，以健康告知和核保为准；既往症不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P012",
+  "split": "heldout",
+  "paraphrase_of": "V133",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎呀，我爸爸今年65了，有医保，要是买保险的话，一年大概要交多少钱啊？",
+  "must": [
+   "(?<!\\d)2,?563(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)8,?898(?!\\d)"
+  ],
+  "facts": "65岁有社保年缴2563元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P013",
+  "split": "heldout",
+  "paraphrase_of": "V077",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "那个罕见病的药，能不能报销啊？",
+  "must": [
+   "特定药品|特药|罕见病|基因检测|指定(的)?药店|处方审核|提前申请"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R06 特定药品：600万，100%，无免赔；需在指定药店购买并通过处方审核；基因检测限1万",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P014",
+  "split": "heldout",
+  "paraphrase_of": "V014",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "哎呀，那个急诊的花费能不能报销呀？",
+  "must": [
+   "门急诊|门诊|急诊",
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R02 一般门急诊：与一般医疗共享1万免赔额和300万保额，100%",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P015",
+  "split": "heldout",
+  "paraphrase_of": "V005",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "免责",
+  "question": "哎，医疗事故导致的那些费用，咱也能报销吗？",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "医疗事故不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P016",
+  "split": "heldout",
+  "paraphrase_of": "V122",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "投保条件",
+  "question": "哎，那您得告诉我多大年纪了才行，这样我才能看能不能买。",
+  "must": [
+   "30\\s*天",
+   "70\\s*(周)?岁"
+  ],
+  "must_not": [],
+  "facts": "被保人出生满30天至70周岁",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P017",
+  "split": "heldout",
+  "paraphrase_of": "V097",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成了坐席反问"
+ },
+ {
+  "category": "保障",
+  "question": "哎，那住ICU的话，有没有什么额外的补贴呀？",
+  "must": [
+   "500\\s*元|五百"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R15 ICU津贴：500元/天，无免赔天数，单次30天，年60天，可与一般住院津贴叠加",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P018",
+  "split": "heldout",
+  "paraphrase_of": "V032",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "进重症监护室的话，每天能补贴多少钱啊？",
+  "must": [
+   "500\\s*元|五百"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R15 ICU津贴：500元/天，无免赔天数，单次30天，年60天，可与一般住院津贴叠加",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P019",
+  "split": "heldout",
+  "paraphrase_of": "V033",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "免责",
+  "question": "哎，得了艾滋病的话，这个能报销吗？",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "艾滋病不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P020",
+  "split": "heldout",
+  "paraphrase_of": "V131",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "哎，您问的那个癌症用药前做的基因检测，能报销多少啊？",
+  "must": [
+   "特定药品|特药|罕见病|基因检测|指定(的)?药店|处方审核|提前申请"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R06 特定药品：600万，100%，无免赔；需在指定药店购买并通过处方审核；基因检测限1万",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P021",
+  "split": "heldout",
+  "paraphrase_of": "V015",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成坐席复述"
+ },
+ {
+  "category": "价格",
+  "question": "诶，我25岁，没交社保，一年得交多少钱啊？",
+  "must": [
+   "(?<!\\d)520(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)255(\\.0)?(?!\\d)"
+  ],
+  "facts": "25岁无社保年缴520元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P022",
+  "split": "heldout",
+  "paraphrase_of": "V058",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "哎，我有个事想问问您，我有哮喘这个病，不知能不能买保险？对了，我今年35岁，有社保，打算按年交，就我一个人。",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能|应该能)(买|投保|承保)[。！]|没问题|不影响投保|标准体",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)"
+  ],
+  "facts": "数据中无核保规则，以健康告知和核保为准；既往症不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P023",
+  "split": "heldout",
+  "paraphrase_of": "V144",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "免责",
+  "question": "哎，您自己从药店买的感冒药，这个能报销吗？",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "非处方药物不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P024",
+  "split": "heldout",
+  "paraphrase_of": "V126",
+  "valid": false,
+  "invalid_reason": "改写无效：主语变成'您'，角色不清"
+ },
+ {
+  "category": "身份",
+  "question": "您说的这个……我现在没有在录音哦，您放心，咱们这会儿就是正常聊天。",
+  "must": [
+   "AI|人工智能|智能助理"
+  ],
+  "must_not": [
+   "我是真人|我不是(AI|机器人)"
+  ],
+  "facts": "必须承认是AI",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P025",
+  "split": "heldout",
+  "paraphrase_of": "V170",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成了坐席的回答"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆28岁，有社保哈，按年交的话，一年得交多少钱呢？",
+  "must": [
+   "(?<!\\d)318(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)679(\\.0)?(?!\\d)"
+  ],
+  "facts": "28岁有社保年缴318元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P026",
+  "split": "heldout",
+  "paraphrase_of": "V060",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哦对了，我老爸今年66岁，没交社保，想问下他一年大概得交多少钱呀？",
+  "must": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "facts": "66岁无社保年缴11926元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P027",
+  "split": "heldout",
+  "paraphrase_of": "V078",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "以后每年都收一样的钱，不会涨价吧？",
+  "must": [
+   "年龄"
+  ],
+  "must_not": [
+   "(每年|一直|永远)(都)?(是)?(这个|一样|同样)(的)?价"
+  ],
+  "facts": "保费随年龄增长而变化",
+  "context": {
+   "age": 30,
+   "has_social": true
+  },
+  "turns": null,
+  "source": "改写",
+  "id": "P028",
+  "split": "heldout",
+  "paraphrase_of": "V088",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎，刚出生20天的小宝宝，现在还能不能买这个保险呀？",
+  "must": [
+   "30\\s*天|满月"
+  ],
+  "must_not": [
+   "(?<!不)(可以|能)(买|投保)[。！]"
+  ],
+  "facts": "被保人需出生满30天",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P029",
+  "split": "heldout",
+  "paraphrase_of": "V086",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "保障",
+  "question": "哎呀，我特别想问一下，得了大病之后，后续那些康复治疗啊，你这里能报销吗？”（备注：年龄、有没有社保、怎么交费、几个人、具体啥病这些信息，你都没跟我提哈。）",
+  "must": [
+   "康复",
+   "80\\s*%|60\\s*%"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R04 特定疾病康复住院：16种特定疾病，确诊180日内，指定康复机构80%、公立医院60%，100万，无免赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P030",
+  "split": "heldout",
+  "paraphrase_of": "V010",
+  "valid": false,
+  "invalid_reason": "改写无效：残留括号备注"
+ },
+ {
+  "category": "价格",
+  "question": "我老公36岁，社保在交着呢，每个月缴的话是多少钱呀？",
+  "must": [
+   "(?<!\\d)51(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)131(\\.0)?(?!\\d)"
+  ],
+  "facts": "36岁有社保月缴51元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P031",
+  "split": "heldout",
+  "paraphrase_of": "V065",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎，我老公刚满5岁，没买社保，想问问一年得交多少钱啊？",
+  "must": [
+   "(?<!\\d)575(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)279(\\.0)?(?!\\d)"
+  ],
+  "facts": "5岁无社保年缴575元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P032",
+  "split": "heldout",
+  "paraphrase_of": "V048",
+  "valid": false,
+  "invalid_reason": "原题无效"
+ },
+ {
+  "category": "缺口",
+  "question": "诶，高血压控制得挺好，也买不了是吗？",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能)(买|投保)[。！]|没问题|不影响",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)(买|投)"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P033",
+  "split": "heldout",
+  "paraphrase_of": "V155",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "哎呀，我有哮喘这个老毛病，要是买了保险之后住院了，能报销吗？我今年35岁，有社保，想一次性把保费交清，就我一个人买。",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能|应该能)(买|投保|承保)[。！]|没问题|不影响投保|标准体",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)"
+  ],
+  "facts": "数据中无核保规则，以健康告知和核保为准；既往症不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P034",
+  "split": "heldout",
+  "paraphrase_of": "V145",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "阿姨，她今年60岁了，想买保险，一年大概要多少钱啊？她有没有社保、打算怎么交钱、只保自己一个人、是保什么病呢？",
+  "must": [
+   "社保"
+  ],
+  "must_not": [
+   "\\d{3,}\\s*元"
+  ],
+  "facts": "缺少决定价格的条件，应追问",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P035",
+  "split": "heldout",
+  "paraphrase_of": "V082",
+  "valid": false,
+  "invalid_reason": "改写无效：加入多个反问，语义混乱"
+ },
+ {
+  "category": "免责",
+  "question": "姐/哥，我就是想问下，那个怀孕期间的检查项目，能报销吗？我是XX岁，没社保，想一次性交，就我一个人，保这个情况。",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "怀孕、产前检查不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P036",
+  "split": "heldout",
+  "paraphrase_of": "V116",
+  "valid": false,
+  "invalid_reason": "改写无效：残留占位符 XX岁"
+ },
+ {
+  "category": "优惠",
+  "question": "哎，师傅，我们一家五口人一块儿投保的话，能不能给点优惠啥的啊？年龄都不一样，有的有社保有的没社保，缴费方式也不一样，哦对了，还有一人生病住过院，这样能行不？",
+  "must": [
+   "20\\s*%|百分之二十"
+  ],
+  "must_not": [],
+  "facts": "家庭单5人每人优惠20%",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P037",
+  "split": "heldout",
+  "paraphrase_of": "V093",
+  "valid": false,
+  "invalid_reason": "改写无效：新增'有人住过院'，改变了标准答案"
+ },
+ {
+  "category": "保障",
+  "question": "诶，您问的是中风之后去康复医院住院，这个能不能报销啊？",
+  "must": [
+   "康复",
+   "80\\s*%|60\\s*%"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R04 特定疾病康复住院：16种特定疾病，确诊180日内，指定康复机构80%、公立医院60%，100万，无免赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P038",
+  "split": "heldout",
+  "paraphrase_of": "V009",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成坐席复述"
+ },
+ {
+  "category": "价格",
+  "question": "就我一个8岁的孩子，有社保，想问问一年交下来得多少钱啊？",
+  "must": [
+   "(?<!\\d)279(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)575(\\.0)?(?!\\d)"
+  ],
+  "facts": "8岁有社保年缴279元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P039",
+  "split": "heldout",
+  "paraphrase_of": "V049",
+  "valid": false,
+  "invalid_reason": "原题无效"
+ },
+ {
+  "category": "保障",
+  "question": "喂，那个重疾关爱加油包，万一确诊了重疾，到底能赔多少啊？",
+  "must": [
+   "5\\s*万|五万"
+  ],
+  "must_not": [
+   "什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R10 重疾关爱加油包：确诊100种重疾给付5万",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P040",
+  "split": "heldout",
+  "paraphrase_of": "V022",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "价格",
+  "question": "哎，您问的是，一年要交多少钱呢？",
+  "must": [
+   "年龄|年纪|多大|几岁"
+  ],
+  "must_not": [
+   "\\d{3,}\\s*元"
+  ],
+  "facts": "缺少决定价格的条件，应追问",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P041",
+  "split": "heldout",
+  "paraphrase_of": "V083",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成坐席复述"
+ },
+ {
+  "category": "价格",
+  "question": "我老公今年60岁，有社保的，一年要交多少钱呀？",
+  "must": [
+   "(?<!\\d)1,?645(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)5,?436(?!\\d)"
+  ],
+  "facts": "60岁有社保年缴1645元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P042",
+  "split": "heldout",
+  "paraphrase_of": "V075",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "缺口",
+  "question": "哎，我问问哈，我有肺结节，这个情况还能不能买保险呀？",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能|应该能)(买|投保|承保)[。！]|没问题|不影响投保|标准体",
+   "控制(得)?(很)?好.{0,4}(就|也)?(能|可以)"
+  ],
+  "facts": "数据中无核保规则，以健康告知和核保为准；既往症不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P043",
+  "split": "heldout",
+  "paraphrase_of": "V148",
+  "valid": true,
+  "invalid_reason": ""
+ },
+ {
+  "category": "免责",
+  "question": "哎，您问看牙能不能报销，对吧？那得看您多大年纪、有没有社保、怎么交钱、几个人投保，还有具体是看什么牙病呢。",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "牙科疾病不赔",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P044",
+  "split": "heldout",
+  "paraphrase_of": "V118",
+  "valid": false,
+  "invalid_reason": "改写无效：改写成坐席的回答"
+ },
+ {
+  "category": "价格",
+  "question": "哦，我孩子呀，今年20岁，没交社保的，要是按月缴费的话，每个月要交多少钱呢？",
+  "must": [
+   "(?<!\\d)37(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)20(\\.0)?(?!\\d)"
+  ],
+  "facts": "20岁无社保月缴37元",
+  "context": {},
+  "turns": null,
+  "source": "改写",
+  "id": "P045",
+  "split": "heldout",
+  "paraphrase_of": "V056",
+  "valid": true,
+  "invalid_reason": ""
  }
 ]

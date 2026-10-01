@@ -133,3 +133,57 @@ async def player(inp: asyncio.Queue, ledger: PlaybackLedger, play_s_per_char: fl
 
 def now() -> float:
     return time.perf_counter()
+
+
+# --- barge-in controller (adapted from LockedIn AudioPlayer + speakAloudBus) ---------------------
+#
+# LockedIn (a copilot) stops TTS on ANY user transcript, and against self-echo it either hard-mutes
+# speech capture while TTS plays (L2) or drops transcripts that mostly repeat recently spoken text
+# within a time window (L1). A full-duplex phone agent cannot mute capture (that would make barge-in
+# impossible) and must not stop on backchannels, so the flow here is:
+#   1. VAD speech onset while speaking   -> duck (lower volume), keep listening
+#   2. first partial transcript          -> echo check (content overlap with what is playing / just
+#                                           played, LockedIn L1 style) with correction/question exemptions
+#   3. not echo                          -> classify: rule fast path, small model for the rest
+#   4. interrupt -> stop playback, cancel the slow lane, ledger.interrupt(); backchannel -> restore volume
+
+QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|？|\?")
+
+
+@dataclass
+class BargeDecision:
+    action: str  # "duck", "resume", "stop", "ignore_echo"
+    reason: str
+    t: float
+
+
+class BargeInController:
+    def __init__(self, classify, echo_threshold: float = 0.6, echo_window_s: float = 3.0):
+        self.classify = classify  # text -> ("附和"|"打断", path)
+        self.echo_threshold = echo_threshold
+        self.echo_window_s = echo_window_s
+        self.recent_spoken: list[tuple[float, str]] = []  # (t, sentence) — LockedIn's "recent" memory
+        self.ducked = False
+
+    def note_spoken(self, t: float, sentence: str) -> None:
+        self.recent_spoken.append((t, sentence))
+
+    def on_vad_onset(self, t: float, speaking: bool) -> BargeDecision | None:
+        if speaking and not self.ducked:
+            self.ducked = True
+            return BargeDecision("duck", "检测到用户开口", t)
+        return None
+
+    def _is_echo(self, text: str, t: float) -> bool:
+        if QUESTION_MARKERS.search(text):
+            return False  # a question is never treated as echo (see 实验 5 第三轮)
+        return any(is_echo(text, s, self.echo_threshold) for ts, s in self.recent_spoken if t - ts <= self.echo_window_s)
+
+    def on_partial(self, t: float, text: str, speaking: bool) -> BargeDecision | None:
+        if not speaking or not text.strip():
+            return None
+        if self._is_echo(text, t):
+            return BargeDecision("ignore_echo", "与刚播报内容高度重合", t)
+        label, path = self.classify(text)
+        self.ducked = False
+        return BargeDecision("stop" if label == "打断" else "resume", f"{label}（{path}）", t)

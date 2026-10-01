@@ -1,4 +1,4 @@
-"""给扩充测试集追加"换说法"题：用与生成模型不同的模型（qwen-turbo）把部分问题改写成新的口语说法，
+"""给扩充测试集追加"换说法"题：用不同厂商的模型（DeepSeek）把部分问题改写成新的口语说法，
 标准答案不变，全部放入保留集，用于检验对未见过说法的泛化。只运行一次，结果写入 qa_v2.json。"""
 
 from __future__ import annotations
@@ -13,7 +13,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from agent import cloud  # noqa: E402
 
 PATH = ROOT / "experiments" / "data" / "qa_v2.json"
-MODEL = "qwen-turbo"  # 账号未开通其他厂商模型；与生成用的 qwen-plus 不同
+MODEL = "deepseek-v4-flash"  # 与生成模型（qwen）不同厂商
 SYS = ("把用户在电话里问保险的一句话，改写成另一种口语说法，意思和所有条件（年龄、有无社保、缴费方式、人数、病名）必须完全不变。"
        "可以换词、加语气词、调整语序，像真人随口说的。只输出改写后的一句话。")
 
