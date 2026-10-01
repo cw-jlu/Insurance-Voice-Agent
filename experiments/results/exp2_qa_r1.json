@@ -1,0 +1,3332 @@
+{
+  "summary": {
+    "tag": "r1",
+    "models": {
+      "fast": "qwen-flash",
+      "slow": "qwen-plus",
+      "embed": "qwen3.7-text-embedding"
+    },
+    "pipeline": {
+      "dev": {
+        "n": 51,
+        "correct": 42,
+        "accuracy": 0.8235,
+        "gap_conclusions": 0,
+        "compliance_violations": 0,
+        "fallback_used": 7,
+        "latency_s_p50": 2.73,
+        "latency_s_p90": 4.12
+      },
+      "heldout": {
+        "n": 25,
+        "correct": 20,
+        "accuracy": 0.8,
+        "gap_conclusions": 0,
+        "compliance_violations": 0,
+        "fallback_used": 2,
+        "latency_s_p50": 2.35,
+        "latency_s_p90": 3.7
+      },
+      "all": {
+        "n": 76,
+        "correct": 62,
+        "accuracy": 0.8158,
+        "gap_conclusions": 0,
+        "compliance_violations": 0,
+        "fallback_used": 9,
+        "latency_s_p50": 2.64,
+        "latency_s_p90": 3.96
+      },
+      "by_category_all": {
+        "价格": 0.8667,
+        "保障": 0.6667,
+        "免责": 0.7,
+        "加油包": 0.9091,
+        "投保条件": 0.8889,
+        "缺口": 0.9,
+        "身份": 1.0
+      }
+    },
+    "baseline": {
+      "dev": {
+        "n": 51,
+        "correct": 29,
+        "accuracy": 0.5686,
+        "gap_conclusions": 11,
+        "compliance_violations": 1,
+        "fallback_used": 0,
+        "latency_s_p50": 1.13,
+        "latency_s_p90": 1.72
+      },
+      "heldout": {
+        "n": 25,
+        "correct": 16,
+        "accuracy": 0.64,
+        "gap_conclusions": 5,
+        "compliance_violations": 1,
+        "fallback_used": 0,
+        "latency_s_p50": 1.03,
+        "latency_s_p90": 1.26
+      },
+      "all": {
+        "n": 76,
+        "correct": 45,
+        "accuracy": 0.5921,
+        "gap_conclusions": 16,
+        "compliance_violations": 2,
+        "fallback_used": 0,
+        "latency_s_p50": 1.09,
+        "latency_s_p90": 1.64
+      },
+      "by_category_all": {
+        "价格": 0.6,
+        "保障": 0.6667,
+        "免责": 0.9,
+        "加油包": 0.7273,
+        "投保条件": 0.6667,
+        "缺口": 0.1,
+        "身份": 0.0
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "Q001",
+      "split": "dev",
+      "category": "保障",
+      "question": "这个保险一共能保多少钱",
+      "pipeline": {
+        "text": "这个保险一年最高能报300万，但一般医疗和门急诊责任共享这300万保额，而且要先扣除1万元免赔额；重大疾病医疗责任单独也有300万保额，还不用扣免赔额。所有保障都限在二级及以上公立医院或指定民营医院普通部就诊。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.989,
+          "retrieve": 0.108,
+          "generate_ttft": 0.394,
+          "generate_1": 1.488,
+          "total": 3.587
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "600\\s*万|六百万"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "最高能保300万元，但要先扣除1万元年免赔额哦～这笔钱涵盖一般住院、门急诊和外购药械费用，是共享额度的。",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.006,
+          "generate_ttft": 0.328
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "600\\s*万|六百万"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q002",
+      "split": "dev",
+      "category": "保障",
+      "question": "一般住院能报多少，自己要先出多少",
+      "pipeline": {
+        "text": "一般住院能报300万，但要先自己承担1万元免赔额；报销限二级及以上公立医院和指定民营医院普通部；如果没用医保结算，只报60%。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.308,
+          "retrieve": 0.107,
+          "generate_ttft": 0.267,
+          "generate_1": 0.917,
+          "total": 2.333
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "一般住院每天报100元，但要先扣3天免赔（自己承担），单次最多报30天，一年最多报60天。另外，和门急诊、外购药共用1万元年免赔额和300万保额哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.469,
+          "generate_ttft": 0.25
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q003",
+      "split": "heldout",
+      "category": "保障",
+      "question": "住院报销比例是多少",
+      "pipeline": {
+        "text": "住院报销比例是100%，但要先扣除1万元免赔额，而且必须在二级及以上公立医院或指定民营医院普通部就诊。另外，如果没用医保结算，比例会降到60%。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.804,
+          "retrieve": 0.184,
+          "generate_ttft": 0.397,
+          "generate_1": 1.118,
+          "total": 2.109
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "住院医疗费用报销比例是100%，但每年最多报1万元。不过，如果您有医保但没用医保结算，就只能报60%啦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.954,
+          "generate_ttft": 0.291
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q004",
+      "split": "dev",
+      "category": "保障",
+      "question": "门诊看病能报吗",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "保障",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：能报"
+        ],
+        "timings": {
+          "understand": 0.806,
+          "retrieve": 0.092,
+          "generate_ttft": 0.271,
+          "generate_1": 1.241,
+          "generate_2": 1.41,
+          "total": 3.55
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "门急诊|门诊",
+          "1\\s*万|一万"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能报！在二级及以上公立医院或指定民营医院普通部看门诊，符合医保范围、必需合理的费用，个人自付部分可以报销。单次指同天同院同科室的治疗哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.16,
+          "generate_ttft": 0.346
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "1\\s*万|一万"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q005",
+      "split": "dev",
+      "category": "保障",
+      "question": "得了大病住院有免赔额吗",
+      "pipeline": {
+        "text": "得了大病住院没有免赔额，重大疾病医疗费用100%报销，最高300万；但必须在二级及以上公立医院或指定民营医院普通部就诊；另外，初次确诊前的既往症不保，投保时得如实告知健康状况。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.577,
+          "retrieve": 0.101,
+          "generate_ttft": 0.375,
+          "generate_1": 1.238,
+          "total": 1.918
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "没有哦！得了重大疾病住院，相关医疗和外购药械费用是**0免赔额**的，花多少报多少（在保额内），不用先自己掏1万。",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.281,
+          "generate_ttft": 0.292
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "(没有|无|不设|不用扣).{0,6}免赔|免赔.{0,4}(为)?0|零免赔"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q006",
+      "split": "heldout",
+      "category": "保障",
+      "question": "重疾医疗最多报多少",
+      "pipeline": {
+        "text": "重疾医疗最多报300万元，100%赔付，而且免赔额为0。不过要注意，必须在二级及以上公立医院或指定民营医院普通部就诊，且得是等待期30天后初次确诊的100种重大疾病才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.992,
+          "retrieve": 0.252,
+          "generate_ttft": 0.176,
+          "generate_1": 1.491,
+          "total": 2.736
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "重疾医疗最多能报300万元，100%报销，还没免赔额，住院、门诊、手术、外购药等都涵盖哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.06,
+          "generate_ttft": 0.264
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q007",
+      "split": "dev",
+      "category": "保障",
+      "question": "中风以后做康复住院能报吗",
+      "pipeline": {
+        "text": "中风后在二级及以上公立医院普通部做康复住院，能报特定疾病康复住院费用，保额100万、免赔额0，但要等30天等待期后初次确诊的中风才行；报销比例按约定医院类型区分，二级及以上公立医院普通部为60%，且必须如实告知病史，能否投保以核保结果为准。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 0.858,
+          "retrieve": 0.117,
+          "generate_ttft": 0.278,
+          "generate_1": 1.345,
+          "generate_2": 1.668,
+          "total": 3.989
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以报！中风属于特定疾病，确诊后180天内，在二级以上公立医院或指定康复机构住院做康复治疗，床位费、理疗、药品等合理费用都能报销，还不用扣免赔额～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.226,
+          "generate_ttft": 0.37
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "80\\s*%|60\\s*%|百分之八十|百分之六十"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q008",
+      "split": "dev",
+      "category": "保障",
+      "question": "质子重离子治疗能报吗",
+      "pipeline": {
+        "text": "能报，恶性肿瘤质子重离子治疗费用最高可赔600万，赔付比例100%，而且免赔额为0。但必须是等待期30天后初次确诊恶性肿瘤——重度，在中国大陆境内经卫生部门认定的质子重离子定点医院治疗，且不包含化学疗法等特定药品费。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.803,
+          "retrieve": 0.087,
+          "generate_ttft": 0.395,
+          "generate_1": 1.489,
+          "total": 2.38
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能报！只要是在国内卫健委认证的质子重离子医院，等待期30天后首次确诊恶性肿瘤——重度，接受质子或重离子治疗的费用（不含化疗、靶向等药费），都在保障范围内哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.594,
+          "generate_ttft": 0.194
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "600\\s*万|六百万"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q009",
+      "split": "heldout",
+      "category": "保障",
+      "question": "癌症的特效药能报吗",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "保障",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：能保"
+        ],
+        "timings": {
+          "understand": 1.028,
+          "retrieve": 0.098,
+          "generate_ttft": 0.315,
+          "generate_1": 1.263,
+          "generate_2": 1.574,
+          "total": 3.965
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "特定药品|特药",
+          "指定(的)?药店|指定药房|处方审核|提前申请"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能报！确诊恶性肿瘤——重度后，在指定药店买的院外特药，还有基因检测费，都可报销。记得是等待期30天后初次确诊哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.958,
+          "generate_ttft": 0.284
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q010",
+      "split": "dev",
+      "category": "保障",
+      "question": "癌症基因检测费用能报多少",
+      "pipeline": {
+        "text": "癌症基因检测费用是否能报，要看是否在合同约定的基因检测机构内发生——在约定机构内发生的，赔付比例100%，不限额，保险公司与服务商直接结算；未在约定机构内发生的，只承担60%的保险金赔付责任，且费用限1万元。检测必须为治疗初次确诊的恶性肿瘤——重度而发生，且需提前申请、审核通过。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 1.136,
+          "retrieve": 0.092,
+          "generate_ttft": 0.443,
+          "generate_1": 1.64,
+          "generate_2": 1.706,
+          "total": 4.576
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "癌症基因检测费用最高报1万元，但必须在合同指定机构做，才能全额直付；若在其他合规机构做，只报60%，需自己先垫付再理赔哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.129,
+          "generate_ttft": 0.364
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q011",
+      "split": "dev",
+      "category": "保障",
+      "question": "得重病去外地看病的路费住宿管不管",
+      "pipeline": {
+        "text": "管！得了合同约定的100种重病，跨省住院治疗，有转院证明的话，您和一位直系亲属的交通费、住宿费都能报，最高赔1万元。但得是二级以上公立医院或指定民营医院普通部就诊，而且要等30天等待期过后初次确诊才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.089,
+          "retrieve": 0.126,
+          "generate_ttft": 0.35,
+          "generate_1": 1.432,
+          "total": 2.647
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "500\\s*元|五百"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "管！确诊合同约定的100种重疾后，跨省转院看病，您和一位亲属的公共交通费+住宿费（标准间，500元/天以内）都能报，每年最多赔1万元～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.11,
+          "generate_ttft": 0.271
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q012",
+      "split": "heldout",
+      "category": "保障",
+      "question": "重疾住院请护工的钱给吗",
+      "pipeline": {
+        "text": "给，重疾住院护工费最高赔1.5万，按500元/天算，单次最多30天、一年最多30天，但得在二级及以上公立医院或指定民营医院住院，而且必须等30天等待期过后初次确诊才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.922,
+          "retrieve": 0.129,
+          "generate_ttft": 0.393,
+          "generate_1": 1.299,
+          "total": 2.351
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "给的！确诊合同约定的100种重疾后住院，经我们指定机构提供护工服务，按500元/天赔付，单次最多30天，每年累计也不超30天。注意：必须是等待期（30天）后确诊，且在二级及以上公立医院或指定民营医院普通部住院哦～需要的话打952299或1010-9955申请哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 2.609,
+          "generate_ttft": 0.203
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q013",
+      "split": "dev",
+      "category": "保障",
+      "question": "看病没走医保报销会少报吗",
+      "pipeline": {
+        "text": "会少报。如果您有医保但没用医保结算，一般医疗和门急诊责任的赔付比例就从100%降到60%，重大疾病责任也一样降为60%。另外，所有医疗费用都得在二级及以上公立医院或指定民营医院普通部就诊才能赔。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.805,
+          "retrieve": 0.123,
+          "generate_ttft": 0.306,
+          "generate_1": 1.295,
+          "total": 2.224
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "会的！没用医保结算的话，社保目录内的药和治疗费，赔付比例会从100%降到60%哦～建议就诊时主动刷医保卡，能多报不少呢！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.029,
+          "generate_ttft": 0.248
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q014",
+      "split": "dev",
+      "category": "保障",
+      "question": "等待期是多久",
+      "pipeline": {
+        "text": "等待期是30天，门急诊和住院保障都得等满30天后才生效；但尊享药省保加油包的等待期只要7天。另外，等待期内确诊的疾病产生的费用不赔，具体以合同为准。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.519,
+          "retrieve": 0.084,
+          "generate_ttft": 0.265,
+          "generate_1": 1.067,
+          "total": 1.67
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！尊享e生·百万医疗2026版的等待期分情况：主险和大部分加油包是30天；尊享药省保加油包短一些，只要7天哦～（意外不受等待期限制）",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.157,
+          "generate_ttft": 0.287
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q015",
+      "split": "heldout",
+      "category": "保障",
+      "question": "必须去什么医院看病才能报",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "保障",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：能报"
+        ],
+        "timings": {
+          "understand": 0.623,
+          "retrieve": 0.112,
+          "generate_ttft": 0.276,
+          "generate_1": 1.253,
+          "generate_2": 1.444,
+          "total": 3.434
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "二级",
+          "公立"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "得去国家认证的二级及以上公立医院普通部，或者保单里写的指定民营医院普通部才行～外购药械还能通过众安（海南）互联网医院报销哦！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.115,
+          "generate_ttft": 0.416
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q016",
+      "split": "dev",
+      "category": "保障",
+      "question": "住私立医院能报吗",
+      "pipeline": {
+        "text": "能报，但只限本保单约定的指定民营医疗机构普通部或特需部，且必须是二级及以上医院。一般医疗责任限普通部，重大疾病特需医疗责任可扩展到特需部、国际部、VIP部，但不包括观察室、联合病房和康复病房。另外，外购药械费用还能扩展到众安（海南）互联网医院。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.177,
+          "retrieve": 0.115,
+          "generate_ttft": 0.348,
+          "generate_1": 2.215,
+          "total": 3.508
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以报！但得是咱们保单里明确约定的指定民营医疗机构，而且必须是普通部（特需/国际/VIP部也行，但有300万年限额）。其他私立医院就不在保障范围内啦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.809,
+          "generate_ttft": 0.365
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q017",
+      "split": "dev",
+      "category": "加油包",
+      "question": "家庭共享免赔额加油包是什么意思",
+      "pipeline": {
+        "text": "家庭共享免赔额加油包，就是同一订单里您和家人一起买尊享e生时，一般医疗和外购药械费用共用1万元年免赔额，但门急诊费用不参与共享。这个责任只限30天到70周岁人群，等待期30天。具体能不能用，得看核保结果，有病史一定要如实告知。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.56,
+          "retrieve": 0.09,
+          "generate_ttft": 0.361,
+          "generate_1": 1.609,
+          "total": 2.26
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "就是一家几口人一起买这份保险时，一般医疗和外购药费用，全年只用凑够1万元免赔额，就能一起报销，不用每人各算1万哦～门急诊不参与共享哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.137,
+          "generate_ttft": 0.271
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q018",
+      "split": "heldout",
+      "category": "加油包",
+      "question": "重疾关爱加油包确诊重疾能给多少钱",
+      "pipeline": {
+        "text": "重疾关爱加油包确诊合同约定的100种重疾，直接给付5万元保险金，但得是等待期30天后初次确诊的才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.991,
+          "retrieve": 0.114,
+          "generate_ttft": 0.209,
+          "generate_1": 1.093,
+          "total": 2.199
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "确诊合同约定的100种重疾，一次性给付5万元重疾保险金哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.952,
+          "generate_ttft": 0.51
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q019",
+      "split": "dev",
+      "category": "加油包",
+      "question": "住特需病房或者VIP病房能报吗",
+      "pipeline": {
+        "text": "重大疾病扩展特需医疗保险金责任覆盖二级及以上公立医院及指定民营医疗机构的特需医疗部、国际部、VIP部（不包括观察室、联合病房和康复病房），等待期30天，免赔额0，保额300万，床位费限1500元/天。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 0.934,
+          "retrieve": 0.095,
+          "generate_ttft": 0.296,
+          "generate_1": 1.331,
+          "generate_2": 1.384,
+          "total": 3.747
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "加油包|附加|另外选|额外"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能报！只要是在二级及以上公立医院或指定民营医院的特需部、国际部、VIP部（不含观察室、联合病房和康复病房），且您买了“重大疾病扩展特需医疗加油包”，住院及相关门急诊等费用都可100%赔付，年最高300万～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.594,
+          "generate_ttft": 0.335
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q020",
+      "split": "dev",
+      "category": "加油包",
+      "question": "住院医疗费用补偿加油包能报多少",
+      "pipeline": {
+        "text": "住院医疗费用补偿加油包最高能报1万元，赔付比例是100%，但免赔额为0；不过要是治疗痔疮、女性生殖系统疾病、结节、息肉、囊肿或增生这些，赔付比例就降到20%了；而且必须在二级及以上公立医院普通部或指定民营医疗机构就诊才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.871,
+          "retrieve": 0.13,
+          "generate_ttft": 0.244,
+          "generate_1": 1.371,
+          "total": 2.373
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "住院医疗费用补偿加油包，能报您在二级及以上公立医院普通部或指定民营医院发生的、个人自付的合理住院费用，100%赔付，每年最多报1万元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.995,
+          "generate_ttft": 0.285
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q021",
+      "split": "heldout",
+      "category": "加油包",
+      "question": "门急诊加油包每次能报多少",
+      "pipeline": {
+        "text": "门急诊加油包每次最多报300元，全年累计最高1万元，报销比例是50%，但得在二级及以上公立医院或指定民营医院普通部就诊，而且要等30天等待期过后才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.64,
+          "retrieve": 0.377,
+          "generate_ttft": 0.278,
+          "generate_1": 1.032,
+          "total": 2.05
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "门急诊加油包每次最多报300元，一年累计最多报1万元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.187,
+          "generate_ttft": 0.375
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "50\\s*%|百分之五十|一半"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q022",
+      "split": "dev",
+      "category": "加油包",
+      "question": "门急诊加油包多大年纪能买",
+      "pipeline": {
+        "text": "门急诊加油包支持30天到55周岁的人投保，保障期间内每次门急诊最高报300元，一年最多报1万元，报销比例是50%，但得在二级及以上公立医院或指定民营医院普通部就诊，而且要以医保身份结算才能按50%赔。",
+        "route": "投保条件",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.756,
+          "retrieve": 0.551,
+          "generate_ttft": 0.172,
+          "generate_1": 1.662,
+          "total": 2.97
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "门急诊加油包，投保时年龄得是出生满30天到55周岁（含）哦～超过55岁就不能买了哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.948,
+          "generate_ttft": 0.293
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q023",
+      "split": "dev",
+      "category": "加油包",
+      "question": "住院津贴每天给多少",
+      "pipeline": {
+        "text": "一般住院津贴每天100元/日，次免赔天数为3天；ICU重症监护病房住院津贴每天500元/日，次免赔天数为0天。两项责任可叠加赔付，但都限于二级及以上公立医院及本保单约定的指定民营医疗机构普通部。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 0.896,
+          "retrieve": 0.091,
+          "generate_ttft": 0.269,
+          "generate_1": 1.181,
+          "generate_2": 1.401,
+          "total": 3.571
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "住院津贴分两种：普通病房每天100元，免赔3天；ICU病房每天500元，当天住院就给，不设免赔。",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.181,
+          "generate_ttft": 0.195
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q024",
+      "split": "heldout",
+      "category": "加油包",
+      "question": "住ICU有额外补贴吗",
+      "pipeline": {
+        "text": "有的，住ICU每天补贴500元，最多赔60天，而且和一般住院津贴能叠加赔；不过得在二级及以上公立医院或指定民营医院的ICU病房住院，而且要等30天等待期过后才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.658,
+          "retrieve": 0.199,
+          "generate_ttft": 0.439,
+          "generate_1": 1.26,
+          "total": 2.117
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "有的！住ICU每天补贴500元，0天免赔，单次最多赔30天，一年累计最多60天。还能和普通住院津贴一起领，不冲突哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.052,
+          "generate_ttft": 0.277
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q025",
+      "split": "dev",
+      "category": "加油包",
+      "question": "药省保加油包是怎么报的",
+      "pipeline": {
+        "text": "药省保加油包保障互联网药店的药品费用，保额1000元、赔付比例50%，月赔付限额100元，等待期7天，限指定合作的互联网药店。6周岁以下被保险人无法开具处方药品，药品配送费和退换货也需自行承担。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 1.246,
+          "retrieve": 0.146,
+          "generate_ttft": 0.319,
+          "generate_1": 1.333,
+          "generate_2": 1.394,
+          "total": 4.121
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "药省保加油包支持在线购药报销！等7天等待期过后，通过众安健康公众号→“我要买药”→对应保单→选“互联网医院购药”，或众安众企保公众号→我的保单→服务中心→美团在线购药，按流程操作就行～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 2.291,
+          "generate_ttft": 0.624
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "50\\s*%|百分之五十|一半",
+          "100\\s*元|一百"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q026",
+      "split": "dev",
+      "category": "加油包",
+      "question": "药省保的等待期多长",
+      "pipeline": {
+        "text": "药省保加油包的等待期是7天。它保障互联网药店的药品费用，报销50%，每月最多报100元，一年上限1000元，但得在指定合作平台买药才行。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.523,
+          "retrieve": 0.201,
+          "generate_ttft": 0.314,
+          "generate_1": 1.044,
+          "total": 1.769
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "药省保加油包的等待期是7天哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.677,
+          "generate_ttft": 0.365
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q027",
+      "split": "heldout",
+      "category": "加油包",
+      "question": "住院补偿加油包看结节能报多少",
+      "pipeline": {
+        "text": "住院补偿加油包保额1万元，结节类疾病赔付比例是20%，免赔额为0；但要注意，结节属于限制赔付范围，且必须在二级及以上公立医院普通部或指定民营医疗机构就诊才能理赔。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.956,
+          "retrieve": 0.124,
+          "generate_ttft": 0.196,
+          "generate_1": 1.317,
+          "total": 2.397
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "住院补偿加油包，有医保身份且用医保结算，报销100%；没用医保结算的话，只报60%哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.23,
+          "generate_ttft": 0.408
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "20\\s*%|百分之二十"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q028",
+      "split": "dev",
+      "category": "价格",
+      "question": "我30岁有社保，一年多少钱",
+      "pipeline": {
+        "text": "您30岁有社保，基础版一年318元，按月交每月31元。保障包括一般医疗、门急诊和重大疾病三块，都覆盖二级及以上公立医院和指定民营医院普通部，其中一般医疗和门急诊共享1万元年免赔额，重大疾病责任0免赔。投保前请如实告知健康状况，能否承保以核保结果为准。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.476,
+          "retrieve": 0.14,
+          "generate_ttft": 0.34,
+          "generate_1": 1.643,
+          "total": 3.261
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您30岁有社保，一年保费是318元～放心，这个价格保额高达400万，还含质子重离子和就医绿通哦！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.035,
+          "generate_ttft": 0.37
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q029",
+      "split": "dev",
+      "category": "价格",
+      "question": "我30岁没有社保，一年多少钱",
+      "pipeline": {
+        "text": "您30岁没有社保，基础版一年679元，按月交每月67元。保障包括一般医疗和重大疾病医疗，各300万保额，其中一般医疗有1万元免赔额，重大疾病医疗0免赔。所有保障都限二级及以上公立医院和指定民营医院普通部。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.956,
+          "retrieve": 0.106,
+          "generate_ttft": 0.302,
+          "generate_1": 1.356,
+          "total": 2.428
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您30岁没社保，年缴是679元哦～（资料里26-30岁无社保年缴价）",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.993,
+          "generate_ttft": 0.351
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q030",
+      "split": "heldout",
+      "category": "价格",
+      "question": "我30岁有社保，按月交每月多少",
+      "pipeline": {
+        "text": "您30岁有社保，基础版按月交每月31元，一年合计372元。保障包括一般医疗、门急诊和重大疾病三块，保额都是300万，但一般医疗和门急诊共享1万元年免赔额，而且得在二级及以上公立医院或指定民营医院普通部就诊才能报销。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.615,
+          "retrieve": 0.095,
+          "generate_ttft": 0.289,
+          "generate_1": 1.987,
+          "total": 3.698
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您30岁有社保，月缴只要31元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.611,
+          "generate_ttft": 0.255
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q031",
+      "split": "dev",
+      "category": "价格",
+      "question": "我31岁有社保一年多少钱",
+      "pipeline": {
+        "text": "您31岁有社保，基础版一年423元，按月交每月42元。保障包括一般医疗和重疾医疗各300万，还有600万恶性肿瘤先进疗法；一般医疗有1万元免赔额，重疾和先进疗法责任都0免赔。投保前请如实告知健康状况，最终能否承保以核保结果为准。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.044,
+          "retrieve": 0.101,
+          "generate_ttft": 0.307,
+          "generate_1": 1.587,
+          "total": 2.733
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您31岁有社保，一年保费是423元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.72,
+          "generate_ttft": 0.306
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q032",
+      "split": "dev",
+      "category": "价格",
+      "question": "我45岁有社保一年多少",
+      "pipeline": {
+        "text": "您45岁有社保，基础版（必选计划）年缴636元，按月交每月63元（一年合计756元）。",
+        "route": "报价",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "无依据数字：百万",
+          "无依据数字：2026"
+        ],
+        "timings": {
+          "understand": 1.272,
+          "retrieve": 0.09,
+          "generate_ttft": 0.446,
+          "generate_1": 1.585,
+          "generate_2": 1.855,
+          "total": 4.804
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您45岁有社保，一年保费是636元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.872,
+          "generate_ttft": 0.293
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q033",
+      "split": "heldout",
+      "category": "价格",
+      "question": "我45岁没社保一年多少",
+      "pipeline": {
+        "text": "您45岁没社保，基础版一年2130元，按月交每月212元。保障包括一般医疗和重疾医疗各300万，还有恶性肿瘤先进疗法600万；一般医疗有1万元免赔额，重疾和恶性肿瘤治疗责任都0免赔。投保前请如实告知健康状况，最终能否承保以核保结果为准。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.237,
+          "retrieve": 0.122,
+          "generate_ttft": 0.283,
+          "generate_1": 1.612,
+          "total": 2.973
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！您45岁没社保的话，尊享e生·百万医疗2026版年缴保费是2130元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.85,
+          "generate_ttft": 0.27
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q034",
+      "split": "dev",
+      "category": "价格",
+      "question": "我60岁有社保按年交多少钱",
+      "pipeline": {
+        "text": "您60岁有社保，基础版年缴1645元。保障包括一般医疗和重大疾病医疗，保额各300万，重大疾病责任0免赔；但一般医疗有1万元年免赔额，且需在二级及以上公立医院或指定民营医院普通部就诊。投保前请如实告知健康状况，能否承保以核保结果为准。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.633,
+          "retrieve": 0.089,
+          "generate_ttft": 0.442,
+          "generate_1": 1.634,
+          "total": 3.358
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您60岁有社保，年缴是1645元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.605,
+          "generate_ttft": 0.25
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q035",
+      "split": "dev",
+      "category": "价格",
+      "question": "我孩子8岁有社保，一年多少钱",
+      "pipeline": {
+        "text": "孩子8岁有社保，基础版一年279元，按月交每月27元。保障包括一般医疗、门急诊和重大疾病三块，都限二级及以上公立医院和指定民营医院普通部，重大疾病责任免赔额为0，但一般医疗和门急诊共享1万元年免赔额。投保前请如实告知健康状况，能否承保以核保结果为准。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.2,
+          "retrieve": 0.106,
+          "generate_ttft": 0.382,
+          "generate_1": 1.677,
+          "total": 2.984
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您孩子8岁有社保，属于5-17岁年龄段，年缴保费是**205元**哦～（和18-20岁同档）",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.212,
+          "generate_ttft": 0.253
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "279"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q036",
+      "split": "heldout",
+      "category": "价格",
+      "question": "我妈65岁有社保，一年要多少钱",
+      "pipeline": {
+        "text": "阿姨65岁有社保，基础版一年2563元，按月交每月253元。保障包括一般医疗和重疾医疗各300万，重疾责任0免赔；但一般医疗有1万元年免赔额，且必须在二级及以上公立医院或指定民营医院普通部就诊。投保年龄上限是70周岁，符合要求。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.352,
+          "retrieve": 0.093,
+          "generate_ttft": 0.353,
+          "generate_1": 1.565,
+          "total": 3.011
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "阿姨65岁有社保，一年保费是2563元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.636,
+          "generate_ttft": 0.263
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q037",
+      "split": "dev",
+      "category": "价格",
+      "question": "我30岁多少钱",
+      "pipeline": {
+        "text": "请问您有社保吗？有没有社保价格不一样。",
+        "route": "报价-追问",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "understand": 0.774,
+          "total": 0.774
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您30岁的话，年缴有社保318元，无社保679元；月缴有社保31元，无社保67元～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.863,
+          "generate_ttft": 0.255
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [],
+        "forbidden": [
+          "318|679"
+        ]
+      }
+    },
+    {
+      "id": "Q038",
+      "split": "dev",
+      "category": "价格",
+      "question": "多少钱一年",
+      "pipeline": {
+        "text": "请问被保人今年多大年纪？",
+        "route": "报价-追问",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "understand": 0.947,
+          "total": 0.947
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "(几|多大|多少)岁|年龄"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "亲，保费要看年龄和有没有社保哦～比如21-25岁有社保255元/年，无社保520元/年；36-40岁有社保517元/年，无社保1330元/年。您方便说下年龄和是否参保吗？我帮您精准算～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.715,
+          "generate_ttft": 0.463
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [],
+        "forbidden": [
+          "\\d{3,}\\s*元"
+        ]
+      }
+    },
+    {
+      "id": "Q039",
+      "split": "heldout",
+      "category": "价格",
+      "question": "按月交和按年交哪个划算",
+      "pipeline": {
+        "text": "按年交更划算，您30岁有社保，基础版年缴318元，按月交每月31元、一年合计372元。保障都一样，都是扣除1万元年免赔额后100%报销，年度最高报300万元。",
+        "route": "报价",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 1.176,
+          "retrieve": 0.082,
+          "generate_ttft": 0.281,
+          "generate_1": 1.76,
+          "generate_2": 1.361,
+          "total": 4.379
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "按年交更划算哦！月缴是把年保费分12期付，但总保费会略高些～建议您选年缴，省心又省钱！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.03,
+          "generate_ttft": 0.312
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "318|372|31"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q040",
+      "split": "dev",
+      "category": "价格",
+      "question": "以后每年都是这个价吗",
+      "pipeline": {
+        "text": "不是的，保费会随年龄增长而变化；保障期是一年，每年都要重新投保；首年疾病医疗有30天等待期。",
+        "route": "其他",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.959,
+          "retrieve": 0.096,
+          "generate_ttft": 0.24,
+          "generate_1": 0.971,
+          "total": 2.026
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不是哦～保费会随年龄增长而调整，比如26-30岁有社保是318元/年，等您31岁后就会按新年龄段的费率重新计算啦！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.817,
+          "generate_ttft": 0.681
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q041",
+      "split": "dev",
+      "category": "价格",
+      "question": "一家三口一起买有优惠吗",
+      "pipeline": {
+        "text": "有优惠，一家三口一起买能享10%的家庭单优惠。保障里包含家庭共享免赔额，一般医疗和外购药械费用共享1万元年免赔额。国内医疗总保额是600万元。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.8,
+          "retrieve": 0.091,
+          "generate_ttft": 0.383,
+          "generate_1": 1.193,
+          "total": 2.084
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "一家三口一起买，能享家庭共享免赔额——3人共用1万元年免赔额，比单独买更划算！不过每人限投1份哦～需要我帮您算算具体优惠不？",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.088,
+          "generate_ttft": 0.255
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "10\\s*%|百分之十|九折"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q042",
+      "split": "heldout",
+      "category": "价格",
+      "question": "全家五口人一起买优惠多少",
+      "pipeline": {
+        "text": "请问被保人今年多大年纪？",
+        "route": "报价-追问",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "understand": 1.065,
+          "total": 1.065
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "20\\s*%|百分之二十|八折"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "亲，尊享e生2026版本身不设家庭投保折扣哦～但全家一起买可享“家庭共享免赔额”：5人共用1万元年免赔额（一般医疗+外购药械），省心又划算！具体优惠以投保页显示为准哈～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.99,
+          "generate_ttft": 0.236
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "20\\s*%|百分之二十|八折"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q043",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "多大年纪可以买",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "投保条件",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "无依据数字：百万"
+        ],
+        "timings": {
+          "understand": 0.945,
+          "retrieve": 0.094,
+          "generate_ttft": 0.263,
+          "generate_1": 1.212,
+          "generate_2": 1.343,
+          "total": 3.594
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "30\\s*天|三十天",
+          "70\\s*(周)?岁|七十"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "18周岁及以上就能买啦！不过得是有完全民事行为能力、在中国大陆有固定居所的人哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.954,
+          "generate_ttft": 0.448
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "30\\s*天|三十天",
+          "70\\s*(周)?岁|七十"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q044",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "我爸72岁了还能买吗",
+      "pipeline": {
+        "text": "72岁超龄了，这款产品最高投保年龄是70周岁。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.216,
+          "retrieve": 0.278,
+          "generate_ttft": 0.351,
+          "generate_1": 0.975,
+          "total": 2.471
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能买！72岁属于71-75岁年龄段，有社保年缴3928元，月缴388元；无社保年缴14077元，月缴1394元～需要帮您算具体费用或了解保障内容吗？",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.444,
+          "generate_ttft": 0.412
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "70\\s*(周)?岁|七十"
+        ],
+        "forbidden": [
+          "(可以|能)(买|投保)(的)?[。！]"
+        ]
+      }
+    },
+    {
+      "id": "Q045",
+      "split": "heldout",
+      "category": "投保条件",
+      "question": "刚出生20天的宝宝能买吗",
+      "pipeline": {
+        "text": "不能买，这款产品要求投保时年龄必须满30天，宝宝现在才20天，还没达到最低投保年龄。",
+        "route": "投保条件",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.053,
+          "retrieve": 0.087,
+          "generate_ttft": 0.492,
+          "generate_1": 0.926,
+          "total": 2.067
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "宝宝刚20天还不能买哦，得满30天才能投保～等宝宝再大10天就可以啦！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.865,
+          "generate_ttft": 0.247
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q046",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "我能多买几份吗",
+      "pipeline": {
+        "text": "不能多买，每一被保险人同一保险期间内限投保1份，多投保无效。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.529,
+          "retrieve": 0.099,
+          "generate_ttft": 0.259,
+          "generate_1": 0.593,
+          "total": 1.221
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不能哦，同一保险期间内每位被保险人只能买1份，多买无效～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.708,
+          "generate_ttft": 0.285
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q047",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "买了以后什么时候生效",
+      "pipeline": {
+        "text": "买了以后次日零时就生效，保障期是一年，每份保单只能投一份，多投无效。",
+        "route": "其他",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.73,
+          "retrieve": 0.113,
+          "generate_ttft": 0.27,
+          "generate_1": 0.689,
+          "total": 1.532
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "投保成功后的次日零时就生效啦！比如今天下午3点投保成功，明天凌晨0点保单就正式生效咯～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.813,
+          "generate_ttft": 0.259
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q048",
+      "split": "heldout",
+      "category": "投保条件",
+      "question": "保险期间是多久",
+      "pipeline": {
+        "text": "保险期间是1年。每份保单只能保1年，同一保险期间内每人限投1份。保障从等待期30天后开始，意外伤害不受等待期限制。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.654,
+          "retrieve": 0.168,
+          "generate_ttft": 0.269,
+          "generate_1": 0.919,
+          "total": 1.741
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "保险期间是1年哦～到期后可以申请续保，但每年只能投1份，多投无效哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.816,
+          "generate_ttft": 0.26
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q049",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "能给我父母买吗",
+      "pipeline": {
+        "text": "可以给您父母买，他们年龄在30天到70周岁范围内都符合投保要求。保障包含一般医疗、门急诊和重大疾病三块，保额都是300万，重大疾病责任免赔额为0，其他两项共享1万元年免赔额，且必须在二级及以上公立医院或指定民营医院普通部就诊。",
+        "route": "投保条件",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.27,
+          "retrieve": 0.135,
+          "generate_ttft": 0.384,
+          "generate_1": 1.495,
+          "total": 2.902
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以！您作为投保人，能给您父母买尊享e生·百万医疗2026版，但需他们同意哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.027,
+          "generate_ttft": 0.394
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "70\\s*(周)?岁|七十"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q050",
+      "split": "dev",
+      "category": "投保条件",
+      "question": "我是高空作业的工人能买吗",
+      "pipeline": {
+        "text": "高空作业工人属于《众安特殊职业类别表》中的职业，不能投保尊享e生·百万医疗保险2026版。投保前需如实告知职业情况，能否承保以核保结果为准。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.823,
+          "retrieve": 0.092,
+          "generate_ttft": 0.292,
+          "generate_1": 0.958,
+          "total": 1.874
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "高空作业工人属于《众安特殊职业类别表》中的高风险职业，尊享e生·百万医疗2026版暂不承保哦～建议您关注我们其他适配的职业医疗产品，有需要我帮您推荐！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.254,
+          "generate_ttft": 0.287
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q051",
+      "split": "heldout",
+      "category": "投保条件",
+      "question": "投保人有年龄要求吗",
+      "pipeline": {
+        "text": "投保人得年满18周岁，而且要有完全民事行为能力。另外还得跟被保险人有可保利益，同时在中国大陆有固定居所。保费会随被保险人年龄增长而变化。",
+        "route": "投保条件",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.83,
+          "retrieve": 0.12,
+          "generate_ttft": 0.359,
+          "generate_1": 1.028,
+          "total": 1.979
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "有哦！投保人得是18周岁及以上、有完全民事行为能力的人，还得在中国大陆有固定居所才行～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.875,
+          "generate_ttft": 0.322
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q052",
+      "split": "dev",
+      "category": "免责",
+      "question": "以前就有的病能报吗",
+      "pipeline": {
+        "text": "以前就有的病属于既往症，这项保障是不赔的。另外，一般医疗有1万元免赔额，重大疾病医疗和恶性肿瘤先进疗法责任都0免赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.164,
+          "retrieve": 0.114,
+          "generate_ttft": 0.493,
+          "generate_1": 1.929,
+          "total": 3.209
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "以前就有的病（既往症）如果是在初次投保前或非连续续保的空档期发生的，是不赔的哦～但如果是续保期间新发的疾病，符合条款就能报！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.181,
+          "generate_ttft": 0.361
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [],
+        "forbidden": [
+          "(能|可以)报[。！]"
+        ]
+      }
+    },
+    {
+      "id": "Q053",
+      "split": "dev",
+      "category": "免责",
+      "question": "医保已经报销的部分还能再报吗",
+      "pipeline": {
+        "text": "不能报。医保已经报销的部分，属于已从其他途径获得补偿的费用，根据补偿原则，这部分不再理赔。只有医保没报、需要您自己承担的合理医疗费用，才能按合同约定报销，而且必须在二级及以上公立医院或指定民营医院普通部就诊。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.668,
+          "retrieve": 0.139,
+          "generate_ttft": 0.347,
+          "generate_1": 1.268,
+          "total": 2.076
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不能哦～医保已报销的部分，咱们这款产品是不重复报销的，只赔您自己掏的那部分，而且得在指定医院（二级以上公立医院或约定的民营医院）就诊才行～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.097,
+          "generate_ttft": 0.257
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q054",
+      "split": "heldout",
+      "category": "免责",
+      "question": "刚买完一个星期就生病住院能赔吗",
+      "pipeline": {
+        "text": "不能赔，因为这款保险有30天等待期，刚买完一周就生病住院属于等待期内出险，不符合赔付条件。就诊必须在二级及以上公立医院或本保单约定的指定民营医疗机构普通部，且需如实告知健康状况，能否投保以核保结果为准。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 1.143,
+          "retrieve": 0.092,
+          "generate_ttft": 0.26,
+          "generate_1": 1.249,
+          "generate_2": 1.277,
+          "total": 3.762
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！刚买完一周就住院，要看生病原因哦～如果是意外受伤，直接就能赔；但要是生病的话，得等30天等待期过后才行，现在还不到时间呢～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.987,
+          "generate_ttft": 0.261
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q055",
+      "split": "dev",
+      "category": "免责",
+      "question": "生孩子的费用能报吗",
+      "pipeline": {
+        "text": "生孩子的费用不能报。本产品明确免责妊娠、产前产后检查、流产、分娩等生育相关医疗费用。投保前请务必如实告知健康状况，能否承保以核保结果为准。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.301,
+          "retrieve": 0.246,
+          "generate_ttft": 0.308,
+          "generate_1": 0.928,
+          "total": 2.478
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "生孩子的费用不能报销哦～分娩（包括剖腹产）、流产、怀孕相关检查及并发症等，都属于免责范围。但如果是意外导致的生育相关医疗，可以看看是否符合其他保障条件哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.376,
+          "generate_ttft": 0.258
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q056",
+      "split": "dev",
+      "category": "免责",
+      "question": "做美容整形能报吗",
+      "pipeline": {
+        "text": "美容整形不能报销。资料明确写着“美容整形、变性等相关医疗及并发症或医疗事故，不予理赔”。还有肥胖症相关手术、袖状胃切除术也不赔。投保前要如实告知健康情况，能否承保以核保结果为准。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 0.47,
+          "retrieve": 0.094,
+          "generate_ttft": 0.253,
+          "generate_1": 1.206,
+          "generate_2": 1.273,
+          "total": 3.044
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不能报哦～尊享e生·百万医疗2026版明确免责美容整形、整容手术及并发症，属于非疾病性治疗，不在保障范围内。",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.0,
+          "generate_ttft": 0.253
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q057",
+      "split": "heldout",
+      "category": "免责",
+      "question": "看牙能报吗",
+      "pipeline": {
+        "text": "看牙不能报，牙科治疗属于责任免除范围；不过因意外导致的牙科治疗可以赔。另外，这产品只报二级及以上公立医院和指定民营医院普通部的费用，且要等30天等待期过后。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.508,
+          "retrieve": 0.132,
+          "generate_ttft": 0.357,
+          "generate_1": 1.153,
+          "total": 1.794
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "看牙一般不报销哦，除非是意外导致的牙科治疗。常规的牙科疾病、矫正、洗牙、补牙等都不在保障范围内，这点您注意下哈～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.937,
+          "generate_ttft": 0.261
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q058",
+      "split": "dev",
+      "category": "免责",
+      "question": "体检费用报不报",
+      "pipeline": {
+        "text": "不报体检费用。条款明确免责“被保险人住院体检”，且本产品只报销二级及二级以上公立医院和指定民营医疗机构普通部发生的、需个人支付的必需且合理医疗费用，体检不在保障范围内。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 0.836,
+          "retrieve": 0.09,
+          "generate_ttft": 0.367,
+          "generate_1": 1.104,
+          "generate_2": 0.99,
+          "total": 3.022
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不报销哦～合同明确写了“住院体检”不保，普通体检更不在保障范围内。不过因病住院时的必要检查费是可以报的！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.087,
+          "generate_ttft": 0.448
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q059",
+      "split": "dev",
+      "category": "免责",
+      "question": "职业病能报吗",
+      "pipeline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：能报"
+        ],
+        "timings": {
+          "understand": 0.433,
+          "retrieve": 0.185,
+          "generate_ttft": 0.409,
+          "generate_1": 1.207,
+          "generate_2": 1.642,
+          "total": 3.467
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "不(予|能|在)?(理赔|报|赔|保障)|免责|除外"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "职业病不能报销哦，合同里明确写了因职业病导致的医疗费用是免责的～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.711,
+          "generate_ttft": 0.269
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q060",
+      "split": "heldout",
+      "category": "免责",
+      "question": "抑郁症住院能报吗",
+      "pipeline": {
+        "text": "抑郁症住院属于一般医疗责任，但要等30天等待期后、在二级及以上公立医院普通部就诊，且免赔额1万元。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 2,
+        "violations": [],
+        "timings": {
+          "understand": 1.044,
+          "retrieve": 0.27,
+          "generate_ttft": 0.398,
+          "generate_1": 1.234,
+          "generate_2": 1.1,
+          "total": 3.649
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "精神|不(予|能)?(理赔|报|赔)|免责|除外"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "抑郁症住院可以报销，但需满足两个条件：一是去二级及以上公立医院普通部或指定民营医院；二是符合医学必需、合理的治疗费用。不过，单纯住院体检或非康复类精神科住院可能不赔哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.246,
+          "generate_ttft": 0.429
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q061",
+      "split": "dev",
+      "category": "免责",
+      "question": "先天性疾病能报吗",
+      "pipeline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：能报"
+        ],
+        "timings": {
+          "understand": 3.024,
+          "retrieve": 0.088,
+          "generate_ttft": 0.373,
+          "generate_1": 1.104,
+          "generate_2": 1.09,
+          "total": 5.309
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "不(予|能|在)?(理赔|报|赔|保障)|免责|除外"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不能报哦～先天性疾病、遗传病、先天性畸形等都属于免责范围，合同里明确不赔的。建议您关注保障范围内的疾病，有其他问题随时问我！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.157,
+          "generate_ttft": 0.362
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q062",
+      "split": "dev",
+      "category": "缺口",
+      "question": "我有高血压好几年了，一直吃降压药，买这个以后住院能报吗",
+      "pipeline": {
+        "text": "高血压属于既往症，如果投保前没如实告知，或核保没通过，相关费用就不能赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。保障里有一般医疗300万、重疾医疗300万、恶性肿瘤先进疗法600万，但都得在二级及以上公立医院或指定民营医院普通部就诊，而且一般医疗有1万免赔额。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.057,
+          "retrieve": 0.103,
+          "generate_ttft": 0.484,
+          "generate_1": 2.046,
+          "total": 3.207
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "能报！高血压属于既往症，但只要住院治疗是在二级及以上公立医院普通部，且费用合理必需，符合条款就能报销。不过降压药得按医生处方买，超30天剂量或没在医院/指定机构买，就不报啦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.324,
+          "generate_ttft": 0.261
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "健康告知|核保"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q063",
+      "split": "heldout",
+      "category": "缺口",
+      "question": "我有糖尿病能买吗",
+      "pipeline": {
+        "text": "糖尿病属于既往症，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。这款产品对既往症相关费用不赔付，而且保障里重大疾病和特定药品责任都要求等待期30天后初次确诊。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.264,
+          "retrieve": 0.114,
+          "generate_ttft": 0.352,
+          "generate_1": 1.258,
+          "total": 2.638
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以买！糖尿病不是拒保病，但投保时要如实健康告知哦～如果病情稳定、无严重并发症，通常能正常承保。需要我帮您看看具体怎么操作吗？",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.263,
+          "generate_ttft": 0.19
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [],
+        "forbidden": [
+          "(可以|能)(买|投保)[。！]|没问题|不影响"
+        ]
+      }
+    },
+    {
+      "id": "Q064",
+      "split": "dev",
+      "category": "缺口",
+      "question": "我有甲状腺结节能投保吗",
+      "pipeline": {
+        "text": "甲状腺结节属于既往症，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。这款产品保障很全面，比如重大疾病医疗0免赔、最高赔300万，恶性肿瘤先进疗法还能赔600万，但都要求在二级及以上公立医院或指定民营医院普通部就诊。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.723,
+          "retrieve": 0.313,
+          "generate_ttft": 0.413,
+          "generate_1": 2.195,
+          "total": 4.232
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以投保，但甲状腺结节属于条款中列明的“结节”，若因它治疗住院，赔付比例是20%哦～其他保障不受影响，放心投保哈！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.503,
+          "generate_ttft": 0.475
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "健康告知|核保"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q065",
+      "split": "dev",
+      "category": "缺口",
+      "question": "我做过心脏支架手术还能买吗",
+      "pipeline": {
+        "text": "做过心脏支架手术属于既往症，初次投保前的既往症不予理赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.173,
+          "retrieve": 0.095,
+          "generate_ttft": 0.274,
+          "generate_1": 0.913,
+          "total": 2.182
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "可以买！心脏支架手术本身不影响投保，但术后若被认定为既往症（比如支架后仍有心绞痛、心衰等），相关治疗费用可能不赔哦～建议投保时如实告知健康状况，我们帮您评估～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.132,
+          "generate_ttft": 0.247
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "健康告知|核保"
+        ],
+        "forbidden": [
+          "(可以|能)(买|投保)[。！]|没问题|不影响"
+        ]
+      }
+    },
+    {
+      "id": "Q066",
+      "split": "heldout",
+      "category": "缺口",
+      "question": "这个保证续保吗",
+      "pipeline": {
+        "text": "续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "其他",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.629,
+          "retrieve": 0.119,
+          "generate_ttft": 0.225,
+          "generate_1": 0.59,
+          "total": 1.338
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "是的，尊享e生·百万医疗2026版保证续保20年，只要没停售、您按时交费，期间不管健康变化或理赔过，都能续保哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.049,
+          "generate_ttft": 0.258
+        },
+        "gap_violation": true,
+        "compliance_violation": true,
+        "correct": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": [
+          "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保"
+        ]
+      }
+    },
+    {
+      "id": "Q067",
+      "split": "dev",
+      "category": "缺口",
+      "question": "以后能一直续保吗",
+      "pipeline": {
+        "text": "续保以保险条款约定为准，我可以帮您转专员确认。这款产品保障期间是一年，投保首年疾病医疗等待期30天，续保需要审核通过才行。",
+        "route": "其他",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.595,
+          "retrieve": 0.124,
+          "generate_ttft": 0.255,
+          "generate_1": 0.867,
+          "total": 1.587
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！尊享e生·百万医疗2026版是**保证续保20年**的，只要您按时缴费、产品未停售，20年内都不用担心健康变化或理赔影响续保哦～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.103,
+          "generate_ttft": 0.254
+        },
+        "gap_violation": true,
+        "compliance_violation": true,
+        "correct": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": [
+          "(可以|能)一直续|保证续保"
+        ]
+      }
+    },
+    {
+      "id": "Q068",
+      "split": "dev",
+      "category": "缺口",
+      "question": "产品停售了还能续保吗",
+      "pipeline": {
+        "text": "停售不影响已投保客户的续保，续保以保险条款约定为准，我可以帮您转专员确认。这款产品保险期间是1年，保单生效日是投保成功次日零时。续保需符合条款约定，具体以核保结果为准。",
+        "route": "其他",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.969,
+          "retrieve": 0.286,
+          "generate_ttft": 0.186,
+          "generate_1": 1.452,
+          "total": 2.706
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！尊享e生·百万医疗保险2026版是1年期产品，只要没停售，到期前符合条件就能续保；若产品停售，就无法续保了哦～建议关注官方通知，或拨打952299咨询最新情况～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.396,
+          "generate_ttft": 0.257
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q069",
+      "split": "heldout",
+      "category": "缺口",
+      "question": "医保报销的部分能算进1万免赔额里吗",
+      "pipeline": {
+        "text": "医保报销的部分能不能抵扣免赔额，要以条款为准，我帮您转专员确认。另外提醒您，一般医疗和外购药械费用共享1万元年免赔额，但重大疾病医疗和特定药品费用这两项责任本身没有免赔额。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.536,
+          "retrieve": 0.115,
+          "generate_ttft": 0.248,
+          "generate_1": 1.131,
+          "total": 1.782
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [],
+        "forbidden": [
+          "(可以|能|会)(算进|计入|抵扣|算在)"
+        ]
+      },
+      "baseline": {
+        "text": "不能哦～医保报销的部分不计入1万元免赔额，只算您自己自费的部分。比如花了1.5万，医保报了8000，剩下7000自费，这7000才累计进免赔额，还没到1万呢～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.532,
+          "generate_ttft": 0.451
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q070",
+      "split": "dev",
+      "category": "缺口",
+      "question": "100种重大疾病都有哪些",
+      "pipeline": {
+        "text": "具体清单以保险条款为准，我可以把条款发给您，或者帮您转专员确认。",
+        "route": "免责",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "无依据数字：百万"
+        ],
+        "timings": {
+          "understand": 0.558,
+          "retrieve": 0.336,
+          "generate_ttft": 0.308,
+          "generate_1": 1.278,
+          "generate_2": 1.067,
+          "total": 3.24
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好！尊享e生·百万医疗2026版的100种重疾是按行业标准《重大疾病保险的疾病定义使用规范（2020年修订版）》来定义的，包括恶性肿瘤、急性心梗、终末期肾病等常见重疾。具体清单您可登录保单页面查看，或我帮您发一份电子版～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.642,
+          "generate_ttft": 0.271
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q071",
+      "split": "dev",
+      "category": "缺口",
+      "question": "高血压控制得很好也不能买吗",
+      "pipeline": {
+        "text": "高血压能不能投保，得先做健康告知，以核保结果为准，我这边没法替核保下结论。这款产品保障很全面：一般医疗和重疾医疗各300万保额，重疾责任0免赔；恶性肿瘤先进疗法最高600万；但所有责任都有30天等待期，且只限二级及以上公立医院和指定民营医院普通部就诊。",
+        "route": "缺口",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 1.05,
+          "retrieve": 0.102,
+          "generate_ttft": 0.283,
+          "generate_1": 1.573,
+          "total": 2.725
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "高血压控制得好，只要医生开了处方、在指定药店买，且药品符合说明书适应症，就能报销哦～但要是没处方、不在指定药店买，或药品跟病情不匹配，就不行啦！",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.068,
+          "generate_ttft": 0.257
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "健康告知|核保"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q072",
+      "split": "heldout",
+      "category": "身份",
+      "question": "你是真人还是机器人",
+      "pipeline": {
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.0
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "我是众安保险的智能客服，但回答都基于真实条款和专业培训，随时为您解答尊享e生·百万医疗2026版的问题～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.931,
+          "generate_ttft": 0.267
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "AI|人工智能|智能助理"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q073",
+      "split": "dev",
+      "category": "身份",
+      "question": "你该不会是AI吧",
+      "pipeline": {
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.0
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "哈哈，您真敏锐！我是众安保险的智能客服小安，但背后有专业团队支持哦～有任何关于尊享e生·百万医疗2026版的问题，比如保障、报销、保单查询，我都能帮您解答！😊",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.814,
+          "generate_ttft": 0.42
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "AI|人工智能|智能助理"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q074",
+      "split": "dev",
+      "category": "身份",
+      "question": "跟我说话的是人吗",
+      "pipeline": {
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 0.0
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "您好，我是众安保险的智能客服，不是真人哦～但我会尽力帮您解答尊享e生·百万医疗2026版的问题！有啥需要随时问我哈～😊",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.059,
+          "generate_ttft": 0.345
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "AI|人工智能|智能助理"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q075",
+      "split": "heldout",
+      "category": "保障",
+      "question": "是不是自己掏够一万，剩下的全报",
+      "pipeline": {
+        "text": "不是全报，要分情况。一般医疗责任有1万元年免赔额，超过部分按100%赔，但必须在二级及以上公立医院或指定民营医院普通部就诊；如果没用医保身份结算，就只能按60%赔；而且已经从医保等其他渠道报销过的部分不重复赔。",
+        "route": "保障",
+        "fallback": false,
+        "attempts": 1,
+        "violations": [],
+        "timings": {
+          "understand": 0.948,
+          "retrieve": 0.1,
+          "generate_ttft": 0.263,
+          "generate_1": 1.872,
+          "total": 2.921
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "是的！您一年内自付满1万元免赔额后，符合条款的医疗费用，剩下的100%报销，最高报300万元～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.053,
+          "generate_ttft": 0.349
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "重(大疾病|疾).{0,12}(没有|无|不设).{0,4}免赔|60\\s*%|二级|等待期"
+        ],
+        "forbidden": []
+      }
+    },
+    {
+      "id": "Q076",
+      "split": "dev",
+      "category": "保障",
+      "question": "广告说几百万保额，是什么病都能报吗",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "保障",
+        "fallback": true,
+        "attempts": 2,
+        "violations": [
+          "缺口问题给了结论（疾病核保）：都能报"
+        ],
+        "timings": {
+          "understand": 0.712,
+          "retrieve": 0.098,
+          "generate_ttft": 0.302,
+          "generate_1": 1.764,
+          "generate_2": 2.473,
+          "total": 5.05
+        },
+        "gap_violation": false,
+        "compliance_violation": false,
+        "correct": false,
+        "missing": [
+          "600\\s*万|六百万",
+          "免赔|既往症|等待期|二级"
+        ],
+        "forbidden": []
+      },
+      "baseline": {
+        "text": "不是所有病都能报哦～600万是国内医疗总保额，但分两块：一般医疗+重疾医疗共享300万限额，重疾外购药也包含在内；还有300万是特药、质子重离子等其他责任。另外有1万元免赔额，且条款里写的免责情况不赔，比如既往症、非合理医疗等～",
+        "route": "baseline",
+        "fallback": false,
+        "attempts": 0,
+        "violations": [],
+        "timings": {
+          "total": 1.849,
+          "generate_ttft": 0.386
+        },
+        "gap_violation": true,
+        "compliance_violation": false,
+        "correct": true,
+        "missing": [],
+        "forbidden": []
+      }
+    }
+  ]
+}

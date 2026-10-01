@@ -2,3 +2,6 @@
 保险复杂咨询全双工语音Agent/
 __pycache__/
 .venv/
+.env
+experiments/cache/
+experiments/recordings/

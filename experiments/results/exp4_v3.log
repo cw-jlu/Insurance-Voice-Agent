@@ -1,0 +1,22 @@
+{"name": "报价", "asr_endpoint_s": 0.471, "first_response_s": 0.471, "first_substantive_audio_s": 2.516, "answer_audio_all_ready_s": 5.348, "answer_playback_end_s": 14.925}
+{"name": "病史", "asr_endpoint_s": 0.381, "first_response_s": 0.381, "first_substantive_audio_s": 3.0, "answer_audio_all_ready_s": 4.365, "answer_playback_end_s": 13.044}
+{"name": "免赔额", "asr_endpoint_s": 0.432, "first_response_s": 0.432, "first_substantive_audio_s": 4.393, "answer_audio_all_ready_s": 5.704, "answer_playback_end_s": 15.866}
+{"name": "保障范围", "asr_endpoint_s": 0.449, "first_response_s": 0.449, "first_substantive_audio_s": 3.789, "answer_audio_all_ready_s": 6.059, "answer_playback_end_s": 15.958}
+{"name": "价格变化", "asr_endpoint_s": 0.405, "first_response_s": 0.405, "first_substantive_audio_s": 2.591, "answer_audio_all_ready_s": 3.31, "answer_playback_end_s": 10.548}
+{"name": "身份", "asr_endpoint_s": 0.455, "first_response_s": 0.646, "first_substantive_audio_s": 0.646, "answer_audio_all_ready_s": 1.685, "answer_playback_end_s": 5.965}
+{"name": "等待期", "asr_endpoint_s": 0.452, "first_response_s": 0.452, "first_substantive_audio_s": 2.578, "answer_audio_all_ready_s": 3.504, "answer_playback_end_s": 10.953}
+{"name": "加油包", "asr_endpoint_s": 0.402, "first_response_s": 0.402, "first_substantive_audio_s": 3.354, "answer_audio_all_ready_s": 5.571, "answer_playback_end_s": 14.479}
+{"name": "报价", "asr_endpoint_s": 0.485, "first_response_s": 0.485, "first_substantive_audio_s": 2.117, "answer_audio_all_ready_s": 3.897, "answer_playback_end_s": 12.509}
+{"name": "病史", "asr_endpoint_s": 0.439, "first_response_s": 0.439, "first_substantive_audio_s": 2.981, "answer_audio_all_ready_s": 4.467, "answer_playback_end_s": 13.721}
+{"name": "免赔额", "asr_endpoint_s": 0.43, "first_response_s": 0.43, "first_substantive_audio_s": 3.61, "answer_audio_all_ready_s": 5.472, "answer_playback_end_s": 18.63}
+{"name": "保障范围", "asr_endpoint_s": 0.476, "first_response_s": 0.476, "first_substantive_audio_s": 4.159, "answer_audio_all_ready_s": 5.602, "answer_playback_end_s": 13.824}
+{"name": "价格变化", "asr_endpoint_s": 0.464, "first_response_s": 0.464, "first_substantive_audio_s": 3.305, "answer_audio_all_ready_s": 4.02, "answer_playback_end_s": 7.961}
+{"name": "身份", "asr_endpoint_s": 0.439, "first_response_s": 0.648, "first_substantive_audio_s": 0.648, "answer_audio_all_ready_s": 1.819, "answer_playback_end_s": 6.802}
+{"name": "等待期", "asr_endpoint_s": 0.497, "first_response_s": 0.497, "first_substantive_audio_s": 2.904, "answer_audio_all_ready_s": 4.319, "answer_playback_end_s": 10.76}
+{"name": "加油包", "asr_endpoint_s": 0.436, "first_response_s": 0.436, "first_substantive_audio_s": 2.725, "answer_audio_all_ready_s": 3.786, "answer_playback_end_s": 10.164}
+asr_endpoint_s {'p50': np.float64(0.449), 'p90': np.float64(0.485), 'max': np.float64(0.497), 'n': 16}
+first_response_s {'p50': np.float64(0.452), 'p90': np.float64(0.646), 'max': np.float64(0.648), 'n': 16}
+first_substantive_audio_s {'p50': np.float64(2.981), 'p90': np.float64(4.159), 'max': np.float64(4.393), 'n': 16}
+answer_audio_all_ready_s {'p50': np.float64(4.365), 'p90': np.float64(5.704), 'max': np.float64(6.059), 'n': 16}
+answer_playback_end_s {'p50': np.float64(13.044), 'p90': np.float64(15.958), 'max': np.float64(18.63), 'n': 16}
+errors []

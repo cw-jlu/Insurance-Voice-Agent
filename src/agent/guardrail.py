@@ -54,8 +54,9 @@ def extract_numbers(text: str) -> list[Num]:
             value = float(token)
         else:
             iv = cn_to_int(token)
-            # A lone Chinese "一" etc. without unit is almost always a word, not a number.
-            if iv is None or (len(token) == 1 and not (wan or unit)):
+            # A lone Chinese "一" etc. without unit is almost always a word, not a number; a bare
+            # "百万"/"千万" is a phrase ("百万医疗险"), not an amount.
+            if iv is None or (len(token) == 1 and not (wan or unit)) or token in ("百", "千", "十"):
                 continue
             value = float(iv)
         if wan:
@@ -74,6 +75,7 @@ class GuardResult:
 _SENTENCE_END = re.compile(r"[。；;！？!?\n]")
 _STOP_BIGRAMS = {"保险", "险金", "元为", "为限", "给付", "本项", "按照", "比例", "的赔", "赔付", "付比", "以上", "及以", "及二",
                  "二级", "级及", "保额", "万元", "限额", "累计", "年累", "计给", "付以"}
+PRODUCT_NAME_RE = re.compile(r"(尊享\s*[eE]\s*生[·・.\s]*)?(百万医疗(保险|险)?)?\s*2026\s*版?")
 CONTEXT_BEFORE = 24
 CONTEXT_AFTER = 8
 
@@ -119,6 +121,7 @@ def number_guard(answer: str, evidence: list[str], structured: set[float] | None
         clean = _LIST_MARKER.sub(" ", e)
         terms = _bigrams(clean)
         ev += [(n, terms) for n in extract_numbers(clean)]
+    answer = PRODUCT_NAME_RE.sub("本产品", answer)  # "2026版" is a name, not a fact to verify
     bad = []
     for n in extract_numbers(answer):
         if re.fullmatch(r"0\d+", re.sub(r"[^\d]", "", n.raw)):
@@ -151,7 +154,10 @@ def _unhedged(text: str) -> str:
 
 # --- gap guard ----------------------------------------------------------------------------------
 
-_HEALTH = r"(血压|血糖|血脂|糖尿|痛风|病|癌|瘤|结节|囊肿|息肉|炎|乙肝|肝|肾|心脏|肺|哮喘|抑郁|焦虑|手术|住过院|吃药|药|甲状腺|乳腺|三高)"
+# The customer states a condition of their own ("我有…", "得过…", "做过…手术", "一直吃…药").
+_HEALTH = (r"((我|俺|他|她|我妈|我爸|老人|孩子)?(有|得过|患有|查出|确诊)(过)?.{0,6}(病|症|炎|瘤|癌|结节|囊肿|息肉|高|三高|乙肝)|"
+           r"(血压|血糖|血脂)(有点)?(高|偏高)|高血压|糖尿病|痛风|乙肝|甲状腺|乳腺|心脏|支架|哮喘|抑郁|焦虑|"
+           r"做过.{0,6}手术|吃.{0,4}药|住过院)")
 _BUY_OR_CLAIM = r"(买|投|保|报|赔|承保|核保)"
 
 
@@ -195,11 +201,13 @@ def gap_of(question: str) -> Gap | None:
     return None
 
 
-def gap_guard(question: str, answer: str) -> GuardResult:
+def gap_guard(question: str, answer: str, names: list[str] | None = None) -> GuardResult:
+    """``names``: gap categories already identified by the understanding model; combined with
+    the rule-based detection so that either layer can trigger the check."""
     plain = _unhedged(answer)
     hits = []
     for g in GAPS:
-        if g.question.search(question):
+        if g.question.search(question) or (names and g.name in names):
             m = g.conclusive.search(plain)
             if m:
                 hits.append(f"缺口问题给了结论（{g.name}）：{m.group(0)}")

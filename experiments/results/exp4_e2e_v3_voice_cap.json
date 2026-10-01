@@ -1,0 +1,608 @@
+{
+  "models": {
+    "fast": "qwen-flash",
+    "slow": "qwen-plus",
+    "tts": "qwen3-tts-flash-realtime",
+    "asr": "tencent 16k_zh realtime"
+  },
+  "asr_vad_silence_ms": 500,
+  "tts_speech_rate": 1.15,
+  "turns_ok": 16,
+  "turns_error": [],
+  "asr_endpoint_s": {
+    "p50": 0.449,
+    "p90": 0.485,
+    "max": 0.497,
+    "n": 16
+  },
+  "first_response_s": {
+    "p50": 0.452,
+    "p90": 0.646,
+    "max": 0.648,
+    "n": 16
+  },
+  "first_substantive_audio_s": {
+    "p50": 2.981,
+    "p90": 4.159,
+    "max": 4.393,
+    "n": 16
+  },
+  "answer_audio_all_ready_s": {
+    "p50": 4.365,
+    "p90": 5.704,
+    "max": 6.059,
+    "n": 16
+  },
+  "answer_playback_end_s": {
+    "p50": 13.044,
+    "p90": 15.958,
+    "max": 18.63,
+    "n": 16
+  },
+  "turns": [
+    {
+      "name": "报价",
+      "user_text": "我三十岁，有社保，一年多少钱？",
+      "asr_text": "我30岁，有社保，一年多少钱啊？",
+      "speech_end_s": 2.72,
+      "asr_endpoint_s": 0.471,
+      "first_partial_s": 0.623,
+      "first_response_s": 0.471,
+      "understood_after_end_s": 2.312,
+      "first_substantive_audio_s": 2.516,
+      "answer_audio_all_ready_s": 5.348,
+      "answer_playback_end_s": 14.925,
+      "generation_done_s": 3.836,
+      "sentences": [
+        "您30岁有社保，基础版一年318元，按月交每月31元。",
+        "保障300万，重大疾病医疗0免赔，但一般医疗和门急诊共享1万元免赔额。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_报价.wav",
+      "timeline": [
+        {
+          "start_s": 0.471,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.516,
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。"
+        },
+        {
+          "start_s": 7.487,
+          "text": "保障300万，重大疾病医疗0免赔，但一般医疗和门急诊共享1万元免赔额。"
+        },
+        {
+          "start_s": 13.78,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "病史",
+      "user_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "asr_text": "我有高血压好几年了啊。一直在吃降压药，买这个以后住院能报吗？",
+      "speech_end_s": 5.72,
+      "asr_endpoint_s": 0.381,
+      "first_partial_s": 0.584,
+      "first_response_s": 0.381,
+      "understood_after_end_s": 1.474,
+      "first_substantive_audio_s": 3.0,
+      "answer_audio_all_ready_s": 4.365,
+      "answer_playback_end_s": 13.044,
+      "generation_done_s": 2.797,
+      "sentences": [
+        "高血压属于既往症，相关费用不赔。",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_病史.wav",
+      "timeline": [
+        {
+          "start_s": 0.381,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.0,
+          "text": "高血压属于既往症，相关费用不赔。"
+        },
+        {
+          "start_s": 5.954,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        },
+        {
+          "start_s": 11.76,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "免赔额",
+      "user_text": "我自己先掏一万，剩下的是不是全报？",
+      "asr_text": "我自己先掏1万，剩下的是不是悬报啊？",
+      "speech_end_s": 2.76,
+      "asr_endpoint_s": 0.432,
+      "first_partial_s": 0.607,
+      "first_response_s": 0.432,
+      "understood_after_end_s": 1.668,
+      "first_substantive_audio_s": 4.393,
+      "answer_audio_all_ready_s": 5.704,
+      "answer_playback_end_s": 15.866,
+      "generation_done_s": 4.236,
+      "sentences": [
+        "免赔额以保单约定为准，具体金额要看投保时选择的计划。",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+      ],
+      "dropped": [
+        {
+          "text": "不是悬报，但要先扣1万元免赔额，之后符合约定的住院医疗费才能报。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+          "violations": [
+            "无依据数字：1万元",
+            "缺口问题给了结论（疾病核保）：能报"
+          ]
+        }
+      ],
+      "recording": "experiments\\recordings\\v3_r1_免赔额.wav",
+      "timeline": [
+        {
+          "start_s": 0.432,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 4.393,
+          "text": "免赔额以保单约定为准，具体金额要看投保时选择的计划。"
+        },
+        {
+          "start_s": 9.712,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        }
+      ]
+    },
+    {
+      "name": "保障范围",
+      "user_text": "刷到广告说几百万保额，具体都能报什么？",
+      "asr_text": "刷到广告说几百万保额啊，具体都能报什么啊？",
+      "speech_end_s": 3.08,
+      "asr_endpoint_s": 0.449,
+      "first_partial_s": 1.13,
+      "first_response_s": 0.449,
+      "understood_after_end_s": 1.558,
+      "first_substantive_audio_s": 3.789,
+      "answer_audio_all_ready_s": 6.059,
+      "answer_playback_end_s": 15.958,
+      "generation_done_s": 3.602,
+      "sentences": [
+        "尊享e生2026版基础责任保额300万，覆盖住院、特殊门诊、门诊手术和住院前后门急诊等费用，但要扣除1万元年免赔额。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_保障范围.wav",
+      "timeline": [
+        {
+          "start_s": 0.449,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.789,
+          "text": "尊享e生2026版基础责任保额300万，覆盖住院、特殊门诊、门诊手术和住院前后门急诊等费用，但要扣除1万元年免赔额。"
+        },
+        {
+          "start_s": 14.674,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "价格变化",
+      "user_text": "以后每年都是这个价吗？",
+      "asr_text": "有每年都是这个价吗？",
+      "speech_end_s": 1.42,
+      "asr_endpoint_s": 0.405,
+      "first_partial_s": 0.617,
+      "first_response_s": 0.405,
+      "understood_after_end_s": 1.21,
+      "first_substantive_audio_s": 2.591,
+      "answer_audio_all_ready_s": 3.31,
+      "answer_playback_end_s": 10.548,
+      "generation_done_s": 2.4,
+      "sentences": [
+        "不是，保费会随年龄增长而变化。",
+        "保障300万元，但要先扣除1万元年免赔额。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_价格变化.wav",
+      "timeline": [
+        {
+          "start_s": 0.405,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.591,
+          "text": "不是，保费会随年龄增长而变化。"
+        },
+        {
+          "start_s": 5.545,
+          "text": "保障300万元，但要先扣除1万元年免赔额。"
+        },
+        {
+          "start_s": 9.194,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "身份",
+      "user_text": "你是真人还是机器人？",
+      "asr_text": "你是真人还是机器人啊？",
+      "speech_end_s": 1.52,
+      "asr_endpoint_s": 0.455,
+      "first_partial_s": 0.613,
+      "first_response_s": 0.646,
+      "understood_after_end_s": null,
+      "first_substantive_audio_s": 0.646,
+      "answer_audio_all_ready_s": 1.685,
+      "answer_playback_end_s": 5.965,
+      "generation_done_s": 0.455,
+      "sentences": [
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_身份.wav",
+      "timeline": [
+        {
+          "start_s": 0.646,
+          "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+        }
+      ]
+    },
+    {
+      "name": "等待期",
+      "user_text": "等待期是多久？",
+      "asr_text": "等待期是多久？",
+      "speech_end_s": 0.88,
+      "asr_endpoint_s": 0.452,
+      "first_partial_s": 0.607,
+      "first_response_s": 0.452,
+      "understood_after_end_s": 1.142,
+      "first_substantive_audio_s": 2.578,
+      "answer_audio_all_ready_s": 3.504,
+      "answer_playback_end_s": 10.953,
+      "generation_done_s": 2.376,
+      "sentences": [
+        "等待期是30天，门急诊和住院都得等满30天后才生效。",
+        "尊享药省保加油包例外，只要7天。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_等待期.wav",
+      "timeline": [
+        {
+          "start_s": 0.452,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.578,
+          "text": "等待期是30天，门急诊和住院都得等满30天后才生效。"
+        },
+        {
+          "start_s": 6.715,
+          "text": "尊享药省保加油包例外，只要7天。"
+        },
+        {
+          "start_s": 9.738,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "加油包",
+      "user_text": "门急诊加油包多大年纪能买？",
+      "asr_text": "门急诊加油包多大年纪能买啊？",
+      "speech_end_s": 2.14,
+      "asr_endpoint_s": 0.402,
+      "first_partial_s": 0.607,
+      "first_response_s": 0.402,
+      "understood_after_end_s": 1.822,
+      "first_substantive_audio_s": 3.354,
+      "answer_audio_all_ready_s": 5.571,
+      "answer_playback_end_s": 14.479,
+      "generation_done_s": 3.115,
+      "sentences": [
+        "尊享门急诊医疗加油包限30天到55周岁投保，等待期30天，只保二级及以上公立医院和指定民营医院普通部。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r1_加油包.wav",
+      "timeline": [
+        {
+          "start_s": 0.402,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.354,
+          "text": "尊享门急诊医疗加油包限30天到55周岁投保，等待期30天，只保二级及以上公立医院和指定民营医院普通部。"
+        },
+        {
+          "start_s": 13.264,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "报价",
+      "user_text": "我三十岁，有社保，一年多少钱？",
+      "asr_text": "我30岁，有社保，一年多少钱啊？",
+      "speech_end_s": 3.04,
+      "asr_endpoint_s": 0.485,
+      "first_partial_s": 0.622,
+      "first_response_s": 0.485,
+      "understood_after_end_s": 1.28,
+      "first_substantive_audio_s": 2.117,
+      "answer_audio_all_ready_s": 3.897,
+      "answer_playback_end_s": 12.509,
+      "generation_done_s": 2.894,
+      "sentences": [
+        "您30岁有社保，基础版一年318元，按月交每月31元。",
+        "保障额度最高300万元，但要先扣除1万元年免赔额。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_报价.wav",
+      "timeline": [
+        {
+          "start_s": 0.485,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.117,
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。"
+        },
+        {
+          "start_s": 7.019,
+          "text": "保障额度最高300万元，但要先扣除1万元年免赔额。"
+        },
+        {
+          "start_s": 11.225,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "病史",
+      "user_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "asr_text": "我有高血压好几年了啊，一直在吃降压药，买这个以后住院能报吗？",
+      "speech_end_s": 5.02,
+      "asr_endpoint_s": 0.439,
+      "first_partial_s": 0.581,
+      "first_response_s": 0.439,
+      "understood_after_end_s": 1.564,
+      "first_substantive_audio_s": 2.981,
+      "answer_audio_all_ready_s": 4.467,
+      "answer_playback_end_s": 13.721,
+      "generation_done_s": 2.816,
+      "sentences": [
+        "高血压属于既往症，相关费用不赔。",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_病史.wav",
+      "timeline": [
+        {
+          "start_s": 0.439,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.981,
+          "text": "高血压属于既往症，相关费用不赔。"
+        },
+        {
+          "start_s": 5.796,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        },
+        {
+          "start_s": 12.506,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "免赔额",
+      "user_text": "我自己先掏一万，剩下的是不是全报？",
+      "asr_text": "我自己先掏1万，剩下的是不是全报啊？",
+      "speech_end_s": 2.6,
+      "asr_endpoint_s": 0.43,
+      "first_partial_s": 0.617,
+      "first_response_s": 0.43,
+      "understood_after_end_s": 1.798,
+      "first_substantive_audio_s": 3.61,
+      "answer_audio_all_ready_s": 5.472,
+      "answer_playback_end_s": 18.63,
+      "generation_done_s": 3.447,
+      "sentences": [
+        "一般医疗责任有1万元年免赔额，超过部分100%报销，但得在二级及以上公立医院或指定民营医院普通部就诊。",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_免赔额.wav",
+      "timeline": [
+        {
+          "start_s": 0.43,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.61,
+          "text": "一般医疗责任有1万元年免赔额，超过部分100%报销，但得在二级及以上公立医院或指定民营医院普通部就诊。"
+        },
+        {
+          "start_s": 12.963,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        }
+      ]
+    },
+    {
+      "name": "保障范围",
+      "user_text": "刷到广告说几百万保额，具体都能报什么？",
+      "asr_text": "刷到广告说几百万保额具体都能报什么啊？",
+      "speech_end_s": 3.9,
+      "asr_endpoint_s": 0.476,
+      "first_partial_s": 0.613,
+      "first_response_s": 0.476,
+      "understood_after_end_s": 1.753,
+      "first_substantive_audio_s": 4.159,
+      "answer_audio_all_ready_s": 5.602,
+      "answer_playback_end_s": 13.824,
+      "generation_done_s": 3.765,
+      "sentences": [
+        "几百万保额主要报住院、特殊门诊、门诊手术，还有住院前后30天门急诊和外购药械费用。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_保障范围.wav",
+      "timeline": [
+        {
+          "start_s": 0.476,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 4.159,
+          "text": "几百万保额主要报住院、特殊门诊、门诊手术，还有住院前后30天门急诊和外购药械费用。"
+        },
+        {
+          "start_s": 12.33,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "价格变化",
+      "user_text": "以后每年都是这个价吗？",
+      "asr_text": "以后每年都是这个价吗啊？",
+      "speech_end_s": 1.84,
+      "asr_endpoint_s": 0.464,
+      "first_partial_s": 0.596,
+      "first_response_s": 0.464,
+      "understood_after_end_s": 1.313,
+      "first_substantive_audio_s": 3.305,
+      "answer_audio_all_ready_s": 4.02,
+      "answer_playback_end_s": 7.961,
+      "generation_done_s": 3.078,
+      "sentences": [
+        "不是的，保费会随年龄增长而变化。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_价格变化.wav",
+      "timeline": [
+        {
+          "start_s": 0.464,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.305,
+          "text": "不是的，保费会随年龄增长而变化。"
+        },
+        {
+          "start_s": 6.746,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "身份",
+      "user_text": "你是真人还是机器人？",
+      "asr_text": "你是真人还是机器人？",
+      "speech_end_s": 1.28,
+      "asr_endpoint_s": 0.439,
+      "first_partial_s": 0.572,
+      "first_response_s": 0.648,
+      "understood_after_end_s": null,
+      "first_substantive_audio_s": 0.648,
+      "answer_audio_all_ready_s": 1.819,
+      "answer_playback_end_s": 6.802,
+      "generation_done_s": 0.439,
+      "sentences": [
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_身份.wav",
+      "timeline": [
+        {
+          "start_s": 0.648,
+          "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+        }
+      ]
+    },
+    {
+      "name": "等待期",
+      "user_text": "等待期是多久？",
+      "asr_text": "等待期是多久？",
+      "speech_end_s": 1.04,
+      "asr_endpoint_s": 0.497,
+      "first_partial_s": 0.659,
+      "first_response_s": 0.497,
+      "understood_after_end_s": 1.094,
+      "first_substantive_audio_s": 2.904,
+      "answer_audio_all_ready_s": 4.319,
+      "answer_playback_end_s": 10.76,
+      "generation_done_s": 2.666,
+      "sentences": [
+        "尊享e生2026版的等待期是30天，门急诊和住院都得等满30天后才能保。",
+        "要不要我接着说说？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_等待期.wav",
+      "timeline": [
+        {
+          "start_s": 0.497,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.904,
+          "text": "尊享e生2026版的等待期是30天，门急诊和住院都得等满30天后才能保。"
+        },
+        {
+          "start_s": 9.476,
+          "text": "要不要我接着说说？"
+        }
+      ]
+    },
+    {
+      "name": "加油包",
+      "user_text": "门急诊加油包多大年纪能买？",
+      "asr_text": "门急诊加油包多大年纪能买啊？",
+      "speech_end_s": 2.66,
+      "asr_endpoint_s": 0.436,
+      "first_partial_s": 0.616,
+      "first_response_s": 0.436,
+      "understood_after_end_s": 1.47,
+      "first_substantive_audio_s": 2.725,
+      "answer_audio_all_ready_s": 3.786,
+      "answer_playback_end_s": 10.164,
+      "generation_done_s": 2.523,
+      "sentences": [
+        "尊享门急诊医疗加油包限30天到55周岁投保，有30天等待期。",
+        "需要我帮您看看其他保障吗？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\v3_r2_加油包.wav",
+      "timeline": [
+        {
+          "start_s": 0.436,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.725,
+          "text": "尊享门急诊医疗加油包限30天到55周岁投保，有30天等待期。"
+        },
+        {
+          "start_s": 8.253,
+          "text": "需要我帮您看看其他保障吗？"
+        }
+      ]
+    }
+  ]
+}

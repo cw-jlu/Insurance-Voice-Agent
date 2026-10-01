@@ -1,0 +1,648 @@
+{
+  "models": {
+    "fast": "qwen-flash",
+    "slow": "qwen-plus",
+    "tts": "qwen3-tts-flash-realtime",
+    "asr": "tencent 16k_zh realtime"
+  },
+  "asr_vad_silence_ms": 500,
+  "turns_ok": 16,
+  "turns_error": [],
+  "asr_endpoint_s": {
+    "p50": 0.462,
+    "p90": 0.492,
+    "max": 0.521,
+    "n": 16
+  },
+  "first_response_s": {
+    "p50": 0.462,
+    "p90": 0.648,
+    "max": 0.929,
+    "n": 16
+  },
+  "first_substantive_audio_s": {
+    "p50": 2.408,
+    "p90": 3.454,
+    "max": 3.834,
+    "n": 16
+  },
+  "answer_audio_all_ready_s": {
+    "p50": 4.308,
+    "p90": 5.792,
+    "max": 6.338,
+    "n": 16
+  },
+  "answer_playback_end_s": {
+    "p50": 16.83,
+    "p90": 25.573,
+    "max": 33.895,
+    "n": 16
+  },
+  "turns": [
+    {
+      "name": "报价",
+      "user_text": "我三十岁，有社保，一年多少钱？",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "speech_end_s": 2.32,
+      "asr_endpoint_s": 0.453,
+      "first_partial_s": 0.607,
+      "first_response_s": 0.453,
+      "understood_after_end_s": 1.795,
+      "first_substantive_audio_s": 2.133,
+      "answer_audio_all_ready_s": 4.858,
+      "answer_playback_end_s": 25.573,
+      "generation_done_s": 3.001,
+      "sentences": [
+        "您30岁有社保，基础版（必选计划）年缴318元，按月交每月31元（一年合计372元）。",
+        "您30岁有社保，基础版年缴318元。",
+        "保障额度最高300万元，扣除1万元年免赔额后100%报销，限二级及以上公立医院普通部。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r1_报价.wav",
+      "timeline": [
+        {
+          "start_s": 0.453,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.133,
+          "text": "您30岁有社保，基础版（必选计划）年缴318元，按月交每月31元（一年合计372元）。"
+        },
+        {
+          "start_s": 12.053,
+          "text": "您30岁有社保，基础版年缴318元。"
+        },
+        {
+          "start_s": 16.053,
+          "text": "保障额度最高300万元，扣除1万元年免赔额后100%报销，限二级及以上公立医院普通部。"
+        }
+      ]
+    },
+    {
+      "name": "病史",
+      "user_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "asr_text": "我有高血压好几年了啊，一直在吃降压药，买这个以后住院能报吗？",
+      "speech_end_s": 4.9,
+      "asr_endpoint_s": 0.454,
+      "first_partial_s": 0.638,
+      "first_response_s": 0.454,
+      "understood_after_end_s": 1.618,
+      "first_substantive_audio_s": 3.834,
+      "answer_audio_all_ready_s": 5.717,
+      "answer_playback_end_s": 13.914,
+      "generation_done_s": 3.649,
+      "sentences": [
+        "但高血压属于既往症，得先做健康告知，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+      ],
+      "dropped": [
+        {
+          "text": "尊享e生2026版能保住院、特殊门诊这些，重大疾病和恶性肿瘤先进疗法还免1万免赔额；",
+          "violations": [
+            "无依据数字：2026",
+            "缺口问题给了结论（疾病核保）：能保"
+          ]
+        }
+      ],
+      "recording": "experiments\\recordings\\r1_病史.wav",
+      "timeline": [
+        {
+          "start_s": 0.454,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.834,
+          "text": "但高血压属于既往症，得先做健康告知，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        }
+      ]
+    },
+    {
+      "name": "免赔额",
+      "user_text": "我自己先掏一万，剩下的是不是全报？",
+      "asr_text": "我自己先掏1万，剩下的是不是全包？",
+      "speech_end_s": 2.7,
+      "asr_endpoint_s": 0.465,
+      "first_partial_s": 0.589,
+      "first_response_s": 0.465,
+      "understood_after_end_s": 1.29,
+      "first_substantive_audio_s": 2.145,
+      "answer_audio_all_ready_s": 4.003,
+      "answer_playback_end_s": 15.825,
+      "generation_done_s": 2.693,
+      "sentences": [
+        "不是全包。",
+        "其次，只赔在公立二级以上医院或指定民营医院普通部的费用；",
+        "最后，药品必须在保单约定清单里，社保内药报销后剩余额度才按比例赔。"
+      ],
+      "dropped": [
+        {
+          "text": "首先，1万元是年度免赔额，超过部分才能报；",
+          "violations": [
+            "无依据数字：1万元"
+          ]
+        }
+      ],
+      "recording": "experiments\\recordings\\r1_免赔额.wav",
+      "timeline": [
+        {
+          "start_s": 0.465,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.145,
+          "text": "不是全包。"
+        },
+        {
+          "start_s": 3.345,
+          "text": "其次，只赔在公立二级以上医院或指定民营医院普通部的费用；"
+        },
+        {
+          "start_s": 8.945,
+          "text": "最后，药品必须在保单约定清单里，社保内药报销后剩余额度才按比例赔。"
+        }
+      ]
+    },
+    {
+      "name": "保障范围",
+      "user_text": "刷到广告说几百万保额，具体都能报什么？",
+      "asr_text": "刷到广告说几百万保额具体都能报什么？",
+      "speech_end_s": 3.32,
+      "asr_endpoint_s": 0.521,
+      "first_partial_s": 0.627,
+      "first_response_s": 0.521,
+      "understood_after_end_s": 1.627,
+      "first_substantive_audio_s": 2.974,
+      "answer_audio_all_ready_s": 4.776,
+      "answer_playback_end_s": 14.334,
+      "generation_done_s": 3.224,
+      "sentences": [
+        "重大疾病单独300万保额、0免赔；",
+        "所有责任都限二级及以上公立医院和指定民营医院普通部，外购药械需满足合同约定条件。"
+      ],
+      "dropped": [
+        {
+          "text": "尊享e生·百万医疗2026版基础版最高能报600万，分两块：一般医疗和门急诊共享300万保额、1万免赔额，",
+          "violations": [
+            "无依据数字：2026"
+          ]
+        }
+      ],
+      "recording": "experiments\\recordings\\r1_保障范围.wav",
+      "timeline": [
+        {
+          "start_s": 0.521,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.974,
+          "text": "重大疾病单独300万保额、0免赔；"
+        },
+        {
+          "start_s": 6.414,
+          "text": "所有责任都限二级及以上公立医院和指定民营医院普通部，外购药械需满足合同约定条件。"
+        }
+      ]
+    },
+    {
+      "name": "价格变化",
+      "user_text": "以后每年都是这个价吗？",
+      "asr_text": "以后每年都是这个价吗？",
+      "speech_end_s": 1.44,
+      "asr_endpoint_s": 0.465,
+      "first_partial_s": 0.626,
+      "first_response_s": 0.465,
+      "understood_after_end_s": 1.317,
+      "first_substantive_audio_s": 2.153,
+      "answer_audio_all_ready_s": 3.801,
+      "answer_playback_end_s": 21.193,
+      "generation_done_s": 2.86,
+      "sentences": [
+        "不是，保费会随年龄增长变化。",
+        "您有医保，但要是没用医保结算，得先扣1万元免赔额，然后只报60%；",
+        "用了医保结算的话，扣完1万免赔额后能报100%，最高300万。",
+        "另外，投保首年疾病医疗有30天等待期。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r1_价格变化.wav",
+      "timeline": [
+        {
+          "start_s": 0.465,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.153,
+          "text": "不是，保费会随年龄增长变化。"
+        },
+        {
+          "start_s": 4.873,
+          "text": "您有医保，但要是没用医保结算，得先扣1万元免赔额，然后只报60%；"
+        },
+        {
+          "start_s": 11.513,
+          "text": "用了医保结算的话，扣完1万免赔额后能报100%，最高300万。"
+        },
+        {
+          "start_s": 17.513,
+          "text": "另外，投保首年疾病医疗有30天等待期。"
+        }
+      ]
+    },
+    {
+      "name": "身份",
+      "user_text": "你是真人还是机器人？",
+      "asr_text": "你是真人还是机器人啊？",
+      "speech_end_s": 1.52,
+      "asr_endpoint_s": 0.481,
+      "first_partial_s": 0.639,
+      "first_response_s": 0.648,
+      "understood_after_end_s": null,
+      "first_substantive_audio_s": 0.648,
+      "answer_audio_all_ready_s": 1.916,
+      "answer_playback_end_s": 8.008,
+      "generation_done_s": 0.481,
+      "sentences": [
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r1_身份.wav",
+      "timeline": [
+        {
+          "start_s": 0.648,
+          "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+        }
+      ]
+    },
+    {
+      "name": "等待期",
+      "user_text": "等待期是多久？",
+      "asr_text": "等待期是多久？",
+      "speech_end_s": 0.9,
+      "asr_endpoint_s": 0.421,
+      "first_partial_s": 0.597,
+      "first_response_s": 0.421,
+      "understood_after_end_s": 1.396,
+      "first_substantive_audio_s": 2.35,
+      "answer_audio_all_ready_s": 3.525,
+      "answer_playback_end_s": 16.83,
+      "generation_done_s": 2.639,
+      "sentences": [
+        "等待期是30天，门急诊责任也是要等30天后才生效。",
+        "不过尊享药省保加油包的等待期短一些，只要7天。",
+        "要注意的是，等待期内确诊的疾病产生的费用不报销。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r1_等待期.wav",
+      "timeline": [
+        {
+          "start_s": 0.421,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.35,
+          "text": "等待期是30天，门急诊责任也是要等30天后才生效。"
+        },
+        {
+          "start_s": 7.31,
+          "text": "不过尊享药省保加油包的等待期短一些，只要7天。"
+        },
+        {
+          "start_s": 12.35,
+          "text": "要注意的是，等待期内确诊的疾病产生的费用不报销。"
+        }
+      ]
+    },
+    {
+      "name": "加油包",
+      "user_text": "门急诊加油包多大年纪能买？",
+      "asr_text": "门急诊加油包多大年纪能买啊？",
+      "speech_end_s": 2.08,
+      "asr_endpoint_s": 0.45,
+      "first_partial_s": 0.604,
+      "first_response_s": 0.45,
+      "understood_after_end_s": 1.512,
+      "first_substantive_audio_s": 2.408,
+      "answer_audio_all_ready_s": 3.627,
+      "answer_playback_end_s": 14.728,
+      "generation_done_s": 2.564,
+      "sentences": [
+        "尊享门急诊医疗加油包只能30天到55周岁的人买，超过55岁就不能投保了。",
+        "这个加油包要另外加购，不在基础版里，而且有30天等待期。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r1_加油包.wav",
+      "timeline": [
+        {
+          "start_s": 0.45,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.408,
+          "text": "尊享门急诊医疗加油包只能30天到55周岁的人买，超过55岁就不能投保了。"
+        },
+        {
+          "start_s": 9.608,
+          "text": "这个加油包要另外加购，不在基础版里，而且有30天等待期。"
+        }
+      ]
+    },
+    {
+      "name": "报价",
+      "user_text": "我三十岁，有社保，一年多少钱？",
+      "asr_text": "我30岁，有社保，一年多少钱啊？",
+      "speech_end_s": 2.74,
+      "asr_endpoint_s": 0.462,
+      "first_partial_s": 0.637,
+      "first_response_s": 0.462,
+      "understood_after_end_s": 2.499,
+      "first_substantive_audio_s": 2.695,
+      "answer_audio_all_ready_s": 6.338,
+      "answer_playback_end_s": 33.895,
+      "generation_done_s": 3.917,
+      "sentences": [
+        "您30岁有社保，基础版（必选计划）年缴318元，按月交每月31元（一年合计372元）。",
+        "您30岁有社保，基础版一年318元。",
+        "保障包括一般医疗、门急诊和重大疾病三块，都保到70岁，重大疾病责任0免赔，但一般医疗和门急诊共享1万元年免赔额，",
+        "医院限二级及以上公立医院和指定民营医院普通部。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_报价.wav",
+      "timeline": [
+        {
+          "start_s": 0.462,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.695,
+          "text": "您30岁有社保，基础版（必选计划）年缴318元，按月交每月31元（一年合计372元）。"
+        },
+        {
+          "start_s": 13.575,
+          "text": "您30岁有社保，基础版一年318元。"
+        },
+        {
+          "start_s": 17.735,
+          "text": "保障包括一般医疗、门急诊和重大疾病三块，都保到70岁，重大疾病责任0免赔，但一般医疗和门急诊共享1万元年免赔额，"
+        },
+        {
+          "start_s": 29.015,
+          "text": "医院限二级及以上公立医院和指定民营医院普通部。"
+        }
+      ]
+    },
+    {
+      "name": "病史",
+      "user_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "asr_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "speech_end_s": 4.26,
+      "asr_endpoint_s": 0.462,
+      "first_partial_s": 0.641,
+      "first_response_s": 0.462,
+      "understood_after_end_s": 1.865,
+      "first_substantive_audio_s": 2.808,
+      "answer_audio_all_ready_s": 4.308,
+      "answer_playback_end_s": 15.928,
+      "generation_done_s": 2.995,
+      "sentences": [
+        "高血压属于既往症，如果投保前已确诊并持续服药，相关治疗费用可能不赔；",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_病史.wav",
+      "timeline": [
+        {
+          "start_s": 0.462,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.808,
+          "text": "高血压属于既往症，如果投保前已确诊并持续服药，相关治疗费用可能不赔；"
+        },
+        {
+          "start_s": 9.288,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        }
+      ]
+    },
+    {
+      "name": "免赔额",
+      "user_text": "我自己先掏一万，剩下的是不是全报？",
+      "asr_text": "我自己先掏1万，剩下的是不是全报啊？",
+      "speech_end_s": 2.42,
+      "asr_endpoint_s": 0.43,
+      "first_partial_s": 0.599,
+      "first_response_s": 0.43,
+      "understood_after_end_s": 1.685,
+      "first_substantive_audio_s": 2.977,
+      "answer_audio_all_ready_s": 4.86,
+      "answer_playback_end_s": 23.617,
+      "generation_done_s": 3.288,
+      "sentences": [
+        "自己先掏1万免赔额后，剩下的符合条款的一般医疗和门急诊费用，按100%报销，但和重大疾病医疗共享300万保额；",
+        "重大疾病医疗责任免赔额为0；",
+        "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_免赔额.wav",
+      "timeline": [
+        {
+          "start_s": 0.43,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.977,
+          "text": "自己先掏1万免赔额后，剩下的符合条款的一般医疗和门急诊费用，按100%报销，但和重大疾病医疗共享300万保额；"
+        },
+        {
+          "start_s": 14.097,
+          "text": "重大疾病医疗责任免赔额为0；"
+        },
+        {
+          "start_s": 17.137,
+          "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。"
+        }
+      ]
+    },
+    {
+      "name": "保障范围",
+      "user_text": "刷到广告说几百万保额，具体都能报什么？",
+      "asr_text": "刷到广告说几百万保额具体都能报什么？",
+      "speech_end_s": 3.18,
+      "asr_endpoint_s": 0.389,
+      "first_partial_s": 0.591,
+      "first_response_s": 0.389,
+      "understood_after_end_s": 1.519,
+      "first_substantive_audio_s": 3.454,
+      "answer_audio_all_ready_s": 5.792,
+      "answer_playback_end_s": 23.694,
+      "generation_done_s": 3.617,
+      "sentences": [
+        "比如住院、特殊门诊、门诊手术、住院前后30天门急诊、外购药械等都能报，不过得在二级及以上公立医院或指定民营医院普通部就诊。",
+        "提醒您，既往症不保，投保时病史要如实告知，核保结果以公司为准。"
+      ],
+      "dropped": [
+        {
+          "text": "尊享e生·百万医疗2026版基础版最高能报600万，分两块：一般医疗和重大疾病各300万，但共享1万元免赔额。",
+          "violations": [
+            "无依据数字：2026"
+          ]
+        }
+      ],
+      "recording": "experiments\\recordings\\r2_保障范围.wav",
+      "timeline": [
+        {
+          "start_s": 0.389,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.454,
+          "text": "比如住院、特殊门诊、门诊手术、住院前后30天门急诊、外购药械等都能报，不过得在二级及以上公立医院或指定民营医院普通部就诊。"
+        },
+        {
+          "start_s": 16.734,
+          "text": "提醒您，既往症不保，投保时病史要如实告知，核保结果以公司为准。"
+        }
+      ]
+    },
+    {
+      "name": "价格变化",
+      "user_text": "以后每年都是这个价吗？",
+      "asr_text": "以后每年都是这个价吗？",
+      "speech_end_s": 1.5,
+      "asr_endpoint_s": 0.347,
+      "first_partial_s": 0.565,
+      "first_response_s": 0.347,
+      "understood_after_end_s": 1.399,
+      "first_substantive_audio_s": 2.154,
+      "answer_audio_all_ready_s": 4.049,
+      "answer_playback_end_s": 21.594,
+      "generation_done_s": 2.863,
+      "sentences": [
+        "不是，保费会随年龄增长变化。",
+        "您有医保，但没用医保结算的话，要先扣1万元免赔额，然后只报60%；",
+        "如果用医保结算，扣完1万免赔额后能报100%，最高300万。",
+        "首年疾病医疗等待期是30天。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_价格变化.wav",
+      "timeline": [
+        {
+          "start_s": 0.347,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.154,
+          "text": "不是，保费会随年龄增长变化。"
+        },
+        {
+          "start_s": 5.914,
+          "text": "您有医保，但没用医保结算的话，要先扣1万元免赔额，然后只报60%；"
+        },
+        {
+          "start_s": 12.794,
+          "text": "如果用医保结算，扣完1万免赔额后能报100%，最高300万。"
+        },
+        {
+          "start_s": 19.034,
+          "text": "首年疾病医疗等待期是30天。"
+        }
+      ]
+    },
+    {
+      "name": "身份",
+      "user_text": "你是真人还是机器人？",
+      "asr_text": "你是真人还是机器人啊？",
+      "speech_end_s": 1.68,
+      "asr_endpoint_s": 0.461,
+      "first_partial_s": 0.615,
+      "first_response_s": 0.929,
+      "understood_after_end_s": null,
+      "first_substantive_audio_s": 0.929,
+      "answer_audio_all_ready_s": 2.308,
+      "answer_playback_end_s": 7.729,
+      "generation_done_s": 0.461,
+      "sentences": [
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_身份.wav",
+      "timeline": [
+        {
+          "start_s": 0.929,
+          "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？"
+        }
+      ]
+    },
+    {
+      "name": "等待期",
+      "user_text": "等待期是多久？",
+      "asr_text": "等待期是多久？",
+      "speech_end_s": 1.02,
+      "asr_endpoint_s": 0.473,
+      "first_partial_s": 0.614,
+      "first_response_s": 0.473,
+      "understood_after_end_s": 1.038,
+      "first_substantive_audio_s": 2.153,
+      "answer_audio_all_ready_s": 3.308,
+      "answer_playback_end_s": 16.313,
+      "generation_done_s": 2.345,
+      "sentences": [
+        "等待期是30天，门急诊和住院保障都得等满30天后才生效；",
+        "尊享药省保加油包的等待期短一些，是7天。",
+        "要注意的是，等待期内确诊的疾病产生的费用不赔。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_等待期.wav",
+      "timeline": [
+        {
+          "start_s": 0.473,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 2.153,
+          "text": "等待期是30天，门急诊和住院保障都得等满30天后才生效；"
+        },
+        {
+          "start_s": 7.833,
+          "text": "尊享药省保加油包的等待期短一些，是7天。"
+        },
+        {
+          "start_s": 11.673,
+          "text": "要注意的是，等待期内确诊的疾病产生的费用不赔。"
+        }
+      ]
+    },
+    {
+      "name": "加油包",
+      "user_text": "门急诊加油包多大年纪能买？",
+      "asr_text": "门急诊加油包多大年纪能买啊？",
+      "speech_end_s": 2.06,
+      "asr_endpoint_s": 0.492,
+      "first_partial_s": 0.625,
+      "first_response_s": 0.492,
+      "understood_after_end_s": 1.596,
+      "first_substantive_audio_s": 3.154,
+      "answer_audio_all_ready_s": 5.291,
+      "answer_playback_end_s": 20.674,
+      "generation_done_s": 3.158,
+      "sentences": [
+        "尊享门急诊医疗加油包限30天到55周岁的人投保，等待期30天，保额1万元，每次最多报300元，报销比例50%，",
+        "但得在二级及以上公立医院或指定民营医院普通部就诊。"
+      ],
+      "dropped": [],
+      "recording": "experiments\\recordings\\r2_加油包.wav",
+      "timeline": [
+        {
+          "start_s": 0.492,
+          "text": "好的，我帮您看一下。"
+        },
+        {
+          "start_s": 3.154,
+          "text": "尊享门急诊医疗加油包限30天到55周岁的人投保，等待期30天，保额1万元，每次最多报300元，报销比例50%，"
+        },
+        {
+          "start_s": 15.794,
+          "text": "但得在二级及以上公立医院或指定民营医院普通部就诊。"
+        }
+      ]
+    }
+  ]
+}
