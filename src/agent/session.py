@@ -56,7 +56,7 @@ class CallSession:
     history: list = field(default_factory=list)  # (speaker, text); agent lines are what was actually said
     flags: dict = field(default_factory=lambda: {"recording": False, "ai": False, "quoted": False, "limits": False,
                                                  "disclosure": False, "consent": False, "link": False, "handoff": False})
-    agent_budget_s: float = 4.0
+    agent_budget_s: float = 2.5
     refusals: int = 0
     risk: dict = field(default_factory=lambda: {"gap_hits": 0, "fallbacks": 0})
     gap_topics: dict = field(default_factory=dict)
@@ -138,7 +138,7 @@ class CallSession:
             fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
             u, act, gaps_now = fu.result(), fa.result(), fg.result()
         # Gaps are judged on this sentence alone: with history, a gap asked earlier "sticks" to every later turn.
-        u["gaps"] = gaps_now
+        u["gaps"], u["_gaps_judged"] = gaps_now, True
         if "疾病核保" in gaps_now and u.get("intent") not in ("缺口",):
             u["intent"] = "缺口"
         rule_identity = is_identity_question(user_text)
@@ -289,7 +289,8 @@ def _dedupe(text: str, last_agent: str = "") -> str:
 
 def _is_complex(u: dict, text: str) -> bool:
     """Route to the evidence agent only for questions that need several pieces of evidence."""
-    if "疾病核保" in u.get("gaps", []):
-        return False  # underwriting answers use fixed clauses only
-    parts = len(re.findall(r"[，,、]|和|还有|以及|另外|呢", text))
-    return len(u.get("items", [])) >= 2 or (parts >= 2 and len(QUESTION_MARKERS.findall(text)) >= 2)
+    if "疾病核保" in u.get("gaps", []) or u.get("intent") in ("报价", "优惠", "身份"):
+        return False  # underwriting answers use fixed clauses; prices come from the quote engine
+    # count independent questions: question words / "吗" / "呢" separated by clause breaks
+    clauses = [c for c in re.split(r"[，,。；;？?]", text) if QUESTION_MARKERS.search(c)]
+    return len(u.get("items", [])) >= 2 or len(clauses) >= 2

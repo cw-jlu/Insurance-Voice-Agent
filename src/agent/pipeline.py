@@ -231,9 +231,11 @@ def grouped_context(evidence: list[Chunk]) -> str:
 
 
 def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gaps: list[str] | None = None,
-           fact_check: bool = True) -> list[str]:
+           fact_check: bool = True, gaps_judged: bool = False) -> list[str]:
     v = number_guard(text, [c.text for c in evidence], structured).violations
-    v += gap_guard(question, text, gaps).violations
+    # When the caller already judged gaps (CallSession: current-sentence detector), only those gaps are
+    # enforced; the keyword rule alone misfires on e.g. "得了癌症……能报吗" (第六轮重测).
+    v += (gap_guard("", text, gaps) if gaps_judged else gap_guard(question, text, gaps)).violations
     from agent import small_model
     if gaps and small_model.gap_review(question, text):
         v.append("模型复核：对缺口问题给出了结论")
@@ -371,7 +373,7 @@ class Pipeline:
             timings.setdefault("generate_ttft", r.ttft_s)
             timings[f"generate_{attempts}"] = time.perf_counter() - t1
             text = r.text.strip()
-            violations = _guard(question, text, evidence, structured, u.get("gaps"))
+            violations = _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False))
             if not violations:
                 break
             msgs += [{"role": "assistant", "content": text},
