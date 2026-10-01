@@ -1,0 +1,73 @@
+{
+  "4a_offline_first_piece": {
+    "a": {
+      "answer_chars": 100,
+      "first_piece_after_chars_soft60": 9,
+      "first_piece_after_chars_no_soft": 9
+    },
+    "b": {
+      "answer_chars": 124,
+      "first_piece_after_chars_soft60": 7,
+      "first_piece_after_chars_no_soft": 7
+    },
+    "c": {
+      "answer_chars": 45,
+      "first_piece_after_chars_soft60": 6,
+      "first_piece_after_chars_no_soft": 6
+    },
+    "d": {
+      "answer_chars": 45,
+      "first_piece_after_chars_soft60": 19,
+      "first_piece_after_chars_no_soft": 19
+    },
+    "e": {
+      "answer_chars": 127,
+      "first_piece_after_chars_soft60": 5,
+      "first_piece_after_chars_no_soft": 5
+    },
+    "long_first": {
+      "answer_chars": 85,
+      "first_piece_after_chars_soft60": 61,
+      "first_piece_after_chars_no_soft": 85
+    }
+  },
+  "4b_edge_tts": {
+    "a": {
+      "whole_text_first_audio_s": 0.978,
+      "whole_text_done_s": 1.514,
+      "first_sentence": "总保额是600万。",
+      "first_sentence_first_audio_s": 1.012
+    },
+    "b": {
+      "whole_text_first_audio_s": 0.967,
+      "whole_text_done_s": 1.499,
+      "first_sentence": "这个要分开说。",
+      "first_sentence_first_audio_s": 1.154
+    },
+    "c": {
+      "whole_text_first_audio_s": 1.011,
+      "whole_text_done_s": 1.415,
+      "first_sentence": "您有社保吗？",
+      "first_sentence_first_audio_s": 1.032
+    },
+    "d": {
+      "whole_text_first_audio_s": 1.042,
+      "whole_text_done_s": 1.444,
+      "first_sentence": "不是固定的，每年按投保时的年龄段计算。",
+      "first_sentence_first_audio_s": 0.998
+    },
+    "e": {
+      "whole_text_first_audio_s": 1.129,
+      "whole_text_done_s": 1.941,
+      "first_sentence": "不完全是。",
+      "first_sentence_first_audio_s": 1.008
+    },
+    "long_first": {
+      "whole_text_first_audio_s": 0.965,
+      "whole_text_done_s": 1.492,
+      "first_sentence": "关于您问的这几项保障，一般住院、门急诊、重大疾病医疗、特定疾病康复住院、恶性肿瘤先进疗法、特定药品，还有异地转诊交通住宿和重疾护工，这些都在必选计划里，加油包是另外选的。",
+      "first_sentence_first_audio_s": 1.068
+    }
+  },
+  "4b_note": "edge-tts 为替身服务；正式方案用阿里云流式 TTS，需接入后复测。"
+}

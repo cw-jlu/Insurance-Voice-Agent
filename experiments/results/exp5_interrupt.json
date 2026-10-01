@@ -1,0 +1,93 @@
+{
+  "5a_semantic": {
+    "backchannel": 25,
+    "interrupt": 25,
+    "false_stop_rate": 0.0,
+    "interrupt_recall": 1.0,
+    "errors": []
+  },
+  "5b_echo": {
+    "echo_samples_per_level": 300,
+    "user_pairs": 250,
+    "threshold_sweep": {
+      "0.4": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.99,
+        "echo_caught_heavy": 0.9633,
+        "user_wrongly_dropped": 0.024,
+        "user_wrongly_dropped_without_correction_rule": 0.044
+      },
+      "0.5": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.99,
+        "echo_caught_heavy": 0.92,
+        "user_wrongly_dropped": 0.016,
+        "user_wrongly_dropped_without_correction_rule": 0.032
+      },
+      "0.6": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.98,
+        "echo_caught_heavy": 0.73,
+        "user_wrongly_dropped": 0.0,
+        "user_wrongly_dropped_without_correction_rule": 0.004
+      },
+      "0.7": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.9567,
+        "echo_caught_heavy": 0.5267,
+        "user_wrongly_dropped": 0.0,
+        "user_wrongly_dropped_without_correction_rule": 0.0
+      },
+      "0.8": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.85,
+        "echo_caught_heavy": 0.29,
+        "user_wrongly_dropped": 0.0,
+        "user_wrongly_dropped_without_correction_rule": 0.0
+      }
+    },
+    "highest_scoring_real_user_utterances": [
+      {
+        "score": 0.6,
+        "user": "我没有社保",
+        "playing": "有社保的话，基础版一年318元，也可以按月交，每月31元。"
+      },
+      {
+        "score": 0.5,
+        "user": "我不需要",
+        "playing": "能不能买，要先在投保时做健康告知，以核保结果为准。"
+      },
+      {
+        "score": 0.5,
+        "user": "我31岁",
+        "playing": "有社保的话，基础版一年318元，也可以按月交，每月31元。"
+      },
+      {
+        "score": 0.5,
+        "user": "免赔额是多少",
+        "playing": "要注意一般住院一年有1万免赔额。"
+      },
+      {
+        "score": 0.5,
+        "user": "免赔额是多少",
+        "playing": "如果是重大疾病，没有1万免赔额。"
+      }
+    ]
+  },
+  "5c_cancel_ledger": {
+    "trials": 300,
+    "ledger_consistent": 300,
+    "stale_sentence_played": 0,
+    "emitted_after_cancel": 0,
+    "new_quote_correct": 300,
+    "old_number_spoken_after_interrupt": 0,
+    "interrupt_points": {
+      "before_any_speech": 10,
+      "mid_answer": 182,
+      "after_whole_answer_heard": 108
+    },
+    "cancel_ms_p50": 0.036,
+    "cancel_ms_p99": 0.072,
+    "note": "cancel_ms 只包含进程内取消耗时；真实停播时延还取决于 VAD 判定（约 300ms）和客户端音频缓冲。"
+  }
+}

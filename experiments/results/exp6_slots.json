@@ -1,0 +1,51 @@
+{
+  "cases": 30,
+  "all_slots_correct": "26/30",
+  "per_slot_accuracy": {
+    "age": "15/18",
+    "has_social": "11/12",
+    "pay": "5/5",
+    "relation": "10/10",
+    "gender": "9/9"
+  },
+  "errors": [
+    {
+      "text": "我父母都七十了还能买吗",
+      "gold": {
+        "relation": "父母",
+        "age": 70
+      },
+      "got": {
+        "relation": "父母"
+      }
+    },
+    {
+      "text": "没买过社保",
+      "gold": {
+        "has_social": false
+      },
+      "got": {}
+    },
+    {
+      "text": "我二十九",
+      "gold": {
+        "age": 29
+      },
+      "got": {
+        "relation": "本人"
+      }
+    },
+    {
+      "text": "我妈五十八了",
+      "gold": {
+        "relation": "父母",
+        "age": 58,
+        "gender": "女"
+      },
+      "got": {
+        "relation": "父母",
+        "gender": "女"
+      }
+    }
+  ]
+}
