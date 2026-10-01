@@ -1,4 +1,5 @@
-"""Adapters for the cloud services (Alibaba Bailian LLM/TTS/embedding, Tencent Cloud real-time ASR).
+"""Adapters for the cloud services (Alibaba Bailian LLM/TTS/embedding, Tencent Cloud real-time ASR,
+OpenCode Zen Jev classifier).
 
 Credentials come from the git-ignored ``.env`` at the repository root.
 """
@@ -85,7 +86,38 @@ def embed(texts: list[str], client=None, batch: int = 10) -> list[list[float]]:
     return out
 
 
-# --- TTS (persistent realtime connection) --------------------------------------------------------
+# --- Jev (OpenCode Zen "System One" typed classifier) ----------------------------------------------
+# Jev does not generate text: it answers typed questions about a ``state`` and returns values with
+# probabilities. Question types: "noul" (yes/no → probability of yes), "choice" (criteria dict →
+# chosen key + probabilities), "score" (ordered criteria list → expected index + probabilities).
+
+JEV_URL = os.getenv("JEV_URL", "https://opencode.ai/zen/v1/systemone")
+JEV_MODEL = os.getenv("JEV_MODEL", "jev-1.13-free")
+_jev_http = None
+_jev_lock = threading.Lock()
+
+
+def _jev_client():
+    global _jev_http
+    with _jev_lock:
+        if _jev_http is None:
+            import httpx
+
+            _jev_http = httpx.Client(timeout=20, headers={"Authorization": f"Bearer {os.environ['OPENCODE_API_KEY']}"},
+                                     limits=httpx.Limits(max_keepalive_connections=16))
+        return _jev_http
+
+
+def jev(state: str, questions: dict, model: str | None = None) -> dict:
+    """All questions are evaluated in parallel server-side; returns ``answers`` keyed by question id."""
+    r = _jev_client().post(JEV_URL, json={"model": model or JEV_MODEL, "state": state, "questions": questions})
+    d = r.json()
+    if r.status_code != 200 or "answers" not in d:
+        raise RuntimeError(f"jev {r.status_code}: {d.get('error', d)}")
+    return d["answers"]
+
+
+# --- TTS (persistent realtime connection)--------------------------------------------------------
 
 class RealtimeTTS:
     """One websocket session; each ``synth`` call sends one sentence and waits for its audio.
