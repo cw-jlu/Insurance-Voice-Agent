@@ -1,0 +1,42 @@
+{
+  "source": "保险复杂咨询全双工语音Agent.zip",
+  "source_sha256": "529219bf5ae3805fcf4639103050f84ce1a7fd5516069b9af9be398b6220b558",
+  "files": [
+    {
+      "path": "尊享百万/尊享百万保险责任.xlsx",
+      "bytes": 22818,
+      "crc32": "7ab9c99d",
+      "sha256": "6031c5d6e189bdceb7dfca58b765bddd96f5ea9c438255026edb892fc6075cca"
+    },
+    {
+      "path": "尊享百万/尊享E生百万医疗2026责任免除.pdf",
+      "bytes": 206094,
+      "crc32": "b1287e3f",
+      "sha256": "278964ada22d8e829047e7459ead712a96f585045d2f5cfd1f6fb2ce668c7ce0"
+    },
+    {
+      "path": "尊享百万/尊享E生百万医疗2026月缴费率.pdf",
+      "bytes": 307850,
+      "crc32": "e15c97ee",
+      "sha256": "027d0a09e23efc4ec392c09c313ee22bc75d74d03674c56a29a51ca9e1272093"
+    },
+    {
+      "path": "尊享百万/尊享E生百万医疗2026年缴费率.pdf",
+      "bytes": 322033,
+      "crc32": "a09ad31e",
+      "sha256": "dfcb899ce6bcc9247f334c16ad10b8054c000d9c451824af2b09af58c300c253"
+    },
+    {
+      "path": "尊享百万/场景及问题说明.md",
+      "bytes": 490,
+      "crc32": "ff692fe6",
+      "sha256": "304a27574e95082091e0d7c9ad37a1d12501545755b97d79a9803dcf72438e89"
+    },
+    {
+      "path": "尊享百万/尊享E生百万医疗2026投保须知.pdf",
+      "bytes": 266864,
+      "crc32": "57808507",
+      "sha256": "061c46bf3d697f12f2e07d8cbe191cd270be6b2ca944640d28ed6fe8648f4ce4"
+    }
+  ]
+}

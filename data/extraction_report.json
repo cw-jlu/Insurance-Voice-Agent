@@ -1,0 +1,65 @@
+{
+  "pdf": {
+    "尊享E生百万医疗2026年缴费率.pdf": {
+      "pages": 2,
+      "chars_non_ws": 726,
+      "pypdf_vs_pdfplumber_equal_per_page": [
+        true,
+        true
+      ],
+      "clean_equals_raw_non_ws": true
+    },
+    "尊享E生百万医疗2026投保须知.pdf": {
+      "pages": 10,
+      "chars_non_ws": 15211,
+      "pypdf_vs_pdfplumber_equal_per_page": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "clean_equals_raw_non_ws": true
+    },
+    "尊享E生百万医疗2026月缴费率.pdf": {
+      "pages": 2,
+      "chars_non_ws": 726,
+      "pypdf_vs_pdfplumber_equal_per_page": [
+        true,
+        true
+      ],
+      "clean_equals_raw_non_ws": true
+    },
+    "尊享E生百万医疗2026责任免除.pdf": {
+      "pages": 7,
+      "chars_non_ws": 10118,
+      "pypdf_vs_pdfplumber_equal_per_page": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "clean_equals_raw_non_ws": true
+    }
+  },
+  "xlsx": {
+    "尊享百万保险责任.xlsx": {
+      "items": 16,
+      "non_empty_cells": 230,
+      "all_cells_represented": true
+    }
+  },
+  "md": {
+    "场景及问题说明.md": {
+      "copied_byte_identical": true
+    }
+  }
+}
