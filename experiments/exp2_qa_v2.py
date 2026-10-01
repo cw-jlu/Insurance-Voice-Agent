@@ -27,6 +27,7 @@ from embed_cache import corpus, load  # noqa: E402
 
 OUT = ROOT / "experiments" / "results"
 DATA = ROOT / "experiments" / "data" / "qa_v2.json"
+AGENT_STEPS = 0
 JUDGE_MODEL = "deepseek-v4-flash"
 JUDGE_SYS = """你是保险电销质检员。给你：用户问题、标准要点（来自保险资料，是判分依据）、AI 回答。
 判断 AI 回答是否合格：
@@ -91,7 +92,15 @@ def run(tag: str, workers: int = 6):
             known.update({k: v for k, v in (u.get("slots") or {}).items() if v is not None})
             known["_prev_utterance"], known["_prev_intent"] = it["turns"][0], u.get("intent")
         q = it["question"]
-        for name, fn in (("pipeline", lambda: pipe.answer(q, known)),
+        def ours():
+            if not AGENT_STEPS:
+                return pipe.answer(q, known)
+            from agent.session import _is_complex
+            u = understand(q, known, client=client)
+            steps = AGENT_STEPS if _is_complex(u, q) else 0
+            return pipe.answer(q, known, agent_steps=steps, agent_budget_s=4.0, understanding=u)
+
+        for name, fn in (("pipeline", ours),
                          ("baseline", lambda: baseline_answer(" ".join(it["turns"]) if it.get("turns") else q, base_ret, client=client))):
             a = retry(fn)
             ok_r, miss, forb = regex_judge(it, a.text)
@@ -132,7 +141,11 @@ if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--tag", default="r1")
     ap.add_argument("--show-dev-errors", action="store_true")
+    ap.add_argument("--data", default="qa_v2.json")
+    ap.add_argument("--agent-steps", type=int, default=0)
     a = ap.parse_args()
+    DATA = ROOT / "experiments" / "data" / a.data
+    AGENT_STEPS = a.agent_steps
     res, rows = run(a.tag)
     for name in ("pipeline", "baseline"):
         for split in ("dev", "heldout", "heldout_paraphrase"):

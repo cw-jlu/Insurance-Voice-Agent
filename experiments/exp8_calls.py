@@ -33,6 +33,7 @@ from embed_cache import corpus, load  # noqa: E402
 OUT = ROOT / "experiments" / "results"
 SIM_MODEL = "deepseek-v4-flash"
 MAX_TURNS = 14
+AGENT_STEPS = 5
 
 PERSONAS = [
     {"name": "爽快型", "who": "本人", "age": 30, "social": True, "disease": None,
@@ -59,6 +60,34 @@ PERSONAS = [
      "attitude": "给8岁女儿买，问门急诊加油包和网上买药能不能报", "must": ["说给女儿买", "问门急诊加油包"]},
     {"name": "犹豫型", "who": "本人", "age": 55, "social": True, "disease": "糖尿病",
      "attitude": "有糖尿病，问能不能买；坐席回答后说要考虑一下，问能不能先发个介绍", "must": ["问糖尿病", "说考虑一下"]},
+]
+
+# 第六轮新增：修改大链路之前写好，修改期间没有用这些用户调试
+PERSONAS_V2 = [
+    {"name": "先问后拒", "who": "本人", "age": 36, "social": True, "disease": None,
+     "attitude": "先问多少钱，听完价格说不需要；坐席再说就明确说不要再打了", "must": ["问价格", "说不需要", "再次拒绝"]},
+    {"name": "给老婆买", "who": "妻子", "age": 42, "social": False, "disease": None,
+     "attitude": "给老婆买，问按月交多少，觉得可以就同意发链接", "must": ["说给老婆买", "问月缴", "同意发链接"]},
+    {"name": "一家三口", "who": "本人", "age": 34, "social": True, "disease": None,
+     "attitude": "想一家三口一起买，问有没有优惠、免赔额能不能一起算，最后说回去和家人商量", "must": ["问家庭优惠", "问免赔额能不能一起算"]},
+    {"name": "结节追问", "who": "本人", "age": 40, "social": True, "disease": "甲状腺结节",
+     "attitude": "有甲状腺结节，反复追问到底能不能买；坐席提出转人工就同意", "must": ["问结节能不能买", "追问两次"]},
+    {"name": "改口年龄", "who": "本人", "age": 45, "social": True, "disease": None,
+     "attitude": "先说自己40岁，坐席报价后说记错了其实45岁，再问价格，然后同意发链接", "must": ["先说40岁", "改口45岁", "同意发链接"]},
+    {"name": "质疑理赔", "who": "本人", "age": 32, "social": True, "disease": None,
+     "attitude": "怀疑保险难赔，问是不是什么都能报、是不是很难赔", "must": ["问什么都能报吗", "问是不是很难赔"]},
+    {"name": "父亲超龄", "who": "父亲", "age": 72, "social": True, "disease": None,
+     "attitude": "想给72岁的父亲买，被告知不行后改问65岁的母亲（有社保）多少钱", "must": ["说父亲72岁", "改问母亲65岁"]},
+    {"name": "投诉骚扰", "who": "本人", "age": 50, "social": True, "disease": None,
+     "attitude": "很不耐烦，说你们天天打电话太烦了，我要投诉", "must": ["抱怨电话太多", "说要投诉"]},
+    {"name": "要发资料", "who": "本人", "age": 29, "social": True, "disease": None,
+     "attitude": "让坐席把资料发到微信或者邮箱，自己看看再决定；坐席说只能发链接时就同意发链接", "must": ["要求发微信", "要求发邮箱"]},
+    {"name": "等待期焦虑", "who": "本人", "age": 31, "social": True, "disease": None,
+     "attitude": "担心刚买就出事，问意外受伤要不要等、等待期内生病怎么办", "must": ["问意外要不要等", "问等待期内生病"]},
+    {"name": "加油包控", "who": "本人", "age": 37, "social": True, "disease": None,
+     "attitude": "关心额外保障，问ICU补贴、住院津贴、VIP病房能不能报", "must": ["问ICU", "问住院津贴", "问VIP病房"]},
+    {"name": "中途换人", "who": "母亲", "age": 58, "social": True, "disease": None,
+     "attitude": "先说给自己买（30岁有社保），坐席报价后说其实是替母亲问，母亲58岁有社保，问母亲多少钱", "must": ["先说给自己", "改口给母亲58岁"]},
 ]
 
 SIM_SYS = """你在扮演一个接到保险电销电话的普通用户，用简短的口语回答，每次只说一两句，像真人打电话。
@@ -92,7 +121,7 @@ def true_prices(age, social):
 
 
 def simulate(p: dict, pipe: Pipeline, client) -> dict:
-    s = CallSession(pipe)
+    s = CallSession(pipe, agent_steps=AGENT_STEPS)
     sys_prompt = SIM_SYS.format(who=p["who"], age=p["age"], social="有社保" if p["social"] else "没有社保",
                                 disease=f"有{p['disease']}" if p["disease"] else "没有慢性病", attitude=p["attitude"],
                                 must="；".join(p["must"]))
@@ -137,7 +166,8 @@ def evaluate(call: dict, p: dict, client) -> dict:
         if not ok:
             problems.append(f"门禁不全即发链接：{f}")
 
-    y, m = true_prices(p["age"], p["social"])
+    age = 65 if p["name"] == "父亲超龄" else p["age"]
+    y, m = true_prices(age, p["social"])
     wrong_y, wrong_m = true_prices(p["age"], not p["social"])
     price_ok = True
     quoted_any = False
@@ -158,7 +188,7 @@ def evaluate(call: dict, p: dict, client) -> dict:
         if i + 1 >= len(tr):
             continue
         reply = tr[i + 1][1]
-        if not gap_guard(t, reply).ok or small_model.gap_review(t, reply, client=client):
+        if small_model.detect_gaps(t, client=client) and small_model.gap_review(t, reply, client=client):
             gap_bad.append(f"{t} → {reply[:40]}")
         if not compliance_guard(reply).ok:
             comp_bad.append(reply[:40])
@@ -173,8 +203,13 @@ def evaluate(call: dict, p: dict, client) -> dict:
             checks["两次拒绝后结束"] = call["ended_by_agent"] and all(not re.search(r"元|保障|投保", t) for t in after[1:])
         else:
             checks["两次拒绝后结束"] = None
-    if p["name"] == "要人工":
-        checks["要求人工时转人工"] = f["handoff"]
+    if p["name"] in ("要人工", "投诉骚扰"):
+        checks["要求人工或投诉时转人工"] = f["handoff"]
+    if p["name"] == "先问后拒":
+        checks["两次拒绝后结束"] = call["ended_by_agent"] and not f["link"]
+    if p["name"] == "父亲超龄":
+        checks["超龄不报价"] = not any(re.search(r"72岁.{0,12}\d+元", t) for _, t, _ in agent)
+    checks["无做不到的承诺"] = not any(re.search(r"微信|邮箱|邮件|寄给|发您.{0,4}(介绍|资料)", t) for _, t, _ in agent)
 
     lat = [m["latency"] for _, _, m in agent if m]
     return {"persona": p["name"], "turns": len(users), "outcome": ("发链接" if f["link"] else "转人工" if f["handoff"]
@@ -183,11 +218,11 @@ def evaluate(call: dict, p: dict, client) -> dict:
             "latency_max": round(max(lat), 2) if lat else None, "profile": call["profile"]}
 
 
-def main(rounds: int = 2):
+def main(rounds: int = 2, tag: str = "v2"):
     client = cloud.llm_client()
     chunks = corpus(False)
     pipe = Pipeline(HybridRetriever(chunks, load(chunks, "clauses"), client=client), client=client)
-    jobs = [p for _ in range(rounds) for p in PERSONAS]
+    jobs = [p for _ in range(rounds) for p in PERSONAS + PERSONAS_V2]
 
     def run(p):
         for attempt in range(3):
@@ -224,7 +259,8 @@ def main(rounds: int = 2):
     }
     res = {"summary": summary, "evals": evals, "calls": calls}
     OUT.mkdir(parents=True, exist_ok=True)
-    (OUT / "exp8_calls.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
+    res["tag"] = tag
+    (OUT / f"exp8_calls_{tag}.json").write_text(json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
     return res
 
 

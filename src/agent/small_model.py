@@ -138,3 +138,24 @@ def classify_act(text: str, history: str = "", client=None) -> str:
     except json.JSONDecodeError:
         act = "提问"
     return act if act in ACTS else "提问"
+
+
+# --- data-gap detection on the CURRENT utterance only ---------------------------------------------
+
+_GAPQ_SYS = """判断用户这一句话（只看这一句，不考虑之前的对话）是否在问以下资料里没有的事项，只输出 JSON：{"gaps": [...]}
+可选：
+- "疾病核保"：用户说自己或家人有某种病、做过手术、在吃药，问能不能买、能不能承保、会不会影响投保、买了能不能报这个病；
+- "续保"：问能不能续保、保证续保、停售后能否续、老了能不能续、明年还能不能买；
+- "社保抵扣免赔额"：问医保/社保报销的部分能不能抵扣或计入免赔额，医保报完剩下的怎么报、还能不能报；
+- "条款清单"：问重疾清单、特药清单、指定医院名单等具体清单。
+都不是就输出 {"gaps": []}。问保障范围、价格、等待期、免赔额是多少，都不算。"""
+
+
+def detect_gaps(text: str, client=None) -> list[str]:
+    raw = cloud.chat([{"role": "system", "content": _GAPQ_SYS}, {"role": "user", "content": text}],
+                     model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
+    try:
+        g = json.loads(raw).get("gaps", [])
+    except json.JSONDecodeError:
+        return []
+    return [x for x in g if x in ("疾病核保", "续保", "社保抵扣免赔额", "条款清单")]
