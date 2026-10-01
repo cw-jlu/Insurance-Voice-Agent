@@ -7,6 +7,7 @@
 from __future__ import annotations
 
 import itertools
+import random
 import json
 import sys
 from pathlib import Path
@@ -118,7 +119,46 @@ def main() -> dict:
     outpatient_renewal_only = addon_tbl[(addon_tbl.lo > 55) & (addon_tbl.lo <= 70)]["门急诊医疗加油包_有无社保"].tolist()
     base_renewal_bands = int((TABLES["年缴_必选"].lo > 70).sum())
 
+    # --- 扩充：多个加油包组合 + 多人订单（家庭单），与参照实现逐一比对 ---
+    rng = random.Random(20261002)
+    combo_cases = combo_mismatch = 0
+    combo_examples = []
+    for _ in range(20000):
+        n = rng.randint(1, 6)
+        pay = rng.choice(("年缴", "月缴"))
+        people, expected_total, ok = [], 0.0, True
+        for _ in range(n):
+            age = rng.randint(0, 80)
+            social = rng.random() < 0.6
+            gender = rng.choice(("男", "女"))
+            k = rng.randint(0, 4)
+            addons = rng.sample(ADDONS, k)
+            units = rng.randint(1, 3)
+            people.append(Insured(age=age, has_social=social, gender=gender, addons=addons, critical_units=units))
+            base = oracle(age, social, pay, gender, None)
+            if base is None:
+                ok = False
+                continue
+            expected_total += base
+            for a in addons:
+                v = oracle(age, social, pay, gender, a)
+                if v is None:
+                    ok = False
+                    continue
+                expected_total += (v - base) * (units if a == "重疾关爱加油包" else 1)
+        expected = round(expected_total * (1 - family_discount(n)), 2) if ok else None
+        r = quote(people, pay)
+        got = r.total if r.ok else None
+        combo_cases += 1
+        if (expected is None) != (got is None) or (expected is not None and abs(expected - got) > 0.011):
+            combo_mismatch += 1
+            if len(combo_examples) < 10:
+                combo_examples.append({"n": n, "pay": pay, "expected": expected, "got": got, "errors": r.errors})
+
     result = {
+        "combo_orders": combo_cases,
+        "combo_mismatches": combo_mismatch,
+        "combo_examples": combo_examples,
         "cases": cases,
         "price_mismatches": mismatches,
         "ineligible_correctly_rejected": rejected_ok,

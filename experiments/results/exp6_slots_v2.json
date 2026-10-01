@@ -1,0 +1,357 @@
+{
+  "cases": 200,
+  "all_slots_correct": "53/200",
+  "per_slot_accuracy": {
+    "age": "72/200 (36.0%)",
+    "relation": "200/200 (100.0%)",
+    "gender": "142/142 (100.0%)",
+    "has_social": "81/139 (58.3%)",
+    "pay": "87/87 (100.0%)"
+  },
+  "age_accuracy_by_form": {
+    "中文+了": "0/26 (0.0%)",
+    "快+digit": "0/33 (0.0%)",
+    "今年+digit": "0/22 (0.0%)",
+    "digit+岁": "25/25 (100.0%)",
+    "digit+了": "0/23 (0.0%)",
+    "中文+岁": "27/27 (100.0%)",
+    "digit+周岁": "20/20 (100.0%)",
+    "中文裸数": "0/24 (0.0%)"
+  },
+  "error_examples": [
+    {
+      "text": "我妈六十九了，没交医保，年缴，一年多少",
+      "gold": {
+        "age": 69,
+        "relation": "父母",
+        "gender": "女",
+        "has_social": false,
+        "pay": "年缴"
+      },
+      "got": {
+        "has_social": false,
+        "pay": "年缴",
+        "relation": "父母",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我女儿快5了，单位给交社保，每个月付，一年多少",
+      "gold": {
+        "age": 5,
+        "relation": "子女",
+        "gender": "女",
+        "has_social": true,
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "子女",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我老婆五十一了，社保停了，按月交，一年多少",
+      "gold": {
+        "age": 51,
+        "relation": "配偶",
+        "gender": "女",
+        "has_social": false,
+        "pay": "月缴"
+      },
+      "got": {
+        "has_social": false,
+        "pay": "月缴",
+        "relation": "配偶",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我儿子今年14，有社保，年缴，怎么买",
+      "gold": {
+        "age": 14,
+        "relation": "子女",
+        "gender": "男",
+        "has_social": true,
+        "pay": "年缴"
+      },
+      "got": {
+        "has_social": true,
+        "pay": "年缴",
+        "relation": "子女",
+        "gender": "男"
+      }
+    },
+    {
+      "text": "孩子十二了，能买吗",
+      "gold": {
+        "age": 12,
+        "relation": "子女"
+      },
+      "got": {
+        "relation": "子女"
+      }
+    },
+    {
+      "text": "我爱人3岁，没买过社保，月缴，价格是多少",
+      "gold": {
+        "age": 3,
+        "relation": "配偶",
+        "has_social": false,
+        "pay": "月缴"
+      },
+      "got": {
+        "age": 3,
+        "pay": "月缴",
+        "relation": "配偶"
+      }
+    },
+    {
+      "text": "我母亲今年48，社保停了，怎么买",
+      "gold": {
+        "age": 48,
+        "relation": "父母",
+        "gender": "女",
+        "has_social": false
+      },
+      "got": {
+        "has_social": false,
+        "relation": "父母",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "孩子18了，一年多少",
+      "gold": {
+        "age": 18,
+        "relation": "子女"
+      },
+      "got": {
+        "relation": "子女"
+      }
+    },
+    {
+      "text": "我四十一了，没有社保，怎么买",
+      "gold": {
+        "age": 41,
+        "relation": "本人",
+        "has_social": false
+      },
+      "got": {
+        "has_social": false,
+        "relation": "本人"
+      }
+    },
+    {
+      "text": "我女儿十六了，每个月付，价格是多少",
+      "gold": {
+        "age": 16,
+        "relation": "子女",
+        "gender": "女",
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "子女",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我老婆六十了，每个月付，价格是多少",
+      "gold": {
+        "age": 60,
+        "relation": "配偶",
+        "gender": "女",
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "配偶",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我母亲六十五了，没社保，能买吗",
+      "gold": {
+        "age": 65,
+        "relation": "父母",
+        "gender": "女",
+        "has_social": false
+      },
+      "got": {
+        "has_social": false,
+        "relation": "父母",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "孩子今年7，社保停了，怎么买",
+      "gold": {
+        "age": 7,
+        "relation": "子女",
+        "has_social": false
+      },
+      "got": {
+        "has_social": false,
+        "relation": "子女"
+      }
+    },
+    {
+      "text": "孩子今年1，多少钱",
+      "gold": {
+        "age": 1,
+        "relation": "子女"
+      },
+      "got": {
+        "relation": "子女"
+      }
+    },
+    {
+      "text": "我爱人今年66，社保一直在交，按月交，多少钱",
+      "gold": {
+        "age": 66,
+        "relation": "配偶",
+        "has_social": true,
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "配偶"
+      }
+    },
+    {
+      "text": "孩子十六了，按年交，能买吗",
+      "gold": {
+        "age": 16,
+        "relation": "子女",
+        "pay": "年缴"
+      },
+      "got": {
+        "pay": "年缴",
+        "relation": "子女"
+      }
+    },
+    {
+      "text": "我母亲52了，怎么买",
+      "gold": {
+        "age": 52,
+        "relation": "父母",
+        "gender": "女"
+      },
+      "got": {
+        "relation": "父母",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我儿子快11了，社保断了，一年交一次，多少钱",
+      "gold": {
+        "age": 11,
+        "relation": "子女",
+        "gender": "男",
+        "has_social": false,
+        "pay": "年缴"
+      },
+      "got": {
+        "has_social": false,
+        "pay": "年缴",
+        "relation": "子女",
+        "gender": "男"
+      }
+    },
+    {
+      "text": "我儿子十三了，有社保，一年多少",
+      "gold": {
+        "age": 13,
+        "relation": "子女",
+        "gender": "男",
+        "has_social": true
+      },
+      "got": {
+        "has_social": true,
+        "relation": "子女",
+        "gender": "男"
+      }
+    },
+    {
+      "text": "我自己11了，有社保，价格是多少",
+      "gold": {
+        "age": 11,
+        "relation": "本人",
+        "has_social": true
+      },
+      "got": {
+        "has_social": true,
+        "relation": "本人"
+      }
+    },
+    {
+      "text": "我老婆四十二，没有社保，价格是多少",
+      "gold": {
+        "age": 42,
+        "relation": "配偶",
+        "gender": "女",
+        "has_social": false
+      },
+      "got": {
+        "has_social": false,
+        "relation": "配偶",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我爸五十四，按月交，多少钱",
+      "gold": {
+        "age": 54,
+        "relation": "父母",
+        "gender": "男",
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "父母",
+        "gender": "男"
+      }
+    },
+    {
+      "text": "我女儿今年14，多少钱",
+      "gold": {
+        "age": 14,
+        "relation": "子女",
+        "gender": "女"
+      },
+      "got": {
+        "relation": "子女",
+        "gender": "女"
+      }
+    },
+    {
+      "text": "我父亲七十了，月缴，怎么买",
+      "gold": {
+        "age": 70,
+        "relation": "父母",
+        "gender": "男",
+        "pay": "月缴"
+      },
+      "got": {
+        "pay": "月缴",
+        "relation": "父母",
+        "gender": "男"
+      }
+    },
+    {
+      "text": "我母亲47了，有医保，怎么买",
+      "gold": {
+        "age": 47,
+        "relation": "父母",
+        "gender": "女",
+        "has_social": true
+      },
+      "got": {
+        "has_social": true,
+        "relation": "父母",
+        "gender": "女"
+      }
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "5a_semantic": {
+    "backchannel": 120,
+    "interrupt": 120,
+    "false_stop_rate": 0.1833,
+    "interrupt_recall": 0.9583,
+    "error_examples": [
+      {
+        "u": "原来如此，好吧",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "明白，你说",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "然后呢",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯哼，对",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "明白了，是是",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯，原来如此",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "好好，原来如此",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "收到，你说",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "明白了，哦哦",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯，然后呢",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "然后呢，没错",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯对，你说",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "明白了，嗯嗯",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯哼，好的",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "噢，原来如此",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "你说，这样啊",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "知道了，你说",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "明白了",
+        "expected": "backchannel",
+        "got": "interrupt"
+      },
+      {
+        "u": "嗯哼",
+        "expected": "backchannel",
+        "got": "unclear"
+      },
+      {
+        "u": "然后呢，明白了",
+        "expected": "backchannel",
+        "got": "interrupt"
+      }
+    ]
+  },
+  "5b_echo": {
+    "agent_sentences": 178,
+    "echo_samples_per_level": 534,
+    "user_pairs": 1380,
+    "threshold_sweep": {
+      "0.5": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.9775,
+        "echo_caught_heavy": 0.9064,
+        "user_wrongly_dropped": 0.0159
+      },
+      "0.6": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.9644,
+        "echo_caught_heavy": 0.7809,
+        "user_wrongly_dropped": 0.0051
+      },
+      "0.7": {
+        "echo_caught_clean": 1.0,
+        "echo_caught_light": 0.9513,
+        "echo_caught_heavy": 0.5487,
+        "user_wrongly_dropped": 0.0014
+      }
+    },
+    "wrongly_dropped_examples@0.6": [
+      {
+        "user": "等待期多久",
+        "playing": "药省保加油包是额外选购的，30天到70周岁能保，等待期7天，互联网药店买药费用报销50%，每月最多报100元，一年上限1000元，得在指定合作平台买药才行。",
+        "score": 0.8
+      },
+      {
+        "user": "那个，等等",
+        "playing": "要注意这个产品有等待期，等待期内出险不赔。",
+        "score": 0.75
+      },
+      {
+        "user": "等待期多久",
+        "playing": "能报，但得等30天等待期过后，而且必须在二级及以上公立医院或指定民营医院普通部看门诊。",
+        "score": 0.6
+      },
+      {
+        "user": "等待期多久",
+        "playing": "投保年龄是30天到70周岁，等待期30天。",
+        "score": 0.6
+      },
+      {
+        "user": "等待期多久",
+        "playing": "但得是等待期30天后确诊的100种重疾，还得在二级以上公立医院或指定民营医院普通部住院，并且要通过保险公司指定的护工服务流程。",
+        "score": 0.6
+      },
+      {
+        "user": "我有社保的",
+        "playing": "您45岁有社保，基础版一年636元。",
+        "score": 0.6
+      },
+      {
+        "user": "孩子能买吗",
+        "playing": "生孩子的费用不能报。",
+        "score": 0.6
+      }
+    ]
+  },
+  "5c_cancel_ledger": {
+    "trials": 1000,
+    "ledger_consistent": 1000,
+    "stale_sentence_played": 0,
+    "emitted_after_cancel": 0,
+    "new_quote_correct": 1000,
+    "old_number_spoken_after_interrupt": 0,
+    "interrupt_points": {
+      "before_any_speech": 28,
+      "mid_answer": 632,
+      "after_whole_answer_heard": 340
+    },
+    "cancel_ms_p50": 0.036,
+    "cancel_ms_p99": 0.077,
+    "note": "cancel_ms 只包含进程内取消耗时；真实停播时延还取决于 VAD 判定（约 300ms）和客户端音频缓冲。"
+  }
+}

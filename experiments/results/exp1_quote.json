@@ -1,4 +1,7 @@
 {
+  "combo_orders": 20000,
+  "combo_mismatches": 0,
+  "combo_examples": [],
   "cases": 6784,
   "price_mismatches": 0,
   "ineligible_correctly_rejected": 2360,
