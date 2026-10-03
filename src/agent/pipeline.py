@@ -671,7 +671,9 @@ class Pipeline:
         gap_tail = "".join(GAP_FALLBACK[g] for g in u.get("gaps", []))
         # The understanding module also labels "ICU补贴是多少""VIP病房能报吗" as 报价; answering those with a price is
         # wrong (第八轮验收 5 calls). The price template is used only when the words ask for a price or only give conditions.
-        price_asked = (bool(_PRICE_Q.search(question)) or bool({"age", "has_social"} & set(new_slots))
+        last_q = next((c for c in reversed(re.split(r"[。！？?，,；;]", question)) if QUESTION_MARKERS.search(c)), question)
+        # judged on the question actually asked: "那比刚才贵了不少。这个免赔额是每年都1万吗？" asks about the deductible
+        price_asked = ((bool(_PRICE_Q.search(last_q)) and not _COVERAGE_WORDS.search(last_q)) or bool({"age", "has_social"} & set(new_slots))
                        or not (_COVERAGE_WORDS.search(question) or QUESTION_MARKERS.search(question)))
         if (_ELIGIBLE_Q.search(question) and slots.get("age") is not None and not u.get("gaps")
                 and not _COVERAGE_WORDS.search(question) and not _PRICE_Q.search(question)):

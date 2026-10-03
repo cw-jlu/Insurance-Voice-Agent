@@ -67,6 +67,7 @@ class CallSession:
     ended: bool = False
     _hypothetical: bool = False
     _comparison: bool = False
+    _family_mention: bool = False
 
     # ------------------------------------------------------------------ helpers
     def _history_text(self, n: int = 6) -> str:
@@ -83,6 +84,8 @@ class CallSession:
                 continue
             if k == "age" and self._hypothetical:
                 continue
+            if k in ("relation", "gender") and self._family_mention:
+                continue  # "我父亲得过肺癌" mentions a relative; it does not change who is insured (第十轮回归)
             if k == "has_social" and self._comparison:
                 continue  # "那比有社保贵了一倍多" is not the user's own condition (第十轮回归)
             if k in self.profile and self.profile[k] != v:
@@ -147,6 +150,8 @@ class CallSession:
         known = {**self.profile, "_history": hist}
         self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
         self._comparison = bool(re.search(r"比(有|没有|没)?(社保|医保)|如果|要是|假如|万一", user_text))
+        self._family_mention = (bool(re.search(r"(爸|妈|父亲|母亲|老人|家里人|亲戚).{0,6}(得过|得了|患|有.{0,4}病|病|癌|走了|去世)", user_text))
+                                and not re.search(r"给.{0,3}(爸|妈|父亲|母亲)|替.{0,3}(爸|妈)|帮.{0,3}(爸|妈)|(爸|妈|父亲|母亲).{0,6}(买|投保|多少钱)", user_text))
         with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
             fu = ex.submit(self.pipe.understand, user_text, known)
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
