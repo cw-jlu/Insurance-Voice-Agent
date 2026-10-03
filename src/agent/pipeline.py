@@ -576,9 +576,10 @@ def gaps_to_check(understood: list[str], detected: list[str]) -> list[str]:
 
 class Pipeline:
     def __init__(self, retriever: HybridRetriever | None, client=None, slow_model: str | None = None,
-                 fast_model: str | None = None, fact_check: str = "off", features: frozenset | set = frozenset()):
+                 fast_model: str | None = None, fact_check: str = "off", features: frozenset | set = frozenset({"C", "D"})):
         self.fact_check = fact_check  # "always" | "multi" (only when evidence spans 2+ coverage items) | "off"
-        # 第十轮消融的方案开关（08 方案 A–D）：A 只选不写、B 三元组比对、C 理解拆分、D 数字护栏算术与口语兜底
+        # 第十轮消融的方案开关（08 方案 A–D）：A 只选不写、B 三元组比对、C 理解拆分、D 数字护栏算术与口语兜底。
+        # 默认 C+D（exp15：qa_v6 87.1%/90.3%，基线 77.4%/79.0%）；A、B 消融未通过，保留为可选
         self.features = frozenset(features)
         self.retriever = retriever
         self.client = client or cloud.llm_client()
