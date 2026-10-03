@@ -363,7 +363,9 @@ def capability_guard(text: str) -> tuple[str, list[str]]:
     if not removed:
         return text, []
     cleaned = _NO_CAPABILITY.sub(lambda m: m.group(0) if keep(m) else "", text).strip()
-    if any(_PROCESS.search(r) for r in removed):
+    if any(re.search(r"投保|购买|买", r) and not re.search(r"理赔|赔款|打款|到账", r) for r in removed):
+        cleaned = "投保的话，我可以把投保链接用短信发到您手机上。" + cleaned  # purchase channel, not claims
+    elif any(_PROCESS.search(r) for r in removed):
         cleaned = CLAIMS_PROCESS + cleaned  # the question still gets an answer
     elif not cleaned:
         cleaned = "我可以把投保链接发到您手机上，页面里有完整的产品介绍。"
