@@ -139,11 +139,13 @@ class CallSession:
         # Understanding always runs, so facts stated in the same sentence are never lost (第五轮: an identity
         # question that skipped extraction made the agent ask the user's age again and again).
         known = {**self.profile, "_history": hist}
-        with ThreadPoolExecutor(3) as ex:
+        with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
             fu = ex.submit(understand, user_text, known, self.pipe.client, self.pipe.fast_model)
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
             fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
+            fr = ex.submit(self.pipe.retrieve, user_text)
             u, act, gaps_now = fu.result(), fa.result(), fg.result()
+            u["_retrieved"] = fr.result()
         # Gaps are judged on this sentence alone (with history, a gap asked earlier "sticks" to every later turn),
         # and only when the detector and the understanding module agree: the detector alone misfired on ~9 of
         # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
@@ -187,9 +189,18 @@ class CallSession:
                 self.flags["link"] = True
                 self.ended, self.stage = True, "收尾"
                 return self._finish(LINK_SENT, "同意投保", events + ["同意", "发送链接"], timings, t0)
-            step, ev = self._advance(already_asked=False)  # gate: something required before the link is missing
-            return self._finish(("好的，" + step) if step else "好的。", "同意投保", events + ev + ["同意(记住)", "门禁:暂不发链接"],
-                                timings, t0)
+            # Gate: something required before the link is missing. Say all of it now rather than one item per turn;
+            # the link goes out on the next turn (or right away, if _advance reaches the end).
+            steps, ev = [], []
+            while True:
+                step, e = self._advance(already_asked=False)
+                ev += e
+                if step:
+                    steps.append(step)
+                if not step or step in ASK.values() or step == DISCLOSURE or self.ended:
+                    break
+            return self._finish("好的，" + "".join(steps) if steps else "好的。", "同意投保",
+                                events + ev + ["同意(记住)", "门禁:暂不发链接"], timings, t0)
         if act == "同意投保":
             act = "提问" if QUESTION_MARKERS.search(user_text) else "附和"  # classifier said yes, wording did not
 
@@ -201,6 +212,8 @@ class CallSession:
 
         has_question = (act in ("提问", "异议", "身份") or bool(u.get("gaps"))
                         or (QUESTION_MARKERS.search(user_text) is not None and u.get("intent") not in ("闲聊", "其他")))
+        if HESITATE.search(user_text) and not QUESTION_MARKERS.search(user_text):
+            has_question = False  # "那我再考虑考虑吧，先挂了": nothing to answer, only the keep-the-link offer below
         answer_text, asked = "", False
         if act == "身份":
             self.flags["ai"] = True
@@ -236,7 +249,7 @@ class CallSession:
 
         if answer_text.endswith(FOLLOW_UP):  # the flow's own next question replaces the generic follow-up
             answer_text, asked = answer_text[: -len(FOLLOW_UP)], False
-        hesitant = act == "异议" and re.search(r"考虑|想想|再说|看看", user_text)
+        hesitant = act in ("异议", "附和", "提问") and HESITATE.search(user_text)
         step, ev = ("", []) if hesitant else self._advance(already_asked=asked)
         if step == ASK_LINK and self._last_agent_asked_link():
             step = ""  # don't repeat the same offer turn after turn
@@ -265,7 +278,7 @@ def fixed_phrases() -> list[str]:
     """Sentences the agent says verbatim; their audio can be synthesized once, before the call."""
     from agent.pipeline import FOLLOW_UP, GAP_FALLBACK, WAIT_TEXT
 
-    whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP,
+    whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP, CLAIMS_PROCESS,
              IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。", WAIT_TEXT, "这款产品的保险期间是一年。", "好的，您还想了解哪方面？",
              *ASK.values(), *GAP_FALLBACK.values()]
     out = []
@@ -299,12 +312,18 @@ _NO_CAPABILITY = re.compile(r"[^。！？]*(微信|邮寄|快递|寄给您|寄�
                             r"(介绍|资料|材料|宣传|条款|清单).{0,3}(发|寄|传)(给|到)?(您|你))[^。！？]*[。！？]?")
 
 
+CLAIMS_PROCESS = "理赔的具体流程和材料要以条款为准，需要的话我帮您转专员详细说明。"
+_PROCESS = re.compile(r"下载|APP|App|app|小程序|公众号|在线申请|线上申请|打款|到账|秒赔|审核通过就|理赔")
+
+
 def capability_guard(text: str) -> tuple[str, list[str]]:
     removed = [m.group(0) for m in _NO_CAPABILITY.finditer(text)]
     if not removed:
         return text, []
     cleaned = _NO_CAPABILITY.sub("", text).strip()
-    if not cleaned:
+    if any(_PROCESS.search(r) for r in removed):
+        cleaned = CLAIMS_PROCESS + cleaned  # the question still gets an answer
+    elif not cleaned:
         cleaned = "我可以把投保链接发到您手机上，页面里有完整的产品介绍。"
     return cleaned, removed
 

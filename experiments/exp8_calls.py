@@ -33,7 +33,7 @@ from embed_cache import corpus, load  # noqa: E402
 OUT = ROOT / "experiments" / "results"
 SIM_MODEL = "deepseek-v4-flash"
 MAX_TURNS = 14
-AGENT_STEPS = 5
+AGENT_STEPS = 0  # 第八轮: evidence agent replaced by understanding with up to 5 items (exp14)
 
 PERSONAS = [
     {"name": "爽快型", "who": "本人", "age": 30, "social": True, "disease": None,

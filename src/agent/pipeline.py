@@ -143,7 +143,7 @@ _UNDERSTAND_SYS = """你是保险电销外呼对话的理解模块，只输出 J
  "intent": 以下之一 %(intents)s,
  "slots": {"age": 整数或null, "has_social": true/false/null, "pay": "年缴"/"月缴"/null,
            "gender": "男"/"女"/null, "relation": "本人"/"配偶"/"子女"/"父母"/null, "family_size": 整数或null},
- "items": 相关保险责任编号列表，从下面目录中选，最多 3 个,
+ "items": 相关保险责任编号列表，从下面目录中选，最多 %(max_items)s 个；一句话问到几项就列几项，只列直接相关的,
  "topics": 相关关键主题列表，从 %(topics)s 中选,
  "gaps": 用户问的是否属于数据无法回答的内容，从 %(gaps)s 中选，没有则为空列表,
  "rewrite": 把用户口语改写成保险条款用语的检索查询（例如"以前就有的病"→"既往症"）
@@ -177,8 +177,13 @@ def _catalog() -> str:
     return "\n".join(f"{i['id']} {i['责任名称']}（{i['责任&加油包']}）" for i in coverage_items())
 
 
-def understand(question: str, known: dict, client=None, model: str | None = None) -> dict:
-    sys = _UNDERSTAND_SYS % {"intents": INTENTS, "topics": TOPIC_NAMES, "gaps": GAP_NAMES, "catalog": _catalog()}
+MAX_ITEMS = 5  # exp14: listing up to 5 items in one pass replaces the evidence agent (same accuracy, P50 -2.2 s)
+
+
+def understand(question: str, known: dict, client=None, model: str | None = None, max_items: int | None = None) -> dict:
+    max_items = max_items or MAX_ITEMS
+    sys = _UNDERSTAND_SYS % {"intents": INTENTS, "topics": TOPIC_NAMES, "gaps": GAP_NAMES, "catalog": _catalog(),
+                             "max_items": max_items}
     prev = known.get("_prev_utterance")
     history = known.get("_history")
     shown = {k: v for k, v in known.items() if not k.startswith("_")}
@@ -194,7 +199,7 @@ def understand(question: str, known: dict, client=None, model: str | None = None
     except json.JSONDecodeError:
         u = {"intent": "其他", "slots": {}, "items": [], "topics": [], "gaps": [], "rewrite": question}
     u.setdefault("slots", {})
-    u["items"] = [i for i in u.get("items", []) if i in COVERAGE][:3]
+    u["items"] = [i for i in u.get("items", []) if i in COVERAGE][:max_items]
     u["topics"] = [t for t in u.get("topics", []) if t in TOPIC_NAMES]
     u["gaps"] = [g for g in u.get("gaps", []) if g in GAP_NAMES]
     return u
@@ -301,6 +306,8 @@ def _item_template(item_ids: list[str]) -> str:
 
 # --- program-generated answers ---------------------------------------------------------------------
 
+_DISCOUNT_Q = re.compile(r"优惠|打折|折扣|便宜|全家|家里人|一家|一起买")
+FAMILY_SAY = "优惠的话，给家人一起买有家庭单优惠：2个人每人优惠5%，3个人10%，4个人15%，5个人及以上20%。"
 _PRICE_CHANGE_Q = re.compile(r"以后|每年|明年|后年|将来|涨|一直(都)?(是)?这个价|固定|变不变|会变|老了")
 _WAIT_Q = re.compile(r"等待期|等多久|等多长|多久(才)?(能|可以)?(用|生效|报|赔)|刚买就|买完就|马上就?(生病|住院)|意外.{0,10}(等|等待)|要等")
 WAIT_TEXT = ("疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。"
@@ -412,6 +419,9 @@ class Pipeline:
         self.slow_model = slow_model or cloud.SLOW_MODEL
         self.fast_model = fast_model or cloud.FAST_MODEL
 
+    def retrieve(self, question: str, k: int = 4) -> list[Chunk]:
+        return self.retriever.search(question, k=k) if self.retriever is not None else []
+
     def answer(self, question: str, known: dict | None = None, voice: bool = False,
                agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None) -> Answer:
         """``known`` carries the call's profile; ``known["_history"]`` (recent turns, as text) and
@@ -428,10 +438,12 @@ class Pipeline:
         if understanding is None:
             from agent import small_model
 
-            with ThreadPoolExecutor(2) as ex:
+            with ThreadPoolExecutor(3) as ex:
                 fu = ex.submit(understand, question, known, self.client, self.fast_model)
                 fd = ex.submit(small_model.detect_gaps, question, self.client)
+                fr = ex.submit(self.retrieve, question)
                 u, detected = fu.result(), fd.result()
+                u["_retrieved"] = fr.result()
             u["_gaps_check"] = gaps_to_check(u.get("gaps", []), detected)
             u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), detected), True
             if u.get("intent") == "缺口" and not u["gaps"]:
@@ -455,14 +467,14 @@ class Pipeline:
 
         evidence: list[Chunk] = []
         structured: set = {float(v) for v in slots.values() if isinstance(v, (int, float)) and not isinstance(v, bool)}
+        structured |= {n.value for n in extract_numbers(question)}  # numbers the user said ("住院10天") may be repeated
         must_say: list[str] = []
         route = intent
 
         if intent == "优惠" and "家庭单优惠" not in u.get("topics", []):
             u["topics"] = u.get("topics", []) + ["家庭单优惠"]
         def done(text: str, route_: str, ev: list[Chunk] | None = None, nums: set | None = None) -> Answer:
-            if voice:
-                text = cap_for_voice(text, [text])
+            # program text is written to length already: no voice cap (it cut the discount sentence off)
             return Answer(text, route=route_, understanding=u, evidence=ev or [], structured=nums or set(),
                           timings={**timings, "total": time.perf_counter() - t0})
 
@@ -479,6 +491,8 @@ class Pipeline:
                 text, nums = pc[0], nums | pc[1]
             if (adds := addons_in(question)) and (aq := _addon_quote_text(slots, adds)):
                 text, nums = text + aq[0], nums | aq[1]
+            if _DISCOUNT_Q.search(question):
+                text, nums = text + FAMILY_SAY, nums | {5.0, 10.0, 15.0, 20.0, 2.0, 3.0, 4.0}
             return done(text + gap_tail, "报价", topic_chunks("价格变化"), nums)
         if _WAIT_Q.search(question) and _clauses(question) <= 1 and not u.get("gaps"):
             return done(WAIT_TEXT, "等待期(模板)", topic_chunks("等待期"))
@@ -501,9 +515,9 @@ class Pipeline:
             else:
                 evidence += topic_chunks(t)
         if self.retriever is not None and not underwriting_only:
-            t1 = time.perf_counter()
-            evidence += self.retriever.search(u.get("rewrite") or question, k=4)
-            timings["retrieve"] = time.perf_counter() - t1
+            # Retrieval uses the user's own words and runs alongside understanding (exp13: hit@5 90.2% on the raw
+            # question vs 83.2% on the understanding module's rewrite, which also had to be waited for).
+            evidence += u["_retrieved"] if u.get("_retrieved") is not None else self.retrieve(question)
         # de-duplicate, keep order
         seen, ev = set(), []
         for c in evidence:
@@ -540,8 +554,9 @@ class Pipeline:
             timings.setdefault("generate_ttft", r.ttft_s)
             timings[f"generate_{attempts}"] = time.perf_counter() - t1
             text = r.text.strip()
-            violations = _guard(question, text, evidence, structured, u.get("_gaps_check", u.get("gaps")),
-                                gaps_judged=u.get("_gaps_judged", False),
+            # Checked against the routed gaps only: checking against either path's gaps (exp14 first run) turned
+            # coverage answers such as "癌症住院能报" into violations whenever one path misread the question.
+            violations = _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False),
                                 fact_check=self.fact_check)
             if not violations:
                 break
