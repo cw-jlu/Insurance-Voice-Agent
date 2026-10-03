@@ -231,6 +231,18 @@ def social_deduction_conclusion(answer: str) -> GuardResult:
     return GuardResult(ok=not m, violations=[f"缺口问题给了结论（社保抵扣免赔额）：{m.group(0)}"] if m else [])
 
 
+_RENEWAL = re.compile(
+    r"续保(需|要|得|还得|必须)(要|经过)?(重新)?(审核|核保|健康告知|评估)|(?<![能没无])(不|会|可以|能)保证续保(?!吗)|"
+    r"(可以|能|会)(一直|自动|保证)续|自动续保|续保(没问题|是保证的|有保障)|不能(再)?续保|(停售|下架)(后|以后)?(就)?(不能|不可以|无法)续")
+
+
+def renewal_conclusion(answer: str) -> GuardResult:
+    """Always-on: the data has no renewal rules, so any statement of how renewal works is a conclusion (第十轮回归)."""
+    # "这款产品不保证续保" states a product rule (not in the data); "我没法保证续保" is a hedge: check the raw text for it
+    m = _RENEWAL.search(_unhedged(answer)) or re.search(r"(?<![没无法能])不保证续保|续保不(是)?保证的?", answer)
+    return GuardResult(ok=not m, violations=[f"缺口问题给了结论（续保）：{m.group(0)}"] if m else [])
+
+
 # --- compliance guard ----------------------------------------------------------------------------
 
 FORBIDDEN = re.compile(

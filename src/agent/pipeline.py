@@ -25,7 +25,7 @@ import numpy as np
 from agent import cloud
 from agent.guardrail import (
     GAPS, IDENTITY_REPLY, compliance_guard, extract_numbers, gap_guard, gap_of, is_identity_question, number_guard,
-    social_deduction_conclusion,
+    renewal_conclusion, social_deduction_conclusion,
 )
 from agent.knowledge import Chunk, clause_chunks, coverage_items
 from agent.facts import SHORT, item_facts
@@ -264,6 +264,7 @@ def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gap
     v += (gap_guard("", text, gaps) if gaps_judged else gap_guard(question, text, gaps)).violations
     # "医保报完剩下的扣1万再报" is a conclusion on the 社保抵扣 gap whatever the question was (第六轮 2 calls)
     v += social_deduction_conclusion(text).violations
+    v += renewal_conclusion(text).violations
     v += compliance_guard(text).violations
     from agent import small_model
 
@@ -495,6 +496,8 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
     from agent import small_model
 
     model = model or cloud.FAST_MODEL
+    # 第十轮回归: one of the three calls occasionally hung ~12 s; each now gets 3 s and one retry, then a default
+    fast = (client or cloud.llm_client()).with_options(timeout=3.0, max_retries=1)
     prev = known.get("_prev_utterance")
     history = known.get("_history")
     ctx = ((f"【最近对话】\n{history}\n" if history else "")
@@ -503,7 +506,7 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
     def intent():
         raw = cloud.chat([{"role": "system", "content": _SPLIT_INTENT_SYS % {"gaps": GAP_NAMES}},
                           {"role": "user", "content": ctx + f"用户：{question}"}],
-                         model=model, client=client, temperature=0, response_format={"type": "json_object"})
+                         model=model, client=fast, temperature=0, response_format={"type": "json_object"})
         try:
             d = json.loads(raw)
         except json.JSONDecodeError:
@@ -514,7 +517,7 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
     def items():
         raw = cloud.chat([{"role": "system", "content": _SPLIT_ITEMS_SYS % {"topics": TOPIC_NAMES, "catalog": _catalog()}},
                           {"role": "user", "content": f"用户：{question}"}],
-                         model=model, client=client, temperature=0, response_format={"type": "json_object"})
+                         model=model, client=fast, temperature=0, response_format={"type": "json_object"})
         try:
             d = json.loads(raw)
         except json.JSONDecodeError:
@@ -522,8 +525,16 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
         return {"items": [i for i in d.get("items", []) if i in COVERAGE][:MAX_ITEMS],
                 "topics": [t for t in d.get("topics", []) if t in TOPIC_NAMES]}
 
+    def safe(fn, default, *a):
+        try:
+            return fn(*a)
+        except Exception:
+            return default
+
     with ThreadPoolExecutor(3) as ex:
-        fi, fit, fs = ex.submit(intent), ex.submit(items), ex.submit(small_model.extract_slots, question, client)
+        fi = ex.submit(safe, intent, {"intent": "其他", "gaps": []})
+        fit = ex.submit(safe, items, {"items": [], "topics": []})
+        fs = ex.submit(safe, small_model.extract_slots, {}, question, fast)
         u = {**fi.result(), **fit.result(), "slots": fs.result(), "rewrite": question}
     if "疾病核保" in u["gaps"]:
         u["topics"] = list(dict.fromkeys(u["topics"] + ["既往症", "如实告知"]))
@@ -563,7 +574,9 @@ def combine_gaps(understood: list[str], detected: list[str], question: str = "")
     not misfire on them), and 社保抵扣免赔额, whose fallback is true either way (it states the 补偿原则)."""
     out = list(detected) if understood else []
     question_mentions_social = not question or bool(re.search(r"医保|社保", question))  # "既往症是什么意思" misfired (第八轮回归)
-    for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social)):
+    asks_renewal = not question or bool(re.search(r"续|停售|下架|到期|不卖了", question))  # 第十轮回归: split prompt missed 续保
+    for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social),
+                      ("续保", "续保" in understood + detected and asks_renewal)):
         if either and g not in out:
             out.append(g)
     return out
