@@ -219,7 +219,7 @@ def gap_guard(question: str, answer: str, names: list[str] | None = None) -> Gua
 
 
 _SOCIAL_DEDUCTION = re.compile(
-    r"(医保|社保)(报|报销)(完|过|了)[^。！？；]{0,16}(扣|超过|满|够|减)(掉|去)?[^。！？；]{0,4}(1万|一万|免赔)|"
+    r"(医保|社保)(报|报销)(完|过|了|后|之后|以后)[^。！？；]{0,16}(扣|超过|满|够|减)(掉|去|除)?[^。！？；]{0,4}(1万|一万|免赔)|"
     r"剩下的[^。！？；]{0,6}(扣|超过|满|够)(掉|去)?[^。！？；]{0,3}(1万|一万)|"
     r"(医保|社保)报(完|过|了)[^。！？；]{0,12}[，,]?[^。！？；]{0,4}(1万|一万)(元)?(的)?免赔(额)?(后|以后|之后|扣)|"
     r"(医保|社保)(报销)?(的|那)?(部分|钱)[^。！？；]{0,6}(能|可以|也)?(算进|算在|计入|抵扣|冲抵|抵)")
@@ -233,17 +233,20 @@ def social_deduction_conclusion(answer: str) -> GuardResult:
 
 _RENEWAL = re.compile(
     r"续保(需|要|得|还得|必须)(要|经过)?(重新)?(审核|核保|健康告知|评估)|(?<![能没无])(不|会|可以|能)保证续保(?!吗)|"
-    r"(可以|能|会)(一直|自动|保证)续|自动续保|续保(没问题|是保证的|有保障)|不能(再)?续保|(停售|下架)(后|以后)?(就)?(不能|不可以|无法)续")
+    r"(可以|能|会)(一直|自动|保证)续|自动续保|续保(没问题|是保证的|有保障)|不能(再)?续保|(停售|下架)(后|以后)?(就)?(不能|不可以|无法)续|"
+    r"\d{2}\s*(周)?岁(以)?后(就)?(不能|没法|无法)(再)?(投保|买|续|保)")
 
 
 _DISEASE_OK = re.compile(r"(高血压|糖尿病|结节|乙肝|心脏病|哮喘|痛风|病史|既往症|这个病|慢性病)[^。！？；]{0,8}(也)?(可以|能|也能)(投保|买|承保)")
 _COVER_TO_AGE = re.compile(r"(最高|最多|能|可以|一直)?保到\s*\d{2}\s*(周)?岁")
+# "ICU病房费用本身不直接报销": the clauses list 重症监护室床位费 among 住院医疗费用 (第十轮回归)
+_ICU_NOT = re.compile(r"(ICU|重症监护)[^。！？；]{0,10}(费用|医疗费|病房费|床位费)[^。！？；]{0,8}(基础版)?(不保|不报|不能报|不直接报|不赔)")
 
 
 def other_conclusions(answer: str) -> GuardResult:
     """Always-on (第十轮回归): "有高血压可以投保" decides underwriting; "最高保到70周岁" turns the entry age into a cover age."""
     plain = _unhedged(answer)
-    hits = [m.group(0) for r in (_DISEASE_OK, _COVER_TO_AGE) for m in [r.search(plain)] if m]
+    hits = [m.group(0) for r in (_DISEASE_OK, _COVER_TO_AGE, _ICU_NOT) for m in [r.search(plain)] if m]
     return GuardResult(ok=not hits, violations=[f"无依据结论：{h}" for h in hits])
 
 

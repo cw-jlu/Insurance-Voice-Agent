@@ -221,6 +221,7 @@ _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用�
 9. 说赔付比例时，如果资料里还有"未以社保身份就诊结算"的比例，要一并说明。注意：这个降低后的比例只适用于"按有社保身份投保、但看病没用社保结算"的情况；按无社保投保的人，扣除免赔额后仍按资料中的正常比例赔付。
 10. 资料里没有理赔流程、理赔材料、理赔时效、APP 或线上操作方式，被问到就说以条款为准、可以转专员，不要描述流程。
 11. 不要说"抱歉""我重新说""刚才说错了"之类的话，直接回答。
+14. ICU（重症监护室）的床位费属于住院医疗费用，不要说ICU的医疗费基础版不报；ICU津贴是住院津贴加油包里按天另给的补贴，两者不同。
 12. 如果基础版不保、但资料里某个加油包保（例如确诊重疾一次性给付、免赔额以内的住院费用），要分开说：基础版怎样，另外选购××加油包后可以怎样。不要说基础版没有资料里明明有的责任。"""
 
 
@@ -588,6 +589,11 @@ def combine_gaps(understood: list[str], detected: list[str], question: str = "")
     names the type. Two exceptions, where one path is enough: clause lists on the understanding module (it does
     not misfire on them), and 社保抵扣免赔额, whose fallback is true either way (it states the 补偿原则)."""
     out = list(detected) if understood else []
+    # a third vote: the keyword rule. Two of three (understanding, detector, rule) is enough (第十轮回归: with the split
+    # understanding, "我现在有高血压，能买你这个保险不" was missed by one path and the answer said "50岁能投保")
+    rule = gap_of(question) if question else None
+    if rule and rule.name in understood + detected and rule.name not in out:
+        out.append(rule.name)
     question_mentions_social = not question or bool(re.search(r"医保|社保", question))  # "既往症是什么意思" misfired (第八轮回归)
     asks_renewal = not question or bool(re.search(r"续|停售|下架|到期|不卖了", question))  # 第十轮回归: split prompt missed 续保
     for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social),
