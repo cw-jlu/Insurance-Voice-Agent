@@ -1,0 +1,700 @@
+{
+  "version": "第八轮（四路并行理解+原话检索、模板答案、事实核对关闭、TTS 3 连接并行+固定句预合成）",
+  "presynth_s": 33.6,
+  "presynth_sentences": 34,
+  "turns_ok": 24,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.45,
+      "p90": 0.48,
+      "max": 0.537,
+      "n": 24
+    },
+    "answer_text_ready_s": {
+      "p50": 2.395,
+      "p90": 4.316,
+      "max": 5.919,
+      "n": 24
+    },
+    "first_substantive_audio_s": {
+      "p50": 2.61,
+      "p90": 4.517,
+      "max": 5.919,
+      "n": 24
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.071,
+      "p90": 5.487,
+      "max": 5.919,
+      "n": 24
+    },
+    "answer_playback_end_s": {
+      "p50": 19.766,
+      "p90": 22.723,
+      "max": 24.172,
+      "n": 24
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 0.452,
+      "p90": 0.491,
+      "max": 0.537,
+      "n": 16
+    },
+    "answer_text_ready_s": {
+      "p50": 1.948,
+      "p90": 2.863,
+      "max": 3.462,
+      "n": 16
+    },
+    "first_substantive_audio_s": {
+      "p50": 2.172,
+      "p90": 3.045,
+      "max": 3.655,
+      "n": 16
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 3.258,
+      "p90": 4.992,
+      "max": 5.35,
+      "n": 16
+    },
+    "answer_playback_end_s": {
+      "p50": 19.766,
+      "p90": 22.723,
+      "max": 23.208,
+      "n": 16
+    }
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.442,
+      "p90": 0.463,
+      "max": 0.474,
+      "n": 8
+    },
+    "answer_text_ready_s": {
+      "p50": 3.634,
+      "p90": 4.898,
+      "max": 5.919,
+      "n": 8
+    },
+    "first_substantive_audio_s": {
+      "p50": 3.822,
+      "p90": 4.898,
+      "max": 5.919,
+      "n": 8
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 5.068,
+      "p90": 5.503,
+      "max": 5.919,
+      "n": 8
+    },
+    "answer_playback_end_s": {
+      "p50": 20.109,
+      "p90": 21.511,
+      "max": 24.172,
+      "n": 8
+    }
+  },
+  "over_10s_all_ready": 0,
+  "turns": [
+    {
+      "name": "报价",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.913,
+        "answer": 0.002,
+        "total": 0.915
+      },
+      "asr_endpoint_s": 0.452,
+      "first_response_s": 0.452,
+      "answer_text_ready_s": 1.367,
+      "first_substantive_audio_s": 1.806,
+      "answer_audio_all_ready_s": 2.786,
+      "answer_playback_end_s": 14.67,
+      "agent_steps": 0,
+      "answer_chars": 71,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_报价.wav"
+    },
+    {
+      "name": "病史",
+      "asr_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "events": [
+        "回答:缺口",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.653,
+        "answer": 1.588,
+        "total": 2.242
+      },
+      "asr_endpoint_s": 0.475,
+      "first_response_s": 0.475,
+      "answer_text_ready_s": 2.717,
+      "first_substantive_audio_s": 2.939,
+      "answer_audio_all_ready_s": 4.071,
+      "answer_playback_end_s": 21.401,
+      "agent_steps": 0,
+      "answer_chars": 103,
+      "sentences": 3,
+      "cached_sentences": 2,
+      "text": "高血压属于既往症，初次投保前已有的病，尊享e生不保。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_病史.wav"
+    },
+    {
+      "name": "免赔额",
+      "asr_text": "我自己先掏1万，剩下的是不是全报？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.651,
+        "answer": 1.317,
+        "total": 1.969
+      },
+      "asr_endpoint_s": 0.439,
+      "first_response_s": 0.439,
+      "answer_text_ready_s": 2.407,
+      "first_substantive_audio_s": 2.831,
+      "answer_audio_all_ready_s": 5.35,
+      "answer_playback_end_s": 23.208,
+      "agent_steps": 0,
+      "answer_chars": 113,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "是的，您自己先掏1万免赔额，超过部分在300万保额内按100%报销，但必须在二级以上公立医院或指定民营医院普通部就诊，且要用社保身份结算。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_免赔额.wav"
+    },
+    {
+      "name": "保障范围",
+      "asr_text": "刷到广告说几百万保额啊。具体都能报什么啊？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.088,
+        "answer": 1.953,
+        "total": 3.041
+      },
+      "asr_endpoint_s": 0.421,
+      "first_response_s": 0.421,
+      "answer_text_ready_s": 3.462,
+      "first_substantive_audio_s": 3.655,
+      "answer_audio_all_ready_s": 4.992,
+      "answer_playback_end_s": 11.023,
+      "agent_steps": 0,
+      "answer_chars": 42,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "几百万保额是真有，比如重疾医疗和特药都各保600万。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_保障范围.wav"
+    },
+    {
+      "name": "价格变化",
+      "asr_text": "以后每年都是这个价吗？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.64,
+        "answer": 0.869,
+        "total": 1.509
+      },
+      "asr_endpoint_s": 0.491,
+      "first_response_s": 0.491,
+      "answer_text_ready_s": 2.0,
+      "first_substantive_audio_s": 2.23,
+      "answer_audio_all_ready_s": 3.258,
+      "answer_playback_end_s": 17.075,
+      "agent_steps": 0,
+      "answer_chars": 85,
+      "sentences": 3,
+      "cached_sentences": 1,
+      "text": "不是，保费会随年龄增长而变化。基础版有1万元年免赔额，300万保额，100%赔付。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_价格变化.wav"
+    },
+    {
+      "name": "身份",
+      "asr_text": "你是真人还是机器人？",
+      "events": [
+        "承认AI"
+      ],
+      "stage_s": {
+        "understand": 0.575,
+        "total": 0.575
+      },
+      "asr_endpoint_s": 0.394,
+      "first_response_s": 0.394,
+      "answer_text_ready_s": 0.969,
+      "first_substantive_audio_s": 1.748,
+      "answer_audio_all_ready_s": 0.969,
+      "answer_playback_end_s": 8.662,
+      "agent_steps": 0,
+      "answer_chars": 42,
+      "sentences": 3,
+      "cached_sentences": 3,
+      "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_身份.wav"
+    },
+    {
+      "name": "等待期",
+      "asr_text": "等待期是多久？",
+      "events": [
+        "回答:等待期(模板)",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.558,
+        "answer": 0.001,
+        "total": 0.559
+      },
+      "asr_endpoint_s": 0.454,
+      "first_response_s": 0.454,
+      "answer_text_ready_s": 1.013,
+      "first_substantive_audio_s": 1.808,
+      "answer_audio_all_ready_s": 1.013,
+      "answer_playback_end_s": 22.426,
+      "agent_steps": 0,
+      "answer_chars": 115,
+      "sentences": 3,
+      "cached_sentences": 3,
+      "text": "疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。加油包里药省保加油包的等待期是7天。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_等待期.wav"
+    },
+    {
+      "name": "加油包",
+      "asr_text": "门急诊加哦包多大年纪能买？",
+      "events": [
+        "回答:投保条件(模板)",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.757,
+        "answer": 0.0,
+        "total": 0.758
+      },
+      "asr_endpoint_s": 0.44,
+      "first_response_s": 0.44,
+      "answer_text_ready_s": 1.198,
+      "first_substantive_audio_s": 1.794,
+      "answer_audio_all_ready_s": 2.764,
+      "answer_playback_end_s": 22.723,
+      "agent_steps": 0,
+      "answer_chars": 113,
+      "sentences": 4,
+      "cached_sentences": 1,
+      "text": "30岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买，30岁可以选。能不能承保还要看健康告知和核保结果。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_加油包.wav"
+    },
+    {
+      "name": "复合1",
+      "asr_text": "初五院和看门诊分别怎么报进ICU？有没有补贴啊？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.628,
+        "answer": 1.563,
+        "total": 2.191
+      },
+      "asr_endpoint_s": 0.419,
+      "first_response_s": 0.419,
+      "answer_text_ready_s": 2.61,
+      "first_substantive_audio_s": 2.827,
+      "answer_audio_all_ready_s": 5.064,
+      "answer_playback_end_s": 21.465,
+      "agent_steps": 0,
+      "answer_chars": 109,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "门诊和初五院（应为“初入院”）本身不直接报销ICU费用，ICU住院津贴需另外选购“尊享住院津贴加油包”，每天500元，0免赔天数。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_复合1.wav"
+    },
+    {
+      "name": "复合2",
+      "asr_text": "得了癌症住院，靶向药和质子重离子都能报吗？有免赔额吗？",
+      "events": [
+        "回答:保障",
+        "提示如实告知"
+      ],
+      "stage_s": {
+        "understand": 1.373,
+        "answer": 1.82,
+        "total": 3.193
+      },
+      "asr_endpoint_s": 0.441,
+      "first_response_s": 0.441,
+      "answer_text_ready_s": 3.634,
+      "first_substantive_audio_s": 3.822,
+      "answer_audio_all_ready_s": 5.487,
+      "answer_playback_end_s": 19.152,
+      "agent_steps": 0,
+      "answer_chars": 88,
+      "sentences": 3,
+      "cached_sentences": 2,
+      "text": "靶向药不报，质子重离子治疗能报，0免赔额，但必须在大陆境内指定医院，且确诊要在等待期30天后。投保时需要如实告知健康情况，能不能投保以核保结果为准。您这边有没有正在治疗的疾病？",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_复合2.wav"
+    },
+    {
+      "name": "复合3",
+      "asr_text": "我女儿8岁，近视手术和看牙能报吗？住院呢？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.748,
+        "answer": 3.734,
+        "total": 4.482
+      },
+      "asr_endpoint_s": 0.416,
+      "first_response_s": 0.416,
+      "answer_text_ready_s": 4.898,
+      "first_substantive_audio_s": 4.898,
+      "answer_audio_all_ready_s": 4.898,
+      "answer_playback_end_s": 17.414,
+      "agent_steps": 0,
+      "answer_chars": 69,
+      "sentences": 2,
+      "cached_sentences": 2,
+      "text": "具体清单以保险条款为准，我这边可以帮您转专员确认。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_复合3.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000，后来住院花了两万，一共能报多少啊？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.815,
+        "answer": 1.375,
+        "total": 2.19
+      },
+      "asr_endpoint_s": 0.439,
+      "first_response_s": 0.439,
+      "answer_text_ready_s": 2.629,
+      "first_substantive_audio_s": 2.804,
+      "answer_audio_all_ready_s": 5.068,
+      "answer_playback_end_s": 21.511,
+      "agent_steps": 0,
+      "answer_chars": 100,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "急诊和住院费用合计2.5万，先扣1万免赔额，剩余1.5万按100%报，但得在二级及以上公立医院就诊且用社保结算。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r1_复合4.wav"
+    },
+    {
+      "name": "报价",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.641,
+        "answer": 0.0,
+        "total": 0.641
+      },
+      "asr_endpoint_s": 0.48,
+      "first_response_s": 0.48,
+      "answer_text_ready_s": 1.122,
+      "first_substantive_audio_s": 1.834,
+      "answer_audio_all_ready_s": 2.333,
+      "answer_playback_end_s": 14.768,
+      "agent_steps": 0,
+      "answer_chars": 71,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_报价.wav"
+    },
+    {
+      "name": "病史",
+      "asr_text": "我有高血压好几年了。一直在吃降压药。买这个以后住院能报吗？",
+      "events": [
+        "回答:缺口",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.697,
+        "answer": 1.629,
+        "total": 2.326
+      },
+      "asr_endpoint_s": 0.537,
+      "first_response_s": 0.537,
+      "answer_text_ready_s": 2.863,
+      "first_substantive_audio_s": 3.045,
+      "answer_audio_all_ready_s": 3.844,
+      "answer_playback_end_s": 20.394,
+      "agent_steps": 0,
+      "answer_chars": 99,
+      "sentences": 3,
+      "cached_sentences": 2,
+      "text": "高血压属于既往症，初次投保前已有的情况不保。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_病史.wav"
+    },
+    {
+      "name": "免赔额",
+      "asr_text": "我自己先掏1万啊，剩下的是不是全报？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.48,
+        "answer": 1.058,
+        "total": 1.538
+      },
+      "asr_endpoint_s": 0.41,
+      "first_response_s": 0.41,
+      "answer_text_ready_s": 1.948,
+      "first_substantive_audio_s": 2.172,
+      "answer_audio_all_ready_s": 4.183,
+      "answer_playback_end_s": 19.766,
+      "agent_steps": 0,
+      "answer_chars": 106,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "是的，您自己先承担1万元免赔额，超过部分在300万保额内按100%报销，但必须在二级及以上公立医院或指定民营医院普通部就诊。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_免赔额.wav"
+    },
+    {
+      "name": "保障范围",
+      "asr_text": "刷到广告说几百万保额具体都能报什么啊？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 0.583,
+        "answer": 1.366,
+        "total": 1.949
+      },
+      "asr_endpoint_s": 0.447,
+      "first_response_s": 0.447,
+      "answer_text_ready_s": 2.396,
+      "first_substantive_audio_s": 2.61,
+      "answer_audio_all_ready_s": 3.744,
+      "answer_playback_end_s": 11.231,
+      "agent_steps": 0,
+      "answer_chars": 52,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "几百万保额主要报三块：一般医疗300万，重疾医疗300万，特药600万。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_保障范围.wav"
+    },
+    {
+      "name": "价格变化",
+      "asr_text": "以后每年都是这个价吗啊？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.709,
+        "answer": 1.001,
+        "total": 1.71
+      },
+      "asr_endpoint_s": 0.45,
+      "first_response_s": 0.45,
+      "answer_text_ready_s": 2.16,
+      "first_substantive_audio_s": 2.433,
+      "answer_audio_all_ready_s": 3.635,
+      "answer_playback_end_s": 17.973,
+      "agent_steps": 0,
+      "answer_chars": 89,
+      "sentences": 3,
+      "cached_sentences": 1,
+      "text": "不是的，保费会随年龄增长而变化。基础版有1万元年免赔额，扣除后100%报销，最高300万。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_价格变化.wav"
+    },
+    {
+      "name": "身份",
+      "asr_text": "你是真人还是机器人啊？",
+      "events": [
+        "承认AI"
+      ],
+      "stage_s": {
+        "understand": 0.535,
+        "total": 0.535
+      },
+      "asr_endpoint_s": 0.474,
+      "first_response_s": 0.474,
+      "answer_text_ready_s": 1.009,
+      "first_substantive_audio_s": 1.828,
+      "answer_audio_all_ready_s": 1.009,
+      "answer_playback_end_s": 8.742,
+      "agent_steps": 0,
+      "answer_chars": 42,
+      "sentences": 3,
+      "cached_sentences": 3,
+      "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_身份.wav"
+    },
+    {
+      "name": "等待期",
+      "asr_text": "等待期是多久？",
+      "events": [
+        "回答:等待期(模板)",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.483,
+        "answer": 0.0,
+        "total": 0.483
+      },
+      "asr_endpoint_s": 0.443,
+      "first_response_s": 0.443,
+      "answer_text_ready_s": 0.926,
+      "first_substantive_audio_s": 1.797,
+      "answer_audio_all_ready_s": 0.926,
+      "answer_playback_end_s": 22.415,
+      "agent_steps": 0,
+      "answer_chars": 115,
+      "sentences": 3,
+      "cached_sentences": 3,
+      "text": "疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。加油包里药省保加油包的等待期是7天。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_等待期.wav"
+    },
+    {
+      "name": "加油包",
+      "asr_text": "啊，门急诊夹腰包多大年纪能买啊？",
+      "events": [
+        "回答:投保条件(模板)",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.547,
+        "answer": 0.0,
+        "total": 0.548
+      },
+      "asr_endpoint_s": 0.459,
+      "first_response_s": 0.459,
+      "answer_text_ready_s": 1.007,
+      "first_substantive_audio_s": 1.813,
+      "answer_audio_all_ready_s": 2.263,
+      "answer_playback_end_s": 22.046,
+      "agent_steps": 0,
+      "answer_chars": 113,
+      "sentences": 4,
+      "cached_sentences": 1,
+      "text": "30岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买，30岁可以选。能不能承保还要看健康告知和核保结果。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_加油包.wav"
+    },
+    {
+      "name": "复合1",
+      "asr_text": "住院和看门诊分别怎么报？建ICU有没有补贴？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.597,
+        "answer": 1.342,
+        "total": 1.939
+      },
+      "asr_endpoint_s": 0.456,
+      "first_response_s": 0.456,
+      "answer_text_ready_s": 2.395,
+      "first_substantive_audio_s": 2.653,
+      "answer_audio_all_ready_s": 4.852,
+      "answer_playback_end_s": 20.109,
+      "agent_steps": 0,
+      "answer_chars": 95,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "住院和门诊费用都得先扣1万免赔额，再按100%报销，但必须在二级以上公立医院或指定民营医院普通部就诊。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_复合1.wav"
+    },
+    {
+      "name": "复合2",
+      "asr_text": "得了癌症住院，靶向药和质子重离子都能报吗？有免赔额吗？",
+      "events": [
+        "回答:缺口",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 1.178,
+        "answer": 4.278,
+        "total": 5.457
+      },
+      "asr_endpoint_s": 0.463,
+      "first_response_s": 0.463,
+      "answer_text_ready_s": 5.919,
+      "first_substantive_audio_s": 5.919,
+      "answer_audio_all_ready_s": 5.919,
+      "answer_playback_end_s": 24.172,
+      "agent_steps": 0,
+      "answer_chars": 102,
+      "sentences": 3,
+      "cached_sentences": 3,
+      "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。具体清单以保险条款为准，我这边可以帮您转专员确认。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_复合2.wav"
+    },
+    {
+      "name": "复合3",
+      "asr_text": "我女儿8岁，近视手术和看牙能报吗？住院呢。",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 2.161,
+        "answer": 1.681,
+        "total": 3.842
+      },
+      "asr_endpoint_s": 0.474,
+      "first_response_s": 0.474,
+      "answer_text_ready_s": 4.316,
+      "first_substantive_audio_s": 4.517,
+      "answer_audio_all_ready_s": 5.503,
+      "answer_playback_end_s": 17.381,
+      "agent_steps": 0,
+      "answer_chars": 75,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "近视手术和看牙都不保，属于责任免除里的视力矫正手术和牙科疾病。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_复合3.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000，后来住院花了两万，一共能报多少？",
+      "events": [
+        "回答:保障",
+        "提示限制"
+      ],
+      "stage_s": {
+        "understand": 0.726,
+        "answer": 1.194,
+        "total": 1.92
+      },
+      "asr_endpoint_s": 0.442,
+      "first_response_s": 0.442,
+      "answer_text_ready_s": 2.362,
+      "first_substantive_audio_s": 2.579,
+      "answer_audio_all_ready_s": 4.478,
+      "answer_playback_end_s": 18.713,
+      "agent_steps": 0,
+      "answer_chars": 81,
+      "sentences": 2,
+      "cached_sentences": 1,
+      "text": "急诊和住院费用要先扣1万免赔额，再按100%赔，但得在二级及以上公立医院。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v5_v10cd2_r2_复合4.wav"
+    }
+  ]
+}

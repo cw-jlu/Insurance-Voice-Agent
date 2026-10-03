@@ -187,7 +187,8 @@ class CallSession:
 
         offered_handoff = self.pending_handoff_offer and self._last_agent_text().endswith(OFFER_HANDOFF)
         accepts_handoff = offered_handoff and not self._last_agent_asked_link() and (_yes(user_text) or ACCEPT_HANDOFF.search(user_text))
-        if re.search(r"转人工|人工客服|找人工|要人工|真人客服|转接人工", user_text) and not re.search(r"不用转|先别转|不要转|别转", user_text):
+        if (re.search(r"转人工|人工客服|找人工|要人工|真人客服|转接人工|转专员|(帮我|给我|那你)转(一下|过去|吧)?", user_text)
+                and not re.search(r"不用转|先别转|不要转|别转", user_text)):
             act = "要人工"  # the classifier missed "能帮我转人工客服吗" once (第十轮回归)
         if act in ("要人工", "投诉") or accepts_handoff:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"

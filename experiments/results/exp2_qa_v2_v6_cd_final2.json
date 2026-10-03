@@ -1,0 +1,1222 @@
+{
+  "summary": {
+    "tag": "v6_cd_final2",
+    "judge_model": "deepseek-v4-flash",
+    "items": 62,
+    "pipeline": {
+      "dev": null,
+      "heldout": {
+        "n": 62,
+        "regex": 0.9516,
+        "judge": 0.8871,
+        "both": 0.871,
+        "fallback": 4,
+        "latency_p50": 1.79,
+        "latency_p90": 2.68
+      },
+      "heldout_paraphrase": null,
+      "by_category_heldout_judge": {
+        "价格": 0.9,
+        "保障": 0.8235,
+        "免责": 1.0,
+        "投保条件": 1.0,
+        "缺口": 1.0,
+        "身份": 1.0
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "X001",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住院和得重病住院，免赔额一样吗",
+      "pipeline": {
+        "text": "不一样。住院属于一般医疗责任，有1万元年免赔额；得重病住院属于重大疾病医疗责任，免赔额为0。两个责任的免赔额不共享，且重大疾病医疗费用不限医院前30天后30天门急诊。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.155,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确区分了一般医疗和重大疾病医疗的免赔额，额外补充的细节与原文一致，未出现错误。"
+      }
+    },
+    {
+      "id": "X002",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "看急诊和住院的免赔额是分开算的吗",
+      "pipeline": {
+        "text": "不是分开算的，急诊和住院的一般医疗费用共享1万元年免赔额。这个免赔额是和一般门急诊医疗责任一起共用的，而且基础版里住院费用得先扣掉这1万才开始报销。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.443,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，均指出急诊和住院共享1万元年免赔额，且额外细节与原文一致。"
+      }
+    },
+    {
+      "id": "X003",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "得了癌症住院，要先扣一万吗",
+      "pipeline": {
+        "text": "不用先扣一万，癌症属于重大疾病，这项保障免赔额是0，住院、门诊手术、外购药等费用都能100%报销，最高300万。但要注意必须在二级及以上公立医院或指定民营医院普通部就诊，而且得是等待期30天后初次确诊的。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.38,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论“不用先扣一万”与标准要点“重疾医疗免赔0”一致，额外细节与原文无冲突，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X004",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "家庭共享免赔额是基础版自带的吗",
+      "pipeline": {
+        "text": "不是基础版自带的，需要另外选购尊享家庭共享免赔额加油包。买了之后，同一订单里的家人可以共享1万元年免赔额，但只适用于一般医疗和外购药械费用，不包含门急诊费用。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.222,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，额外细节正确且未违反规则。"
+      }
+    },
+    {
+      "id": "X005",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "质子重离子和特药的保额分别是多少",
+      "pipeline": {
+        "text": "质子重离子和特药的保额都是600万，都得等30天等待期后、初次确诊恶性肿瘤——重度才能用，而且这两个责任都免赔额为0。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.847,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论保额600万正确，额外补充的等待期和免赔额信息与原文一致，未出现错误。"
+      }
+    },
+    {
+      "id": "X006",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "康复住院有免赔额吗",
+      "pipeline": {
+        "text": "没有免赔额，特定疾病康复住院费用医疗保险金是0免赔的。但要注意，必须是等待期30天后初次确诊合同约定的16种特定疾病，且在180天内因该病在指定医院住院做康复治疗才能报销。另外，康复住院转运救护车使用费单次最多报1000元。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.318,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论“特定疾病康复住院0免赔”与标准要点一致，额外细节（等待期30天、16种特定疾病、180天内、指定医院、转运费1000元）未与原文冲突，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X007",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "一般住院和门急诊加起来最多报多少",
+      "pipeline": {
+        "text": "一般住院和门急诊医疗费用共享300万保额，扣除1万元年免赔额后，按100%赔付；但要是有社保却没用社保结算，就只能报60%。这两项责任都限二级及以上公立医院和指定民营医院普通部。门急诊医疗加油包需要在基础版之外另外选购。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.77,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，额外细节（免赔额、赔付比例、医院限制、加油包说明）均正确且未与原文冲突。"
+      }
+    },
+    {
+      "id": "X008",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "门诊加油包和基础版里的门急诊有什么区别",
+      "pipeline": {
+        "text": "基础版的门急诊责任保额300万、免赔额1万，和一般医疗共享保额和免赔额，赔付比例100%；而门诊加油包是另外选购的，保额只有1万、单次限300元、免赔额为0，但赔付比例只有50%，而且只限30天到55周岁人群。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.248,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答中基础版门急诊保额300万与标准要点不符，标准要点未提及保额300万，且门诊加油包保额1万在标准要点中未明确，属于额外错误信息。"
+      }
+    },
+    {
+      "id": "X009",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住院津贴和ICU津贴能同时拿吗",
+      "pipeline": {
+        "text": "能，住院津贴和ICU津贴可以同时拿，而且能叠加赔付。不过这两个都是尊享住院津贴加油包里的责任，需要另外选购，不在基础版里。另外要注意，都得在二级及以上公立医院或指定民营医疗机构普通部住院才行。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.784,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，额外细节正确且未违反规则。"
+      }
+    },
+    {
+      "id": "X010",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "重疾医疗最多报多少，和一般住院的额度一样吗",
+      "pipeline": {
+        "text": "重疾医疗最多报300万，和一般医疗共享600万总保额；重疾医疗免赔额为0，一般医疗有1万元年免赔额；两者都限二级及以上公立医院和指定民营医院普通部就诊。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.603,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答错误：标准要点中重疾医疗和一般医疗各300万，并非共享600万总保额，核心结论与标准不一致。"
+      }
+    },
+    {
+      "id": "X011",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "特需病房的费用基础版能报吗",
+      "pipeline": {
+        "text": "基础版不保特需病房费用，必须另外选购尊享重大疾病扩展特需医疗加油包才能报销。这个加油包只保二级及以上公立医院及指定民营医疗机构的特需部、国际部、VIP部，且仅限重大疾病相关治疗，床位费限1500元/天。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.773,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，均指出基础版不保特需病房费用，需另外选购加油包；额外细节（医院范围、床位费限）与原文一致，未出现错误或承诺。"
+      }
+    },
+    {
+      "id": "X012",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "确诊重疾一次性给的那笔钱，是基础版里就有的吗",
+      "pipeline": {
+        "text": "不是基础版里的，是尊享重疾关爱加油包提供的，需要另外选购，保额5万元，等待期30天，限30天至70周岁人群投保。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.844,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，说明需另外选购且保额5万，额外细节（等待期30天、投保年龄）未与原文冲突，未出现错误。"
+      }
+    },
+    {
+      "id": "X013",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "护工费要扣免赔吗，一天给多少",
+      "pipeline": {
+        "text": "护工费不扣免赔额，确诊重疾住院后，按500元/天给付，单次最多30天，一年最多30天；但必须通过保险公司指定或认可的医疗服务机构提供服务，且要在等待期30天后初次确诊才生效。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.805,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（不扣免赔、500元/天）与标准要点一致，额外细节（单次最多30天、一年最多30天、指定机构、等待期30天）与常见保险规则相符，未发现错误。"
+      }
+    },
+    {
+      "id": "X014",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "转诊的路费和住宿费一年最多报多少",
+      "pipeline": {
+        "text": "转诊的路费和住宿费一年最多报1万元，前提是确诊合同约定的100种重大疾病、跨省转院且有医院开具的转院证明，只限二级及以上公立医院或指定民营医疗机构普通部。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.515,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，均为年1万，且补充的细节与保险资料常见规则相符，未出现错误或额外承诺。"
+      }
+    },
+    {
+      "id": "X015",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住院补偿加油包和基础版的住院保障有啥不同",
+      "pipeline": {
+        "text": "住院补偿加油包是另外选购的，保额1万元、免赔额0、赔付比例100%，但痔疮等特定疾病只赔20%；基础版的一般医疗责任含住院费用，但要先扣1万元免赔额，300万保额和门急诊共享，而且脊椎疾病治疗费不保。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.476,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论正确，保额、免赔额、选购方式与标准要点一致，额外细节（赔付比例、特定疾病、门急诊共享、脊椎疾病）未与原文冲突，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X016",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "没用医保卡结算的话，住院和看急诊都是按60%赔吗",
+      "pipeline": {
+        "text": "对，没用医保卡结算的话，住院和看急诊都按60%赔，前提是您是以有社保身份投保的；基础版里住院和门急诊费用都共享1万元免赔额，而且只限二级及以上公立医院和指定民营医院普通部；投保时有既往症要如实告知，能不能保得看核保结果。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.683,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（有社保身份未用社保结算按60%赔）正确，补充的免赔额、医院范围、既往症告知等信息与资料一致，未出现错误或额外承诺。"
+      }
+    },
+    {
+      "id": "X017",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "癌症特效药报销要扣免赔额吗",
+      "pipeline": {
+        "text": "癌症特效药属于特定药品费用医疗保险金责任，这个责任没有免赔额，但要注意必须在保险期间内、等待期30天后初次确诊合同约定的重大疾病，且药品需在条款约定的目录内。具体用药是否符合保障范围，得看投保时提供的药品清单和实际诊疗情况。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.918,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，即特定药品费用免赔0，且补充了相关条件，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X018",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "药省保是不是也要等30天",
+      "pipeline": {
+        "text": "疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。加油包里药省保加油包的等待期是7天。",
+        "route": "等待期(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.51,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答先错误地说了疾病的等待期是30天，与标准要点药省保等待期7天不符，核心结论错误。"
+      }
+    },
+    {
+      "id": "X019",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住院花了3万，有社保也用社保结算了，能报多少",
+      "pipeline": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "fallback": true,
+        "violations": [
+          "模型复核：对缺口问题给出了结论"
+        ],
+        "latency": 5.683,
+        "regex": false,
+        "missing": [
+          "2\\s*万|20000|两万|二万"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未给出核心结论（应赔付2万），而是回避问题并建议转专员，导致核心结论缺失。"
+      }
+    },
+    {
+      "id": "X020",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "按有社保投保但看病没走医保，住院花了3万能报多少",
+      "pipeline": {
+        "text": "您按有社保投保但没走医保，基础版一般医疗责任要先扣1万免赔额，剩下2万按60%赔，也就是1.2万；另外住院费用补偿是尊享住院医疗加油包，需另外选购，基础版不包含。所有报销都得在二级及以上公立医院或指定民营医院普通部，且必须是个人支付的合理费用。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.094,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（1.2万）与标准要点一致，额外补充的医院和费用条件正确，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X021",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "买了门诊加油包，看一次病花了500能报多少",
+      "pipeline": {
+        "text": "门急诊加油包属于门急诊医疗加油包，需要在基础版之外另外选购。门急诊加油包一年最多1万元。门急诊加油包按50%赔，每次最多300元。",
+        "route": "保障",
+        "fallback": true,
+        "violations": [
+          "无依据数字：90元"
+        ],
+        "latency": 3.954,
+        "regex": false,
+        "missing": [
+          "250"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确计算了赔付金额并提及次限额300元，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X022",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "买了门诊加油包，一次门诊花了800能报多少",
+      "pipeline": {
+        "text": "门急诊加油包属于门急诊医疗加油包，需要在基础版之外另外选购。门急诊加油包一年最多1万元。门急诊加油包按50%赔，每次最多300元。",
+        "route": "保障",
+        "fallback": true,
+        "violations": [
+          "无依据数字：90元"
+        ],
+        "latency": 3.379,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：按50%赔付、次限额300元，且未出现错误信息。"
+      }
+    },
+    {
+      "id": "X023",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "买了住院津贴加油包，住院10天能拿多少",
+      "pipeline": {
+        "text": "买了尊享住院津贴加油包，住院10天能拿700元，因为次免赔3天，只赔后7天、每天100元；单次最多赔30天，一年最多赔60天；这加油包要另外选购，不在基础版里。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.882,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论700元与标准要点一致，额外补充的免赔规则和天数限制正确，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X024",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住ICU住了5天，买了津贴加油包能拿多少",
+      "pipeline": {
+        "text": "买了尊享住院津贴加油包，住ICU5天能拿500元/天×5天=2500元，免赔天数为0天，但单次最多给付30天、每年最多60天；必须在二级及以上公立医院或指定民营医疗机构普通部的ICU治疗才赔。住院津贴加油包需要在基础版之外另外选购。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.277,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论2500元与标准要点一致，额外细节（免赔天数、给付上限、医院要求、选购条件）均正确且未违反资料。"
+      }
+    },
+    {
+      "id": "X025",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "买了药省保，网上买药一个月花了300能报多少",
+      "pipeline": {
+        "text": "买了尊享药省保加油包，网上买药一个月最多报100元，因为月赔付限额是100元，而且只赔50%，还得在指定互联网药店买药，等待期7天后才能用。药省保加油包需要在基础版之外另外选购。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.682,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论正确，月限额100元，且补充了50%赔付比例和指定药店等正确信息，未出现错误。"
+      }
+    },
+    {
+      "id": "X026",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "急诊花了5千，后来住院又花了2万，一年一共能报多少",
+      "pipeline": {
+        "text": "急诊和住院费用加起来能报，但要先扣1万免赔额，再按100%比例赔付；前提是得在二级及以上公立医院或指定民营医院普通部就诊，而且要用社保身份结算，否则只赔60%；另外急诊单次最多报300元、全年门急诊累计最多报1万元，这部分属于尊享门急诊医疗加油包，基础版不包含。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.387,
+        "regex": false,
+        "missing": [
+          "1\\.5\\s*万|15000|一万五"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答错误地引入了“急诊单次最多报300元、全年门急诊累计最多报1万元”等尊享门急诊医疗加油包的规则，而标准要点仅涉及共享1万免赔后的计算，这些额外规则与标准要点不符，且未明确用户是否拥有该加油包，导致核心结论不准确。"
+      }
+    },
+    {
+      "id": "X027",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "得了癌症住院花了20万，能报多少",
+      "pipeline": {
+        "text": "得了癌症住院花了20万，基础版能报，重大疾病医疗费用保额300万、0免赔、100%赔付，但必须在二级及以上公立医院或指定民营医疗机构普通部就诊，且要符合合同约定的100种重大疾病范围；如果没用社保结算，就只能按60%赔；外购药械费用还要满足条款里特别规定的条件。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.128,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（0免赔、100%赔付）正确，额外细节（医院要求、社保结算比例、外购药条件）与原文一致，未出现错误或承诺。"
+      }
+    },
+    {
+      "id": "X028",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "等待期里出了车祸住院能报吗",
+      "pipeline": {
+        "text": "疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。加油包里药省保加油包的等待期是7天。",
+        "route": "等待期(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.417,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出意外受伤不受等待期限制，且额外信息与原文一致，无错误。"
+      }
+    },
+    {
+      "id": "X029",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "买完第10天查出胆结石住院，能报吗",
+      "pipeline": {
+        "text": "不能报，因为胆结石属于等待期内确诊的疾病，本产品等待期是30天，等待期内确诊疾病产生的医疗费用不保。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.224,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，等待期内确诊疾病不赔，回答正确。"
+      }
+    },
+    {
+      "id": "X030",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "等待期内摔伤了去看急诊能报吗",
+      "pipeline": {
+        "text": "疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。加油包里药省保加油包的等待期是7天。",
+        "route": "等待期(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.477,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出意外受伤不受等待期限制，且额外信息与原文一致，无错误。"
+      }
+    },
+    {
+      "id": "X031",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "那要是住进ICU，一天能补多少",
+      "pipeline": {
+        "text": "住进ICU的话，每天能补500元，次免赔天数为0天，单次最多补30天、一年最多补60天；这个责任属于尊享住院津贴加油包，需要另外选购，不在基础版里。医院必须是二级及以上公立医院或保单约定的指定民营医疗机构普通部。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.087,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（ICU津贴500元/天）正确，额外细节（免赔天数、天数限制、加油包、医院要求）与原文一致，未出现错误或违规承诺。"
+      }
+    },
+    {
+      "id": "X032",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "她这个年纪买有啥限制",
+      "pipeline": {
+        "text": "60岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.535,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年龄条件正确，且补充了门急诊加油包的限制和核保提示，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X033",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "要是得了白血病，化疗的钱怎么报",
+      "pipeline": {
+        "text": "白血病属于合同约定的100种重大疾病，确诊后30天等待期过后，住院、特殊门诊、外购药等费用都能报，保额300万，0免赔，100%赔付；但要注意必须在二级及以上公立医院或指定民营医院普通部就诊，且要用社保身份结算，否则比例降到60%。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.342,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（白血病属重疾、0免赔、100%赔付）与标准要点一致，额外细节（保额300万、医院要求、社保结算比例）与资料无冲突，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X034",
+      "split": "heldout",
+      "category": "身份",
+      "source": "v6",
+      "question": "我平时身体还行，没啥大毛病",
+      "pipeline": {
+        "text": "这个问题我需要帮您转专员确认一下。",
+        "route": "闲聊",
+        "fallback": true,
+        "violations": [
+          "无依据数字：1万元"
+        ],
+        "latency": 3.722,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答未涉及身份询问，符合标准要点，且未给出错误结论或承诺。"
+      }
+    },
+    {
+      "id": "X035",
+      "split": "heldout",
+      "category": "身份",
+      "source": "v6",
+      "question": "你说话怎么跟机器人似的",
+      "pipeline": {
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.0,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答明确承认是AI助理，符合标准要点要求。"
+      }
+    },
+    {
+      "id": "X036",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我33，没社保",
+      "pipeline": {
+        "text": "您33岁没有社保，基础版一年971元，按月交每月96元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.381,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误承诺。"
+      }
+    },
+    {
+      "id": "X037",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "那换成我老婆呢，她29有社保",
+      "pipeline": {
+        "text": "您爱人29岁有社保，基础版一年318元，按月交每月31元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.33,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "用户问题中年龄为30岁，AI回答却错误地假设为29岁，核心年龄信息与标准要点不一致。"
+      }
+    },
+    {
+      "id": "X038",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "住院津贴一天多少钱",
+      "pipeline": {
+        "text": "住院津贴分两种，都得另外买尊享住院津贴加油包。一般住院每天100元，但每次住院要先扣3天免赔；ICU住院每天500元，没有免赔天数。两个责任可以叠加赔，医院得是二级及以上公立医院或指定民营医疗机构普通部。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.812,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，额外细节与原文一致，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X039",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v6",
+      "question": "有哪些加油包可以加",
+      "pipeline": {
+        "text": "尊享e生·百万医疗2026版有5个加油包可选：家庭共享免赔额加油包，让同一订单内家人共享1万元年免赔额；重疾关爱加油包，确诊合同约定的100种重疾给付5万元；门急诊医疗加油包，30天-55周岁可投，每次最高报300元、年限1万、按50%比例赔；住院津贴加油包含两项责任——一般住院每天100元（免赔3天）、ICU住院每天500元（0天免赔），两项可叠加赔付。所有加油包等待期都是30天，需另外选购。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.292,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "标准要点明确有8个加油包，但AI回答只说了5个，核心结论错误。"
+      }
+    },
+    {
+      "id": "X040",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "我爸70岁还能买吗",
+      "pipeline": {
+        "text": "70岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.524,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确说明了70岁可首次投保，并补充了门急诊加油包的年龄限制和核保条件，没有错误信息。"
+      }
+    },
+    {
+      "id": "X041",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "我71了能投保吗",
+      "pipeline": {
+        "text": "71岁超过了首次投保的年龄上限70周岁，这款产品买不了。",
+        "route": "投保条件(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.557,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出71岁不能投保。"
+      }
+    },
+    {
+      "id": "X042",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "这个保险保多久",
+      "pipeline": {
+        "text": "这款保险保1年，保险期间是1年。每一被保险人同一保险期间内只能投保1份，多投无效。",
+        "route": "投保条件",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.139,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，均为保险期间1年，且额外信息正确无误。"
+      }
+    },
+    {
+      "id": "X043",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "今天买的话哪天开始保",
+      "pipeline": {
+        "text": "今天投保成功，保障明天零时就生效。基础版等待期30天，尊享药省保加油包等待期7天，门急诊加油包等待期也是30天。",
+        "route": "投保条件",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.532,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论‘明天零时生效’与标准要点‘次日零时生效’一致，额外补充的等待期信息正确且未违反规则。"
+      }
+    },
+    {
+      "id": "X044",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v6",
+      "question": "能给我老公和孩子一起买吗",
+      "pipeline": {
+        "text": "可以给您老公和孩子一起买，同一投保人名下家庭成员合计2人每人优惠5%。您作为投保人要满18周岁，有完全民事行为能力，且与被保险人存在可保利益。每位被保险人同一保险期间限投1份，保险期间1年。",
+        "route": "投保条件",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.928,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，额外细节（投保人条件、限投份数、保险期间）与原文一致，未出现错误或违规承诺。"
+      }
+    },
+    {
+      "id": "X045",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我闺女9岁，没有医保，每个月交多少",
+      "pipeline": {
+        "text": "孩子9岁没有社保，基础版一年575元，按月交每月56元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.518,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无错误承诺或遗漏关键信息。"
+      }
+    },
+    {
+      "id": "X046",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我闺女17岁，交着医保，一年得花多少",
+      "pipeline": {
+        "text": "孩子17岁有社保，基础版一年205元，按月交每月20元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.666,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年缴205元正确，额外提供的按月交信息未违反规则。"
+      }
+    },
+    {
+      "id": "X047",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我闺女17岁，交着医保，一年得花多少",
+      "pipeline": {
+        "text": "孩子17岁有社保，基础版一年205元，按月交每月20元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.609,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年缴205元正确，额外提供的按月交信息未与资料冲突。"
+      }
+    },
+    {
+      "id": "X048",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我大哥67岁，交着医保，每个月交多少",
+      "pipeline": {
+        "text": "您67岁有社保，基础版一年3316元，按月交每月328元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.455,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，月缴328元正确，额外信息一年3316元与原文一致，未出现错误或承诺。"
+      }
+    },
+    {
+      "id": "X049",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我大哥22岁，社保早就断了，一年得花多少",
+      "pipeline": {
+        "text": "您22岁没有社保，基础版一年520元，按月交每月51元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.957,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误承诺。"
+      }
+    },
+    {
+      "id": "X050",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我对象47岁，社保早就断了，一年得花多少",
+      "pipeline": {
+        "text": "您爱人47岁没有社保，基础版一年2974元，按月交每月294元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.665,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X051",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我大哥37岁，社保早就断了，一年得花多少",
+      "pipeline": {
+        "text": "您37岁没有社保，基础版一年1330元，按月交每月131元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.94,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X052",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v6",
+      "question": "我对象42岁，单位给交社保，一年得花多少",
+      "pipeline": {
+        "text": "您爱人42岁有社保，基础版一年636元，按月交每月63元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.743,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未出现错误承诺或规则混淆。"
+      }
+    },
+    {
+      "id": "X053",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v6",
+      "question": "人工受孕的费用能报吗",
+      "pipeline": {
+        "text": "人工受孕及相关治疗的费用不保，属于责任免除范围。另外，生育、妊娠、流产、分娩等费用也不在保障范围内。具体免责条款以保险合同为准。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.479,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明人工受孕费用属于责任免除范围，且未出现错误信息。"
+      }
+    },
+    {
+      "id": "X054",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v6",
+      "question": "打瘦脸针美容能报吗",
+      "pipeline": {
+        "text": "打瘦脸针属于美容整形项目，尊享e生·百万医疗2026版基础版不保，责任免除里明确写了美容、整形、变性等相关医疗及并发症都不予理赔。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.754,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出打瘦脸针属于责任免除范围，不予理赔。"
+      }
+    },
+    {
+      "id": "X055",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v6",
+      "question": "装义眼的钱能报吗",
+      "pipeline": {
+        "text": "装义眼的钱不能报，责任免除里明确写了义眼属于康复性器具，不在保障范围内。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.26,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出义眼属于责任免除范围，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X056",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v6",
+      "question": "做绝育手术能报吗",
+      "pipeline": {
+        "text": "绝育手术相关费用不保，属于责任免除范围。另外像怀孕、流产、分娩、避孕、不孕不育治疗、人工受孕等产生的费用，还有牙科、视力矫正、整形美容、康复器具等，也都不能报销。具体免责条款详见保险合同。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.799,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，均指出绝育手术属于责任免除范围，未出现错误信息。"
+      }
+    },
+    {
+      "id": "X057",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v6",
+      "question": "减肥抽脂能报吗",
+      "pipeline": {
+        "text": "减肥抽脂属于美容整形类项目，根据条款明确免责，这部分费用不能报销。保障范围只限疾病或意外导致的必需且合理的医疗费用，而且必须在二级及以上公立医院或指定民营医院普通部就诊。投保前请务必如实告知健康状况，最终能否承保以核保结果为准。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.787,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，明确减肥抽脂属于责任免除，未出现错误数字或规则，且未给出额外承诺。"
+      }
+    },
+    {
+      "id": "X058",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v6",
+      "question": "我有类风湿关节炎，能投保吗",
+      "pipeline": {
+        "text": "类风湿关节炎属于既往症，初次投保前已有的情况，按条款是不予理赔的。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.566,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，均指出需以核保为准，未给出错误承诺或数字错误。"
+      }
+    },
+    {
+      "id": "X059",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v6",
+      "question": "我老公身上有脂肪瘤，能买吗",
+      "pipeline": {
+        "text": "脂肪瘤属于既往症，初次投保前已有的情况，基础版不保相关医疗费用。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.221,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，均表示需以核保为准，未给出肯定结论或错误信息。"
+      }
+    },
+    {
+      "id": "X060",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v6",
+      "question": "保证续保多少年",
+      "pipeline": {
+        "text": "这款产品的保险期间是一年。续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "缺口(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.556,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答未给出续保年限，符合标准要点‘无续保规则’，且建议转专员确认，未做错误承诺。"
+      }
+    },
+    {
+      "id": "X061",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v6",
+      "question": "停售以后我这份还能接着保吗",
+      "pipeline": {
+        "text": "这款产品的保险期间是一年。续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "缺口(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.543,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答未给出续保承诺，符合标准要点‘无续保规则’，并建议转专员确认，核心结论正确。"
+      }
+    },
+    {
+      "id": "X062",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v6",
+      "question": "社保报掉的那部分能冲抵免赔额不",
+      "pipeline": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.962,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出无此规则且需以条款为准，未给出错误承诺。"
+      }
+    }
+  ]
+}
