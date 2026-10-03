@@ -6,13 +6,18 @@ so the common cases stay instant and the long tail is still handled.
 The model behind the classification tasks is switchable: tasks listed in ``JEV_TASKS`` (env, comma-separated:
 barge, identity, gaps, gap_review, act) go to Jev, which returns probabilities instead of text; the rest use
 ``cloud.FAST_MODEL``. Slot extraction and fact check generate structured text and always use the LLM.
+Any Jev failure (timeout, quota, network) falls back to the LLM for that call; a quota/billing error also
+pauses Jev for ``JEV_COOLDOWN_S`` so later turns don't each pay for a failed request first.
 """
 
 from __future__ import annotations
 
 import json
+import logging
 import os
 import re
+import threading
+import time
 
 from agent import cloud
 from agent.dialogue import _BACKCHANNEL, _STOP
@@ -20,7 +25,29 @@ from agent.guardrail import cn_to_int
 
 JEV_TASKS = {t.strip() for t in os.getenv("JEV_TASKS", "").split(",") if t.strip()}
 # probability of "yes" at or above which a Jev noul answer counts as yes
-JEV_THRESHOLDS = {"barge": 0.5, "identity": 0.5, "gaps": 0.5, "gap_review": 0.5}
+# gaps 0.7: 第八轮 275 题上误报 1.8%、召回 98.1%（0.5 时误报 13.1%）
+JEV_THRESHOLDS = {"barge": 0.5, "identity": 0.5, "gaps": 0.7, "gap_review": 0.5}
+JEV_COOLDOWN_S = float(os.getenv("JEV_COOLDOWN_S", "300"))
+JEV_FALLBACKS: dict[str, int] = {}  # task -> number of calls that fell back to the LLM
+_jev_paused_until = 0.0
+_fb_lock = threading.Lock()
+log = logging.getLogger(__name__)
+
+
+def _try_jev(task: str, fn, *args):
+    """Jev result, or None when the task is not routed to Jev or the call failed (caller uses the LLM)."""
+    global _jev_paused_until
+    if task not in JEV_TASKS or time.monotonic() < _jev_paused_until:
+        return None
+    try:
+        return fn(*args)
+    except Exception as e:
+        with _fb_lock:
+            JEV_FALLBACKS[task] = JEV_FALLBACKS.get(task, 0) + 1
+            if any(code in str(e) for code in ("jev 429", "jev 402", "jev 401")):
+                _jev_paused_until = time.monotonic() + JEV_COOLDOWN_S
+        log.warning("jev %s failed, falling back to %s: %s", task, cloud.FAST_MODEL, e)
+        return None
 
 # --- barge-in --------------------------------------------------------------------------------------
 
@@ -39,8 +66,8 @@ def classify_barge_in(text: str, client=None) -> tuple[str, str]:
         return "附和", "rule"
     if _STOP.search(t):
         return "打断", "rule"
-    if "barge" in JEV_TASKS:
-        return ("打断" if jev_barge_in(t) >= JEV_THRESHOLDS["barge"] else "附和"), "jev"
+    if (p := _try_jev("barge", jev_barge_in, t)) is not None:
+        return ("打断" if p >= JEV_THRESHOLDS["barge"] else "附和"), "jev"
     out = cloud.chat([{"role": "system", "content": _BARGE_SYS}, {"role": "user", "content": t}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=4).strip()
     return ("附和" if "附和" in out else "打断"), "model"
@@ -84,8 +111,8 @@ _ID_SYS = """判断用户这句话是不是在问"和他通话的是不是真人
 
 
 def is_identity_question(text: str, client=None) -> bool:
-    if "identity" in JEV_TASKS:
-        return jev_identity(text) >= JEV_THRESHOLDS["identity"]
+    if (p := _try_jev("identity", jev_identity, text)) is not None:
+        return p >= JEV_THRESHOLDS["identity"]
     out = cloud.chat([{"role": "system", "content": _ID_SYS}, {"role": "user", "content": text}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=2).strip()
     return out.startswith("是")
@@ -104,8 +131,8 @@ _GAP_SYS = """你在审核保险电销 AI 的回答。以下内容资料里没�
 
 def gap_review(question: str, answer: str, client=None) -> bool:
     """True if the answer gives a conclusion it is not allowed to give."""
-    if "gap_review" in JEV_TASKS:
-        return jev_gap_review(question, answer) >= JEV_THRESHOLDS["gap_review"]
+    if (p := _try_jev("gap_review", jev_gap_review, question, answer)) is not None:
+        return p >= JEV_THRESHOLDS["gap_review"]
     out = cloud.chat([{"role": "system", "content": _GAP_SYS},
                       {"role": "user", "content": f"用户问题：{question}\nAI 回答：{answer}"}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=4).strip()
@@ -145,8 +172,8 @@ _ACT_SYS = """判断电话里用户这句话在销售对话中的作用，只输
 
 
 def classify_act(text: str, history: str = "", client=None) -> str:
-    if "act" in JEV_TASKS:
-        return jev_act(text, history)["choice"]
+    if (a := _try_jev("act", jev_act, text, history)) is not None:
+        return a["choice"]
     raw = cloud.chat([{"role": "system", "content": _ACT_SYS},
                       {"role": "user", "content": (f"最近对话：\n{history}\n" if history else "") + f"用户：{text}"}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
@@ -169,8 +196,8 @@ _GAPQ_SYS = """判断用户这一句话（只看这一句，不考虑之前的�
 
 
 def detect_gaps(text: str, client=None) -> list[str]:
-    if "gaps" in JEV_TASKS:
-        return [g for g, p in jev_gaps(text).items() if p >= JEV_THRESHOLDS["gaps"]]
+    if (ps := _try_jev("gaps", jev_gaps, text)) is not None:
+        return [g for g, p in ps.items() if p >= JEV_THRESHOLDS["gaps"]]
     raw = cloud.chat([{"role": "system", "content": _GAPQ_SYS}, {"role": "user", "content": text}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
     try:

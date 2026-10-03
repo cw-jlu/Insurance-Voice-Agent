@@ -156,13 +156,48 @@ def task_barge(res):
                  "阈值扫描": s, "时延": lat([o[1] for o in out]), "失败": sum(o[0] is None for o in out)}
 
 
+def _holdout():
+    d = json.loads((ROOT / "experiments" / "data" / "gap_threshold_v1.json").read_text(encoding="utf-8"))
+    return [(q, g) for q, g in d["gap"]] + [(q, None) for q in d["non_gap"]]
+
+
+def _holdout_metrics(preds):
+    """preds: list of detected gap lists, aligned with _holdout()."""
+    hc = _holdout()
+    pos = [(g, p) for (_, g), p in zip(hc, preds) if g and p is not None]
+    neg = [p for (_, g), p in zip(hc, preds) if not g and p is not None]
+    return {"召回": f"{sum(bool(p) for _, p in pos)}/{len(pos)}", "类型正确": f"{sum(g in p for g, p in pos)}/{len(pos)}",
+            "误报": f"{sum(bool(p) for p in neg)}/{len(neg)}"}
+
+
+def task_gap_holdout_qwen(res):
+    """门槛验证集上的 qwen-flash 基线（不耗 Jev 额度）。"""
+    hc = _holdout()
+    cloud.FAST_MODEL = "qwen-flash"
+    out = pmap(lambda c: timed(small_model.detect_gaps, c[0], CLIENT), hc)
+    res["缺口检测·新题·qwen-flash"] = {**_holdout_metrics([o[0] for o in out]), "n": len(hc), "时延": lat([o[1] for o in out]),
+                                  "rows": [{"q": q, "y": g, "pred": o[0]} for (q, g), o in zip(hc, out)]}
+
+
+def task_gap_holdout_jev(res):
+    """门槛 0.7 是在第七轮题上看出来的，在新编的题上验证。"""
+    hc = _holdout()
+    out = pmap(lambda c: timed(small_model.jev_gaps, c[0]), hc)
+    res["缺口检测·新题·Jev"] = {
+        **{f"阈值{t}": _holdout_metrics([None if o[0] is None else [g for g, p in o[0].items() if p >= t] for o in out])
+           for t in (0.5, 0.6, 0.7, 0.8)},
+        "n": len(hc), "时延": lat([o[1] for o in out]), "失败": sum(o[0] is None for o in out),
+        "rows": [{"q": q, "y": g, "p": o[0]} for (q, g), o in zip(hc, out)]}
+
+
 # most decision-relevant first, so a partial run (quota) still answers the main questions
-TASKS = [task_consent, task_gaps, task_gap_review, task_identity, task_barge]
+TASKS = [task_consent, task_gaps, task_gap_holdout_qwen, task_gap_review, task_gap_holdout_jev, task_identity, task_barge]
 
 
 def run(model: str) -> tuple[dict, str | None]:
     cloud.JEV_MODEL = model
-    res: dict = {}
+    prev = OUT / "exp10_jev.json"
+    res: dict = {k: v for k, v in json.loads(prev.read_text(encoding="utf-8")).items() if k not in ("model", "stopped")}         if prev.exists() else {}
     for task in TASKS:
         try:
             task(res)

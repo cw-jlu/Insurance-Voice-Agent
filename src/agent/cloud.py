@@ -93,6 +93,7 @@ def embed(texts: list[str], client=None, batch: int = 10) -> list[list[float]]:
 
 JEV_URL = os.getenv("JEV_URL", "https://opencode.ai/zen/v1/systemone")
 JEV_MODEL = os.getenv("JEV_MODEL", "jev-1.13-free")
+JEV_TIMEOUT = float(os.getenv("JEV_TIMEOUT", "2.0"))  # P90 ≈ 0.86 s; past this the LLM fallback is faster
 _jev_http = None
 _jev_lock = threading.Lock()
 
@@ -103,7 +104,7 @@ def _jev_client():
         if _jev_http is None:
             import httpx
 
-            _jev_http = httpx.Client(timeout=20, headers={"Authorization": f"Bearer {os.environ['OPENCODE_API_KEY']}"},
+            _jev_http = httpx.Client(timeout=JEV_TIMEOUT, headers={"Authorization": f"Bearer {os.environ['OPENCODE_API_KEY']}"},
                                      limits=httpx.Limits(max_keepalive_connections=16))
         return _jev_http
 
