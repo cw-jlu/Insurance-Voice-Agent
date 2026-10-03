@@ -65,6 +65,7 @@ class CallSession:
     gap_topics: dict = field(default_factory=dict)
     pending_handoff_offer: bool = False
     ended: bool = False
+    _hypothetical: bool = False
 
     # ------------------------------------------------------------------ helpers
     def _history_text(self, n: int = 6) -> str:
@@ -78,6 +79,8 @@ class CallSession:
         for k in ("age", "has_social", "pay", "relation", "gender", "family_size"):
             v = slots.get(k)
             if v is None:
+                continue
+            if k == "age" and self._hypothetical:
                 continue
             if k in self.profile and self.profile[k] != v:
                 events.append(f"纠正:{k}:{self.profile[k]}→{v}")
@@ -139,6 +142,7 @@ class CallSession:
         # Understanding always runs, so facts stated in the same sentence are never lost (第五轮: an identity
         # question that skipped extraction made the agent ask the user's age again and again).
         known = {**self.profile, "_history": hist}
+        self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
         with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
             fu = ex.submit(understand, user_text, known, self.pipe.client, self.pipe.fast_model)
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
@@ -161,6 +165,8 @@ class CallSession:
             act = "身份"
         elif act == "身份":
             act = "提问"
+        if act != "身份" and u.get("intent") == "身份":
+            u["intent"] = "其他"  # one model alone misreads e.g. "没有，身体挺好的" (第八轮验收)
         timings["understand"] = time.perf_counter() - t0
         events: list[str] = self._update_profile(u.get("slots") or {})
         if any(e.startswith(("纠正:age", "纠正:has_social", "纠正:relation")) for e in events) and self.flags["quoted"]:
@@ -173,6 +179,9 @@ class CallSession:
         self.pending_handoff_offer = False
         if act == "拒绝" and re.search(r"考虑|想想|再说|看看|发.{0,4}(介绍|资料|链接)", user_text):
             act = "异议"  # "let me think about it" is hesitation, not a refusal
+        if DO_NOT_CALL.search(user_text):
+            self.ended, self.stage = True, "结束"
+            return self._finish(GOODBYE, "拒绝", events + ["结束:要求不再来电"], timings, t0)
         if act == "拒绝":
             self.refusals += 1
             if self.refusals >= 2 or self.stage == "投保":
@@ -183,6 +192,8 @@ class CallSession:
         if HESITATE.search(user_text) and self.flags["consent"]:
             self.flags["consent"] = False  # an earlier yes is withdrawn by later hesitation
             events.append("撤回同意")
+        if OTHER_CHANNEL.search(user_text) and not re.search(r"手机|短信", user_text):
+            return self._finish(OTHER_CHANNEL_REPLY, act, events + ["其他渠道:改为询问链接"], timings, t0)
         if _consents(user_text, act, self._last_agent_asked_link()):
             self.flags["consent"] = True
             if self.flags["quoted"] and self.flags["limits"] and self.flags["disclosure"]:
@@ -279,6 +290,7 @@ def fixed_phrases() -> list[str]:
     from agent.pipeline import FOLLOW_UP, GAP_FALLBACK, WAIT_TEXT
 
     whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP, CLAIMS_PROCESS,
+             OTHER_CHANNEL_REPLY,
              IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。", WAIT_TEXT, "这款产品的保险期间是一年。", "好的，您还想了解哪方面？",
              *ASK.values(), *GAP_FALLBACK.values()]
     out = []
@@ -291,10 +303,15 @@ def fixed_phrases() -> list[str]:
 
 QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|有没有|咋|？|\?")
 _YES = re.compile(r"^(那)?(好|好的|好吧|行|可以|嗯|对|是的|发吧|发过来|发我|麻烦|那就|没问题|ok|OK)|发(过来|给我|我|吧)|可以发|行啊|好啊")
+HYPOTHETICAL_AGE = re.compile(r"等我|到时候|以后|将来|老了|万一|要是|如果|假如|\d+多|[一二三四五六七八九十]+多(岁|了)")
+DO_NOT_CALL = re.compile(r"别(再)?打(了|来)?|不要(再)?打(了|来)|以后别|别再来电|不要再来电|拉黑|别骚扰")
+OTHER_CHANNEL = re.compile(r"微信|邮箱|邮件|QQ|qq")
+OTHER_CHANNEL_REPLY = "微信和邮箱这边发不了。我可以把投保链接用短信发到您手机上，页面里有完整的产品介绍，需要吗？"
 # Hesitation or postponement: never consent (第六轮 #7 "回去跟家里人商量商量，到时候再联系你们吧" got a link).
 HESITATE = re.compile(r"考虑|想想|想一想|再说|先挂|商量|回头|到时候|再联系|联系你们|改天|以后再|过两天|过几天|不急|比较|"
                       r"再看看|看看再|还没想好|没想好|等我|问问家|问一下家|跟家里|和家里")
-_NEGATE = re.compile(r"不(用|要|需要|买|想)|算了|别|没兴趣|贵")
+_NEGATE = re.compile(r"不(用|要|需要)(发|买|了吧)|不买|不想买|先别|别发|算了|没兴趣|不需要")
+_SEND_REQUEST = re.compile(r"发(过来|给我|我|一个|个)?(链接|过来)|链接发|把链接|发我手机|发到我手机|发短信")
 # Explicit agreement to receive the link or to buy, in the user's own words.
 _EXPLICIT_YES = re.compile(r"发(过来|给我|我|吧|一个|个|到我|链接)|可以发|那就买|我买|买一份|就它了|就这个|要买|"
                            r"怎么(买|投保|投)|(我|那)?投保吧|给我办|办一个|上车")
@@ -317,10 +334,12 @@ _PROCESS = re.compile(r"下载|APP|App|app|小程序|公众号|在线申请|线�
 
 
 def capability_guard(text: str) -> tuple[str, list[str]]:
-    removed = [m.group(0) for m in _NO_CAPABILITY.finditer(text)]
+    # saying what we cannot do ("微信和邮箱这边发不了") is not a promise
+    keep = lambda m: re.search(r"发不了|没法|无法|不能|不支持|做不到", m.group(0))
+    removed = [m.group(0) for m in _NO_CAPABILITY.finditer(text) if not keep(m)]
     if not removed:
         return text, []
-    cleaned = _NO_CAPABILITY.sub("", text).strip()
+    cleaned = _NO_CAPABILITY.sub(lambda m: m.group(0) if keep(m) else "", text).strip()
     if any(_PROCESS.search(r) for r in removed):
         cleaned = CLAIMS_PROCESS + cleaned  # the question still gets an answer
     elif not cleaned:
@@ -336,7 +355,13 @@ def _consents(text: str, act: str, asked_link: bool) -> bool:
     """Consent to the purchase link. Only explicit wording counts; a leading "嗯" or the classifier alone
     does not. A bare "好的/行/可以" counts only as the answer to our own link offer."""
     t = text.strip()
-    if HESITATE.search(t) or _NEGATE.search(t):
+    if _NEGATE.search(t) or OTHER_CHANNEL.search(t):
+        return False
+    if re.search(r"吗[？?。]?$", t):
+        return False  # "是直接给我发个链接吗？" asks how buying works; the flow offers the link next
+    if _SEND_REQUEST.search(t):
+        return True  # the user asks for the link itself; sending it is what they asked for, even "看看再说"
+    if HESITATE.search(t):
         return False
     if _EXPLICIT_YES.search(t):
         return True

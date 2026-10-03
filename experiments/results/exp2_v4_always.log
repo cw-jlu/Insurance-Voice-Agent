@@ -1,0 +1,4 @@
+pipeline dev None
+pipeline heldout {'n': 80, 'regex': 0.9125, 'judge': 0.8875, 'both': 0.8625, 'fallback': 3, 'latency_p50': 2.09, 'latency_p90': 3.42}
+pipeline heldout_paraphrase None
+by category (heldout, judge): {'价格': 1.0, '保障': 0.75, '免责': 0.9, '多轮': 0.8333, '投保条件': 0.8, '缺口': 0.9091, '身份': 1.0}

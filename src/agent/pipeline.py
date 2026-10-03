@@ -286,7 +286,8 @@ def _quote_text(slots: dict) -> tuple[str, set] | None:
     y = quote(Insured(int(age), bool(social), gender=slots.get("gender")), "年缴")
     m = quote(Insured(int(age), bool(social), gender=slots.get("gender")), "月缴")
     if not y.ok:
-        return "；".join(y.errors), {float(age)}
+        return (f"{int(age)}岁超过了首次投保的年龄上限{MAX_AGE_NEW}周岁，这款产品买不了。" if int(age) > MAX_AGE_NEW
+                else "出生满30天才能投保。"), {float(age), float(MAX_AGE_NEW), 30.0}
     who = {"父母": "您家老人", "子女": "孩子", "配偶": "您爱人"}.get(slots.get("relation") or "", "您")
     txt = (f"{who}{int(age)}岁{'有' if social else '没有'}社保，基础版一年{y.total:g}元，"
            f"按月交每月{m.total:g}元。")
@@ -305,6 +306,19 @@ def _item_template(item_ids: list[str]) -> str:
 
 
 # --- program-generated answers ---------------------------------------------------------------------
+
+_PRICE_Q = re.compile(r"多少钱|几块|价格|价钱|保费|费用多少|一年(要|交)?多少|每月|每个月|一个月|月缴|年缴|按月|按年|交多少|"
+                      r"贵|便宜|优惠|打折|报价|怎么收费")
+_ELIGIBLE_Q = re.compile(r"(还)?(能|可以|能不能)(买|投|投保)|多大(年纪|岁数)?(能|可以)?(买|投)|有没有(什么)?(年龄)?限制|年纪.{0,4}限制")
+
+
+def _eligibility_text(slots: dict, question: str) -> str:
+    age = int(slots["age"])
+    if age > MAX_AGE_NEW:
+        return f"{age}岁超过了首次投保的年龄上限{MAX_AGE_NEW}周岁，这款产品买不了。"
+    tail = "门急诊加油包只能55周岁及以下买。" if age > 55 else ""
+    return f"{age}岁可以买，首次投保的年龄是出生满30天到{MAX_AGE_NEW}周岁。{tail}能不能承保还要看健康告知和核保结果。"
+
 
 _DISCOUNT_Q = re.compile(r"优惠|打折|折扣|便宜|全家|家里人|一家|一起买")
 FAMILY_SAY = "优惠的话，给家人一起买有家庭单优惠：2个人每人优惠5%，3个人10%，4个人15%，5个人及以上20%。"
@@ -371,9 +385,10 @@ def _addon_quote_text(slots: dict, addons: list[str]) -> tuple[str, set] | None:
     return "".join(parts), nums
 
 
-def _clauses(text: str) -> int:
-    from agent.session import QUESTION_MARKERS  # same notion of "a question clause" as the call flow
+QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|有没有|咋|？|\?")
 
+
+def _clauses(text: str) -> int:
     return len([c for c in re.split(r"[，,。；;？?]", text) if QUESTION_MARKERS.search(c)])
 
 
@@ -462,8 +477,12 @@ class Pipeline:
             intent = u["intent"] = "报价"
 
         if intent == "身份":
-            return Answer(f"{IDENTITY_REPLY}价格和保障我都能帮您讲清楚，您想先了解哪方面？", route="身份(模型)",
-                          understanding=u, timings={**timings, "total": time.perf_counter() - t0})
+            from agent import small_model
+
+            if small_model.is_identity_question(question, self.client):
+                return Answer(f"{IDENTITY_REPLY}价格和保障我都能帮您讲清楚，您想先了解哪方面？", route="身份(模型)",
+                              understanding=u, timings={**timings, "total": time.perf_counter() - t0})
+            intent = u["intent"] = "其他"  # only one model thought so (第八轮验收 4 calls, 1 question)
 
         evidence: list[Chunk] = []
         structured: set = {float(v) for v in slots.values() if isinstance(v, (int, float)) and not isinstance(v, bool)}
@@ -479,6 +498,16 @@ class Pipeline:
                           timings={**timings, "total": time.perf_counter() - t0})
 
         gap_tail = "".join(GAP_FALLBACK[g] for g in u.get("gaps", []))
+        # The understanding module also labels "ICU补贴是多少""VIP病房能报吗" as 报价; answering those with a price is
+        # wrong (第八轮验收 5 calls). The price template is used only when the words ask for a price or only give conditions.
+        price_asked = (bool(_PRICE_Q.search(question)) or bool({"age", "has_social"} & set(new_slots))
+                       or not (_COVERAGE_WORDS.search(question) or QUESTION_MARKERS.search(question)))
+        if (_ELIGIBLE_Q.search(question) and slots.get("age") is not None and not u.get("gaps")
+                and not _COVERAGE_WORDS.search(question) and not _PRICE_Q.search(question)):
+            return done(_eligibility_text(slots, question), "投保条件(模板)", topic_chunks("被保人年龄"),
+                        {float(slots["age"]), float(MAX_AGE_NEW), 55.0, 30.0})
+        if intent == "报价" and not price_asked:
+            intent = u["intent"] = "保障" if (u.get("items") or _COVERAGE_WORDS.search(question)) else "其他"
         if intent == "报价":
             qt = _quote_text(slots)
             if qt is None:
@@ -567,6 +596,8 @@ class Pipeline:
         fallback = False
         if violations:
             fallback = True
+            if not must_say and any("社保抵扣免赔额" in v for v in violations):
+                must_say = [GAP_FALLBACK["社保抵扣免赔额"]]
             text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
         text = addon_notice(text, evidence)
         if voice:
