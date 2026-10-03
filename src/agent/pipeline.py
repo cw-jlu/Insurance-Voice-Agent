@@ -632,7 +632,9 @@ def combine_gaps(understood: list[str], detected: list[str], question: str = "")
     rule = gap_of(question) if question else None
     if rule and rule.name in understood + detected and rule.name not in out:
         out.append(rule.name)
-    question_mentions_social = not question or bool(re.search(r"医保|社保", question))  # "既往症是什么意思" misfired (第八轮回归)
+    # one path is enough for 社保抵扣 only when the words are about the deductible ("特药里社保目录内的药怎么报" is not)
+    question_mentions_social = not question or bool(re.search(r"(医保|社保)[^。？?]{0,12}(免赔|抵|算进|算在|计入|报完|报了|报过|剩下|剩余)|"
+                                                              r"(免赔|一万|1万)[^。？?]{0,12}(医保|社保)", question))  # "既往症是什么意思" misfired (第八轮回归)
     asks_renewal = not question or bool(re.search(r"续|停售|下架|到期|不卖了", question))  # 第十轮回归: split prompt missed 续保
     for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social),
                       ("续保", "续保" in understood + detected and asks_renewal)):
