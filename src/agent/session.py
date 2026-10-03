@@ -144,7 +144,7 @@ class CallSession:
         known = {**self.profile, "_history": hist}
         self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
         with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
-            fu = ex.submit(understand, user_text, known, self.pipe.client, self.pipe.fast_model)
+            fu = ex.submit(self.pipe.understand, user_text, known)
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
             fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
             fr = ex.submit(self.pipe.retrieve, user_text)

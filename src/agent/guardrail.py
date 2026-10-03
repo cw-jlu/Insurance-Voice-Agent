@@ -107,7 +107,8 @@ def _units_compatible(a: str, b: str) -> bool:
     return not a or not b or a == b
 
 
-def number_guard(answer: str, evidence: list[str], structured: set[float] | None = None) -> GuardResult:
+def number_guard(answer: str, evidence: list[str], structured: set[float] | None = None,
+                 groups: list[str] | None = None) -> GuardResult:
     """Every number in ``answer`` must be supported.
 
     ``structured``: values from deterministic lookups (quote engine, user-stated slots). They are
@@ -116,11 +117,11 @@ def number_guard(answer: str, evidence: list[str], structured: set[float] | None
     number is supported if some chunk has the same value with a compatible unit and, when the
     answer names what the number is about, that chunk talks about the same thing.
     """
-    ev: list[tuple[Num, set[str]]] = []
-    for e in evidence:
+    ev: list[tuple[Num, set[str], str]] = []
+    for k, e in enumerate(evidence):
         clean = _LIST_MARKER.sub(" ", e)
         terms = _bigrams(clean)
-        ev += [(n, terms) for n in extract_numbers(clean)]
+        ev += [(n, terms, groups[k] if groups else str(k)) for n in extract_numbers(clean)]
     answer = PRODUCT_NAME_RE.sub("本产品", answer)  # "2026版" is a name, not a fact to verify
     bad = []
     for n in extract_numbers(answer):
@@ -129,12 +130,14 @@ def number_guard(answer: str, evidence: list[str], structured: set[float] | None
             continue
         if structured and n.value in structured:
             continue
-        same_value = [terms for e, terms in ev if e.value == n.value and _units_compatible(e.unit, n.unit)]
-        if not same_value:
+        same = [(terms, g) for e, terms, g in ev if e.value == n.value and _units_compatible(e.unit, n.unit)]
+        if not same:
             bad.append(n.raw)
             continue
         ctx = _bigrams(_context(answer, n.start, n.start + len(n.raw)))
-        if ctx and not any(ctx & terms for terms in same_value):
+        # 方案 D: a value that occurs in one evidence group only cannot belong to another item: accept it
+        unambiguous = groups is not None and len({g for _, g in same}) == 1
+        if ctx and not any(ctx & terms for terms, _ in same) and not unambiguous:
             bad.append(n.raw)
     return GuardResult(ok=not bad, violations=[f"无依据数字：{b}" for b in bad])
 

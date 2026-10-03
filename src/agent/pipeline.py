@@ -28,6 +28,7 @@ from agent.guardrail import (
     social_deduction_conclusion,
 )
 from agent.knowledge import Chunk, clause_chunks, coverage_items
+from agent.facts import SHORT, item_facts
 from agent.knowledge import rate_table
 from agent.quote import ADDONS, MAX_AGE_NEW, Insured, quote
 from agent.retrieval import Retriever
@@ -254,8 +255,10 @@ def grouped_context(evidence: list[Chunk]) -> str:
 
 
 def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gaps: list[str] | None = None,
-           fact_check: bool | str = "multi", gaps_judged: bool = False) -> list[str]:
-    v = number_guard(text, [c.text for c in evidence], structured).violations
+           fact_check: bool | str = "multi", gaps_judged: bool = False, features: frozenset = frozenset(),
+           client=None) -> list[str]:
+    groups = [c.meta.get("item") or c.doc for c in evidence] if "D" in features else None
+    v = number_guard(text, [c.text for c in evidence], structured, groups).violations
     # When the caller already judged gaps (CallSession: current-sentence detector), only those gaps are
     # enforced; the keyword rule alone misfires on e.g. "得了癌症……能报吗" (第六轮重测).
     v += (gap_guard("", text, gaps) if gaps_judged else gap_guard(question, text, gaps)).violations
@@ -267,15 +270,21 @@ def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gap
     items = {c.meta.get("item") for c in evidence if c.meta.get("item")}
     run_fact = fact_check is True or fact_check == "always" or (fact_check == "multi" and len(items) >= 2)
     jobs = {}
-    with ThreadPoolExecutor(2) as ex:  # the two model checks are independent: run them side by side
+    with ThreadPoolExecutor(3) as ex:  # the model checks are independent: run them side by side
         if gaps:
             jobs["gap"] = ex.submit(small_model.gap_review, question, text)
         if run_fact and evidence and not v:
             jobs["fact"] = ex.submit(small_model.fact_check, text, grouped_context(evidence))
+        if "B" in features and items and not v:
+            from agent.facts import check_claims
+
+            jobs["claims"] = ex.submit(check_claims, text, client)
     if "gap" in jobs and jobs["gap"].result():
         v.append("模型复核：对缺口问题给出了结论")
     if "fact" in jobs:
         v += [f"事实核对：{p}" for p in jobs["fact"].result()]
+    if "claims" in jobs:
+        v += [f"规则说错：{p}" for p in jobs["claims"].result()]
     return v
 
 
@@ -411,6 +420,142 @@ def addon_notice(text: str, evidence: list[Chunk]) -> str:
     return out
 
 
+# --- 方案 A / D helpers ------------------------------------------------------------------------------
+
+FACTS_RULE = """
+13. 本题用"只选不写"的方式回答：不要直接写回答，只输出 JSON：
+{"opening": "开头一句，直接回应用户，不含任何数字和保障规则", "facts": [要讲的【事实】编号，按讲的顺序，最多4个],
+ "calc": "如果用户问能报多少钱、能拿多少，写一句算出的结果（只能用【事实】里的数和用户说的数）；否则为空",
+ "closing": "可选的一句补充（如免责、提醒），不含保额、免赔额、比例、天数这些规则；没有就为空"}
+保额、免赔额、赔付比例、等待期、每天给多少、是否要另外买、年龄限制，只能通过选【事实】编号来说。"""
+
+
+_RULE_WORDS = re.compile(r"\d|[一二三四五六七八九十百千]+(万|元|天|%)|免赔|比例|保额|另外选购|加油包|等待期|最高|每天|万元|%")
+
+
+def assemble_facts(raw: str, facts: list[str]) -> str:
+    """方案 A: the program writes the answer from the model's plan; rule sentences come only from the fact list."""
+    try:
+        d = json.loads(raw)
+    except json.JSONDecodeError:
+        return ""
+    def free(t) -> str:  # free text may not carry rules: a sentence with a number or a rule word is dropped
+        t = str(t or "").strip("。 ")
+        return "" if _RULE_WORDS.search(t) else t
+
+    parts = [free(d.get("opening"))]
+    for k in d.get("facts") or []:
+        try:
+            k = int(str(k).lstrip("Ff"))
+        except ValueError:
+            continue
+        if 1 <= k <= len(facts):
+            parts.append(facts[k - 1])
+    parts += [str(d.get("calc") or "").strip("。 "), free(d.get("closing"))]
+    return "。".join(dict.fromkeys(p for p in parts if p)) + "。"
+
+
+def derived_numbers(question: str, evidence: list[Chunk]) -> set[float]:
+    """方案 D: one-step results from the user's numbers and the evidence's numbers ("住院5万" − 1万 = 4万)."""
+    from agent.guardrail import extract_numbers as nums
+
+    q = [n.value for n in nums(question) if n.value > 0]
+    if len(q) >= 2:
+        q.append(sum(q))
+    ev = [n for c in evidence for n in nums(c.text)]
+    amounts = {n.value for n in ev if n.unit in ("", "元") and n.value > 0}
+    days = {n.value for n in ev if n.unit == "天"}
+    pct = {n.value for n in ev if n.unit == "%"}
+    out: set[float] = set()
+    for a in q:
+        for e in amounts | days:
+            out |= {a - e, e - a, a + e}
+            for p in pct:
+                out |= {round((a - e) * p / 100, 2), round(a * p / 100, 2)}
+        for d in days:
+            out |= {(a - d) * e for e in amounts}
+        out |= {a * e for e in amounts if e < 2000}  # days × daily amount
+    return {round(x, 2) for x in out if x > 0}
+
+
+_FIELD_WORDS = [("免赔", "免赔"), ("比例|赔多少|报多少|按多少", "赔"), ("多少|最高|额度|保额", "最"), ("等|等待", "等待期"),
+                ("每天|一天|日", "每天"), ("加油包|另外|基础版", "选购")]
+
+
+def spoken_fallback(item_ids: list[str], question: str) -> str:
+    """方案 D: when an answer cannot be released, say only the asked item's relevant facts, in spoken sentences."""
+    facts = item_facts(item_ids[0])
+    want = [key for pat, key in _FIELD_WORDS if re.search(pat, question)]
+    pick = [f for f in facts if any(k in f for k in want)] or facts[1:3]
+    return "。".join(([facts[0]] if facts[0] not in pick else []) + pick[:3]) + "。"
+
+
+def understand_split(question: str, known: dict, client=None, model: str | None = None) -> dict:
+    """方案 C: the understanding prompt split into three short ones run side by side (intent+gaps / items+topics / slots)."""
+    from agent import small_model
+
+    model = model or cloud.FAST_MODEL
+    prev = known.get("_prev_utterance")
+    history = known.get("_history")
+    ctx = ((f"【最近对话】\n{history}\n" if history else "")
+           + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev and not history else ""))
+
+    def intent():
+        raw = cloud.chat([{"role": "system", "content": _SPLIT_INTENT_SYS % {"gaps": GAP_NAMES}},
+                          {"role": "user", "content": ctx + f"用户：{question}"}],
+                         model=model, client=client, temperature=0, response_format={"type": "json_object"})
+        try:
+            d = json.loads(raw)
+        except json.JSONDecodeError:
+            d = {}
+        return {"intent": d.get("intent") if d.get("intent") in INTENTS else "其他",
+                "gaps": [g for g in d.get("gaps", []) if g in GAP_NAMES]}
+
+    def items():
+        raw = cloud.chat([{"role": "system", "content": _SPLIT_ITEMS_SYS % {"topics": TOPIC_NAMES, "catalog": _catalog()}},
+                          {"role": "user", "content": f"用户：{question}"}],
+                         model=model, client=client, temperature=0, response_format={"type": "json_object"})
+        try:
+            d = json.loads(raw)
+        except json.JSONDecodeError:
+            d = {}
+        return {"items": [i for i in d.get("items", []) if i in COVERAGE][:MAX_ITEMS],
+                "topics": [t for t in d.get("topics", []) if t in TOPIC_NAMES]}
+
+    with ThreadPoolExecutor(3) as ex:
+        fi, fit, fs = ex.submit(intent), ex.submit(items), ex.submit(small_model.extract_slots, question, client)
+        u = {**fi.result(), **fit.result(), "slots": fs.result(), "rewrite": question}
+    if "疾病核保" in u["gaps"]:
+        u["topics"] = list(dict.fromkeys(u["topics"] + ["既往症", "如实告知"]))
+    return u
+
+
+_SPLIT_INTENT_SYS = """判断保险电销通话中用户这句话的意图和是否问到资料里没有的事项，只输出 JSON：{"intent": ..., "gaps": [...]}
+intent 之一：
+- 报价：问价格、多少钱、每月/每年交多少、以后价格会不会变；只补充年龄、社保等条件而没问别的，也算报价
+- 优惠：问优惠、打折、全家一起买便宜多少
+- 保障：问能不能报、怎么报、报多少、免赔额、赔付比例、等待期、医院、津贴每天多少、加油包保什么
+- 投保条件：问多大年纪能买、职业、什么时候生效、能买几份、能不能给家人买
+- 免责：问某种病或某项费用本身在不在保障范围（没说自己已经有这个病）
+- 缺口：问资料里没有的事项（见下面 gaps）
+- 身份：问对方是不是真人、机器人、AI、录音
+- 闲聊：寒暄、附和、说自己情况但没提问；其他：都不是
+gaps 可选 %(gaps)s，规则：
+- 疾病核保：用户说自己或家人已经有某种病、做过手术、在吃药，问能不能买、买了能不能报这个病。只是问"得了某病能不能报"（假设）不算。
+- 续保：问能不能续保、保证续保、停售后怎么办。
+- 社保抵扣免赔额：只在问医保/社保报销的钱能不能算进或抵扣1万免赔额时才算；问没走社保报多少、医保报过的会不会重复赔都不算。
+- 条款清单：问重疾清单、特药清单、医院名单。
+没有就输出空列表。"""
+
+_SPLIT_ITEMS_SYS = """列出回答用户这句话需要查的保险责任和关键主题，只输出 JSON：{"items": [...], "topics": [...]}
+items 从下面责任目录中选编号，问到几项就列几项（最多 5 个），只列直接相关的；没问保障就为空。
+- 问免赔额以内、自己先掏的部分能不能报 → 含 R01、R12、R09；问确诊重病能不能直接拿钱 → 含 R10、R03；
+- 问门诊/急诊 → R02（基础版）；问门诊加油包 → R13；问住院津贴/ICU补贴 → R14、R15；问网上买药 → R16。
+topics 从 %(topics)s 中选：总保额、既往症、等待期、补偿原则、医院范围、社保结算比例、被保人年龄、投保人资格、职业、一人一份、生效时间、保险期间、价格变化、如实告知、其他免责、家庭单优惠。
+责任目录：
+%(catalog)s"""
+
+
 def combine_gaps(understood: list[str], detected: list[str], question: str = "") -> list[str]:
     """Gaps the answer is routed on. A gap counts only when the understanding module and the gap detector
     agree (exp12: each alone misfires on different questions, e.g. "确诊癌症能直接拿到钱吗"); the detector
@@ -431,12 +576,19 @@ def gaps_to_check(understood: list[str], detected: list[str]) -> list[str]:
 
 class Pipeline:
     def __init__(self, retriever: HybridRetriever | None, client=None, slow_model: str | None = None,
-                 fast_model: str | None = None, fact_check: str = "off"):
+                 fast_model: str | None = None, fact_check: str = "off", features: frozenset | set = frozenset()):
         self.fact_check = fact_check  # "always" | "multi" (only when evidence spans 2+ coverage items) | "off"
+        # 第十轮消融的方案开关（08 方案 A–D）：A 只选不写、B 三元组比对、C 理解拆分、D 数字护栏算术与口语兜底
+        self.features = frozenset(features)
         self.retriever = retriever
         self.client = client or cloud.llm_client()
         self.slow_model = slow_model or cloud.SLOW_MODEL
         self.fast_model = fast_model or cloud.FAST_MODEL
+
+    def understand(self, question: str, known: dict) -> dict:
+        if "C" in self.features:
+            return understand_split(question, known, self.client, self.fast_model)
+        return understand(question, known, self.client, self.fast_model)
 
     def retrieve(self, question: str, k: int = 4) -> list[Chunk]:
         return self.retriever.search(question, k=k) if self.retriever is not None else []
@@ -458,7 +610,7 @@ class Pipeline:
             from agent import small_model
 
             with ThreadPoolExecutor(3) as ex:
-                fu = ex.submit(understand, question, known, self.client, self.fast_model)
+                fu = ex.submit(self.understand, question, known)
                 fd = ex.submit(small_model.detect_gaps, question, self.client)
                 fr = ex.submit(self.retrieve, question)
                 u, detected = fu.result(), fd.result()
@@ -571,27 +723,48 @@ class Pipeline:
             timings["agent"] = time.perf_counter() - t1
             timings["agent_steps"] = steps
 
-        ctx = grouped_context(evidence)
+        facts: list[str] = []
+        if "A" in self.features:
+            seen_items = list(dict.fromkeys(c.meta["item"] for c in evidence if c.meta.get("item")))
+            facts = [f for iid in seen_items for f in item_facts(iid)]
+            if facts:  # coverage rules come as citable sentences; the table rows themselves are not shown
+                evidence_for_prompt = [c for c in evidence if not c.chunk_id.endswith(":head")]
+                evidence = evidence + [Chunk("facts", "保障计划表", "；".join(facts) + "。", "保障计划表（事实句）")]
+            else:
+                evidence_for_prompt = evidence
+        else:
+            evidence_for_prompt = evidence
+        if "D" in self.features:
+            structured |= derived_numbers(question, evidence)
+        ctx = grouped_context(evidence_for_prompt)
         shown = {k: v for k, v in slots.items() if not str(k).startswith("_")}
         history = known.get("_history", "")
         user = (f"已知用户条件：{json.dumps(shown, ensure_ascii=False)}\n"
                 + (f"【最近对话】\n{history}\n" if history else "")
                 + f"【报价结果】{must_say[0] if intent == '报价' and must_say else '无'}\n"
                 f"【必须原样包含的话】{'；'.join(must_say[1:] if intent == '报价' else must_say) or '无'}\n"
-                f"【资料】\n{ctx}\n\n用户：{question}")
-        msgs = [{"role": "system", "content": _ANSWER_SYS + (VOICE_RULES if voice else "")}, {"role": "user", "content": user}]
+                + ("【事实】\n" + "\n".join(f"[F{i + 1}] {f}" for i, f in enumerate(facts)) + "\n" if facts else "")
+                + f"【资料】\n{ctx}\n\n用户：{question}")
+        msgs = [{"role": "system", "content": _ANSWER_SYS + (FACTS_RULE if facts else "") + (VOICE_RULES if voice else "")},
+                {"role": "user", "content": user}]
 
         text, violations, attempts = "", [], 0
         for attempts in (1, 2):
             t1 = time.perf_counter()
-            r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3)
-            timings.setdefault("generate_ttft", r.ttft_s)
+            if facts:
+                raw = cloud.chat(msgs, model=self.slow_model, client=self.client, temperature=0.3,
+                                 response_format={"type": "json_object"})
+                text = assemble_facts(raw, facts) or "这个问题我需要帮您转专员确认一下。"
+                timings.setdefault("generate_ttft", time.perf_counter() - t1)
+            else:
+                r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3)
+                timings.setdefault("generate_ttft", r.ttft_s)
+                text = r.text.strip()
             timings[f"generate_{attempts}"] = time.perf_counter() - t1
-            text = r.text.strip()
             # Checked against the routed gaps only: checking against either path's gaps (exp14 first run) turned
             # coverage answers such as "癌症住院能报" into violations whenever one path misread the question.
             violations = _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False),
-                                fact_check=self.fact_check)
+                                fact_check=self.fact_check, features=self.features, client=self.client)
             if not violations:
                 break
             # Rewrite as a fresh generation with the problems as constraints: sending the old answer back as a
@@ -603,7 +776,10 @@ class Pipeline:
             fallback = True
             if not must_say and any("社保抵扣免赔额" in v for v in violations):
                 must_say = [GAP_FALLBACK["社保抵扣免赔额"]]
-            text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
+            if "D" in self.features and not must_say and u.get("items"):
+                text = spoken_fallback(u["items"], question)
+            else:
+                text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
         text = addon_notice(text, evidence)
         if voice:
             text = cap_for_voice(text, must_say)
