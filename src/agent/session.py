@@ -178,6 +178,10 @@ class CallSession:
             u["intent"] = "其他"  # one model alone misreads e.g. "没有，身体挺好的" (第八轮验收)
         timings["understand"] = time.perf_counter() - t0
         events: list[str] = self._update_profile(u.get("slots") or {})
+        # what _update_profile ignored must not reach the answer either (第十轮回归: "要是她70多岁了" was quoted at 70)
+        u["slots"] = {k: v for k, v in (u.get("slots") or {}).items()
+                      if not ((k == "age" and self._hypothetical) or (k == "has_social" and self._comparison)
+                              or (k in ("relation", "gender") and self._family_mention))}
         if any(e.startswith(("纠正:age", "纠正:has_social", "纠正:relation")) for e in events) and self.flags["quoted"]:
             self.flags["quoted"] = False  # price depended on the corrected fact: quote again
 
@@ -187,6 +191,8 @@ class CallSession:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"
             return self._finish(HANDOFF, act, events + ["转人工"], timings, t0)
         self.pending_handoff_offer = False
+        if act in ("异议", "提问", "附和") and re.search(r"不需要|不要了|不买了?|没兴趣|用不着", user_text)                 and not QUESTION_MARKERS.search(user_text):
+            act = "拒绝"  # "517啊，太贵了，不需要" is a refusal, not only a price objection (第十轮回归)
         if act == "拒绝" and re.search(r"考虑|想想|再说|看看|发.{0,4}(介绍|资料|链接)", user_text):
             act = "异议"  # "let me think about it" is hesitation, not a refusal
         if DO_NOT_CALL.search(user_text):
@@ -314,7 +320,7 @@ def fixed_phrases() -> list[str]:
 QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|有没有|咋|？|\?")
 _YES = re.compile(r"^(那)?(好|好的|好吧|行|可以|嗯|对|是的|发吧|发过来|发我|麻烦|那就|没问题|ok|OK)|发(过来|给我|我|吧)|可以发|行啊|好啊")
 HYPOTHETICAL_AGE = re.compile(r"等我|到时候|以后|将来|老了|万一|要是|如果|假如|\d+多|[一二三四五六七八九十]+多(岁|了)")
-DO_NOT_CALL = re.compile(r"别(再)?打(了|来)?|不要(再)?打(了|来)|以后别|别再来电|不要再来电|拉黑|别骚扰")
+DO_NOT_CALL = re.compile(r"别(再)?打(电话|了|来|过来|扰)|不要(再)?打(电话|了|来)|以后别(再)?(打|来电)|别再来电|不要再来电|拉黑|别骚扰")
 OTHER_CHANNEL = re.compile(r"微信|邮箱|邮件|QQ|qq")
 OTHER_CHANNEL_REPLY = "微信和邮箱这边发不了。我可以把投保链接用短信发到您手机上，页面里有完整的产品介绍，需要吗？"
 # Hesitation or postponement: never consent (第六轮 #7 "回去跟家里人商量商量，到时候再联系你们吧" got a link).
