@@ -154,7 +154,7 @@ class CallSession:
         # and only when the detector and the understanding module agree: the detector alone misfired on ~9 of
         # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
         u["_gaps_check"] = gaps_to_check(u.get("gaps", []), gaps_now)
-        u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), gaps_now), True
+        u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), gaps_now, user_text), True
         if "疾病核保" in u["gaps"] and u.get("intent") not in ("缺口",):
             u["intent"] = "缺口"
         elif u.get("intent") == "缺口" and not u["gaps"]:
@@ -173,7 +173,8 @@ class CallSession:
             self.flags["quoted"] = False  # price depended on the corrected fact: quote again
 
         offered_handoff = self.pending_handoff_offer and self._last_agent_text().endswith(OFFER_HANDOFF)
-        if act in ("要人工", "投诉") or (offered_handoff and not self._last_agent_asked_link() and _yes(user_text)):
+        accepts_handoff = offered_handoff and not self._last_agent_asked_link() and (_yes(user_text) or ACCEPT_HANDOFF.search(user_text))
+        if act in ("要人工", "投诉") or accepts_handoff:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"
             return self._finish(HANDOFF, act, events + ["转人工"], timings, t0)
         self.pending_handoff_offer = False
@@ -311,7 +312,9 @@ OTHER_CHANNEL_REPLY = "微信和邮箱这边发不了。我可以把投保链接
 HESITATE = re.compile(r"考虑|想想|想一想|再说|先挂|商量|回头|到时候|再联系|联系你们|改天|以后再|过两天|过几天|不急|比较|"
                       r"再看看|看看再|还没想好|没想好|等我|问问家|问一下家|跟家里|和家里")
 _NEGATE = re.compile(r"不(用|要|需要)(发|买|了吧)|不买|不想买|先别|别发|算了|没兴趣|不需要")
-_SEND_REQUEST = re.compile(r"发(过来|给我|我|一个|个)?(链接|过来)|链接发|把链接|发我手机|发到我手机|发短信")
+_SEND_REQUEST = re.compile(r"发(过来|给我|我|一个|个)?(链接|过来)|链接发|把链接|发我手机|发到我手机|发短信|"
+                           r"(你|那你|那就)?发(给)?我吧|你发吧|发来(吧|看看)")
+ACCEPT_HANDOFF = re.compile(r"(那|行|好|可以)?(你)?(帮我)?转(吧|人工|专员|过去)|转一下")
 # Explicit agreement to receive the link or to buy, in the user's own words.
 _EXPLICIT_YES = re.compile(r"发(过来|给我|我|吧|一个|个|到我|链接)|可以发|那就买|我买|买一份|就它了|就这个|要买|"
                            r"怎么(买|投保|投)|(我|那)?投保吧|给我办|办一个|上车")

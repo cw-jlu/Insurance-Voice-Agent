@@ -408,13 +408,14 @@ def addon_notice(text: str, evidence: list[Chunk]) -> str:
     return out
 
 
-def combine_gaps(understood: list[str], detected: list[str]) -> list[str]:
+def combine_gaps(understood: list[str], detected: list[str], question: str = "") -> list[str]:
     """Gaps the answer is routed on. A gap counts only when the understanding module and the gap detector
     agree (exp12: each alone misfires on different questions, e.g. "确诊癌症能直接拿到钱吗"); the detector
     names the type. Two exceptions, where one path is enough: clause lists on the understanding module (it does
     not misfire on them), and 社保抵扣免赔额, whose fallback is true either way (it states the 补偿原则)."""
     out = list(detected) if understood else []
-    for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected)):
+    question_mentions_social = not question or bool(re.search(r"医保|社保", question))  # "既往症是什么意思" misfired (第八轮回归)
+    for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social)):
         if either and g not in out:
             out.append(g)
     return out
@@ -460,13 +461,14 @@ class Pipeline:
                 u, detected = fu.result(), fd.result()
                 u["_retrieved"] = fr.result()
             u["_gaps_check"] = gaps_to_check(u.get("gaps", []), detected)
-            u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), detected), True
+            u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), detected, question), True
             if u.get("intent") == "缺口" and not u["gaps"]:
                 u["intent"] = "保障" if u.get("items") else "其他"
         else:
             u = understanding
         timings["understand"] = time.perf_counter() - t0
-        new_slots = {k: v for k, v in (u.get("slots") or {}).items() if v is not None}
+        # only what this sentence adds or changes: the model often echoes the known conditions back (第八轮回归 3 calls)
+        new_slots = {k: v for k, v in (u.get("slots") or {}).items() if v is not None and known.get(k) != v}
         slots = {**known, **new_slots}
         intent = u.get("intent", "其他")
         # "不对，我没有社保" / "那我爸61岁有医保呢": the user supplied or corrected a price condition and asked nothing
