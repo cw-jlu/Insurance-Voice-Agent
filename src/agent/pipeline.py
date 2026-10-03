@@ -323,6 +323,20 @@ _ELIGIBLE_Q = re.compile(r"(还)?(能|可以|能不能)(买|投|投保)|多大(�
                          r"(年纪|岁数|年龄).{0,6}限制")
 
 
+_HEALTH_RE = re.compile(r"病|症|炎|瘤|癌|结节|囊肿|息肉|高血压|糖尿病|三高|乙肝|手术|吃药|住过院|血压|血糖|血脂")
+
+
+def age_stated(text: str, age) -> bool:
+    """The age must appear in the words as an age: a standalone number (not part of "636"), not an amount ("63元")."""
+    from agent.guardrail import cn_to_int
+
+    a = int(age)
+    for m in re.finditer(r"(?<!\d)(\d{1,3})(?!\d)\s*(元|块|万|%|天|个月)?", text):
+        if int(m.group(1)) == a and not m.group(2):
+            return True
+    return any(cn_to_int(m.group(1)) == a for m in re.finditer(r"([一二两三四五六七八九十百]{1,4})(周)?(岁|了)", text))
+
+
 def _eligibility_text(slots: dict, question: str) -> str:
     age = int(slots["age"])
     if age > MAX_AGE_NEW:
@@ -600,9 +614,13 @@ class Pipeline:
         self.fast_model = fast_model or cloud.FAST_MODEL
 
     def understand(self, question: str, known: dict) -> dict:
-        if "C" in self.features:
-            return understand_split(question, known, self.client, self.fast_model)
-        return understand(question, known, self.client, self.fast_model)
+        u = (understand_split(question, known, self.client, self.fast_model) if "C" in self.features
+             else understand(question, known, self.client, self.fast_model))
+        slots = u.get("slots") or {}
+        if slots.get("age") is not None and not age_stated(question, slots["age"]):
+            slots = {k: v for k, v in slots.items() if k != "age"}  # "636一年是吧" read as age 63 (第十轮回归)
+        u["slots"] = slots
+        return u
 
     def retrieve(self, question: str, k: int = 4) -> list[Chunk]:
         return self.retriever.search(question, k=k) if self.retriever is not None else []
@@ -676,7 +694,8 @@ class Pipeline:
         price_asked = ((bool(_PRICE_Q.search(last_q)) and not _COVERAGE_WORDS.search(last_q)) or bool({"age", "has_social"} & set(new_slots))
                        or not (_COVERAGE_WORDS.search(question) or QUESTION_MARKERS.search(question)))
         if (_ELIGIBLE_Q.search(question) and slots.get("age") is not None and not u.get("gaps")
-                and not _COVERAGE_WORDS.search(question) and not _PRICE_Q.search(question)):
+                and not _COVERAGE_WORDS.search(question) and not _PRICE_Q.search(question)
+                and not gap_of(question) and not _HEALTH_RE.search(question)):  # "我这高血压到底能不能买" is underwriting
             return done(_eligibility_text(slots, question), "投保条件(模板)", topic_chunks("被保人年龄"),
                         {float(slots["age"]), float(MAX_AGE_NEW), 55.0, 30.0})
         if intent == "报价" and not price_asked:
