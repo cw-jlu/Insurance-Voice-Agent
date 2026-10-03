@@ -90,6 +90,35 @@ PERSONAS_V2 = [
      "attitude": "先说给自己买（30岁有社保），坐席报价后说其实是替母亲问，母亲58岁有社保，问母亲多少钱", "must": ["先说给自己", "改口给母亲58岁"]},
 ]
 
+# 第八轮新增：在第八轮修改完成后、首次用新代码运行前写好，针对第六轮暴露的问题类型换新的场景和说法；
+# 修改期间没有用这些用户调试，作为第八轮整通电话的验收集。
+PERSONAS_V3 = [
+    {"name": "嘴上说好", "who": "本人", "age": 35, "social": True, "disease": None,
+     "attitude": "听介绍时会说'嗯嗯，挺好的''还行'，但坐席问要不要发链接时说晚上跟老婆商量一下再说", "must": ["说挺好的", "说晚上跟老婆商量一下再说"]},
+    {"name": "急着要链接", "who": "本人", "age": 26, "social": True, "disease": None,
+     "attitude": "报完价就说'行，你直接把链接发过来吧'；坐席提醒限制时，顺口问一句'那等待期内生病咋办'", "must": ["报价后马上要链接", "问等待期内生病咋办"]},
+    {"name": "理赔细节", "who": "本人", "age": 41, "social": True, "disease": None,
+     "attitude": "关心理赔：问理赔要准备什么材料、多久能到账、是不是要下载APP", "must": ["问理赔材料", "问多久到账", "问要不要下载APP"]},
+    {"name": "让回电", "who": "本人", "age": 47, "social": False, "disease": None,
+     "attitude": "说现在在开车不方便，让坐席查好价格晚点打回来，或者加个微信", "must": ["说现在不方便", "让坐席晚点打回来"]},
+    {"name": "医保配合", "who": "本人", "age": 52, "social": True, "disease": None,
+     "attitude": "问医保报了以后剩下的你们怎么赔，再问一万免赔里医保报的那部分算不算", "must": ["问医保报完剩下怎么赔", "问医保报的算不算免赔"]},
+    {"name": "老了续保", "who": "本人", "age": 62, "social": True, "disease": None,
+     "attitude": "担心年纪大，问明年到期还能不能续、七十多了会不会被拒，追问能不能保证", "must": ["问能不能续", "追问能不能保证"]},
+    {"name": "家族病史", "who": "本人", "age": 39, "social": True, "disease": None,
+     "attitude": "自己身体没问题，但父亲得过肺癌；问自己能不能买、以后自己得癌症能报多少", "must": ["说父亲得过癌症", "问自己得癌症能报多少"]},
+    {"name": "加油包比价", "who": "儿子", "age": 6, "social": True, "disease": None,
+     "attitude": "给6岁儿子买，问药省保加油包和门急诊加油包各多少钱", "must": ["说给儿子买", "问药省保多少钱", "问门急诊加油包多少钱"]},
+    {"name": "改口有医保", "who": "本人", "age": 27, "social": True, "disease": None,
+     "attitude": "先说自己没社保，坐席报价后说'哦不对，我有单位的职工医保'，再问按月交多少", "must": ["先说没社保", "改口有职工医保", "问月缴"]},
+    {"name": "两口子优惠", "who": "本人", "age": 39, "social": False, "disease": None,
+     "attitude": "嫌贵，问有没有优惠，问和老公两个人一起买便宜多少", "must": ["说贵", "问两个人一起买便宜多少"]},
+    {"name": "不耐烦拒绝", "who": "本人", "age": 44, "social": True, "disease": None,
+     "attitude": "一开始就说'你说重点'，听完一段后说'不需要了，以后别打了'", "must": ["让坐席说重点", "明确拒绝"]},
+    {"name": "怀疑骗子", "who": "本人", "age": 33, "social": True, "disease": None,
+     "attitude": "先问你是不是AI，再问你们是不是骗子、链接安不安全，听完后同意发链接", "must": ["问是不是AI", "问是不是骗子", "同意发链接"]},
+]
+
 SIM_SYS = """你在扮演一个接到保险电销电话的普通用户，用简短的口语回答，每次只说一两句，像真人打电话。
 你的真实情况（坐席问到才说，不要一次全说）：被保人是{who}，年龄{age}岁，{social}，{disease}。
 你的态度和想法：{attitude}。
@@ -209,7 +238,16 @@ def evaluate(call: dict, p: dict, client) -> dict:
         checks["两次拒绝后结束"] = call["ended_by_agent"] and not f["link"]
     if p["name"] == "父亲超龄":
         checks["超龄不报价"] = not any(re.search(r"72岁.{0,12}\d+元", t) for _, t, _ in agent)
-    checks["无做不到的承诺"] = not any(re.search(r"微信|邮箱|邮件|寄给|发您.{0,4}(介绍|资料)", t) for _, t, _ in agent)
+    checks["无做不到的承诺"] = not any(re.search(r"(加|发|用)(您|你)?.{0,2}微信|发.{0,4}邮箱|邮件|寄给|发您.{0,4}(介绍|资料|条款)|"
+                                                r"回电|打回(来|给)|再(给您)?(打|联系)|联系您|查到.{0,6}(告诉|联系|回)|下载|APP|打款|到账", t)
+                                      for _, t, _ in agent)
+    # an independent hesitation list (not the system's own): a link sent right after hesitation is not consent
+    link_turn = next((i for i, t, m in agent if m and any("发送链接" in e for e in m["events"])), None)
+    if link_turn is not None:
+        before = tr[link_turn - 1][1] if link_turn >= 1 else ""
+        checks["发链接时用户未表示犹豫"] = not re.search(r"考虑|商量|再说|想想|回头|晚上|改天|再看|先挂", before)
+        if not checks["发链接时用户未表示犹豫"]:
+            problems.append(f"犹豫时发了链接：{before}")
 
     lat = [m["latency"] for _, _, m in agent if m]
     return {"persona": p["name"], "turns": len(users), "outcome": ("发链接" if f["link"] else "转人工" if f["handoff"]
@@ -218,11 +256,11 @@ def evaluate(call: dict, p: dict, client) -> dict:
             "latency_max": round(max(lat), 2) if lat else None, "profile": call["profile"]}
 
 
-def main(rounds: int = 2, tag: str = "v2"):
+def main(rounds: int = 2, tag: str = "v2", personas: list | None = None):
     client = cloud.llm_client()
     chunks = corpus(False)
     pipe = Pipeline(HybridRetriever(chunks, load(chunks, "clauses"), client=client), client=client)
-    jobs = [p for _ in range(rounds) for p in PERSONAS + PERSONAS_V2]
+    jobs = [p for _ in range(rounds) for p in (personas or PERSONAS + PERSONAS_V2)]
 
     def run(p):
         for attempt in range(3):
@@ -265,7 +303,15 @@ def main(rounds: int = 2, tag: str = "v2"):
 
 
 if __name__ == "__main__":
-    r = main()
+    import argparse
+
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--set", default="old", choices=["old", "v3", "all"])
+    ap.add_argument("--rounds", type=int, default=2)
+    ap.add_argument("--tag", default="v2")
+    a = ap.parse_args()
+    sets = {"old": PERSONAS + PERSONAS_V2, "v3": PERSONAS_V3, "all": PERSONAS + PERSONAS_V2 + PERSONAS_V3}
+    r = main(a.rounds, a.tag, sets[a.set])
     print(json.dumps(r["summary"], ensure_ascii=False, indent=1))
     for e in r["evals"]:
         if e.get("problems") or e.get("error"):
