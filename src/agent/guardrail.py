@@ -236,6 +236,17 @@ _RENEWAL = re.compile(
     r"(可以|能|会)(一直|自动|保证)续|自动续保|续保(没问题|是保证的|有保障)|不能(再)?续保|(停售|下架)(后|以后)?(就)?(不能|不可以|无法)续")
 
 
+_DISEASE_OK = re.compile(r"(高血压|糖尿病|结节|乙肝|心脏病|哮喘|痛风|病史|既往症|这个病|慢性病)[^。！？；]{0,8}(也)?(可以|能|也能)(投保|买|承保)")
+_COVER_TO_AGE = re.compile(r"(最高|最多|能|可以|一直)?保到\s*\d{2}\s*(周)?岁")
+
+
+def other_conclusions(answer: str) -> GuardResult:
+    """Always-on (第十轮回归): "有高血压可以投保" decides underwriting; "最高保到70周岁" turns the entry age into a cover age."""
+    plain = _unhedged(answer)
+    hits = [m.group(0) for r in (_DISEASE_OK, _COVER_TO_AGE) for m in [r.search(plain)] if m]
+    return GuardResult(ok=not hits, violations=[f"无依据结论：{h}" for h in hits])
+
+
 def renewal_conclusion(answer: str) -> GuardResult:
     """Always-on: the data has no renewal rules, so any statement of how renewal works is a conclusion (第十轮回归)."""
     # "这款产品不保证续保" states a product rule (not in the data); "我没法保证续保" is a hedge: check the raw text for it

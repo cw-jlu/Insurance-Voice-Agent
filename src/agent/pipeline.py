@@ -25,7 +25,7 @@ import numpy as np
 from agent import cloud
 from agent.guardrail import (
     GAPS, IDENTITY_REPLY, compliance_guard, extract_numbers, gap_guard, gap_of, is_identity_question, number_guard,
-    renewal_conclusion, social_deduction_conclusion,
+    other_conclusions, renewal_conclusion, social_deduction_conclusion,
 )
 from agent.knowledge import Chunk, clause_chunks, coverage_items
 from agent.facts import SHORT, item_facts
@@ -265,6 +265,7 @@ def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gap
     # "医保报完剩下的扣1万再报" is a conclusion on the 社保抵扣 gap whatever the question was (第六轮 2 calls)
     v += social_deduction_conclusion(text).violations
     v += renewal_conclusion(text).violations
+    v += other_conclusions(text).violations
     v += compliance_guard(text).violations
     from agent import small_model
 
