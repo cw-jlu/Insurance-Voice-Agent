@@ -337,7 +337,7 @@ _SEND_REQUEST = re.compile(r"发(过来|给我|我|一个|个)?(链接|过来)|�
 ACCEPT_HANDOFF = re.compile(r"(那|行|好|可以)?(你)?(帮我)?转(吧|人工|专员|过去)|转一下")
 # Explicit agreement to receive the link or to buy, in the user's own words.
 _EXPLICIT_YES = re.compile(r"发(过来|给我|我|吧|一个|个|到我|链接)|可以发|那就买|我买|买一份|就它了|就这个|要买|"
-                           r"怎么(买|投保|投)|(我|那)?投保吧|给我办|办一个|上车")
+                           r"怎么(买|投保|投)|(那就|就|我要|那我|给(她|他|我|孩子))投保吧|给我办|办一个|上车")
 _SHORT_YES = re.compile(r"^(嗯|那|那就)?[，,]?(好|好的|好吧|好啊|行|行吧|行啊|可以|可以的|可以啊|没问题|成|中|ok|OK|要|需要)[。！!，,～~]*$")
 OFFER_HANDOFF = "这个问题需要专员根据条款确认，需要我帮您转接人工专员吗？"
 
@@ -358,7 +358,7 @@ _PROCESS = re.compile(r"下载|APP|App|app|小程序|公众号|在线申请|线�
 
 def capability_guard(text: str) -> tuple[str, list[str]]:
     # saying what we cannot do ("微信和邮箱这边发不了") is not a promise
-    keep = lambda m: re.search(r"发不了|没法|无法|不能|不支持|做不到", m.group(0))
+    keep = lambda m: re.search(r"发不了|没法|无法|不能|不支持|做不到|没有(额外|其他)?(优惠|活动)", m.group(0))
     removed = [m.group(0) for m in _NO_CAPABILITY.finditer(text) if not keep(m)]
     if not removed:
         return text, []
@@ -380,7 +380,7 @@ def _consents(text: str, act: str, asked_link: bool) -> bool:
     t = text.strip()
     if _NEGATE.search(t) or OTHER_CHANNEL.search(t):
         return False
-    if re.search(r"吗[？?。]?$", t) and re.search(r"是不是|是直接|如果|要是|怎么|是要", t):
+    if re.search(r"(吗|吧)[？?。]?$", t) and re.search(r"是不是|是直接|如果|要是|怎么|是要|能(正常)?(投保|买)|可以(投保|买)", t):
         return False  # "如果我要买的话，是直接给我发个链接吗？" asks how buying works; "能发个链接给我看看吗" is a request
     if _SEND_REQUEST.search(t):
         return True  # the user asks for the link itself; sending it is what they asked for, even "看看再说"

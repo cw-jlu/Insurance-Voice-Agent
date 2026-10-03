@@ -778,7 +778,7 @@ class Pipeline:
                     text, nums = tt[0], nums | tt[1]
             if (n := people_count(question)) and (ft := _family_text(slots, n, question)):
                 text, nums = text + ft[0], nums | ft[1]
-            elif _DISCOUNT_Q.search(question):
+            elif _DISCOUNT_Q.search(last_q) and not re.search(r"这么便宜|挺便宜|真便宜", last_q):
                 text, nums = text + FAMILY_SAY, nums | {5.0, 10.0, 15.0, 20.0, 2.0, 3.0, 4.0}
             rest = self._answer_rest(question, known, slots, voice, _PRICE_Q)
             return done(text + gap_tail + rest, "报价", topic_chunks("价格变化"), nums)
