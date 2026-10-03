@@ -3,6 +3,7 @@
 方案（见 docs/08-根因分析与改进方案.md）：
   A 只选不写：模型输出"开头 + 事实编号 + 计算 + 结尾"的计划，规则句由程序从保障表生成的事实句拼接；
   B 三元组比对：小模型列出回答对各责任说的（字段, 值），程序与保障表逐格比对，不符则重写；
+    B2 为第一版消融后修正：值的类型不符（如"保额=30天"）不比对，"归属"只拦"加油包说成基础版自带"；
   C 理解拆分：理解拆成意图+缺口 / 责任+主题 / 条件三个短提示词并行；
   D 数字护栏改进：允许一步算术、只在一项责任里出现的数值不再要求上下文匹配、兜底只讲被问的那一项。
 配置：基线（当前版本，跑两次估计生成的随机波动）、单独加 A/B/C/D、全加、全加后各去掉一项。
@@ -33,7 +34,7 @@ from exp2_qa_v2 import model_judge, regex_judge, retry  # noqa: E402
 OUT = ROOT / "experiments" / "results"
 VARIANTS = {
     "基线": "", "基线·重复": "", "+A": "A", "+B": "B", "+C": "C", "+D": "D",
-    "ABCD": "ABCD", "ABCD−A": "BCD", "ABCD−B": "ACD", "ABCD−C": "ABD", "ABCD−D": "ABC",
+    "ABCD": "ABCD", "ABCD−A": "BCD", "ABCD−B": "ACD", "ABCD−C": "ABD", "ABCD−D": "ABC", "CD": "CD", "CD·重复": "CD", "+B2": "B", "B2CD": "BCD",
 }
 SETS = ["qa_v6.json", "qa_v4.json", "qa_v5.json"]
 

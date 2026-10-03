@@ -117,6 +117,16 @@ def _value(v) -> float | None:
     return x
 
 
+_TYPE_OK = {
+    "保额": lambda x: bool(re.search(r"\d.*(万|元)|^[一二三四五六七八九十百千]+万", x)) and not re.search(r"天|次|月|%", x),
+    "免赔额": lambda x: (bool(re.search(r"\d.*(万|元)", x)) or bool(re.fullmatch(r"\s*(0|零|没有|无|不设|0元)\s*", x)))
+              and not re.search(r"天|次|月|%", x),
+    "赔付比例": lambda x: "%" in x and not re.search(r"天|元", x),
+    "等待期": lambda x: bool(re.fullmatch(r"\s*\d+\s*天\s*", x)),
+    "日额": lambda x: "元" in x and not re.search(r"万|%", x),
+}
+
+
 def check_claims(answer: str, client=None) -> list[str]:
     """Problems found by comparing the answer's claims with the coverage table (empty list: nothing wrong found)."""
     raw = cloud.chat([{"role": "system", "content": _CLAIM_SYS.replace("{catalog}", _catalog())}, {"role": "user", "content": answer}],
@@ -133,11 +143,16 @@ def check_claims(answer: str, client=None) -> list[str]:
         if field == "归属":
             said_addon = bool(re.search(r"加油包|另外|加购|单独|额外", str(c.get("value"))))
             said_base = bool(re.search(r"基础版|自带|不用另外|包含", str(c.get("value"))))
-            if (said_addon and not is_addon(iid)) or (said_base and not said_addon and is_addon(iid)):
-                problems.append(f"{SHORT[iid]}{'是加油包，需要另外选购，不是基础版就有' if is_addon(iid) else '是基础版就有的，不用另外买'}")
+            # only the harmful direction: an add-on described as included in the base plan
+            if said_base and not said_addon and is_addon(iid):
+                problems.append(f"{SHORT[iid]}是加油包，需要另外选购，不是基础版就有")
+            continue
+        raw = str(c.get("value"))
+        # type check (第十轮消融: 8 of 9 blocks were mis-extractions such as "保额 = 30天", "等待期 = 确诊后180天内")
+        if not _TYPE_OK.get(field, lambda x: True)(raw):
             continue
         allowed = TABLE.get(field, {}).get(iid)
-        v = _value(c.get("value"))
+        v = _value(raw)
         if allowed is None or v is None:
             continue
         if not any(abs(v - a) < 1e-6 for a in allowed):
