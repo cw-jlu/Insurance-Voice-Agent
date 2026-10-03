@@ -199,6 +199,7 @@ class TTSPool:
     def __init__(self, n: int = 3, **kw):
         import queue
 
+        self._kw = kw
         self.conns = [RealtimeTTS(**kw) for _ in range(n)]
         self._free: "queue.Queue[RealtimeTTS]" = queue.Queue()
         for c in self.conns:
@@ -214,7 +215,14 @@ class TTSPool:
         conn = self._free.get()
         try:
             t_start = time.perf_counter() - t0
-            first, total, pcm = conn.synth(text)
+            try:
+                first, total, pcm = conn.synth(text)
+            except (ConnectionError, TimeoutError, RuntimeError):
+                # the server closes sessions left idle (第八轮时延重测: two turns after fully cached replies failed);
+                # reconnect once and retry
+                conn.close()
+                self.conns[self.conns.index(conn)] = conn = RealtimeTTS(**self._kw)
+                first, total, pcm = conn.synth(text)
             return t_start + first, t_start + total, pcm
         finally:
             self._free.put(conn)

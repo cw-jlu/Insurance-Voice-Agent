@@ -309,14 +309,17 @@ def _item_template(item_ids: list[str]) -> str:
 
 _PRICE_Q = re.compile(r"多少钱|几块|价格|价钱|保费|费用多少|一年(要|交)?多少|每月|每个月|一个月|月缴|年缴|按月|按年|交多少|"
                       r"贵|便宜|优惠|打折|报价|怎么收费")
-_ELIGIBLE_Q = re.compile(r"(还)?(能|可以|能不能)(买|投|投保)|多大(年纪|岁数)?(能|可以)?(买|投)|有没有(什么)?(年龄)?限制|年纪.{0,4}限制")
+_ELIGIBLE_Q = re.compile(r"(还)?(能|可以|能不能)(买|投|投保)|多大(年纪|岁数)?(能|可以)?(买|投)|(有没有|有)(什么)?(年龄)?限制|"
+                         r"(年纪|岁数|年龄).{0,6}限制")
 
 
 def _eligibility_text(slots: dict, question: str) -> str:
     age = int(slots["age"])
     if age > MAX_AGE_NEW:
         return f"{age}岁超过了首次投保的年龄上限{MAX_AGE_NEW}周岁，这款产品买不了。"
-    tail = "门急诊加油包只能55周岁及以下买。" if age > 55 else ""
+    asks_outpatient = bool(re.search(r"门急诊|门诊", question))
+    tail = (f"门急诊加油包只能55周岁及以下买，{age}岁{'可以' if age <= 55 else '不能'}选。" if asks_outpatient
+            else "门急诊加油包只能55周岁及以下买。" if age > 55 else "")
     return f"{age}岁可以买，首次投保的年龄是出生满30天到{MAX_AGE_NEW}周岁。{tail}能不能承保还要看健康告知和核保结果。"
 
 
