@@ -215,6 +215,19 @@ def gap_guard(question: str, answer: str, names: list[str] | None = None) -> Gua
     return GuardResult(ok=not hits, violations=hits)
 
 
+_SOCIAL_DEDUCTION = re.compile(
+    r"(医保|社保)(报|报销)(完|过|了)[^。！？；]{0,16}(扣|超过|满|够|减)(掉|去)?[^。！？；]{0,4}(1万|一万|免赔)|"
+    r"剩下的[^。！？；]{0,6}(扣|超过|满|够)(掉|去)?[^。！？；]{0,3}(1万|一万)|"
+    r"(医保|社保)报(完|过|了)[^。！？；]{0,12}[，,]?[^。！？；]{0,4}(1万|一万)(元)?(的)?免赔(额)?(后|以后|之后|扣)|"
+    r"(医保|社保)(报销)?(的|那)?(部分|钱)[^。！？；]{0,6}(能|可以|也)?(算进|算在|计入|抵扣|冲抵|抵)")
+
+
+def social_deduction_conclusion(answer: str) -> GuardResult:
+    """Always-on: whether social-insurance reimbursement counts towards the 1万 deductible is not in the data."""
+    m = _SOCIAL_DEDUCTION.search(_unhedged(answer))
+    return GuardResult(ok=not m, violations=[f"缺口问题给了结论（社保抵扣免赔额）：{m.group(0)}"] if m else [])
+
+
 # --- compliance guard ----------------------------------------------------------------------------
 
 FORBIDDEN = re.compile(

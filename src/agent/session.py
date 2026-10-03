@@ -9,6 +9,9 @@ The sales flow is a state machine run by code; the per-turn answer (small chain)
 Gates:
 - 报价 needs age and has_social (asked one at a time otherwise).
 - 发投保链接 needs: price quoted, main limits told, 如实告知 told, and the user's explicit consent.
+  Consent given before the other gates are met is remembered; the link goes out as soon as they are met
+  (第六轮: 5 calls asked again after the user had agreed). Hesitation ("考虑一下""先挂了""商量商量") is never
+  consent, whatever the classifier says (第六轮: 2 links sent after "嗯……那我再考虑考虑吧，先挂了").
 - After the user refuses twice, no more selling: polite close.
 """
 
@@ -21,7 +24,7 @@ from dataclasses import dataclass, field
 
 from agent import small_model
 from agent.guardrail import IDENTITY_REPLY, is_identity_question
-from agent.pipeline import Pipeline, _quote_text, understand
+from agent.pipeline import Pipeline, _quote_text, combine_gaps, gaps_to_check, understand
 
 OPENING = ("您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，"
            "想花一分钟跟您介绍一下，请问是给您自己了解吗？")
@@ -115,6 +118,10 @@ class CallSession:
             events.append("提示如实告知")
             return DISCLOSURE, events
         self.stage = "投保"
+        if self.flags["consent"]:
+            self.flags["link"], self.ended, self.stage = True, True, "收尾"
+            events.append("发送链接(此前已同意)")
+            return LINK_SENT, events
         return ASK_LINK, events
 
     # ------------------------------------------------------------------ public
@@ -137,10 +144,15 @@ class CallSession:
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
             fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
             u, act, gaps_now = fu.result(), fa.result(), fg.result()
-        # Gaps are judged on this sentence alone: with history, a gap asked earlier "sticks" to every later turn.
-        u["gaps"], u["_gaps_judged"] = gaps_now, True
-        if "疾病核保" in gaps_now and u.get("intent") not in ("缺口",):
+        # Gaps are judged on this sentence alone (with history, a gap asked earlier "sticks" to every later turn),
+        # and only when the detector and the understanding module agree: the detector alone misfired on ~9 of
+        # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
+        u["_gaps_check"] = gaps_to_check(u.get("gaps", []), gaps_now)
+        u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), gaps_now), True
+        if "疾病核保" in u["gaps"] and u.get("intent") not in ("缺口",):
             u["intent"] = "缺口"
+        elif u.get("intent") == "缺口" and not u["gaps"]:
+            u["intent"] = "保障" if u.get("items") else "其他"
         rule_identity = is_identity_question(user_text)
         # Identity: the rule, or both models agreeing (one model alone misread "我觉得有医保就够了").
         if rule_identity or (act == "身份" and u.get("intent") == "身份"):
@@ -166,15 +178,20 @@ class CallSession:
                 return self._finish(GOODBYE, act, events + ["结束:拒绝"], timings, t0)
             return self._finish(RETAIN, act, events + ["挽留一次"], timings, t0)
 
-        # Consent: an explicit "同意投保", or a yes to our own link offer.
-        consent = act == "同意投保" or (self._last_agent_asked_link() and _yes(user_text))
-        if consent:
+        if HESITATE.search(user_text) and self.flags["consent"]:
+            self.flags["consent"] = False  # an earlier yes is withdrawn by later hesitation
+            events.append("撤回同意")
+        if _consents(user_text, act, self._last_agent_asked_link()):
+            self.flags["consent"] = True
             if self.flags["quoted"] and self.flags["limits"] and self.flags["disclosure"]:
-                self.flags["consent"] = self.flags["link"] = True
+                self.flags["link"] = True
                 self.ended, self.stage = True, "收尾"
                 return self._finish(LINK_SENT, "同意投保", events + ["同意", "发送链接"], timings, t0)
             step, ev = self._advance(already_asked=False)  # gate: something required before the link is missing
-            return self._finish(("好的，" + step) if step else "好的。", "同意投保", events + ev + ["门禁:暂不发链接"], timings, t0)
+            return self._finish(("好的，" + step) if step else "好的。", "同意投保", events + ev + ["同意(记住)", "门禁:暂不发链接"],
+                                timings, t0)
+        if act == "同意投保":
+            act = "提问" if QUESTION_MARKERS.search(user_text) else "附和"  # classifier said yes, wording did not
 
         # Gap topics are counted once per topic; repeated insistence on one topic triggers an OFFER, not a transfer.
         new_gaps = [g for g in u.get("gaps", []) if g not in self.gap_topics]
@@ -244,15 +261,42 @@ class CallSession:
         return TurnResult(text=text, stage=self.stage, act=act, events=events, timings=timings)
 
 
+def fixed_phrases() -> list[str]:
+    """Sentences the agent says verbatim; their audio can be synthesized once, before the call."""
+    from agent.pipeline import FOLLOW_UP, GAP_FALLBACK, WAIT_TEXT
+
+    whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP,
+             IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。", WAIT_TEXT, "这款产品的保险期间是一年。", "好的，您还想了解哪方面？",
+             *ASK.values(), *GAP_FALLBACK.values()]
+    out = []
+    for w in whole:
+        out += [s for s in re.split(r"(?<=[。！？?])", w) if s.strip()]
+    return out
+
+
 # --- turn helpers ----------------------------------------------------------------------------------
 
 QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|有没有|咋|？|\?")
 _YES = re.compile(r"^(那)?(好|好的|好吧|行|可以|嗯|对|是的|发吧|发过来|发我|麻烦|那就|没问题|ok|OK)|发(过来|给我|我|吧)|可以发|行啊|好啊")
+# Hesitation or postponement: never consent (第六轮 #7 "回去跟家里人商量商量，到时候再联系你们吧" got a link).
+HESITATE = re.compile(r"考虑|想想|想一想|再说|先挂|商量|回头|到时候|再联系|联系你们|改天|以后再|过两天|过几天|不急|比较|"
+                      r"再看看|看看再|还没想好|没想好|等我|问问家|问一下家|跟家里|和家里")
+_NEGATE = re.compile(r"不(用|要|需要|买|想)|算了|别|没兴趣|贵")
+# Explicit agreement to receive the link or to buy, in the user's own words.
+_EXPLICIT_YES = re.compile(r"发(过来|给我|我|吧|一个|个|到我|链接)|可以发|那就买|我买|买一份|就它了|就这个|要买|"
+                           r"怎么(买|投保|投)|(我|那)?投保吧|给我办|办一个|上车")
+_SHORT_YES = re.compile(r"^(嗯|那|那就)?[，,]?(好|好的|好吧|好啊|行|行吧|行啊|可以|可以的|可以啊|没问题|成|中|ok|OK|要|需要)[。！!，,～~]*$")
 OFFER_HANDOFF = "这个问题需要专员根据条款确认，需要我帮您转接人工专员吗？"
 
 # Actions the system can actually perform: quote, explain, send the purchase-link SMS, transfer to a human.
+# Claims-process details (APP, online application, payout timing) are not in the data: 第六轮 "下载APP在线申请，审核通过就打款".
 _NO_CAPABILITY = re.compile(r"[^。！？]*(微信|邮寄|快递|寄给您|寄资料|发邮件|邮箱|优惠券|额外优惠|给您打折|申请折扣|上门|回访您|"
-                            r"(发|寄|传)(给)?(您|你)?.{0,4}(介绍|资料|材料|宣传|条款)|(介绍|资料|材料|宣传).{0,3}(发|寄|传)(给|到)?(您|你))[^。！？]*[。！？]?")
+                            r"回电|回您|给您回|(再|稍后|晚点|回头|之后)(给您|跟您)?(打|联系|回复)|联系您|通知您|告诉您结果|"
+                            r"查到.{0,6}(告诉|联系|回|通知)|帮您查(一下|查|询)|"
+                            r"下载|APP|App|app|小程序|公众号|在线申请|线上申请|打款|到账|秒赔|审核通过就|"
+                            r"理赔(很|特别|非常|挺)?(快|简单|方便|容易|不麻烦)|"
+                            r"(发|寄|传)(给)?(您|你)?.{0,4}(介绍|资料|材料|宣传|条款|清单)|"
+                            r"(介绍|资料|材料|宣传|条款|清单).{0,3}(发|寄|传)(给|到)?(您|你))[^。！？]*[。！？]?")
 
 
 def capability_guard(text: str) -> tuple[str, list[str]]:
@@ -266,7 +310,18 @@ def capability_guard(text: str) -> tuple[str, list[str]]:
 
 
 def _yes(text: str) -> bool:
-    return bool(_YES.search(text.strip())) and not re.search(r"不(用|要|需要)|算了|别", text)
+    return bool(_YES.search(text.strip())) and not re.search(r"不(用|要|需要)|算了|别", text) and not HESITATE.search(text)
+
+
+def _consents(text: str, act: str, asked_link: bool) -> bool:
+    """Consent to the purchase link. Only explicit wording counts; a leading "嗯" or the classifier alone
+    does not. A bare "好的/行/可以" counts only as the answer to our own link offer."""
+    t = text.strip()
+    if HESITATE.search(t) or _NEGATE.search(t):
+        return False
+    if _EXPLICIT_YES.search(t):
+        return True
+    return asked_link and (bool(_SHORT_YES.match(t)) or act == "同意投保")
 
 
 def _sentences(text: str) -> list[str]:

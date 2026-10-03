@@ -191,6 +191,56 @@ class RealtimeTTS:
             pass
 
 
+class TTSPool:
+    """Several persistent sessions, so the sentences of one reply are synthesized side by side instead of one
+    after another (第六轮重测: serial synthesis took 3–7 s per reply), plus audio for fixed phrases (flow
+    sentences, templates) synthesized once at start-up, which costs nothing at reply time."""
+
+    def __init__(self, n: int = 3, **kw):
+        import queue
+
+        self.conns = [RealtimeTTS(**kw) for _ in range(n)]
+        self._free: "queue.Queue[RealtimeTTS]" = queue.Queue()
+        for c in self.conns:
+            self._free.put(c)
+        self.cache: dict[str, bytes] = {}
+
+    def presynth(self, phrases: list[str]) -> None:
+        for p in dict.fromkeys(phrases):
+            if p and p not in self.cache:
+                self.cache[p] = self.conns[0].synth(p)[2]
+
+    def _one(self, text: str, t0: float) -> tuple[float, float, bytes]:
+        conn = self._free.get()
+        try:
+            t_start = time.perf_counter() - t0
+            first, total, pcm = conn.synth(text)
+            return t_start + first, t_start + total, pcm
+        finally:
+            self._free.put(conn)
+
+    def synth_all(self, sentences: list[str]) -> list[tuple[float, float, bytes, bool]]:
+        """Per sentence: (first audio s, done s, pcm, cached), times measured from this call."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        t0 = time.perf_counter()
+        out: list = [None] * len(sentences)
+        with ThreadPoolExecutor(len(self.conns)) as ex:
+            futs = {}
+            for i, s in enumerate(sentences):
+                if s in self.cache:
+                    out[i] = (0.0, 0.0, self.cache[s], True)
+                else:
+                    futs[i] = ex.submit(self._one, s, t0)  # submitted in order: earlier sentences start first
+            for i, f in futs.items():
+                out[i] = (*f.result(), False)
+        return out
+
+    def close(self) -> None:
+        for c in self.conns:
+            c.close()
+
+
 def resample_24k_to_16k(pcm24: bytes) -> bytes:
     import numpy as np
     from scipy.signal import resample_poly

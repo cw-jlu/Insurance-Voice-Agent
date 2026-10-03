@@ -76,10 +76,14 @@ def retry(fn, n=4):
             time.sleep(2 + 3 * i)
 
 
+FACT_CHECK = "off"
+BASELINE = True
+
+
 def run(tag: str, workers: int = 6):
     client = cloud.llm_client()
     clauses = corpus(False)
-    pipe = Pipeline(HybridRetriever(clauses, load(clauses, "clauses"), client=client), client=client)
+    pipe = Pipeline(HybridRetriever(clauses, load(clauses, "clauses"), client=client), client=client, fact_check=FACT_CHECK)
     with_rates = corpus(True)
     base_ret = HybridRetriever(with_rates, load(with_rates, "with_rates"), client=client)
     items = [i for i in json.loads(DATA.read_text(encoding="utf-8")) if i["valid"]]
@@ -100,8 +104,10 @@ def run(tag: str, workers: int = 6):
             steps = AGENT_STEPS if _is_complex(u, q) else 0
             return pipe.answer(q, known, agent_steps=steps, agent_budget_s=4.0, understanding=u)
 
-        for name, fn in (("pipeline", ours),
-                         ("baseline", lambda: baseline_answer(" ".join(it["turns"]) if it.get("turns") else q, base_ret, client=client))):
+        variants = [("pipeline", ours)]
+        if BASELINE:
+            variants.append(("baseline", lambda: baseline_answer(" ".join(it["turns"]) if it.get("turns") else q, base_ret, client=client)))
+        for name, fn in variants:
             a = retry(fn)
             ok_r, miss, forb = regex_judge(it, a.text)
             ok_m, reason = retry(lambda: model_judge(it, a.text, client))
@@ -127,7 +133,7 @@ def run(tag: str, workers: int = 6):
 
     cats = sorted({r["category"] for r in rows})
     res = {"tag": tag, "judge_model": JUDGE_MODEL, "items": len(rows)}
-    for name in ("pipeline", "baseline"):
+    for name in ("pipeline", "baseline") if BASELINE else ("pipeline",):
         res[name] = {"dev": summ(lambda r: r["split"] == "dev", name),
                      "heldout": summ(lambda r: r["split"] == "heldout", name),
                      "heldout_paraphrase": summ(lambda r: r["split"] == "heldout" and r["source"] == "改写", name),
@@ -143,11 +149,14 @@ if __name__ == "__main__":
     ap.add_argument("--show-dev-errors", action="store_true")
     ap.add_argument("--data", default="qa_v2.json")
     ap.add_argument("--agent-steps", type=int, default=0)
+    ap.add_argument("--fact-check", default="off", choices=["off", "multi", "always"])
+    ap.add_argument("--no-baseline", action="store_true")
     a = ap.parse_args()
+    FACT_CHECK, BASELINE = a.fact_check, not a.no_baseline
     DATA = ROOT / "experiments" / "data" / a.data
     AGENT_STEPS = a.agent_steps
     res, rows = run(a.tag)
-    for name in ("pipeline", "baseline"):
+    for name in ("pipeline", "baseline") if BASELINE else ("pipeline",):
         for split in ("dev", "heldout", "heldout_paraphrase"):
             print(name, split, res[name][split])
     print("by category (heldout, judge):", res["pipeline"]["by_category_heldout_judge"])
