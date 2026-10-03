@@ -187,6 +187,8 @@ class CallSession:
 
         offered_handoff = self.pending_handoff_offer and self._last_agent_text().endswith(OFFER_HANDOFF)
         accepts_handoff = offered_handoff and not self._last_agent_asked_link() and (_yes(user_text) or ACCEPT_HANDOFF.search(user_text))
+        if re.search(r"转人工|人工客服|找人工|要人工|真人客服|转接人工", user_text) and not re.search(r"不用转|先别转|不要转|别转", user_text):
+            act = "要人工"  # the classifier missed "能帮我转人工客服吗" once (第十轮回归)
         if act in ("要人工", "投诉") or accepts_handoff:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"
             return self._finish(HANDOFF, act, events + ["转人工"], timings, t0)
@@ -252,7 +254,9 @@ class CallSession:
             steps = self.agent_steps if self.agent_steps and _is_complex(u, user_text) else 0
             a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=steps,
                                  agent_budget_s=self.agent_budget_s, understanding=u)
-            answer_text += a.text
+            # a blocked answer with nothing program-made to say instead: say nothing and let the flow continue,
+            # rather than an unrelated "转专员确认" line (第十轮回归)
+            answer_text += "" if (a.fallback_used and a.text.startswith("这个问题我需要帮您转专员确认")) else a.text
             asked = a.text.rstrip().endswith(("？", "?"))
             if a.fallback_used:
                 self.risk["fallbacks"] += 1
@@ -375,8 +379,8 @@ def _consents(text: str, act: str, asked_link: bool) -> bool:
     t = text.strip()
     if _NEGATE.search(t) or OTHER_CHANNEL.search(t):
         return False
-    if re.search(r"吗[？?。]?$", t):
-        return False  # "是直接给我发个链接吗？" asks how buying works; the flow offers the link next
+    if re.search(r"吗[？?。]?$", t) and re.search(r"是不是|是直接|如果|要是|怎么|是要", t):
+        return False  # "如果我要买的话，是直接给我发个链接吗？" asks how buying works; "能发个链接给我看看吗" is a request
     if _SEND_REQUEST.search(t):
         return True  # the user asks for the link itself; sending it is what they asked for, even "看看再说"
     if HESITATE.search(t):
