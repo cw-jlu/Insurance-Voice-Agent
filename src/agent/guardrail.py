@@ -238,6 +238,7 @@ _RENEWAL = re.compile(
 
 
 _DISEASE_OK = re.compile(r"(高血压|糖尿病|结节|乙肝|心脏病|哮喘|痛风|病史|既往症|这个病|慢性病)[^。！？；]{0,8}(也)?(可以|能|也能)(投保|买|承保)")
+_SOCIAL_100 = re.compile(r"(社保|医保)报销后(的)?(剩余|剩下)(部分|的)?[^。！？；]{0,8}100\s*%")
 _COVER_TO_AGE = re.compile(r"(最高|最多|能|可以|一直)?保到\s*\d{2}\s*(周)?岁")
 # "ICU病房费用本身不直接报销": the clauses list 重症监护室床位费 among 住院医疗费用 (第十轮回归)
 _ICU_NOT = re.compile(r"(ICU|重症监护)[^。！？；]{0,10}(费用|医疗费|病房费|床位费)[^。！？；]{0,8}(基础版)?(不保|不报|不能报|不直接报|不赔)")
@@ -247,6 +248,8 @@ def other_conclusions(answer: str) -> GuardResult:
     """Always-on (第十轮回归): "有高血压可以投保" decides underwriting; "最高保到70周岁" turns the entry age into a cover age."""
     plain = _unhedged(answer)
     hits = [m.group(0) for r in (_DISEASE_OK, _COVER_TO_AGE, _ICU_NOT) for m in [r.search(plain)] if m]
+    # "社保报销后剩余部分按100%赔" is the special-drug rule; said of general hospital costs it is wrong (第十轮回归)
+    hits += [s for s in re.split(r"(?<=[。！？；])", answer) if _SOCIAL_100.search(s) and "药" not in s]
     return GuardResult(ok=not hits, violations=[f"无依据结论：{h}" for h in hits])
 
 

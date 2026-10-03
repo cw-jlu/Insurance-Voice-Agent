@@ -222,6 +222,9 @@ _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用�
 10. 资料里没有理赔流程、理赔材料、理赔时效、APP 或线上操作方式，被问到就说以条款为准、可以转专员，不要描述流程。
 11. 不要说"抱歉""我重新说""刚才说错了"之类的话，直接回答。
 14. ICU（重症监护室）的床位费属于住院医疗费用，不要说ICU的医疗费基础版不报；ICU津贴是住院津贴加油包里按天另给的补贴，两者不同。
+15. 用户一句话问了两件事，两件都要回答，每件一句。
+16. 用户问每天给多少、一次或一年最多报多少时，直接说出资料里的具体数字，不要只说"需要另外选购"。
+17. "社保报销后剩余部分按100%赔"只适用于特定药品里社保目录内的药；一般医疗、门急诊是扣除1万元免赔额后按100%赔。
 12. 如果基础版不保、但资料里某个加油包保（例如确诊重疾一次性给付、免赔额以内的住院费用），要分开说：基础版怎样，另外选购××加油包后可以怎样。不要说基础版没有资料里明明有的责任。"""
 
 
@@ -350,6 +353,41 @@ def _eligibility_text(slots: dict, question: str) -> str:
 
 
 _DISCOUNT_Q = re.compile(r"优惠|打折|折扣|便宜|全家|家里人|一家|一起买")
+_TOTAL_Q = re.compile(r"加起来|一共|总共|合计|都加上|全加上")
+_PEOPLE = [(5, r"五口|五个人|5个人|一大家子"), (4, r"四口|四个人|4个人"), (3, r"三口|三个人|3个人"),
+           (2, r"两个人|2个人|两口子|俩|夫妻|我们两个|我和(我)?(老公|老婆|爱人|媳妇|对象|丈夫|妻子)")]
+
+
+def people_count(text: str) -> int | None:
+    return next((n for n, pat in _PEOPLE if re.search(pat, text)), None)
+
+
+def _family_text(slots: dict, n: int, question: str) -> tuple[str, set] | None:
+    """Family-order discount on this insured's price; "都39岁、都没社保" gives the total for everyone."""
+    from agent.quote import family_discount
+
+    age, social = slots.get("age"), slots.get("has_social")
+    if age is None or social is None or int(age) > MAX_AGE_NEW:
+        return None
+    y = quote(Insured(int(age), bool(social)), "年缴").total
+    d = family_discount(n)
+    per = round(y * (1 - d), 2)
+    same = bool(re.search(r"都", question))
+    txt = (f"{n}个人一起买是家庭单，每人优惠{d * 100:g}%，{_who(slots) if not same else '每人'}一年{per:g}元"
+           + (f"，{n}个人一共{round(per * n, 2):g}元" if same else "") + "，折后金额以投保页面为准。")
+    return txt, {float(n), round(d * 100, 2), per, round(per * n, 2), y}
+
+
+def _total_text(slots: dict, addons: list[str]) -> tuple[str, set] | None:
+    age, social = slots.get("age"), slots.get("has_social")
+    if age is None or social is None:
+        return None
+    r = quote(Insured(int(age), bool(social), gender=slots.get("gender"), addons=addons), "年缴")
+    if not r.lines or r.errors or r.needs:
+        return None
+    parts = "、".join(l.label.split(" ", 1)[1].replace("必选计划", "基础版") + f"{l.amount:g}元" for l in r.lines)
+    txt = f"{_who(slots)}{int(age)}岁，{parts}，加起来一年一共{r.total:g}元。"
+    return txt, {float(int(age)), r.total, *(l.amount for l in r.lines)}
 FAMILY_SAY = "优惠的话，给家人一起买有家庭单优惠：2个人每人优惠5%，3个人10%，4个人15%，5个人及以上20%。"
 _PRICE_CHANGE_Q = re.compile(r"以后|每年|明年|后年|将来|涨|一直(都)?(是)?这个价|固定|变不变|会变|老了")
 _WAIT_Q = re.compile(r"等待期|等多久|等多长|多久(才)?(能|可以)?(用|生效|报|赔)|刚买就|买完就|马上就?(生病|住院)|意外.{0,10}(等|等待)|要等")
@@ -629,6 +667,17 @@ class Pipeline:
         u["slots"] = slots
         return u
 
+    def _answer_rest(self, question: str, known: dict, slots: dict, voice: bool, handled: re.Pattern) -> str:
+        """The part of a two-question sentence that a template did not answer ("我30岁有社保多少钱，住院怎么报？")."""
+        if known.get("_rest_depth"):
+            return ""
+        parts = [c for c in re.split(r"(?<=[，,。？?；;！!])", question) if c.strip()]
+        rest = "".join(c for c in parts if not handled.search(c) and _COVERAGE_WORDS.search(c))
+        if not rest or len(parts) < 2:
+            return ""
+        sub_known = {**known, **{k: v for k, v in slots.items() if not str(k).startswith("_")}, "_rest_depth": 1}
+        return self.answer(rest, sub_known, voice=voice).text
+
     def retrieve(self, question: str, k: int = 4) -> list[Chunk]:
         return self.retriever.search(question, k=k) if self.retriever is not None else []
 
@@ -703,8 +752,10 @@ class Pipeline:
         if (_ELIGIBLE_Q.search(question) and slots.get("age") is not None and not u.get("gaps")
                 and not _COVERAGE_WORDS.search(question) and not _PRICE_Q.search(question)
                 and not gap_of(question) and not _HEALTH_RE.search(question)):  # "我这高血压到底能不能买" is underwriting
-            return done(_eligibility_text(slots, question), "投保条件(模板)", topic_chunks("被保人年龄"),
-                        {float(slots["age"]), float(MAX_AGE_NEW), 55.0, 30.0})
+            return done(_eligibility_text(slots, question) + self._answer_rest(question, known, slots, voice, _ELIGIBLE_Q),
+                        "投保条件(模板)", topic_chunks("被保人年龄"), {float(slots["age"]), float(MAX_AGE_NEW), 55.0, 30.0})
+        if intent == "优惠" and people_count(question) and slots.get("age") is not None and slots.get("has_social") is not None:
+            intent, price_asked = "报价", True
         if intent == "报价" and not price_asked:
             intent = u["intent"] = "保障" if (u.get("items") or _COVERAGE_WORDS.search(question)) else "其他"
         if intent == "报价":
@@ -719,9 +770,16 @@ class Pipeline:
                 text, nums = pc[0], nums | pc[1]
             if (adds := addons_in(question)) and (aq := _addon_quote_text(slots, adds)):
                 text, nums = text + aq[0], nums | aq[1]
-            if _DISCOUNT_Q.search(question):
+            if _TOTAL_Q.search(question):
+                adds_all = list(dict.fromkeys(addons_in(question) + addons_in(known.get("_history", ""))))
+                if adds_all and (tt := _total_text(slots, adds_all)):
+                    text, nums = tt[0], nums | tt[1]
+            if (n := people_count(question)) and (ft := _family_text(slots, n, question)):
+                text, nums = text + ft[0], nums | ft[1]
+            elif _DISCOUNT_Q.search(question):
                 text, nums = text + FAMILY_SAY, nums | {5.0, 10.0, 15.0, 20.0, 2.0, 3.0, 4.0}
-            return done(text + gap_tail, "报价", topic_chunks("价格变化"), nums)
+            rest = self._answer_rest(question, known, slots, voice, _PRICE_Q)
+            return done(text + gap_tail + rest, "报价", topic_chunks("价格变化"), nums)
         if _WAIT_Q.search(question) and _clauses(question) <= 1 and not u.get("gaps"):
             return done(WAIT_TEXT, "等待期(模板)", topic_chunks("等待期"))
         if u.get("gaps") and set(u["gaps"]) <= TEMPLATE_ONLY_GAPS and _clauses(question) <= 1:
@@ -823,8 +881,8 @@ class Pipeline:
             else:
                 text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
         text = addon_notice(text, evidence)
-        if voice:
-            text = cap_for_voice(text, must_say)
+        if voice:  # two questions in one sentence get room for two answers (第十轮回归: the ICU half was cut off)
+            text = cap_for_voice(text, must_say, VOICE_MAX_CHARS if _clauses(question) <= 1 else 90)
         timings["total"] = time.perf_counter() - t0
         return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
                       violations=violations, attempts=attempts, fallback_used=fallback, timings=timings)
@@ -856,7 +914,7 @@ def cap_for_voice(text: str, keep: list[str], limit: int = VOICE_MAX_CHARS) -> s
     return "".join(out)
 
 
-VOICE_RULES = ("\n8. 这是电话通话：一次只讲最关键的一到两点，整段不超过50个字；"
+VOICE_RULES = ("\n8. 这是电话通话：一次只讲最关键的一到两点，整段不超过50个字（用户问了两件事时两件都答，可到90个字）；"
                "如果还有重要内容没讲，最后用一句话问用户要不要继续了解。不要使用“首先、其次、最后”这类连接词。")
 
 
