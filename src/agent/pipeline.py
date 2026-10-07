@@ -287,10 +287,14 @@ class Pipeline:
         self.fast_model = fast_model or cloud.FAST_MODEL
 
     def answer(self, question: str, known: dict | None = None, voice: bool = False,
-               agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None) -> Answer:
+               agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None,
+               on_sentence=None) -> Answer:
         """``known`` carries the call's profile; ``known["_history"]`` (recent turns, as text) and
         ``known["_prev_utterance"]`` come from CallSession. ``agent_steps`` > 0 lets the evidence
-        agent add tool calls on top of the fixed routing, within ``agent_budget_s`` seconds."""
+        agent add tool calls on top of the fixed routing, within ``agent_budget_s`` seconds.
+
+        ``on_sentence``: if given, the answer is streamed — each sentence is guarded and handed to the
+        callback as soon as the model finishes it, instead of after the whole answer (see ``_stream_generate``)."""
         known = dict(known or {})
         t0 = time.perf_counter()
         timings: dict = {}
@@ -374,6 +378,18 @@ class Pipeline:
         msgs = [{"role": "system", "content": _ANSWER_SYS + (VOICE_RULES if voice else "")}, {"role": "user", "content": user}]
 
         text, violations, attempts = "", [], 0
+        # Streaming needs per-sentence guards. Gap answers rely on the model review of the whole answer,
+        # and the fact check also needs the whole answer, so those keep the guard-then-speak path.
+        if on_sentence is not None and not u.get("gaps") and not FACT_CHECK:
+            spoken, cut, bad = self._stream_generate(msgs, evidence, structured, must_say, voice, on_sentence, timings)
+            if spoken:
+                text = "".join(spoken) + (FOLLOW_UP if voice and (cut or bad) else "")
+                timings["total"] = time.perf_counter() - t0
+                timings["streamed_sentences"] = len(spoken)
+                return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
+                              violations=bad, attempts=1, fallback_used=False, timings=timings)
+            if bad:  # the very first sentence failed: nothing was said yet, so rewrite as before
+                msgs += [{"role": "user", "content": f"回答不能出现这些问题：{'；'.join(bad)}。请只用资料里的内容回答。"}]
         for attempts in (1, 2):
             t1 = time.perf_counter()
             r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3)
@@ -394,6 +410,62 @@ class Pipeline:
         timings["total"] = time.perf_counter() - t0
         return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
                       violations=violations, attempts=attempts, fallback_used=fallback, timings=timings)
+
+
+    def _stream_generate(self, msgs, evidence, structured, keep, voice, on_sentence, timings):
+        """Stream the slow model; release each sentence once it passes the rule guards.
+
+        Stops at the first sentence that fails a guard (later sentences are not said: dropping one
+        sentence mid-answer leaves dangling connectives, 实验 4), and stops generating once the voice
+        length cap is reached. Returns (spoken sentences, cut by length, violations)."""
+        from agent.session import capability_guard
+        from agent.speech import SentenceFeeder
+
+        feeder, spoken, bad = SentenceFeeder(), [], []
+        ev_texts = [c.text for c in evidence]
+        state = {"n": 0, "cut": False}
+
+        def release(piece: str) -> bool:
+            required = any(k and k in piece for k in keep)
+            if voice and spoken and not required and state["n"] + len(piece) > VOICE_MAX_CHARS:
+                state["cut"] = True
+                return False
+            v = number_guard(piece, ev_texts, structured).violations + compliance_guard(piece).violations
+            if capability_guard(piece)[1]:
+                v.append(f"能力护栏：{piece}")
+            if v:
+                bad.extend(v)
+                return False
+            spoken.append(piece)
+            state["n"] += len(piece)
+            on_sentence(piece)
+            return True
+
+        t1 = time.perf_counter()
+        stream = self.client.chat.completions.create(model=self.slow_model, messages=msgs, stream=True, temperature=0.3,
+                                                     extra_body={"enable_thinking": False})
+        go = True
+        try:
+            for chunk in stream:
+                d = chunk.choices[0].delta.content if chunk.choices else ""
+                if not d:
+                    continue
+                timings.setdefault("generate_ttft", time.perf_counter() - t1)
+                for piece in feeder.feed(d):
+                    if not release(piece):
+                        go = False
+                        break
+                if not go:
+                    break
+            if go:
+                for piece in feeder.flush():
+                    if not release(piece):
+                        break
+        finally:
+            if not go:
+                stream.close()  # stop generating what will not be said
+        timings["generate_1"] = time.perf_counter() - t1
+        return spoken, state["cut"], bad
 
 
 # --- streaming variant used by the voice loop --------------------------------------------------------
