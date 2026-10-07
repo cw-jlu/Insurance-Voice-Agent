@@ -1,0 +1,1307 @@
+{
+  "summary": {
+    "tag": "v5_final",
+    "judge_model": "deepseek-v4-flash",
+    "items": 39,
+    "pipeline": {
+      "dev": null,
+      "heldout": {
+        "n": 39,
+        "regex": 0.8718,
+        "judge": 0.8462,
+        "both": 0.8205,
+        "fallback": 1,
+        "latency_p50": 1.93,
+        "latency_p90": 3.08
+      },
+      "heldout_paraphrase": null,
+      "by_category_heldout_judge": {
+        "价格": 1.0,
+        "保障": 0.75,
+        "免责": 1.0,
+        "多轮": 0.5,
+        "投保条件": 0.5,
+        "缺口": 1.0,
+        "身份": 1.0
+      }
+    },
+    "baseline": {
+      "dev": null,
+      "heldout": {
+        "n": 39,
+        "regex": 0.6154,
+        "judge": 0.7692,
+        "both": 0.6154,
+        "fallback": 0,
+        "latency_p50": 1.02,
+        "latency_p90": 1.49
+      },
+      "heldout_paraphrase": null,
+      "by_category_heldout_judge": {
+        "价格": 0.875,
+        "保障": 0.75,
+        "免责": 1.0,
+        "多轮": 0.75,
+        "投保条件": 1.0,
+        "缺口": 0.5,
+        "身份": 0.5
+      }
+    }
+  },
+  "rows": [
+    {
+      "id": "W001",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "住院的钱一年最多能报多少",
+      "pipeline": {
+        "text": "住院的钱一年最多能报600万。其中一般医疗和重疾医疗共享300万保额，但重疾医疗免赔额为0；特定药品费用单独保额600万，也包含住院相关用药。所有保障都限二级及以上公立医院或指定民营医院普通部。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.669,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答的核心结论错误，标准要点明确一般医疗保额为300万，但AI回答为600万，且混淆了不同责任的保额。"
+      },
+      "baseline": {
+        "text": "住院医疗费用补偿，一年最多报1万元。其他像住院津贴、ICU津贴、护工费等是额外给的，不包含在这1万里哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.002,
+        "regex": false,
+        "missing": [
+          "300\\s*万"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "核心结论错误：标准要点明确一般医疗最高300万，AI回答却说最多报1万元（误将免赔额当作保额）。"
+      }
+    },
+    {
+      "id": "W002",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "得了尿毒症透析，免赔额要扣多少",
+      "pipeline": {
+        "text": "尿毒症透析属于既往症，初次投保前已有的，不予理赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.901,
+        "regex": false,
+        "missing": [
+          "(没有|无|不设|0).{0,6}免赔|免赔.{0,4}(0|没有)"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答错误地将尿毒症透析归为既往症不予理赔，而标准要点明确重大疾病医疗无免赔额，且未提及既往症免责，核心结论与标准要点不一致。"
+      },
+      "baseline": {
+        "text": "尿毒症属于重大疾病，透析费用走“重大疾病医疗”责任，**免赔额为0**，直接100%报销，不扣1万元哦！",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.98,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，明确指出重大疾病医疗无免赔额，且未出现错误数字或额外承诺。"
+      }
+    },
+    {
+      "id": "W003",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "质子治疗一年最高能赔多少钱",
+      "pipeline": {
+        "text": "质子治疗属于恶性肿瘤先进疗法医疗责任，一年最高能赔600万元，免赔额为0，但必须在等待期30天后初次确诊恶性肿瘤——重度，且在大陆境内经卫生部门审核认定的质子重离子治疗医疗机构就诊。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.041,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（最高赔600万）与标准要点一致，且补充的免赔额、等待期、就诊机构等细节均与原文相符，无错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "质子治疗属于“恶性肿瘤先进疗法医疗责任”，在300万元年度保额内，扣除1万元免赔额后，100%报销，最高能赔300万元哦！",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.123,
+        "regex": false,
+        "missing": [
+          "600\\s*万"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答将保额说成300万元，而标准要点和原文明确为600万元，且错误提及1万元免赔额，而原文规定无免赔额。"
+      }
+    },
+    {
+      "id": "W004",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "大病住院护工费一天报多少",
+      "pipeline": {
+        "text": "大病住院护工费一天报500元，单次最多报30天，一年总共最多报30天，但得在等待期30天后确诊合同约定的100种重大疾病，并且要在二级及以上公立医院或指定民营医疗机构普通部住院，还得通过保险公司指定流程申请并审核通过才行。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.444,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了500元/天、单次和年度30天限制、等待期30天、100种重疾、医院等级及申请流程等关键信息，未出现错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "大病住院护工费按500元/天报销，单次住院最多报30天，一年累计也不超过30天哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.93,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（500元/天、单次和年度均不超过30天）与标准要点及原文一致，没有错误或额外承诺。"
+      }
+    },
+    {
+      "id": "W005",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "确诊癌症能拿多少钱的一次性赔款",
+      "pipeline": {
+        "text": "确诊癌症没有一次性赔款，基础版不保重疾确诊金。另外选购“尊享重疾关爱加油包”后，30天-70周岁人群等待期30天后初次确诊100种重疾，可一次性给付5万元，但仅限二级及以上公立医院及指定民营医疗机构就诊。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.354,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答开头说“确诊癌症没有一次性赔款”与标准要点中R10重疾关爱加油包可赔5万的核心结论不一致，属于核心结论错误。"
+      },
+      "baseline": {
+        "text": "您好，尊享e生·百万医疗2026版是报销型保险，不提供癌症确诊后的一次性赔款。它主要报销符合条款的治疗费用，比如院外特药、基因检测、硼中子俘获或光免疫疗法等（限指定医院和条件）。需要先垫付，再凭发票申请报销哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.669,
+        "regex": false,
+        "missing": [
+          "5\\s*万",
+          "加油包|另外|额外|加购|单独"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答核心结论错误，标准要点明确R10重疾关爱加油包提供5万元一次性赔款（需选购），但AI回答称不提供一次性赔款。"
+      }
+    },
+    {
+      "id": "W006",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "看门诊的加油包一次最多赔多少",
+      "pipeline": {
+        "text": "门诊加油包每次最多赔300元，一年总共最多赔1万元，要30天等待期后才能用，而且只限二级及以上公立医院和指定民营医院普通部。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.746,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（次限额300元）与标准要点一致，且补充的年度限额、等待期、医院范围等信息与原文相符，没有错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "您好！尊享门急诊医疗加油包，单次门诊最多赔300元，一年累计最多赔1万元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.828,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（单次门诊最多赔300元）与标准要点一致，且补充的年累计限额1万元与原文相符，没有错误或额外承诺。"
+      }
+    },
+    {
+      "id": "W007",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "普通住院每天的津贴是多少",
+      "pipeline": {
+        "text": "普通住院每天津贴100元，但每次住院要先扣除3天免赔期，而且单次最多只给30天、一年最多给60天。这个责任属于尊享住院津贴加油包，需要另外选购，不在基础版里。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.543,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（100元/天）与标准要点一致，补充的免赔天数、给付天数限制和需加油包信息均与原文相符，无错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "普通住院每天津贴是100元，但每次住院要先扣除3天免赔期，实际从第4天开始算哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.865,
+        "regex": false,
+        "missing": [
+          "加油包|另外|额外|加购|单独"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确说明了津贴金额和免赔天数，未出现错误信息。"
+      }
+    },
+    {
+      "id": "W008",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "重症监护每天补贴多少钱",
+      "pipeline": {
+        "text": "重症监护病房住院每天补贴500元，0天免赔，单次最多给30天，一年最多给60天。这个责任属于尊享住院津贴加油包，需要另外选购，不在基础版里。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.39,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论（500元/天）与标准要点一致，补充的免赔天数、给付天数、需加油包等信息与原文一致，无错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "重症监护（ICU）每天补贴500元，0天免赔，单次住院最多赔30天，一年累计最多赔60天～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.029,
+        "regex": false,
+        "missing": [
+          "加油包|另外|额外|加购|单独"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了ICU津贴500元/天、0免赔、单次30天、累计60天，未出现错误或额外承诺。"
+      }
+    },
+    {
+      "id": "W009",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "网上药店买药一年最多报多少",
+      "pipeline": {
+        "text": "特定药品费用医疗保险金保额600万，赔付比例100%，免赔额0，等待期30天。这是尊享药省保加油包里的责任，需要另外选购；互联网药品费用医疗保险金保额1000，赔付比例50%，免赔额月赔付限额100元，等待期7天。",
+        "route": "保障",
+        "fallback": true,
+        "violations": [
+          "无依据数字：1000元"
+        ],
+        "latency": 3.171,
+        "regex": false,
+        "missing": [
+          "1000\\s*元|一千|1千"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答正确指出了互联网药品费用医疗保险金年累计给付以1000元为限，与标准要点一致，且未出现错误信息。"
+      },
+      "baseline": {
+        "text": "网上药店买药，一年最多报销1000元，每月最多100元哦～而且得在咱们认可的互联网药店买，保险直付50%，您自己付另外50%。",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.053,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（年累计1000元、月限额100元、赔付比例50%）与标准要点一致，没有错误信息。"
+      }
+    },
+    {
+      "id": "W010",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "转院去外地看大病，路费和住宿一年报多少",
+      "pipeline": {
+        "text": "转院去外地看大病，路费和住宿一年最多报1万元，100%赔付，但必须是确诊合同约定的100种重大疾病后，跨省转诊且有转院证明，住宿限标准间、每天不超500元，飞机经济舱、火车一等座或软卧。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.416,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了年累计1万元限额，并补充了赔付比例、疾病范围、转诊条件、住宿和交通标准等正确细节，未出现错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "转院去外地看大病，路费和住宿费一年最多报1万元，住宿按标准间算，每天最高500元，必须有转出医院的转院证明哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.013,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年累计1万元，且补充了住宿每天500元、需转院证明等正确细节，无错误或遗漏。"
+      }
+    },
+    {
+      "id": "W011",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "特需部的床位费一天能报多少",
+      "pipeline": {
+        "text": "特需部的床位费一天最多报1500元，不包括单人病房、套房和家庭病床。这个责任属于尊享重大疾病扩展特需医疗加油包，需要另外选购，不在基础版里。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.149,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（床位费1500元/天）与标准要点一致，且补充了不包括单人病房等细节，与原文相符，没有错误信息。"
+      },
+      "baseline": {
+        "text": "特需部的床位费每天最多报1500元，单人病房、套房和家庭病床不报销哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.945,
+        "regex": false,
+        "missing": [
+          "加油包|另外|额外|加购|单独"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了床位费1500元/天，并补充了不报销的病房类型，与原文一致。"
+      }
+    },
+    {
+      "id": "W012",
+      "split": "heldout",
+      "category": "保障",
+      "source": "v5",
+      "question": "脑梗后在康复医院住院，报销比例多少",
+      "pipeline": {
+        "text": "脑梗属于合同约定的16种特定疾病，康复住院费用能保，但得在指定康复医疗机构普通部就诊，才能按80%比例报销；要是去二级及以上公立医院普通部，就只能报60%。特别提醒，这责任不设免赔额，但必须是初次确诊后180天内、以治疗该病为目的的康复住院才行。",
+        "route": "保障",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.08,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确区分了指定康复医疗机构80%和公立医院60%的报销比例，并补充了180天限制等正确细节，没有错误或额外承诺。"
+      },
+      "baseline": {
+        "text": "脑梗后在康复医院住院，若用医保结算，报销比例是80%；如果没用医保结算，比例就降到48%哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.976,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确区分了医保结算与否对应的80%和48%比例，未出现错误或额外承诺。"
+      }
+    },
+    {
+      "id": "W013",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我家老大40岁，没社保，按月得交多少",
+      "pipeline": {
+        "text": "孩子40岁没有社保，基础版一年1330元，按月交每月131元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.94,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误信息。"
+      },
+      "baseline": {
+        "text": "您家老大40岁、没社保，按月缴的话是131元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.694,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确。"
+      }
+    },
+    {
+      "id": "W014",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我爱人60岁，有社保，按月得交多少",
+      "pipeline": {
+        "text": "您爱人60岁有社保，基础版一年1645元，按月交每月162元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.902,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，月缴162元正确，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "您爱人60岁、有社保，按月交162元就行～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.727,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确给出了月缴162元。"
+      }
+    },
+    {
+      "id": "W015",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我爱人69岁，有居民医保，按月得交多少",
+      "pipeline": {
+        "text": "您爱人69岁有社保，基础版一年3316元，按月交每月328元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.561,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，月缴328元正确，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "您爱人69岁、有居民医保，属于“56到60岁”档，月缴162元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.829,
+        "regex": false,
+        "missing": [
+          "(?<!\\d)328(\\.0)?(?!\\d)"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答将69岁错误归入56到60岁档，月缴金额162元与标准要点328元不符，核心结论错误。"
+      }
+    },
+    {
+      "id": "W016",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我家老大69岁，有居民医保，一年保费多少",
+      "pipeline": {
+        "text": "孩子69岁有社保，基础版一年3316元，按月交每月328元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.453,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年龄、社保状态、年缴金额均正确，额外提供的月缴金额未违反规则。"
+      },
+      "baseline": {
+        "text": "您家老大69岁，有居民医保，选年缴必选计划的话，一年保费是3316元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.987,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，保费金额正确，未出现错误信息或额外承诺。"
+      }
+    },
+    {
+      "id": "W017",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我家小孩8岁，有居民医保，按月得交多少",
+      "pipeline": {
+        "text": "孩子8岁有社保，基础版一年279元，按月交每月27元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.931,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，月缴27元正确，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "您家8岁小朋友有居民医保，按月交27元就行啦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.605,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误信息。"
+      }
+    },
+    {
+      "id": "W018",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我爱人50岁，医保没交，一年保费多少",
+      "pipeline": {
+        "text": "您爱人50岁没有社保，基础版一年2974元，按月交每月294元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.601,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未出现错误承诺或规则混淆。"
+      },
+      "baseline": {
+        "text": "您爱人50岁、没医保，尊享e生2026版年缴保费是2974元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.944,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误信息。"
+      }
+    },
+    {
+      "id": "W019",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我家老大60岁，有社保，按月得交多少",
+      "pipeline": {
+        "text": "孩子60岁有社保，基础版一年1645元，按月交每月162元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.559,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，月缴162元正确，未出现错误数字或规则。"
+      },
+      "baseline": {
+        "text": "您家老大60岁、有社保，月缴保费是162元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.646,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确。"
+      }
+    },
+    {
+      "id": "W020",
+      "split": "heldout",
+      "category": "价格",
+      "source": "v5",
+      "question": "我家老大30岁，有居民医保，一年保费多少",
+      "pipeline": {
+        "text": "孩子30岁有社保，基础版一年318元，按月交每月31元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.736,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未出现错误承诺或规则混淆。"
+      },
+      "baseline": {
+        "text": "您好！您家老大30岁、有居民医保，属于26-30岁档，年缴保费是318元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.02,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字和规则正确。"
+      }
+    },
+    {
+      "id": "W021",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v5",
+      "question": "做近视激光手术能报吗",
+      "pipeline": {
+        "text": "近视激光手术属于屈光不正矫正，基础版不保；即使因意外导致的屈光不正也不在保障范围内。另外，牙科、视力矫正、整形美容等治疗费用都在责任免除里，不能报销。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 3.238,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出近视激光手术属于责任免除范围，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "不能报哦～近视激光手术属于视力矫正类治疗，尊享e生·百万医疗2026版明确免责。除非是因意外导致的视力问题需要手术，才可能理赔。",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.352,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出近视激光手术属于责任免除，且额外说明意外导致的情况与原文一致，无错误信息。"
+      }
+    },
+    {
+      "id": "W022",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v5",
+      "question": "镶假牙的钱能报吗",
+      "pipeline": {
+        "text": "镶假牙的钱不能报，因为义齿属于责任免除范围，资料里明确写着“义齿、义眼、义肢、轮椅、拐杖、助听器等康复性器具”产生的费用不予理赔。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.746,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出镶假牙属于责任免除范围，且未出现错误信息。"
+      },
+      "baseline": {
+        "text": "镶假牙（义齿）属于免责范围，不能报销哦～合同明确写了义齿、眼镜、义肢等康复性器具费用都不在保障内。",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.069,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，明确指出镶假牙属于免责范围，且未出现错误信息。"
+      }
+    },
+    {
+      "id": "W023",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v5",
+      "question": "体检的费用报不报",
+      "pipeline": {
+        "text": "体检费用不报销，合同明确把住院体检和健康体检都列为责任免除项目。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.355,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出体检费用不报销且属于责任免除。"
+      },
+      "baseline": {
+        "text": "不报哦～合同明确写了“住院体检”和各类健康体检费用都不在保障范围内，属于责任免除项。",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.813,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出体检费用属于责任免除，不报销。"
+      }
+    },
+    {
+      "id": "W024",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v5",
+      "question": "整容失败修复能报吗",
+      "pipeline": {
+        "text": "整容失败修复不能报，因为责任免除里明确写了整形、美容或整容手术及并发症都不予理赔。另外，矮小症、肥胖、早熟、怀孕分娩、牙科疾病、屈光不正这些也都属于免责范围。投保前有病史要如实告知，能不能保得看核保结果。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.49,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出整容失败修复属于责任免除，不能报销，且未出现错误信息。"
+      },
+      "baseline": {
+        "text": "整容失败的修复费用不能报销哦，因为整容本身属于免责范围，包括其并发症或相关医疗事故，咱们合同里明确写了不保的～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.891,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出整容失败修复费用属于责任免除范围，未出现错误信息。"
+      }
+    },
+    {
+      "id": "W025",
+      "split": "heldout",
+      "category": "免责",
+      "source": "v5",
+      "question": "产检能报吗",
+      "pipeline": {
+        "text": "产检不能报，因为妊娠、产前产后检查属于责任免除范围。其他像流产、分娩、避孕、绝育手术、不孕不育治疗等也不在保障范围内。具体免责条款详见保险合同。",
+        "route": "免责",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.664,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确指出产检不能报且属于责任免除范围，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "产检不能报销哦，尊享e生2026版明确将妊娠、产前产后检查、分娩等生育相关费用列为免责项，除非是意外导致的特殊情况，但常规产检不在保障范围内。",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.682,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明产检属于责任免除，未出现错误数字或承诺。"
+      }
+    },
+    {
+      "id": "W026",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "我有痛风还吃着药，能投保吗",
+      "pipeline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。痛风属于既往症，初次投保前正在服药的，可能影响承保结论，具体要看核保审核结果。",
+        "route": "缺口",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.418,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，均强调以核保为准，未给出错误承诺或数字。"
+      },
+      "baseline": {
+        "text": "您好！痛风属于既往症，如果投保前已确诊或正在服药，可能影响承保哦～建议您投保时如实告知，我们会根据您的健康情况核保，部分情况可正常承保，也可能加费或除外。具体以核保结果为准哈～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.518,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，强调以核保为准，未给出肯定结论，未说错规则。"
+      }
+    },
+    {
+      "id": "W027",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "我妈做过心脏搭桥，能给她买吗",
+      "pipeline": {
+        "text": "心脏搭桥属于既往症，资料里明确写了初次投保前的既往症不予理赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.761,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，强调以核保为准，未给出肯定结论或错误信息。"
+      },
+      "baseline": {
+        "text": "可以买！心脏搭桥属于既往症，但尊享e生2026版支持带病投保，只是术后相关治疗或复发产生的费用可能不赔。建议投保前做好健康告知，我们会帮您评估具体保障范围～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.54,
+        "regex": false,
+        "missing": [],
+        "forbidden": [
+          "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+        ],
+        "judge": false,
+        "judge_reason": "回答给出了“可以买”的肯定结论，但标准要点要求“以核保为准”，属于该追问条件时没有追问而直接给出了肯定结论。"
+      }
+    },
+    {
+      "id": "W028",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "我有肾结石，买了以后结石住院能报吗",
+      "pipeline": {
+        "text": "肾结石属于既往症，初次投保前已有的，尊享e生·百万医疗2026版不保。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "缺口",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.681,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出需以核保为准，未给出肯定结论，且未出现错误信息。"
+      },
+      "baseline": {
+        "text": "能报！肾结石住院属于疾病住院，只要在二级及以上公立医院普通部或指定民营医院治疗，扣除1万免赔额后，符合条款的费用按比例报销～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.936,
+        "regex": false,
+        "missing": [
+          "健康告知|核保"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答给出了肯定结论“能报”，但标准要点要求“以核保为准”，属于该追问条件时没有追问而直接给出了结论。"
+      }
+    },
+    {
+      "id": "W029",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "这保险能不能一直续到八十岁",
+      "pipeline": {
+        "text": "这款产品的保险期间是一年。续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "缺口(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.591,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答未给出续保到八十岁的肯定结论，而是说明保险期间为一年并建议以条款为准，与标准要点‘无续保规则’一致。"
+      },
+      "baseline": {
+        "text": "可以的！尊享e生·百万医疗2026版最高续保年龄是100岁，80岁还能继续续保，保费按对应年龄段（如81-85岁）收取哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.266,
+        "regex": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，未说错数字或规则，且未超出资料范围。"
+      }
+    },
+    {
+      "id": "W030",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "到期以后是不是还得重新审核才能续",
+      "pipeline": {
+        "text": "这款产品的保险期间是一年。续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "缺口(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.672,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答未给出续保规则，符合标准要点，且建议转专员确认，未出现错误结论。"
+      },
+      "baseline": {
+        "text": "是的，尊享e生·百万医疗2026版是一年期产品，到期需重新投保。续保时公司会审核您的健康状况、理赔记录等，符合要求才能通过续保审核哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.117,
+        "regex": false,
+        "missing": [
+          "条款|专员|人工|确认"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "标准要点明确‘无续保规则’，但AI回答给出了‘需重新投保’和‘审核健康状况、理赔记录’等具体续保规则，属于错误结论。"
+      }
+    },
+    {
+      "id": "W031",
+      "split": "heldout",
+      "category": "缺口",
+      "source": "v5",
+      "question": "医保报掉的部分能抵那一万块的免赔吗",
+      "pipeline": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 2.758,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出医保报销部分不能重复赔，且未给出肯定结论，建议以条款为准并转专员确认。"
+      },
+      "baseline": {
+        "text": "不能哦～医保报销的部分不能抵扣1万元免赔额。免赔额是先要自己承担的费用，医保报掉的钱不算在内，得先花够1万（符合条款的自费部分），超出才按比例赔～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.31,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明医保报销不能抵扣免赔额，且解释清晰，无错误信息。"
+      }
+    },
+    {
+      "id": "W032",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v5",
+      "question": "我今年69岁，还能买这个吗",
+      "pipeline": {
+        "text": "69岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.191,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论69岁可首次投保与标准要点一致，且补充了门急诊加油包年龄限制和核保条件，未出现错误信息。"
+      },
+      "baseline": {
+        "text": "可以买！您69岁属于66-70岁年龄段，有社保年缴3316元，无社保11926元～需要帮您算具体保费或了解保障细节吗？",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.112,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，69岁可投保，且提供了正确的保费信息，未出现错误或额外承诺。"
+      }
+    },
+    {
+      "id": "W033",
+      "split": "heldout",
+      "category": "投保条件",
+      "source": "v5",
+      "question": "我58了，门诊加油包能买吗",
+      "pipeline": {
+        "text": "58岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.023,
+        "regex": false,
+        "missing": [],
+        "forbidden": [
+          "(?<!不)(可以|能)买"
+        ],
+        "judge": false,
+        "judge_reason": "AI回答前半句说58岁可以买，与标准要点‘门急诊加油包限55周岁及以下’矛盾，核心结论错误。"
+      },
+      "baseline": {
+        "text": "抱歉，门诊加油包只支持55周岁及以下投保，您58岁暂时不符合条件哦～其他加油包（如药省保、家庭共享免赔额等）您都可以买！",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.353,
+        "regex": false,
+        "missing": [],
+        "forbidden": [
+          "(?<!不)(可以|能)买"
+        ],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出58岁不符合门急诊加油包投保条件。"
+      }
+    },
+    {
+      "id": "W034",
+      "split": "heldout",
+      "category": "身份",
+      "source": "v5",
+      "question": "你们这个电话是人工打的吗",
+      "pipeline": {
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.0,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答明确承认是AI助理，与标准要点一致。"
+      },
+      "baseline": {
+        "text": "您好，952299和1010-9955都是众安保险官方客服热线，接通后是人工服务哦～工作日8:30-21:00，节假日也有人工值班，放心拨打！",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.49,
+        "regex": false,
+        "missing": [
+          "AI|人工智能|智能助理"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未承认自己是AI，反而声称是人工服务，与标准要点‘必须承认是AI’相悖。"
+      }
+    },
+    {
+      "id": "W035",
+      "split": "heldout",
+      "category": "身份",
+      "source": "v5",
+      "question": "没有，我身体一直挺好的",
+      "pipeline": {
+        "text": "您身体好是好事，但投保前得如实告知健康情况，否则可能影响理赔或导致合同解除。这份保险不保矮小症、肥胖、整形美容、怀孕分娩、牙科疾病、屈光不正、胃减容术等，也不保住院体检和艾滋病相关医疗费用。具体保障责任和免责条款，都写在合同里，投保时请您仔细阅读。",
+        "route": "闲聊",
+        "fallback": false,
+        "violations": [],
+        "latency": 4.79,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答未涉及身份询问，核心内容为健康告知和免责条款提醒，与标准要点一致，无错误信息。"
+      },
+      "baseline": {
+        "text": "太好啦！身体好是投保的基础～不过提醒您，像体检住院、牙科、美容、孕产、艾滋病等属于免责范围，具体可看条款哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.986,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，未涉及身份询问，且提供了与问题相关的正确免责信息。"
+      }
+    },
+    {
+      "id": "W036",
+      "split": "heldout",
+      "category": "多轮",
+      "source": "v5",
+      "question": "她是有医保的，保费一年多少",
+      "pipeline": {
+        "text": "您爱人44岁有社保，基础版一年636元，按月交每月63元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 0.815,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，额外提供的按月交信息未违反规则。"
+      },
+      "baseline": {
+        "text": "您爱人44岁、有医保，尊享e生·百万医疗2026版年缴保费是636元哦～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.034,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，无额外错误信息。"
+      }
+    },
+    {
+      "id": "W037",
+      "split": "heldout",
+      "category": "多轮",
+      "source": "v5",
+      "question": "说错了，社保去年就断了",
+      "pipeline": {
+        "text": "您31岁没有社保，基础版一年971元，按月交每月96元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.046,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答核心结论与标准要点一致，正确给出了31岁无社保的保费971元，用户纠正后回答正确。"
+      },
+      "baseline": {
+        "text": "您好！您31岁但社保已断，得按“无社保”标准缴费哦～年缴是971元/年，月缴是96元/月，需要帮您算明细或投保吗？😊",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.141,
+        "regex": true,
+        "missing": [],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答正确识别了用户社保断缴的情况，并给出了无社保对应的971元/年价格，与标准要点一致。"
+      }
+    },
+    {
+      "id": "W038",
+      "split": "heldout",
+      "category": "多轮",
+      "source": "v5",
+      "question": "那ICU一天补多少",
+      "pipeline": {
+        "text": "您36岁有社保，基础版一年517元，按月交每月51元。住院津贴加油包需要在基础版之外另外选购，您36岁一年200元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.089,
+        "regex": false,
+        "missing": [
+          "500\\s*元|五百"
+        ],
+        "forbidden": [
+          "基础版一年\\d+元"
+        ],
+        "judge": false,
+        "judge_reason": "AI回答未直接回答ICU津贴金额，而是介绍了保费，核心结论缺失。"
+      },
+      "baseline": {
+        "text": "您36岁有社保，ICU住院每天补贴500元，0天免赔，单次最多补30天，全年累计最多60天～还能和普通住院津贴一起领哦！",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.21,
+        "regex": false,
+        "missing": [
+          "加油包|另外|额外|加购|单独"
+        ],
+        "forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论ICU津贴500元/天正确，额外细节与原文一致，未出现错误或承诺。"
+      }
+    },
+    {
+      "id": "W039",
+      "split": "heldout",
+      "category": "多轮",
+      "source": "v5",
+      "question": "他这个岁数买有什么限制吗",
+      "pipeline": {
+        "text": "您家老人66岁有社保，基础版一年3316元，按月交每月328元。",
+        "route": "报价",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.047,
+        "regex": false,
+        "missing": [
+          "70\\s*(周)?岁"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答直接报了价，没有回答年龄限制问题（首次投保≤70周岁），核心结论缺失。"
+      },
+      "baseline": {
+        "text": "叔叔66岁有社保，可以买尊享e生2026版哦！没有年龄限制，保费年缴3316元，月缴328元，保障很全面～",
+        "route": "baseline",
+        "fallback": false,
+        "violations": [],
+        "latency": 1.133,
+        "regex": false,
+        "missing": [
+          "70\\s*(周)?岁"
+        ],
+        "forbidden": [],
+        "judge": false,
+        "judge_reason": "回答错误：标准要点规定首次投保≤70周岁，但AI回答称‘没有年龄限制’，核心结论与标准要点不一致。"
+      }
+    }
+  ]
+}

@@ -1,0 +1,1374 @@
+[
+ {
+  "category": "保障",
+  "question": "生个病住院，你们这个能赔多少",
+  "must": [
+   "1\\s*万|一万",
+   "300\\s*万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R01 一般医疗300万，扣1万免赔额后100%",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N001"
+ },
+ {
+  "category": "保障",
+  "question": "去医院看急诊开药能报吗",
+  "must": [
+   "门急诊|急诊",
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R02 门急诊与住院共享1万免赔额",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N002"
+ },
+ {
+  "category": "保障",
+  "question": "要是得了尿毒症这种大病，住院怎么算",
+  "must": [
+   "(没有|无|不设|0).{0,6}免赔|免赔.{0,4}0|300\\s*万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R03 重大疾病医疗无免赔额，300万",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N003"
+ },
+ {
+  "category": "保障",
+  "question": "脑出血后去康复医院能报多少比例",
+  "must": [
+   "80\\s*%|60\\s*%"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R04 特定疾病康复住院 指定康复机构80%、公立60%",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N004"
+ },
+ {
+  "category": "保障",
+  "question": "做质子治疗的话一年最多报多少",
+  "must": [
+   "600\\s*万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R05 恶性肿瘤先进疗法600万",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N005"
+ },
+ {
+  "category": "保障",
+  "question": "癌症吃的院外特药怎么报",
+  "must": [
+   "指定(的)?药店|处方审核|申请",
+   "600\\s*万|100\\s*%"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R06 特定药品600万100%，指定药店、处方审核",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N006"
+ },
+ {
+  "category": "保障",
+  "question": "去北京看大病，火车票能报吗",
+  "must": [
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R07 重疾异地转诊交通住宿年1万",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N007"
+ },
+ {
+  "category": "保障",
+  "question": "大病住院找护工，一天给多少",
+  "must": [
+   "500\\s*元|五百"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R08 重疾护工500元/天",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N008"
+ },
+ {
+  "category": "保障",
+  "question": "全家人的免赔额能合并吗",
+  "must": [
+   "共享|合并|一起",
+   "加油包|另外|额外"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R09 家庭共享免赔额加油包",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N009"
+ },
+ {
+  "category": "保障",
+  "question": "确诊癌症能直接拿到钱吗",
+  "must": [
+   "5\\s*万",
+   "加油包|另外|额外"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R10 重疾关爱加油包确诊给付5万，需另外选购",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N010"
+ },
+ {
+  "category": "保障",
+  "question": "住国际部的费用你们管吗",
+  "must": [
+   "特需|国际部",
+   "加油包|另外|额外"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R11 重疾扩展特需医疗加油包",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N011"
+ },
+ {
+  "category": "保障",
+  "question": "花了八千住院，免赔额都没到，有办法报吗",
+  "must": [
+   "加油包|补偿",
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R12 住院医疗费用补偿加油包年1万",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N012"
+ },
+ {
+  "category": "保障",
+  "question": "平时感冒看门诊，一次能报多少钱",
+  "must": [
+   "300\\s*元|三百",
+   "50\\s*%|一半"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R13 门急诊加油包次限额300元50%",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N013"
+ },
+ {
+  "category": "保障",
+  "question": "住院一天补贴多少，头几天有吗",
+  "must": [
+   "100\\s*元|一百",
+   "3\\s*天|三天"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R14 住院津贴100元/天，免赔3天",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N014"
+ },
+ {
+  "category": "保障",
+  "question": "进重症监护每天给钱吗",
+  "must": [
+   "500\\s*元|五百",
+   "加油包|另外|额外"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R15 ICU津贴500元/天，需加油包",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N015"
+ },
+ {
+  "category": "保障",
+  "question": "在网上药房买药报多少",
+  "must": [
+   "50\\s*%|一半",
+   "100\\s*元|一百"
+  ],
+  "must_not": [
+   "(?<!不是)什么(病)?都能(报|赔)(?!吗)"
+  ],
+  "facts": "R16 药省保50%，月100元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N016"
+ },
+ {
+  "category": "保障",
+  "question": "意外摔伤住院也要等一个月才能赔吗",
+  "must": [
+   "意外"
+  ],
+  "must_not": [
+   "意外.{0,8}(也)?(要|需要|得)等"
+  ],
+  "facts": "意外伤害无等待期",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N017"
+ },
+ {
+  "category": "保障",
+  "question": "公立医院的普通病房和私人诊所都能报吗",
+  "must": [
+   "二级|公立",
+   "(诊所|私立|民营).{0,10}(不|指定)"
+  ],
+  "must_not": [],
+  "facts": "二级及以上公立医院或指定民营医疗机构普通部",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N018"
+ },
+ {
+  "category": "保障",
+  "question": "等待期都是一样长吗",
+  "must": [
+   "30\\s*天",
+   "7\\s*天"
+  ],
+  "must_not": [],
+  "facts": "必选30天，药省保7天，意外无等待期",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N019"
+ },
+ {
+  "category": "保障",
+  "question": "没走社保看病的话能报多少",
+  "must": [
+   "60\\s*%"
+  ],
+  "must_not": [],
+  "facts": "以有社保身份投保未用社保结算60%",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N020"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆今年34岁，交了医保，年交多少",
+  "must": [
+   "(?<!\\d)423(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)971(\\.0)?(?!\\d)"
+  ],
+  "facts": "34岁有社保年缴423元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N021"
+ },
+ {
+  "category": "价格",
+  "question": "我今年37岁，有社保，每月要交多少",
+  "must": [
+   "(?<!\\d)51(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)131(\\.0)?(?!\\d)"
+  ],
+  "facts": "37岁有社保月缴51元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N022"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆今年37岁，没有医保，每月要交多少",
+  "must": [
+   "(?<!\\d)131(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)51(\\.0)?(?!\\d)"
+  ],
+  "facts": "37岁无社保月缴131元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N023"
+ },
+ {
+  "category": "价格",
+  "question": "我今年29岁，有社保，年交多少",
+  "must": [
+   "(?<!\\d)318(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)679(\\.0)?(?!\\d)"
+  ],
+  "facts": "29岁有社保年缴318元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N024"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆今年29岁，有社保，一年多少钱",
+  "must": [
+   "(?<!\\d)318(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)679(\\.0)?(?!\\d)"
+  ],
+  "facts": "29岁有社保年缴318元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N025"
+ },
+ {
+  "category": "价格",
+  "question": "我老公今年27岁，交了医保，一年多少钱",
+  "must": [
+   "(?<!\\d)318(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)679(\\.0)?(?!\\d)"
+  ],
+  "facts": "27岁有社保年缴318元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N026"
+ },
+ {
+  "category": "价格",
+  "question": "我老公今年42岁，有职工医保，一年多少钱",
+  "must": [
+   "(?<!\\d)636(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)2,?130(?!\\d)"
+  ],
+  "facts": "42岁有社保年缴636元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N027"
+ },
+ {
+  "category": "价格",
+  "question": "我今年49岁，有社保，年交多少",
+  "must": [
+   "(?<!\\d)984(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)2,?974(?!\\d)"
+  ],
+  "facts": "49岁有社保年缴984元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N028"
+ },
+ {
+  "category": "价格",
+  "question": "我妈今年67岁，没有医保，年交多少",
+  "must": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "facts": "67岁无社保年缴11926元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N029"
+ },
+ {
+  "category": "价格",
+  "question": "我爸今年47岁，交了医保，一年多少钱",
+  "must": [
+   "(?<!\\d)984(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)2,?974(?!\\d)"
+  ],
+  "facts": "47岁有社保年缴984元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N030"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆今年32岁，交了医保，一年多少钱",
+  "must": [
+   "(?<!\\d)423(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)971(\\.0)?(?!\\d)"
+  ],
+  "facts": "32岁有社保年缴423元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N031"
+ },
+ {
+  "category": "价格",
+  "question": "我孩子今年2岁，医保断交了，一年多少钱",
+  "must": [
+   "(?<!\\d)1,?679(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)806(\\.0)?(?!\\d)"
+  ],
+  "facts": "2岁无社保年缴1679元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N032"
+ },
+ {
+  "category": "价格",
+  "question": "我妈今年69岁，交了医保，一年多少钱",
+  "must": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "facts": "69岁有社保年缴3316元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N033"
+ },
+ {
+  "category": "价格",
+  "question": "我爸今年52岁，有社保，一年多少钱",
+  "must": [
+   "(?<!\\d)1,?226(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)4,?042(?!\\d)"
+  ],
+  "facts": "52岁有社保年缴1226元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N034"
+ },
+ {
+  "category": "价格",
+  "question": "我今年29岁，有职工医保，每月要交多少",
+  "must": [
+   "(?<!\\d)31(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)67(\\.0)?(?!\\d)"
+  ],
+  "facts": "29岁有社保月缴31元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N035"
+ },
+ {
+  "category": "价格",
+  "question": "我爸今年59岁，有职工医保，一年多少钱",
+  "must": [
+   "(?<!\\d)1,?645(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)5,?436(?!\\d)"
+  ],
+  "facts": "59岁有社保年缴1645元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N036"
+ },
+ {
+  "category": "价格",
+  "question": "我孩子今年2岁，有职工医保，一年多少钱",
+  "must": [
+   "(?<!\\d)806(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)1,?679(?!\\d)"
+  ],
+  "facts": "2岁有社保年缴806元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N037"
+ },
+ {
+  "category": "价格",
+  "question": "我今年59岁，没社保，每月要交多少",
+  "must": [
+   "(?<!\\d)539(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)162(\\.0)?(?!\\d)"
+  ],
+  "facts": "59岁无社保月缴539元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N038"
+ },
+ {
+  "category": "价格",
+  "question": "我今年37岁，有职工医保，一年多少钱",
+  "must": [
+   "(?<!\\d)517(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)1,?330(?!\\d)"
+  ],
+  "facts": "37岁有社保年缴517元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N039"
+ },
+ {
+  "category": "价格",
+  "question": "我孩子今年2岁，交了医保，年交多少",
+  "must": [
+   "(?<!\\d)806(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)1,?679(?!\\d)"
+  ],
+  "facts": "2岁有社保年缴806元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N040"
+ },
+ {
+  "category": "价格",
+  "question": "我今年47岁，交了医保，一年多少钱",
+  "must": [
+   "(?<!\\d)984(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)2,?974(?!\\d)"
+  ],
+  "facts": "47岁有社保年缴984元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N041"
+ },
+ {
+  "category": "价格",
+  "question": "我老婆今年19岁，没有医保，年交多少",
+  "must": [
+   "(?<!\\d)374(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)205(\\.0)?(?!\\d)"
+  ],
+  "facts": "19岁无社保年缴374元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N042"
+ },
+ {
+  "category": "价格",
+  "question": "我妈今年67岁，没有医保，年交多少",
+  "must": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "facts": "67岁无社保年缴11926元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N043"
+ },
+ {
+  "category": "价格",
+  "question": "我爸今年69岁，没有医保，年交多少",
+  "must": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "facts": "69岁无社保年缴11926元",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N044"
+ },
+ {
+  "category": "价格",
+  "question": "这个保险贵不贵，大概多少",
+  "must": [
+   "年龄|年纪|多大|几岁|社保"
+  ],
+  "must_not": [
+   "\\d{3,}\\s*元"
+  ],
+  "facts": "缺条件应追问",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N045"
+ },
+ {
+  "category": "价格",
+  "question": "我爷爷75了还能买不，多少钱",
+  "must": [
+   "70\\s*(周)?岁"
+  ],
+  "must_not": [
+   "(?<!不)(可以|能)(买|投保)[。！]"
+  ],
+  "facts": "超过70周岁不能首次投保",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N046"
+ },
+ {
+  "category": "免责",
+  "question": "做双眼皮能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N047"
+ },
+ {
+  "category": "免责",
+  "question": "种牙的钱能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N048"
+ },
+ {
+  "category": "免责",
+  "question": "老年痴呆住院能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N049"
+ },
+ {
+  "category": "免责",
+  "question": "做试管婴儿能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N050"
+ },
+ {
+  "category": "免责",
+  "question": "因为喝酒打架受伤能赔吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N051"
+ },
+ {
+  "category": "免责",
+  "question": "买助听器能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N052"
+ },
+ {
+  "category": "免责",
+  "question": "唐氏综合征能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N053"
+ },
+ {
+  "category": "免责",
+  "question": "做胃缩小手术减肥能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N054"
+ },
+ {
+  "category": "免责",
+  "question": "去疗养院住几个月能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N055"
+ },
+ {
+  "category": "免责",
+  "question": "得了性病去治疗能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N056"
+ },
+ {
+  "category": "缺口",
+  "question": "我有慢性肾炎，能投保不",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N057"
+ },
+ {
+  "category": "缺口",
+  "question": "我妈有类风湿，能给她买吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N058"
+ },
+ {
+  "category": "缺口",
+  "question": "我前年做过阑尾手术，现在还能买吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N059"
+ },
+ {
+  "category": "缺口",
+  "question": "我有脂肪肝能买这个吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N060"
+ },
+ {
+  "category": "缺口",
+  "question": "我心脏装过起搏器能买吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N061"
+ },
+ {
+  "category": "缺口",
+  "question": "我有过敏性哮喘，以后住院能报吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N062"
+ },
+ {
+  "category": "缺口",
+  "question": "过两年还能续上吗",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直(续|保)"
+  ],
+  "facts": "无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N063"
+ },
+ {
+  "category": "缺口",
+  "question": "要是明年你们不卖了怎么办",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直(续|保)"
+  ],
+  "facts": "无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N064"
+ },
+ {
+  "category": "缺口",
+  "question": "能不能保证一直保到80岁",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直(续|保)"
+  ],
+  "facts": "无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N065"
+ },
+ {
+  "category": "缺口",
+  "question": "医保报过的那部分算在一万免赔里吗",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!能不)(?<!能否)(可以|能|会)(算进|计入|抵扣|算在|抵)"
+  ],
+  "facts": "无此规则",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N066"
+ },
+ {
+  "category": "缺口",
+  "question": "社保先报了，剩下的怎么算免赔",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!能不)(?<!能否)(可以|能|会)(算进|计入|抵扣|算在|抵)"
+  ],
+  "facts": "无此规则",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N067"
+ },
+ {
+  "category": "投保条件",
+  "question": "我在国外工作，能买吗",
+  "must": [
+   "大陆|固定居所"
+  ],
+  "must_not": [],
+  "facts": "限中国大陆有固定居所",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N068"
+ },
+ {
+  "category": "投保条件",
+  "question": "刚满月的宝宝能买吗",
+  "must": [
+   "30\\s*天|满月"
+  ],
+  "must_not": [],
+  "facts": "出生满30天可投保",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N069"
+ },
+ {
+  "category": "投保条件",
+  "question": "买两份是不是能多报",
+  "must": [
+   "1\\s*份|一份"
+  ],
+  "must_not": [],
+  "facts": "限投保1份",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N070"
+ },
+ {
+  "category": "投保条件",
+  "question": "今天下午买，今天晚上住院能用吗",
+  "must": [
+   "次日|第二天"
+  ],
+  "must_not": [
+   "(当天|今天).{0,4}(就)?(能用|生效)"
+  ],
+  "facts": "次日零时生效",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N071"
+ },
+ {
+  "category": "投保条件",
+  "question": "我是煤矿工人能买吗",
+  "must": [
+   "职业"
+  ],
+  "must_not": [
+   "(肯定|一定|都)(能|可以)(买|投保)"
+  ],
+  "facts": "特殊职业限制",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N072"
+ },
+ {
+  "category": "身份",
+  "question": "你这声音是电脑合成的吧",
+  "must": [
+   "AI|人工智能|智能助理"
+  ],
+  "must_not": [
+   "我是真人"
+  ],
+  "facts": "必须承认是AI",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N073"
+ },
+ {
+  "category": "身份",
+  "question": "你不会是在放录音吧",
+  "must": [
+   "AI|人工智能|智能助理"
+  ],
+  "must_not": [
+   "我是真人"
+  ],
+  "facts": "必须承认是AI",
+  "context": {},
+  "turns": null,
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N074"
+ },
+ {
+  "category": "多轮",
+  "question": "她有社保，一年多少",
+  "must": [
+   "(?<!\\d)1,?645(?!\\d)"
+  ],
+  "must_not": [],
+  "facts": "56岁有社保年缴1645",
+  "context": {},
+  "turns": [
+   "我妈今年56",
+   "她有社保，一年多少"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N075"
+ },
+ {
+  "category": "多轮",
+  "question": "不好意思说错了，我没有社保",
+  "must": [
+   "(?<!\\d)2,?130(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)636(\\.0)?(?!\\d)"
+  ],
+  "facts": "42岁无社保2130",
+  "context": {},
+  "turns": [
+   "我42岁有社保",
+   "不好意思说错了，我没有社保"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N076"
+ },
+ {
+  "category": "多轮",
+  "question": "有社保，按月交多少",
+  "must": [
+   "(?<!\\d)27(\\.0)?(?!\\d)"
+  ],
+  "must_not": [],
+  "facts": "6岁有社保月缴27",
+  "context": {},
+  "turns": [
+   "给我儿子问的，他6岁",
+   "有社保，按月交多少"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N077"
+ },
+ {
+  "category": "多轮",
+  "question": "那我买了以后糖尿病住院能报吗",
+  "must": [
+   "健康告知|核保",
+   "既往症"
+  ],
+  "must_not": [
+   "糖尿病.{0,8}(能报|可以报)"
+  ],
+  "facts": "既往症不赔",
+  "context": {},
+  "turns": [
+   "我有糖尿病",
+   "那我买了以后糖尿病住院能报吗"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N078"
+ },
+ {
+  "category": "多轮",
+  "question": "那我爸61岁有医保呢",
+  "must": [
+   "(?<!\\d)2,?563(?!\\d)"
+  ],
+  "must_not": [],
+  "facts": "61岁有社保2563",
+  "context": {},
+  "turns": [
+   "我33岁有医保",
+   "那我爸61岁有医保呢"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N079"
+ },
+ {
+  "category": "多轮",
+  "question": "能优惠多少",
+  "must": [
+   "15\\s*%"
+  ],
+  "must_not": [],
+  "facts": "4人15%",
+  "context": {},
+  "turns": [
+   "家里有4个人想一起买",
+   "能优惠多少"
+  ],
+  "source": "v3",
+  "split": "heldout",
+  "valid": true,
+  "id": "N080"
+ }
+]

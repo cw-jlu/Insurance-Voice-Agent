@@ -1,0 +1,676 @@
+[
+ {
+  "category": "保障",
+  "question": "住院的钱一年最多能报多少",
+  "must": [
+   "300\\s*万"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R01 一般医疗300万",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W001"
+ },
+ {
+  "category": "保障",
+  "question": "得了尿毒症透析，免赔额要扣多少",
+  "must": [
+   "(没有|无|不设|0).{0,6}免赔|免赔.{0,4}(0|没有)"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R03 重大疾病医疗无免赔额",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W002"
+ },
+ {
+  "category": "保障",
+  "question": "质子治疗一年最高能赔多少钱",
+  "must": [
+   "600\\s*万"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R05 恶性肿瘤先进疗法600万",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W003"
+ },
+ {
+  "category": "保障",
+  "question": "大病住院护工费一天报多少",
+  "must": [
+   "500\\s*元|五百"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R08 重疾护工500元/天",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W004"
+ },
+ {
+  "category": "保障",
+  "question": "确诊癌症能拿多少钱的一次性赔款",
+  "must": [
+   "5\\s*万",
+   "加油包|另外|额外|加购|单独"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R10 重疾关爱加油包5万，需另外选购",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W005"
+ },
+ {
+  "category": "保障",
+  "question": "看门诊的加油包一次最多赔多少",
+  "must": [
+   "300\\s*元|三百"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R13 门急诊加油包次限额300元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W006"
+ },
+ {
+  "category": "保障",
+  "question": "普通住院每天的津贴是多少",
+  "must": [
+   "100\\s*元|一百",
+   "加油包|另外|额外|加购|单独"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R14 住院津贴100元/天，需加油包",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W007"
+ },
+ {
+  "category": "保障",
+  "question": "重症监护每天补贴多少钱",
+  "must": [
+   "500\\s*元|五百",
+   "加油包|另外|额外|加购|单独"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R15 ICU津贴500元/天，需加油包",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W008"
+ },
+ {
+  "category": "保障",
+  "question": "网上药店买药一年最多报多少",
+  "must": [
+   "1000\\s*元|一千|1千"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R16 药省保年1000元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W009"
+ },
+ {
+  "category": "保障",
+  "question": "转院去外地看大病，路费和住宿一年报多少",
+  "must": [
+   "1\\s*万|一万"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R07 重疾异地转诊交通住宿年1万",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W010"
+ },
+ {
+  "category": "保障",
+  "question": "特需部的床位费一天能报多少",
+  "must": [
+   "1500\\s*元|一千五",
+   "加油包|另外|额外|加购|单独"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R11 特需医疗加油包床位费1500元/天",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W011"
+ },
+ {
+  "category": "保障",
+  "question": "脑梗后在康复医院住院，报销比例多少",
+  "must": [
+   "80\\s*%|60\\s*%"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "R04 特定疾病康复住院80%/60%",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W012"
+ },
+ {
+  "category": "价格",
+  "question": "我家老大40岁，没社保，按月得交多少",
+  "must": [
+   "(?<!\\d)131(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)51(\\.0)?(?!\\d)"
+  ],
+  "facts": "40岁无社保月缴131元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W013"
+ },
+ {
+  "category": "价格",
+  "question": "我爱人60岁，有社保，按月得交多少",
+  "must": [
+   "(?<!\\d)162(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)539(\\.0)?(?!\\d)"
+  ],
+  "facts": "60岁有社保月缴162元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W014"
+ },
+ {
+  "category": "价格",
+  "question": "我爱人69岁，有居民医保，按月得交多少",
+  "must": [
+   "(?<!\\d)328(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)1,?181(?!\\d)"
+  ],
+  "facts": "69岁有社保月缴328元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W015"
+ },
+ {
+  "category": "价格",
+  "question": "我家老大69岁，有居民医保，一年保费多少",
+  "must": [
+   "(?<!\\d)3,?316(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)11,?926(?!\\d)"
+  ],
+  "facts": "69岁有社保年缴3316元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W016"
+ },
+ {
+  "category": "价格",
+  "question": "我家小孩8岁，有居民医保，按月得交多少",
+  "must": [
+   "(?<!\\d)27(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)56(\\.0)?(?!\\d)"
+  ],
+  "facts": "8岁有社保月缴27元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W017"
+ },
+ {
+  "category": "价格",
+  "question": "我爱人50岁，医保没交，一年保费多少",
+  "must": [
+   "(?<!\\d)2,?974(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)984(\\.0)?(?!\\d)"
+  ],
+  "facts": "50岁无社保年缴2974元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W018"
+ },
+ {
+  "category": "价格",
+  "question": "我家老大60岁，有社保，按月得交多少",
+  "must": [
+   "(?<!\\d)162(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)539(\\.0)?(?!\\d)"
+  ],
+  "facts": "60岁有社保月缴162元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W019"
+ },
+ {
+  "category": "价格",
+  "question": "我家老大30岁，有居民医保，一年保费多少",
+  "must": [
+   "(?<!\\d)318(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)679(\\.0)?(?!\\d)"
+  ],
+  "facts": "30岁有社保年缴318元",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W020"
+ },
+ {
+  "category": "免责",
+  "question": "做近视激光手术能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W021"
+ },
+ {
+  "category": "免责",
+  "question": "镶假牙的钱能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W022"
+ },
+ {
+  "category": "免责",
+  "question": "体检的费用报不报",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W023"
+ },
+ {
+  "category": "免责",
+  "question": "整容失败修复能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W024"
+ },
+ {
+  "category": "免责",
+  "question": "产检能报吗",
+  "must": [
+   "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外|不属于"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(可以|能)报[。！]"
+  ],
+  "facts": "责任免除",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W025"
+ },
+ {
+  "category": "缺口",
+  "question": "我有痛风还吃着药，能投保吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W026"
+ },
+ {
+  "category": "缺口",
+  "question": "我妈做过心脏搭桥，能给她买吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W027"
+ },
+ {
+  "category": "缺口",
+  "question": "我有肾结石，买了以后结石住院能报吗",
+  "must": [
+   "健康告知|核保"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!能不)(可以|能|一般能)(买|投保|承保)[。！]|没问题|不影响投保"
+  ],
+  "facts": "以核保为准",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W028"
+ },
+ {
+  "category": "缺口",
+  "question": "这保险能不能一直续到八十岁",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直(续|保)"
+  ],
+  "facts": "无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W029"
+ },
+ {
+  "category": "缺口",
+  "question": "到期以后是不是还得重新审核才能续",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!不能)(?<!无法)保证续保|一定(能)?续保|(可以|能)一直(续|保)"
+  ],
+  "facts": "无续保规则",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W030"
+ },
+ {
+  "category": "缺口",
+  "question": "医保报掉的部分能抵那一万块的免赔吗",
+  "must": [
+   "条款|专员|人工|确认"
+  ],
+  "must_not": [
+   "(?<!不)(?<!能不)(?<!能否)(可以|能|会)(算进|计入|抵扣|算在|抵)"
+  ],
+  "facts": "无此规则",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W031"
+ },
+ {
+  "category": "投保条件",
+  "question": "我今年69岁，还能买这个吗",
+  "must": [
+   "(可以|能)(买|投保)|70\\s*(周)?岁"
+  ],
+  "must_not": [
+   "不能(买|投保)[。！]"
+  ],
+  "facts": "69岁可首次投保（≤70）",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W032"
+ },
+ {
+  "category": "投保条件",
+  "question": "我58了，门诊加油包能买吗",
+  "must": [
+   "55\\s*(周)?岁"
+  ],
+  "must_not": [
+   "(?<!不)(可以|能)买"
+  ],
+  "facts": "门急诊加油包限55周岁及以下",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W033"
+ },
+ {
+  "category": "身份",
+  "question": "你们这个电话是人工打的吗",
+  "must": [
+   "AI|人工智能|智能助理"
+  ],
+  "must_not": [
+   "我是真人"
+  ],
+  "facts": "必须承认是AI",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W034"
+ },
+ {
+  "category": "身份",
+  "question": "没有，我身体一直挺好的",
+  "must": [],
+  "must_not": [
+   "我是.{0,6}(AI|人工智能|智能助理)"
+  ],
+  "facts": "不是身份询问，不应回答身份",
+  "context": {},
+  "turns": null,
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W035"
+ },
+ {
+  "category": "多轮",
+  "question": "她是有医保的，保费一年多少",
+  "must": [
+   "(?<!\\d)636(\\.0)?(?!\\d)"
+  ],
+  "must_not": [],
+  "facts": "44岁有社保年缴636",
+  "context": {},
+  "turns": [
+   "我爱人今年44",
+   "她是有医保的，保费一年多少"
+  ],
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W036"
+ },
+ {
+  "category": "多轮",
+  "question": "说错了，社保去年就断了",
+  "must": [
+   "(?<!\\d)971(\\.0)?(?!\\d)"
+  ],
+  "must_not": [
+   "(?<!\\d)423(\\.0)?(?!\\d)"
+  ],
+  "facts": "31岁无社保971",
+  "context": {},
+  "turns": [
+   "我31岁有社保",
+   "说错了，社保去年就断了"
+  ],
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W037"
+ },
+ {
+  "category": "多轮",
+  "question": "那ICU一天补多少",
+  "must": [
+   "500\\s*元|五百",
+   "加油包|另外|额外|加购|单独"
+  ],
+  "must_not": [
+   "基础版一年\\d+元"
+  ],
+  "facts": "ICU津贴500元/天",
+  "context": {},
+  "turns": [
+   "我36岁有社保",
+   "那ICU一天补多少"
+  ],
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W038"
+ },
+ {
+  "category": "多轮",
+  "question": "他这个岁数买有什么限制吗",
+  "must": [
+   "70\\s*(周)?岁"
+  ],
+  "must_not": [],
+  "facts": "首次投保≤70周岁",
+  "context": {},
+  "turns": [
+   "给我爸问的，他66岁有社保",
+   "他这个岁数买有什么限制吗"
+  ],
+  "source": "v5",
+  "split": "heldout",
+  "valid": true,
+  "id": "W039"
+ }
+]

@@ -1,4 +1,5 @@
-"""Adapters for the cloud services (Alibaba Bailian LLM/TTS/embedding, Tencent Cloud real-time ASR).
+"""Adapters for the cloud services (Alibaba Bailian LLM/TTS/embedding, Tencent Cloud real-time ASR,
+OpenCode Zen Jev classifier).
 
 Credentials come from the git-ignored ``.env`` at the repository root.
 """
@@ -85,7 +86,39 @@ def embed(texts: list[str], client=None, batch: int = 10) -> list[list[float]]:
     return out
 
 
-# --- TTS (persistent realtime connection) --------------------------------------------------------
+# --- Jev (OpenCode Zen "System One" typed classifier) ----------------------------------------------
+# Jev does not generate text: it answers typed questions about a ``state`` and returns values with
+# probabilities. Question types: "noul" (yes/no → probability of yes), "choice" (criteria dict →
+# chosen key + probabilities), "score" (ordered criteria list → expected index + probabilities).
+
+JEV_URL = os.getenv("JEV_URL", "https://opencode.ai/zen/v1/systemone")
+JEV_MODEL = os.getenv("JEV_MODEL", "jev-1.13-free")
+JEV_TIMEOUT = float(os.getenv("JEV_TIMEOUT", "2.0"))  # P90 ≈ 0.86 s; past this the LLM fallback is faster
+_jev_http = None
+_jev_lock = threading.Lock()
+
+
+def _jev_client():
+    global _jev_http
+    with _jev_lock:
+        if _jev_http is None:
+            import httpx
+
+            _jev_http = httpx.Client(timeout=JEV_TIMEOUT, headers={"Authorization": f"Bearer {os.environ['OPENCODE_API_KEY']}"},
+                                     limits=httpx.Limits(max_keepalive_connections=16))
+        return _jev_http
+
+
+def jev(state: str, questions: dict, model: str | None = None) -> dict:
+    """All questions are evaluated in parallel server-side; returns ``answers`` keyed by question id."""
+    r = _jev_client().post(JEV_URL, json={"model": model or JEV_MODEL, "state": state, "questions": questions})
+    d = r.json()
+    if r.status_code != 200 or "answers" not in d:
+        raise RuntimeError(f"jev {r.status_code}: {d.get('error', d)}")
+    return d["answers"]
+
+
+# --- TTS (persistent realtime connection)--------------------------------------------------------
 
 class RealtimeTTS:
     """One websocket session; each ``synth`` call sends one sentence and waits for its audio.
@@ -156,6 +189,64 @@ class RealtimeTTS:
             self.client.close()
         except Exception:
             pass
+
+
+class TTSPool:
+    """Several persistent sessions, so the sentences of one reply are synthesized side by side instead of one
+    after another (第六轮重测: serial synthesis took 3–7 s per reply), plus audio for fixed phrases (flow
+    sentences, templates) synthesized once at start-up, which costs nothing at reply time."""
+
+    def __init__(self, n: int = 3, **kw):
+        import queue
+
+        self._kw = kw
+        self.conns = [RealtimeTTS(**kw) for _ in range(n)]
+        self._free: "queue.Queue[RealtimeTTS]" = queue.Queue()
+        for c in self.conns:
+            self._free.put(c)
+        self.cache: dict[str, bytes] = {}
+
+    def presynth(self, phrases: list[str]) -> None:
+        for p in dict.fromkeys(phrases):
+            if p and p not in self.cache:
+                self.cache[p] = self.conns[0].synth(p)[2]
+
+    def _one(self, text: str, t0: float) -> tuple[float, float, bytes]:
+        conn = self._free.get()
+        try:
+            t_start = time.perf_counter() - t0
+            try:
+                first, total, pcm = conn.synth(text)
+            except (ConnectionError, TimeoutError, RuntimeError):
+                # the server closes sessions left idle (第八轮时延重测: two turns after fully cached replies failed);
+                # reconnect once and retry
+                conn.close()
+                self.conns[self.conns.index(conn)] = conn = RealtimeTTS(**self._kw)
+                first, total, pcm = conn.synth(text)
+            return t_start + first, t_start + total, pcm
+        finally:
+            self._free.put(conn)
+
+    def synth_all(self, sentences: list[str]) -> list[tuple[float, float, bytes, bool]]:
+        """Per sentence: (first audio s, done s, pcm, cached), times measured from this call."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        t0 = time.perf_counter()
+        out: list = [None] * len(sentences)
+        with ThreadPoolExecutor(len(self.conns)) as ex:
+            futs = {}
+            for i, s in enumerate(sentences):
+                if s in self.cache:
+                    out[i] = (0.0, 0.0, self.cache[s], True)
+                else:
+                    futs[i] = ex.submit(self._one, s, t0)  # submitted in order: earlier sentences start first
+            for i, f in futs.items():
+                out[i] = (*f.result(), False)
+        return out
+
+    def close(self) -> None:
+        for c in self.conns:
+            c.close()
 
 
 def resample_24k_to_16k(pcm24: bytes) -> bytes:

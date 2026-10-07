@@ -53,9 +53,16 @@ def gather(question: str, slots: dict, history: str, have: list[Chunk], client=N
     got: list[Chunk] = []
     steps = 0
     while steps < max_steps and time.perf_counter() - t0 < budget_s:
-        r = client.chat.completions.create(model=cloud.FAST_MODEL, messages=msgs, tools=TOOLS, temperature=0,
-                                           extra_body={"enable_thinking": False},
-                                           timeout=max(0.5, budget_s - (time.perf_counter() - t0)))
+        remaining = budget_s - (time.perf_counter() - t0)
+        if remaining < 0.4:
+            break
+        try:
+            # hard deadline: no SDK retries, request timeout = what is left of the budget
+            r = client.with_options(max_retries=0, timeout=remaining).chat.completions.create(
+                model=cloud.FAST_MODEL, messages=msgs, tools=TOOLS, temperature=0,
+                extra_body={"enable_thinking": False})
+        except Exception:
+            break  # out of time or upstream error: answer with what we have
         msg = r.choices[0].message
         calls = msg.tool_calls or []
         if not calls:

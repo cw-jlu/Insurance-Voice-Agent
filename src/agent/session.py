@@ -9,18 +9,22 @@ The sales flow is a state machine run by code; the per-turn answer (small chain)
 Gates:
 - 报价 needs age and has_social (asked one at a time otherwise).
 - 发投保链接 needs: price quoted, main limits told, 如实告知 told, and the user's explicit consent.
+  Consent given before the other gates are met is remembered; the link goes out as soon as they are met
+  (第六轮: 5 calls asked again after the user had agreed). Hesitation ("考虑一下""先挂了""商量商量") is never
+  consent, whatever the classifier says (第六轮: 2 links sent after "嗯……那我再考虑考虑吧，先挂了").
 - After the user refuses twice, no more selling: polite close.
 """
 
 from __future__ import annotations
 
+import re
 import time
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 
 from agent import small_model
 from agent.guardrail import IDENTITY_REPLY, is_identity_question
-from agent.pipeline import Pipeline, _quote_text, understand
+from agent.pipeline import Pipeline, _quote_text, combine_gaps, gaps_to_check, understand
 
 OPENING = ("您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，"
            "想花一分钟跟您介绍一下，请问是给您自己了解吗？")
@@ -28,7 +32,7 @@ LIMITS = "提醒您一下，一般住院一年有1万元免赔额，首年生病
 DISCLOSURE = "投保时需要如实告知健康情况，能不能投保以核保结果为准。您这边有没有正在治疗的疾病？"
 ASK_LINK = "需要我把投保链接发到您手机上吗？投保成功后次日零时生效。"
 LINK_SENT = "好的，投保链接已经发到您手机上了，您按页面提示填写健康告知就可以。感谢您的时间，再见。"
-RETAIN = "理解，不过基础版有社保的话一年只要几百元，保障到几百万。您要是愿意，我可以只花半分钟说下重点？"
+RETAIN = "理解。我只占用您半分钟说个重点：基础版总保额600万，大病医疗没有免赔额。您要是愿意听，我简单说一下？"
 GOODBYE = "好的，不打扰您了，祝您生活愉快，再见。"
 HANDOFF = "好的，我马上为您转接人工专员，刚才的情况我会一并告诉专员，您不用重复说。"
 ASK = {"relation": "请问是给您自己买，还是给家人买？", "age": "请问被保人今年多大年纪？",
@@ -55,9 +59,15 @@ class CallSession:
     history: list = field(default_factory=list)  # (speaker, text); agent lines are what was actually said
     flags: dict = field(default_factory=lambda: {"recording": False, "ai": False, "quoted": False, "limits": False,
                                                  "disclosure": False, "consent": False, "link": False, "handoff": False})
+    agent_budget_s: float = 2.5
     refusals: int = 0
     risk: dict = field(default_factory=lambda: {"gap_hits": 0, "fallbacks": 0})
+    gap_topics: dict = field(default_factory=dict)
+    pending_handoff_offer: bool = False
     ended: bool = False
+    _hypothetical: bool = False
+    _comparison: bool = False
+    _family_mention: bool = False
 
     # ------------------------------------------------------------------ helpers
     def _history_text(self, n: int = 6) -> str:
@@ -72,6 +82,12 @@ class CallSession:
             v = slots.get(k)
             if v is None:
                 continue
+            if k == "age" and self._hypothetical:
+                continue
+            if k in ("relation", "gender") and self._family_mention:
+                continue  # "我父亲得过肺癌" mentions a relative; it does not change who is insured (第十轮回归)
+            if k == "has_social" and self._comparison:
+                continue  # "那比有社保贵了一倍多" is not the user's own condition (第十轮回归)
             if k in self.profile and self.profile[k] != v:
                 events.append(f"纠正:{k}:{self.profile[k]}→{v}")
             self.profile[k] = v
@@ -111,6 +127,10 @@ class CallSession:
             events.append("提示如实告知")
             return DISCLOSURE, events
         self.stage = "投保"
+        if self.flags["consent"]:
+            self.flags["link"], self.ended, self.stage = True, True, "收尾"
+            events.append("发送链接(此前已同意)")
+            return LINK_SENT, events
         return ASK_LINK, events
 
     # ------------------------------------------------------------------ public
@@ -125,81 +145,276 @@ class CallSession:
         hist = self._history_text()
         timings: dict = {}
 
-        if is_identity_question(user_text):
-            act, u = "身份", {"slots": {}}
-        else:
-            known = {**self.profile, "_history": hist}
-            with ThreadPoolExecutor(2) as ex:
-                fu = ex.submit(understand, user_text, known, self.pipe.client, self.pipe.fast_model)
-                fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
-                u, act = fu.result(), fa.result()
-            # Identity only when both models agree; one model alone misreads answers like "是给我自己".
-            if act == "身份" and u.get("intent") != "身份":
-                act = "提供信息" if any(v is not None for v in (u.get("slots") or {}).values()) else "提问"
+        # Understanding always runs, so facts stated in the same sentence are never lost (第五轮: an identity
+        # question that skipped extraction made the agent ask the user's age again and again).
+        known = {**self.profile, "_history": hist}
+        self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
+        self._comparison = bool(re.search(r"比(有|没有|没)?(社保|医保)|如果|要是|假如|万一", user_text))
+        self._family_mention = (bool(re.search(r"(爸|妈|父亲|母亲|老人|家里人|亲戚).{0,6}(得过|得了|患|有.{0,4}病|病|癌|走了|去世)", user_text))
+                                and not re.search(r"给.{0,3}(爸|妈|父亲|母亲)|替.{0,3}(爸|妈)|帮.{0,3}(爸|妈)|(爸|妈|父亲|母亲).{0,6}(买|投保|多少钱)", user_text))
+        with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
+            fu = ex.submit(self.pipe.understand, user_text, known)
+            fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
+            fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
+            fr = ex.submit(self.pipe.retrieve, user_text)
+            u, act, gaps_now = fu.result(), fa.result(), fg.result()
+            u["_retrieved"] = fr.result()
+        # Gaps are judged on this sentence alone (with history, a gap asked earlier "sticks" to every later turn),
+        # and only when the detector and the understanding module agree: the detector alone misfired on ~9 of
+        # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
+        u["_gaps_check"] = gaps_to_check(u.get("gaps", []), gaps_now)
+        u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), gaps_now, user_text), True
+        if "疾病核保" in u["gaps"] and u.get("intent") not in ("缺口",):
+            u["intent"] = "缺口"
+        elif u.get("intent") == "缺口" and not u["gaps"]:
+            u["intent"] = "保障" if u.get("items") else "其他"
+        rule_identity = is_identity_question(user_text)
+        # Identity: the rule, or both models agreeing (one model alone misread "我觉得有医保就够了").
+        if rule_identity or (act == "身份" and u.get("intent") == "身份"):
+            act = "身份"
+        elif act == "身份":
+            act = "提问"
+        if act != "身份" and u.get("intent") == "身份":
+            u["intent"] = "其他"  # one model alone misreads e.g. "没有，身体挺好的" (第八轮验收)
         timings["understand"] = time.perf_counter() - t0
         events: list[str] = self._update_profile(u.get("slots") or {})
+        # what _update_profile ignored must not reach the answer either (第十轮回归: "要是她70多岁了" was quoted at 70)
+        u["slots"] = {k: v for k, v in (u.get("slots") or {}).items()
+                      if not ((k == "age" and self._hypothetical) or (k == "has_social" and self._comparison)
+                              or (k in ("relation", "gender") and self._family_mention))}
         if any(e.startswith(("纠正:age", "纠正:has_social", "纠正:relation")) for e in events) and self.flags["quoted"]:
             self.flags["quoted"] = False  # price depended on the corrected fact: quote again
 
-        if act == "身份":
-            self.flags["ai"] = True
-            step, ev = self._advance(already_asked=False)
-            text = IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。" + step
-            return self._finish(text, act, events + ["承认AI"] + ev, timings, t0)
-        if act in ("要人工", "投诉"):
+        offered_handoff = self.pending_handoff_offer and self._last_agent_text().endswith(OFFER_HANDOFF)
+        accepts_handoff = offered_handoff and not self._last_agent_asked_link() and (_yes(user_text) or ACCEPT_HANDOFF.search(user_text))
+        if (re.search(r"转人工|人工客服|找人工|要人工|真人客服|转接人工|转专员|(帮我|给我|那你)转(一下|过去|吧)?", user_text)
+                and not re.search(r"不用转|先别转|不要转|别转", user_text)):
+            act = "要人工"  # the classifier missed "能帮我转人工客服吗" once (第十轮回归)
+        if act in ("要人工", "投诉") or accepts_handoff:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"
-            return self._finish(HANDOFF, act, ["转人工"], timings, t0)
+            return self._finish(HANDOFF, act, events + ["转人工"], timings, t0)
+        self.pending_handoff_offer = False
+        if act in ("异议", "提问", "附和") and re.search(r"不需要|不要了|不买了?|没兴趣|用不着", user_text)                 and not QUESTION_MARKERS.search(user_text):
+            act = "拒绝"  # "517啊，太贵了，不需要" is a refusal, not only a price objection (第十轮回归)
+        if act == "拒绝" and re.search(r"考虑|想想|再说|看看|发.{0,4}(介绍|资料|链接)", user_text):
+            act = "异议"  # "let me think about it" is hesitation, not a refusal
+        if DO_NOT_CALL.search(user_text):
+            self.ended, self.stage = True, "结束"
+            return self._finish(GOODBYE, "拒绝", events + ["结束:要求不再来电"], timings, t0)
         if act == "拒绝":
             self.refusals += 1
-            if self.refusals >= 2 or self.stage in ("投保",):
+            if self.refusals >= 2 or self.stage == "投保":
                 self.ended, self.stage = True, "结束"
-                return self._finish(GOODBYE, act, ["结束:拒绝"], timings, t0)
-            return self._finish(RETAIN, act, ["挽留一次"], timings, t0)
+                return self._finish(GOODBYE, act, events + ["结束:拒绝"], timings, t0)
+            return self._finish(RETAIN, act, events + ["挽留一次"], timings, t0)
 
-        if u.get("gaps"):
-            self.risk["gap_hits"] += 1
-
-        if act == "同意投保":
+        if HESITATE.search(user_text) and self.flags["consent"]:
+            self.flags["consent"] = False  # an earlier yes is withdrawn by later hesitation
+            events.append("撤回同意")
+        if OTHER_CHANNEL.search(user_text) and not re.search(r"手机|短信", user_text):
+            return self._finish(OTHER_CHANNEL_REPLY, act, events + ["其他渠道:改为询问链接"], timings, t0)
+        if _consents(user_text, act, self._last_agent_asked_link()):
+            self.flags["consent"] = True
             if self.flags["quoted"] and self.flags["limits"] and self.flags["disclosure"]:
-                self.flags["consent"] = self.flags["link"] = True
+                self.flags["link"] = True
                 self.ended, self.stage = True, "收尾"
-                return self._finish(LINK_SENT, act, ["同意", "发送链接"], timings, t0)
-            # gate: not everything required before sending a link has been said yet
-            step, ev = self._advance(already_asked=False)
-            return self._finish(("好的，" + step) if step else "好的。", act, ev + ["门禁:暂不发链接"], timings, t0)
+                return self._finish(LINK_SENT, "同意投保", events + ["同意", "发送链接"], timings, t0)
+            # Gate: something required before the link is missing. Say all of it now rather than one item per turn;
+            # the link goes out on the next turn (or right away, if _advance reaches the end).
+            steps, ev = [], []
+            while True:
+                step, e = self._advance(already_asked=False)
+                ev += e
+                if step:
+                    steps.append(step)
+                if not step or step in ASK.values() or step == DISCLOSURE or self.ended:
+                    break
+            return self._finish("好的，" + "".join(steps) if steps else "好的。", "同意投保",
+                                events + ev + ["同意(记住)", "门禁:暂不发链接"], timings, t0)
+        if act == "同意投保":
+            act = "提问" if QUESTION_MARKERS.search(user_text) else "附和"  # classifier said yes, wording did not
 
+        # Gap topics are counted once per topic; repeated insistence on one topic triggers an OFFER, not a transfer.
+        new_gaps = [g for g in u.get("gaps", []) if g not in self.gap_topics]
+        for g in u.get("gaps", []):
+            self.gap_topics[g] = self.gap_topics.get(g, 0) + 1
+        self.risk["gap_hits"] = len(self.gap_topics)
+
+        has_question = (act in ("提问", "异议", "身份") or bool(u.get("gaps"))
+                        or (QUESTION_MARKERS.search(user_text) is not None and u.get("intent") not in ("闲聊", "其他")))
+        if HESITATE.search(user_text) and not QUESTION_MARKERS.search(user_text):
+            has_question = False  # "那我再考虑考虑吧，先挂了": nothing to answer, only the keep-the-link offer below
         answer_text, asked = "", False
-        needs_answer = act in ("提问", "异议") or (u.get("intent") in ("报价", "保障", "免责", "缺口", "优惠", "投保条件")
-                                                   and act not in ("提供信息", "附和"))
-        if needs_answer:
+        if act == "身份":
+            self.flags["ai"] = True
+            answer_text = IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。"
+            events.append("承认AI")
+            has_question = bool(u.get("gaps")) or u.get("intent") not in ("身份", "闲聊", "其他")
+        if has_question and act != "附和" and (act != "身份" or u.get("intent") != "身份"):
             known = {**self.profile, "_history": hist}
-            a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=self.agent_steps, understanding=u)
-            answer_text = a.text
-            asked = answer_text.rstrip().endswith(("？", "?"))
+            steps = self.agent_steps if self.agent_steps and _is_complex(u, user_text) else 0
+            a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=steps,
+                                 agent_budget_s=self.agent_budget_s, understanding=u)
+            # a blocked answer with nothing program-made to say instead: say nothing and let the flow continue,
+            # rather than an unrelated "转专员确认" line (第十轮回归)
+            answer_text += "" if (a.fallback_used and a.text.startswith("这个问题我需要帮您转专员确认")) else a.text
+            asked = a.text.rstrip().endswith(("？", "?"))
             if a.fallback_used:
                 self.risk["fallbacks"] += 1
-            if a.route == "报价" or ("报价" in (a.route or "") and not a.route.endswith("追问")):
+            if a.route == "报价":
                 self.flags["quoted"] = True
-            if any(w in answer_text for w in ("免赔", "等待期", "既往症")):
-                self.flags["limits"] = self.flags["limits"] or "免赔" in answer_text and "等待期" in answer_text
+            if "免赔" in answer_text and "等待期" in answer_text:
+                self.flags["limits"] = True
             timings["answer"] = a.timings.get("total")
-            events.append(f"回答:{a.route}")
-        if self.risk["gap_hits"] >= 3 and not self.flags["handoff"]:
-            self.flags["handoff"], self.ended, self.stage = True, True, "结束"
-            return self._finish((answer_text + "这些情况比较细，" + HANDOFF).strip(), act, events + ["转人工:风险累积"], timings, t0)
+            events.append(f"回答:{a.route}" + (f"(Agent {a.timings.get('agent_steps', 0)}步)" if steps else ""))
+
+        if any(self.gap_topics[g] >= 2 for g in u.get("gaps", [])) and not new_gaps:
+            # the user keeps pressing on something the data cannot answer: offer a specialist, don't force it
+            self.pending_handoff_offer = True
+            from agent.pipeline import FOLLOW_UP as _FU
+
+            answer_text = answer_text.replace(_FU, "")
+            text = _dedupe(answer_text + OFFER_HANDOFF, self._last_agent_text())
+            return self._finish(text, act, events + ["询问是否转人工"], timings, t0)
 
         from agent.pipeline import FOLLOW_UP
 
         if answer_text.endswith(FOLLOW_UP):  # the flow's own next question replaces the generic follow-up
             answer_text, asked = answer_text[: -len(FOLLOW_UP)], False
-        step, ev = self._advance(already_asked=asked)
-        if step and answer_text and step in answer_text:
-            step = ""
+        hesitant = act in ("异议", "附和", "提问") and HESITATE.search(user_text)
+        step, ev = ("", []) if hesitant else self._advance(already_asked=asked)
+        if step == ASK_LINK and self._last_agent_asked_link():
+            step = ""  # don't repeat the same offer turn after turn
+        if hesitant and not self._last_agent_asked_link() and self.flags["quoted"]:
+            step = "您可以先把投保链接存着，页面里有完整的产品介绍，方便的时候再看。需要我发到您手机上吗？"
         prefix = "明白，" if any(e.startswith("纠正:") for e in events) and not answer_text else ""
         text = (answer_text + step) if answer_text else (prefix + step if step else "好的，您还想了解哪方面？")
-        return self._finish(text, act, events + ev, timings, t0)
+        return self._finish(_dedupe(text, self._last_agent_text()), act, events + ev, timings, t0)
+
+    def _last_agent_text(self) -> str:
+        return next((t for s, t in reversed(self.history) if s == "坐席"), "")
+
+    def _last_agent_asked_link(self) -> bool:
+        return "投保链接发到您手机" in self._last_agent_text()
 
     def _finish(self, text: str, act: str, events: list[str], timings: dict, t0: float) -> TurnResult:
+        text, removed = capability_guard(text)
+        if removed:
+            events.append("能力护栏:" + "；".join(removed))
         self._say(text)
         timings["total"] = time.perf_counter() - t0
         return TurnResult(text=text, stage=self.stage, act=act, events=events, timings=timings)
+
+
+def fixed_phrases() -> list[str]:
+    """Sentences the agent says verbatim; their audio can be synthesized once, before the call."""
+    from agent.pipeline import FOLLOW_UP, GAP_FALLBACK, WAIT_TEXT
+
+    whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP, CLAIMS_PROCESS,
+             OTHER_CHANNEL_REPLY,
+             IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。", WAIT_TEXT, "这款产品的保险期间是一年。", "好的，您还想了解哪方面？",
+             *ASK.values(), *GAP_FALLBACK.values()]
+    out = []
+    for w in whole:
+        out += [s for s in re.split(r"(?<=[。！？?])", w) if s.strip()]
+    return out
+
+
+# --- turn helpers ----------------------------------------------------------------------------------
+
+QUESTION_MARKERS = re.compile(r"吗|呢|多少|多久|几|什么|怎么|哪|能不能|是不是|可不可以|有没有|咋|？|\?")
+_YES = re.compile(r"^(那)?(好|好的|好吧|行|可以|嗯|对|是的|发吧|发过来|发我|麻烦|那就|没问题|ok|OK)|发(过来|给我|我|吧)|可以发|行啊|好啊")
+HYPOTHETICAL_AGE = re.compile(r"等我|到时候|以后|将来|老了|万一|要是|如果|假如|\d+多|[一二三四五六七八九十]+多(岁|了)")
+DO_NOT_CALL = re.compile(r"别(再)?打(电话|了|来|过来|扰)|不要(再)?打(电话|了|来)|以后别(再)?(打|来电)|别再来电|不要再来电|拉黑|别骚扰")
+OTHER_CHANNEL = re.compile(r"微信|邮箱|邮件|QQ|qq")
+OTHER_CHANNEL_REPLY = "微信和邮箱这边发不了。我可以把投保链接用短信发到您手机上，页面里有完整的产品介绍，需要吗？"
+# Hesitation or postponement: never consent (第六轮 #7 "回去跟家里人商量商量，到时候再联系你们吧" got a link).
+HESITATE = re.compile(r"考虑|想想|想一想|再说|先挂|商量|回头|到时候|再联系|联系你们|改天|以后再|过两天|过几天|不急|比较|"
+                      r"再看看|看看再|还没想好|没想好|等我|问问家|问一下家|跟家里|和家里")
+_NEGATE = re.compile(r"不(用|要|需要)(发|买|了吧)|不买|不想买|先别|别发|算了|没兴趣|不需要")
+_SEND_REQUEST = re.compile(r"发(过来|给我|我|一个|个)?(链接|过来)|链接发|把链接|发我手机|发到我手机|发短信|"
+                           r"(你|那你|那就)?发(给)?我吧|你发吧|发来(吧|看看)")
+ACCEPT_HANDOFF = re.compile(r"(那|行|好|可以)?(你)?(帮我)?转(吧|人工|专员|过去)|转一下")
+# Explicit agreement to receive the link or to buy, in the user's own words.
+_EXPLICIT_YES = re.compile(r"发(过来|给我|我|吧|一个|个|到我|链接)|可以发|那就买|我买|买一份|就它了|就这个|要买|"
+                           r"怎么(买|投保|投)|(那就|就|我要|那我|给(她|他|我|孩子))投保吧|给我办|办一个|上车")
+_SHORT_YES = re.compile(r"^(嗯|那|那就)?[，,]?(好|好的|好吧|好啊|行|行吧|行啊|可以|可以的|可以啊|没问题|成|中|ok|OK|要|需要)[。！!，,～~]*$")
+OFFER_HANDOFF = "这个问题需要专员根据条款确认，需要我帮您转接人工专员吗？"
+
+# Actions the system can actually perform: quote, explain, send the purchase-link SMS, transfer to a human.
+# Claims-process details (APP, online application, payout timing) are not in the data: 第六轮 "下载APP在线申请，审核通过就打款".
+_NO_CAPABILITY = re.compile(r"[^。！？]*(微信|邮寄|快递|寄给您|寄资料|发邮件|邮箱|优惠券|额外优惠|给您打折|申请折扣|上门|回访您|"
+                            r"回电|回您|给您回|(再|稍后|晚点|回头|之后)(给您|跟您)?(打|联系|回复)|联系您|通知您|告诉您结果|"
+                            r"查到.{0,6}(告诉|联系|回|通知)|帮您查(一下|查|询)|"
+                            r"下载|APP|App|app|小程序|公众号|在线申请|线上申请|打款|到账|秒赔|审核通过就|"
+                            r"理赔(很|特别|非常|挺)?(快|简单|方便|容易|不麻烦)|"
+                            r"(发|寄|传)(给)?(您|你)?.{0,4}(介绍|资料|材料|宣传|条款|清单)|"
+                            r"(介绍|资料|材料|宣传|条款|清单).{0,3}(发|寄|传)(给|到)?(您|你))[^。！？]*[。！？]?")
+
+
+CLAIMS_PROCESS = "理赔的具体流程和材料要以条款为准，需要的话我帮您转专员详细说明。"
+_PROCESS = re.compile(r"下载|APP|App|app|小程序|公众号|在线申请|线上申请|打款|到账|秒赔|审核通过就|理赔")
+
+
+def capability_guard(text: str) -> tuple[str, list[str]]:
+    # saying what we cannot do ("微信和邮箱这边发不了") is not a promise
+    keep = lambda m: re.search(r"发不了|没法|无法|不能|不支持|做不到|没有(额外|其他)?(优惠|活动)", m.group(0))
+    removed = [m.group(0) for m in _NO_CAPABILITY.finditer(text) if not keep(m)]
+    if not removed:
+        return text, []
+    cleaned = _NO_CAPABILITY.sub(lambda m: m.group(0) if keep(m) else "", text).strip()
+    if any(re.search(r"投保|购买|买", r) and not re.search(r"理赔|赔款|打款|到账", r) for r in removed):
+        cleaned = "投保的话，我可以把投保链接用短信发到您手机上。" + cleaned  # purchase channel, not claims
+    elif any(_PROCESS.search(r) for r in removed):
+        cleaned = CLAIMS_PROCESS + cleaned  # the question still gets an answer
+    elif not cleaned:
+        cleaned = "我可以把投保链接发到您手机上，页面里有完整的产品介绍。"
+    return cleaned, removed
+
+
+def _yes(text: str) -> bool:
+    return bool(_YES.search(text.strip())) and not re.search(r"不(用|要|需要)|算了|别", text) and not HESITATE.search(text)
+
+
+def _consents(text: str, act: str, asked_link: bool) -> bool:
+    """Consent to the purchase link. Only explicit wording counts; a leading "嗯" or the classifier alone
+    does not. A bare "好的/行/可以" counts only as the answer to our own link offer."""
+    t = text.strip()
+    if _NEGATE.search(t) or OTHER_CHANNEL.search(t):
+        return False
+    if re.search(r"(吗|吧)[？?。]?$", t) and re.search(r"是不是|是直接|如果|要是|怎么|是要|能(正常)?(投保|买)|可以(投保|买)", t):
+        return False  # "如果我要买的话，是直接给我发个链接吗？" asks how buying works; "能发个链接给我看看吗" is a request
+    if _SEND_REQUEST.search(t):
+        return True  # the user asks for the link itself; sending it is what they asked for, even "看看再说"
+    if HESITATE.search(t):
+        return False
+    if _EXPLICIT_YES.search(t):
+        return True
+    return asked_link and (bool(_SHORT_YES.match(t)) or act == "同意投保")
+
+
+def _sentences(text: str) -> list[str]:
+    return [s for s in re.split(r"(?<=[。！？?])", text) if s.strip()]
+
+
+def _dedupe(text: str, last_agent: str = "") -> str:
+    """Drop repeated sentences within this reply, and flow sentences repeated verbatim from the last reply."""
+    seen, out = set(), []
+    flow = {ASK[k] for k in ASK} | {LIMITS, DISCLOSURE}
+    last = set(_sentences(last_agent))
+    for s in _sentences(text):
+        key = re.sub(r"[，。！？\s]", "", s)
+        if key in seen or (s in last and any(s in f for f in flow)):
+            continue
+        seen.add(key)
+        out.append(s)
+    return "".join(out)
+
+
+def _is_complex(u: dict, text: str) -> bool:
+    """Route to the evidence agent only for questions that need several pieces of evidence."""
+    if "疾病核保" in u.get("gaps", []) or u.get("intent") in ("报价", "优惠", "身份"):
+        return False  # underwriting answers use fixed clauses; prices come from the quote engine
+    # count independent questions: question words / "吗" / "呢" separated by clause breaks
+    clauses = [c for c in re.split(r"[，,。；;？?]", text) if QUESTION_MARKERS.search(c)]
+    return len(u.get("items", [])) >= 2 or len(clauses) >= 2

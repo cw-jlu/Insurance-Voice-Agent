@@ -107,7 +107,8 @@ def _units_compatible(a: str, b: str) -> bool:
     return not a or not b or a == b
 
 
-def number_guard(answer: str, evidence: list[str], structured: set[float] | None = None) -> GuardResult:
+def number_guard(answer: str, evidence: list[str], structured: set[float] | None = None,
+                 groups: list[str] | None = None) -> GuardResult:
     """Every number in ``answer`` must be supported.
 
     ``structured``: values from deterministic lookups (quote engine, user-stated slots). They are
@@ -116,11 +117,11 @@ def number_guard(answer: str, evidence: list[str], structured: set[float] | None
     number is supported if some chunk has the same value with a compatible unit and, when the
     answer names what the number is about, that chunk talks about the same thing.
     """
-    ev: list[tuple[Num, set[str]]] = []
-    for e in evidence:
+    ev: list[tuple[Num, set[str], str]] = []
+    for k, e in enumerate(evidence):
         clean = _LIST_MARKER.sub(" ", e)
         terms = _bigrams(clean)
-        ev += [(n, terms) for n in extract_numbers(clean)]
+        ev += [(n, terms, groups[k] if groups else str(k)) for n in extract_numbers(clean)]
     answer = PRODUCT_NAME_RE.sub("本产品", answer)  # "2026版" is a name, not a fact to verify
     bad = []
     for n in extract_numbers(answer):
@@ -129,12 +130,14 @@ def number_guard(answer: str, evidence: list[str], structured: set[float] | None
             continue
         if structured and n.value in structured:
             continue
-        same_value = [terms for e, terms in ev if e.value == n.value and _units_compatible(e.unit, n.unit)]
-        if not same_value:
+        same = [(terms, g) for e, terms, g in ev if e.value == n.value and _units_compatible(e.unit, n.unit)]
+        if not same:
             bad.append(n.raw)
             continue
         ctx = _bigrams(_context(answer, n.start, n.start + len(n.raw)))
-        if ctx and not any(ctx & terms for terms in same_value):
+        # 方案 D: a value that occurs in one evidence group only cannot belong to another item: accept it
+        unambiguous = groups is not None and len({g for _, g in same}) == 1
+        if ctx and not any(ctx & terms for terms, _ in same) and not unambiguous:
             bad.append(n.raw)
     return GuardResult(ok=not bad, violations=[f"无依据数字：{b}" for b in bad])
 
@@ -187,8 +190,9 @@ GAPS = [
     ),
     Gap(
         "社保抵扣免赔额",
-        re.compile(r"(医保|社保).{0,15}(免赔|一万|1万)|(免赔|一万|1万).{0,15}(医保|社保)"),
-        re.compile(r"(可以|能|也能|都能|会|也)(抵|算进|算在|计入|冲抵)|算(在|进)(免赔|一万|1万)|可以抵扣|能抵扣"),
+        re.compile(r"(医保|社保).{0,15}(免赔|一万|1万)|(免赔|一万|1万).{0,15}(医保|社保)|(医保|社保)报(完|了|过).{0,12}(还|再|能|怎么)"),
+        re.compile(r"(可以|能|也能|都能|会|也)(抵|算进|算在|计入|冲抵)|算(在|进)(免赔|一万|1万)|可以抵扣|能抵扣|"
+                   r"(医保|社保)报(完|了)?.{0,8}剩下的.{0,12}(超过|满|够).{0,4}(1万|一万)|剩下的.{0,6}(扣|超过)(掉)?.{0,3}(1万|一万)"),
         "医保报销的部分能不能抵扣免赔额，要以条款为准，我帮您转专员确认。",
     ),
 ]
@@ -214,12 +218,55 @@ def gap_guard(question: str, answer: str, names: list[str] | None = None) -> Gua
     return GuardResult(ok=not hits, violations=hits)
 
 
+_SOCIAL_DEDUCTION = re.compile(
+    r"(医保|社保)(报|报销)(完|过|了|后|之后|以后)[^。！？；]{0,16}(扣|超过|满|够|减|达到|到)(掉|去|除)?[^。！？；]{0,4}(1万|一万|免赔)|"
+    r"剩下的[^。！？；]{0,6}(扣|超过|满|够)(掉|去)?[^。！？；]{0,3}(1万|一万)|"
+    r"(医保|社保)报(完|过|了)[^。！？；]{0,12}[，,]?[^。！？；]{0,4}(1万|一万)(元)?(的)?免赔(额)?(后|以后|之后|扣)|"
+    r"(医保|社保)(报销)?(的|那)?(部分|钱)[^。！？；]{0,6}(能|可以|也)?(算进|算在|计入|抵扣|冲抵|抵)")
+
+
+def social_deduction_conclusion(answer: str) -> GuardResult:
+    """Always-on: whether social-insurance reimbursement counts towards the 1万 deductible is not in the data."""
+    m = _SOCIAL_DEDUCTION.search(_unhedged(answer))
+    return GuardResult(ok=not m, violations=[f"缺口问题给了结论（社保抵扣免赔额）：{m.group(0)}"] if m else [])
+
+
+_RENEWAL = re.compile(
+    r"续保(需|要|得|还得|必须)(要|经过)?(重新)?(审核|核保|健康告知|评估)|(?<![能没无])(不|会|可以|能)保证续保(?!吗)|"
+    r"(可以|能|会)(一直|自动|保证)续|自动续保|续保(没问题|是保证的|有保障)|不能(再)?续保|(停售|下架)(后|以后)?(就)?(不能|不可以|无法)续|"
+    r"\d{2}\s*(周)?岁(以)?后(就)?(不能|没法|无法)(再)?(投保|买|续|保)|到期(后|以后)?(还)?(可以|可|能)(重新|继续|接着)?(投保|买|续)")
+
+
+_DISEASE_OK = re.compile(r"(高血压|糖尿病|结节|乙肝|心脏病|哮喘|痛风|病史|既往症|这个病|慢性病)[^。！？；]{0,8}(也)?(可以|能|也能)(投保|买|承保)")
+_SOCIAL_100 = re.compile(r"(社保|医保)报销后(的)?(剩余|剩下)(部分|的)?[^。！？；]{0,8}100\s*%")
+_COVER_TO_AGE = re.compile(r"(最高|最多|能|可以|一直)?保到\s*\d{2}\s*(周)?岁")
+# "ICU病房费用本身不直接报销": the clauses list 重症监护室床位费 among 住院医疗费用 (第十轮回归)
+_ICU_NOT = re.compile(r"(ICU|重症监护)[^。！？；]{0,10}(费用|医疗费|病房费|床位费)[^。！？；]{0,8}(基础版)?(不保|不报|不能报|不直接报|不赔)")
+
+
+def other_conclusions(answer: str) -> GuardResult:
+    """Always-on (第十轮回归): "有高血压可以投保" decides underwriting; "最高保到70周岁" turns the entry age into a cover age."""
+    plain = _unhedged(answer)
+    hits = [m.group(0) for r in (_DISEASE_OK, _COVER_TO_AGE, _ICU_NOT) for m in [r.search(plain)] if m]
+    # "社保报销后剩余部分按100%赔" is the special-drug rule; said of general hospital costs it is wrong (第十轮回归)
+    hits += [s for s in re.split(r"(?<=[。！？；])", answer) if _SOCIAL_100.search(s) and "药" not in s]
+    return GuardResult(ok=not hits, violations=[f"无依据结论：{h}" for h in hits])
+
+
+def renewal_conclusion(answer: str) -> GuardResult:
+    """Always-on: the data has no renewal rules, so any statement of how renewal works is a conclusion (第十轮回归)."""
+    # "这款产品不保证续保" states a product rule (not in the data); "我没法保证续保" is a hedge: check the raw text for it
+    m = _RENEWAL.search(_unhedged(answer)) or re.search(r"(?<![没无法能])不保证续保|续保不(是)?保证的?", answer)
+    return GuardResult(ok=not m, violations=[f"缺口问题给了结论（续保）：{m.group(0)}"] if m else [])
+
+
 # --- compliance guard ----------------------------------------------------------------------------
 
 FORBIDDEN = re.compile(
     r"什么(病|都)都?能(报|赔|保)|什么都(保|报|赔)|(大病小病|小病大病)都能(报|赔)|全都能报|全额报销|随便报|"
     r"保证续保|续保(是)?保证的|续保肯定没问题|肯定能赔|一定能赔|百分百(赔|报)|"
-    r"高血压没关系|没有任何限制|不用健康告知|不用如实告知|不告知也没事"
+    r"高血压没关系|没有任何限制|不用健康告知|不用如实告知|不告知也没事|"
+    r"(投保|买|承保|核保|投)(肯定|应该|一般)?(没问题|没事|能过|能通过|很顺利|会顺利)|(肯定|一定|应该)能(买|投保|通过核保|承保)|顺利(通过核保|投保)"
 )
 _NEGATED_SPAN = re.compile(r"(不是|不能|不会|没法|无法|并不|不承诺|不保证)[^，。；]{0,10}")
 

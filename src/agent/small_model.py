@@ -2,16 +2,52 @@
 
 Each function has a rule fast path for unambiguous inputs and calls the fast model otherwise,
 so the common cases stay instant and the long tail is still handled.
+
+The model behind the classification tasks is switchable: tasks listed in ``JEV_TASKS`` (env, comma-separated:
+barge, identity, gaps, gap_review, act) go to Jev, which returns probabilities instead of text; the rest use
+``cloud.FAST_MODEL``. Slot extraction and fact check generate structured text and always use the LLM.
+Any Jev failure (timeout, quota, network) falls back to the LLM for that call; a quota/billing error also
+pauses Jev for ``JEV_COOLDOWN_S`` so later turns don't each pay for a failed request first.
 """
 
 from __future__ import annotations
 
 import json
+import logging
+import os
 import re
+import threading
+import time
 
 from agent import cloud
 from agent.dialogue import _BACKCHANNEL, _STOP
 from agent.guardrail import cn_to_int
+
+JEV_TASKS = {t.strip() for t in os.getenv("JEV_TASKS", "").split(",") if t.strip()}
+# probability of "yes" at or above which a Jev noul answer counts as yes
+# gaps 0.7: 第八轮 275 题上误报 1.8%、召回 98.1%（0.5 时误报 13.1%）
+JEV_THRESHOLDS = {"barge": 0.5, "identity": 0.5, "gaps": 0.7, "gap_review": 0.5}
+JEV_COOLDOWN_S = float(os.getenv("JEV_COOLDOWN_S", "300"))
+JEV_FALLBACKS: dict[str, int] = {}  # task -> number of calls that fell back to the LLM
+_jev_paused_until = 0.0
+_fb_lock = threading.Lock()
+log = logging.getLogger(__name__)
+
+
+def _try_jev(task: str, fn, *args):
+    """Jev result, or None when the task is not routed to Jev or the call failed (caller uses the LLM)."""
+    global _jev_paused_until
+    if task not in JEV_TASKS or time.monotonic() < _jev_paused_until:
+        return None
+    try:
+        return fn(*args)
+    except Exception as e:
+        with _fb_lock:
+            JEV_FALLBACKS[task] = JEV_FALLBACKS.get(task, 0) + 1
+            if any(code in str(e) for code in ("jev 429", "jev 402", "jev 401")):
+                _jev_paused_until = time.monotonic() + JEV_COOLDOWN_S
+        log.warning("jev %s failed, falling back to %s: %s", task, cloud.FAST_MODEL, e)
+        return None
 
 # --- barge-in --------------------------------------------------------------------------------------
 
@@ -30,6 +66,8 @@ def classify_barge_in(text: str, client=None) -> tuple[str, str]:
         return "附和", "rule"
     if _STOP.search(t):
         return "打断", "rule"
+    if (p := _try_jev("barge", jev_barge_in, t)) is not None:
+        return ("打断" if p >= JEV_THRESHOLDS["barge"] else "附和"), "jev"
     out = cloud.chat([{"role": "system", "content": _BARGE_SYS}, {"role": "user", "content": t}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=4).strip()
     return ("附和" if "附和" in out else "打断"), "model"
@@ -73,6 +111,8 @@ _ID_SYS = """判断用户这句话是不是在问"和他通话的是不是真人
 
 
 def is_identity_question(text: str, client=None) -> bool:
+    if (p := _try_jev("identity", jev_identity, text)) is not None:
+        return p >= JEV_THRESHOLDS["identity"]
     out = cloud.chat([{"role": "system", "content": _ID_SYS}, {"role": "user", "content": text}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=2).strip()
     return out.startswith("是")
@@ -91,6 +131,8 @@ _GAP_SYS = """你在审核保险电销 AI 的回答。以下内容资料里没�
 
 def gap_review(question: str, answer: str, client=None) -> bool:
     """True if the answer gives a conclusion it is not allowed to give."""
+    if (p := _try_jev("gap_review", jev_gap_review, question, answer)) is not None:
+        return p >= JEV_THRESHOLDS["gap_review"]
     out = cloud.chat([{"role": "system", "content": _GAP_SYS},
                       {"role": "user", "content": f"用户问题：{question}\nAI 回答：{answer}"}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, max_tokens=4).strip()
@@ -130,6 +172,8 @@ _ACT_SYS = """判断电话里用户这句话在销售对话中的作用，只输
 
 
 def classify_act(text: str, history: str = "", client=None) -> str:
+    if (a := _try_jev("act", jev_act, text, history)) is not None:
+        return a["choice"]
     raw = cloud.chat([{"role": "system", "content": _ACT_SYS},
                       {"role": "user", "content": (f"最近对话：\n{history}\n" if history else "") + f"用户：{text}"}],
                      model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
@@ -138,3 +182,100 @@ def classify_act(text: str, history: str = "", client=None) -> str:
     except json.JSONDecodeError:
         act = "提问"
     return act if act in ACTS else "提问"
+
+
+# --- data-gap detection on the CURRENT utterance only ---------------------------------------------
+
+_GAPQ_SYS = """判断用户这一句话（只看这一句，不考虑之前的对话）是否在问以下资料里没有的事项，只输出 JSON：{"gaps": [...]}
+可选：
+- "疾病核保"：用户说自己或家人有某种病、做过手术、在吃药，问能不能买、能不能承保、会不会影响投保、买了能不能报这个病；
+- "续保"：问能不能续保、保证续保、停售后能否续、老了能不能续、明年还能不能买；
+- "社保抵扣免赔额"：问医保/社保报销的部分能不能抵扣或计入免赔额，医保报完剩下的怎么报、还能不能报；
+- "条款清单"：问重疾清单、特药清单、指定医院名单等具体清单。
+都不是就输出 {"gaps": []}。问保障范围、价格、等待期、免赔额是多少，都不算。
+以下也不算（资料里有答案）：问某种病（癌症、白血病、心脏搭桥等）能不能报但没说自己或家人已经有这个病；
+问没走社保、没用医保卡结算能报多少比例；问医保报过的部分会不会重复赔；问自己掏够一万剩下的是不是全报；问投保年龄、价格以后会不会变。"""
+
+
+def detect_gaps(text: str, client=None) -> list[str]:
+    if (ps := _try_jev("gaps", jev_gaps, text)) is not None:
+        return [g for g, p in ps.items() if p >= JEV_THRESHOLDS["gaps"]]
+    raw = cloud.chat([{"role": "system", "content": _GAPQ_SYS}, {"role": "user", "content": text}],
+                     model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
+    try:
+        g = json.loads(raw).get("gaps", [])
+    except json.JSONDecodeError:
+        return []
+    return [x for x in g if x in ("疾病核保", "续保", "社保抵扣免赔额", "条款清单")]
+
+
+# --- Jev versions (typed questions; each returns probabilities so thresholds can be tuned) ---------
+
+_J_BARGE = ("AI 坐席正在说话时，用户插了这句话。用户是想让 AI 停下来吗？"
+            "叫停（等一下）、纠正自己的信息（我没有社保）、提出新问题（那月缴多少）、拒绝（我不需要）都算想让 AI 停下；"
+            "只是表示在听、同意或让对方继续（嗯、对、好的、然后呢、你说、原来如此、明白了）不算。")
+
+
+def jev_barge_in(text: str) -> float:
+    """Probability that the utterance is a real interruption (not a backchannel)."""
+    return cloud.jev(f"用户：{text}", {"q": {"type": "noul", "instructions": _J_BARGE}})["q"]["noul"]
+
+
+_J_ID = ("用户是在问和他通话的是不是真人、AI、机器人或录音吗？"
+         "例如\"你是机器人吗\"\"你是语音助手吧\"\"对面是人吗\"\"这是录音吗\"算；"
+         "要求转人工或找真人来说、索要通话录音、问有没有某种 AI 服务、问机器人手术，都不算。")
+
+
+def jev_identity(text: str) -> float:
+    return cloud.jev(f"用户：{text}", {"q": {"type": "noul", "instructions": _J_ID}})["q"]["noul"]
+
+
+_J_GAPREV = ("这是保险电销 AI 对用户问题的回答。资料里没有以下内容，AI 不允许下结论："
+             "某种疾病、病史、手术或用药的人能不能投保、能不能承保、会不会影响投保；能不能续保、是否保证续保；"
+             "医保/社保报销的部分能不能抵扣或计入免赔额。"
+             "AI 的回答是否对上述问题给出了肯定或否定的结论（例如\"可以买\"\"不影响\"\"一般能通过核保\"\"保证续保\"\"可以抵扣\"）？"
+             "说\"以核保/条款为准\"\"要做健康告知\"\"帮您转专员\"、说明既往症及相关费用不赔、提醒如实告知，都不算下结论。")
+
+
+def jev_gap_review(question: str, answer: str) -> float:
+    """Probability that the answer gives a conclusion on a data gap."""
+    return cloud.jev(f"用户问题：{question}\nAI 回答：{answer}", {"q": {"type": "noul", "instructions": _J_GAPREV}})["q"]["noul"]
+
+
+_J_GAPS = {
+    "疾病核保": "用户是否说自己或家人有某种病、做过手术或在吃药，并问能不能买、能不能承保、会不会影响投保、买了能不能报这个病？",
+    "续保": "用户是否在问能不能续保、是否保证续保、停售后能否续、老了能不能续、明年还能不能买？",
+    "社保抵扣免赔额": "用户是否在问医保/社保报销的部分能不能抵扣或计入免赔额，或医保报完剩下的怎么报、还能不能报？",
+    "条款清单": "用户是否在问重疾清单、特药清单、指定医院名单等具体清单？",
+}
+_J_GAPS_NOTE = "只看用户这一句话。问保障范围、价格、等待期、免赔额是多少，都不算。"
+
+
+def jev_gaps(text: str) -> dict[str, float]:
+    """Probability per gap topic; the four questions are evaluated in one request."""
+    qs = {f"g{i}": {"type": "noul", "instructions": f"{q}{_J_GAPS_NOTE}"} for i, q in enumerate(_J_GAPS.values())}
+    ans = cloud.jev(f"用户：{text}", qs)
+    return {g: ans[f"g{i}"]["noul"] for i, g in enumerate(_J_GAPS)}
+
+
+_J_ACTS = {
+    "提问": "问保障、价格、规则等；一句话里既有信息又有提问时也选这个",
+    "提供信息": "回答坐席的问题，或补充、纠正自己的情况（年龄、社保、给谁买、病史）",
+    "附和": "嗯、好的、你说",
+    "同意投保": "愿意买、要链接、问怎么买、让发过来",
+    "拒绝": "不需要、没兴趣、别打了、不买",
+    "异议": "嫌贵、要考虑、已经有医保或别的保险、不信任",
+    "要人工": "要求转人工或真人",
+    "投诉": "表达不满、要投诉",
+    "身份": "问是不是真人、机器人、AI、录音",
+}
+
+
+def jev_act(text: str, history: str = "") -> dict:
+    """Returns {"choice": act, "confidence": float, "probabilities": {act: p}}."""
+    state = (f"最近对话：\n{history}\n" if history else "") + f"用户（当前这句）：{text}"
+    a = cloud.jev(state, {"act": {"type": "choice", "instructions": "用户当前这句话在保险电销对话中的作用是什么？",
+                                  "criteria": _J_ACTS}})["act"]
+    if a.get("choice") not in ACTS:
+        a["choice"] = "提问"
+    return a
