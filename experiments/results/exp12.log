@@ -1,0 +1,134 @@
+{
+ "A": {
+  "all": {
+   "n": 68,
+   "regex": 0.7059,
+   "judge": 0.7647,
+   "both": 0.6765,
+   "latency_p50": 1.67,
+   "latency_p90": 4.24,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  },
+  "complex30": {
+   "n": 30,
+   "regex": 0.6667,
+   "judge": 0.8333,
+   "both": 0.6667,
+   "latency_p50": 2.36,
+   "latency_p90": 4.36,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  },
+  "v4": {
+   "n": 38,
+   "regex": 0.7368,
+   "judge": 0.7105,
+   "both": 0.6842,
+   "latency_p50": 1.5,
+   "latency_p90": 2.23,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  }
+ },
+ "B": {
+  "all": {
+   "n": 68,
+   "regex": 0.75,
+   "judge": 0.7794,
+   "both": 0.6912,
+   "latency_p50": 3.9,
+   "latency_p90": 7.1,
+   "agent_used": 64,
+   "agent_steps_mean": 1.97
+  },
+  "complex30": {
+   "n": 30,
+   "regex": 0.7,
+   "judge": 0.8333,
+   "both": 0.6667,
+   "latency_p50": 4.01,
+   "latency_p90": 7.73,
+   "agent_used": 29,
+   "agent_steps_mean": 2
+  },
+  "v4": {
+   "n": 38,
+   "regex": 0.7895,
+   "judge": 0.7368,
+   "both": 0.7105,
+   "latency_p50": 3.53,
+   "latency_p90": 5.33,
+   "agent_used": 35,
+   "agent_steps_mean": 1.95
+  }
+ },
+ "C": {
+  "all": {
+   "n": 68,
+   "regex": 0.75,
+   "judge": 0.7941,
+   "both": 0.6912,
+   "latency_p50": 1.9,
+   "latency_p90": 4.22,
+   "agent_used": 16,
+   "agent_steps_mean": 0.51
+  },
+  "complex30": {
+   "n": 30,
+   "regex": 0.7333,
+   "judge": 0.8667,
+   "both": 0.7,
+   "latency_p50": 3.18,
+   "latency_p90": 5.05,
+   "agent_used": 11,
+   "agent_steps_mean": 0.8
+  },
+  "v4": {
+   "n": 38,
+   "regex": 0.7632,
+   "judge": 0.7368,
+   "both": 0.6842,
+   "latency_p50": 1.58,
+   "latency_p90": 4.02,
+   "agent_used": 5,
+   "agent_steps_mean": 0.29
+  }
+ },
+ "D": {
+  "all": {
+   "n": 68,
+   "regex": 0.7353,
+   "judge": 0.7794,
+   "both": 0.6618,
+   "latency_p50": 1.82,
+   "latency_p90": 4.2,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  },
+  "complex30": {
+   "n": 30,
+   "regex": 0.6667,
+   "judge": 0.8333,
+   "both": 0.6333,
+   "latency_p50": 2.08,
+   "latency_p90": 4.32,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  },
+  "v4": {
+   "n": 38,
+   "regex": 0.7895,
+   "judge": 0.7368,
+   "both": 0.6842,
+   "latency_p50": 1.63,
+   "latency_p90": 3.1,
+   "agent_used": 0,
+   "agent_steps_mean": 0
+  }
+ },
+ "B_extra_evidence": {
+  "questions_with_extra": 45,
+  "mean_extra_chunks": 6.63
+ }
+}
