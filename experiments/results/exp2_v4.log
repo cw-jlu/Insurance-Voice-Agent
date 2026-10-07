@@ -1,0 +1,7 @@
+pipeline dev None
+pipeline heldout {'n': 150, 'regex': 0.8067, 'judge': 0.8067, 'both': 0.7667, 'fallback': 9, 'latency_p50': 2.42, 'latency_p90': 5.56}
+pipeline heldout_paraphrase None
+baseline dev None
+baseline heldout {'n': 150, 'regex': 0.7067, 'judge': 0.6667, 'both': 0.6067, 'fallback': 0, 'latency_p50': 1.07, 'latency_p90': 1.5}
+baseline heldout_paraphrase None
+by category (heldout, judge): {'价格': 0.7879, '保障': 0.8049, '免责': 0.8571, '多轮': 0.625, '投保条件': 0.9167, '缺口': 0.8095, '身份': 1.0}

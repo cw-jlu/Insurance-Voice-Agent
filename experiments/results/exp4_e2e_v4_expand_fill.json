@@ -1,0 +1,174 @@
+{
+  "version": "第六轮（CallSession + 事实核对 + 复合问题 Agent）",
+  "turns_ok": 5,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.443,
+      "p90": 0.48,
+      "max": 0.48,
+      "n": 5
+    },
+    "answer_text_ready_s": {
+      "p50": 4.346,
+      "p90": 6.061,
+      "max": 6.061,
+      "n": 5
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.592,
+      "p90": 6.244,
+      "max": 6.244,
+      "n": 5
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 8.282,
+      "p90": 10.206,
+      "max": 10.206,
+      "n": 5
+    },
+    "answer_playback_end_s": {
+      "p50": 19.042,
+      "p90": 22.201,
+      "max": 22.201,
+      "n": 5
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 0.443,
+      "p90": 0.48,
+      "max": 0.48,
+      "n": 5
+    },
+    "answer_text_ready_s": {
+      "p50": 4.346,
+      "p90": 6.061,
+      "max": 6.061,
+      "n": 5
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.592,
+      "p90": 6.244,
+      "max": 6.244,
+      "n": 5
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 8.282,
+      "p90": 10.206,
+      "max": 10.206,
+      "n": 5
+    },
+    "answer_playback_end_s": {
+      "p50": 19.042,
+      "p90": 22.201,
+      "max": 22.201,
+      "n": 5
+    }
+  },
+  "complex": {
+    "first_response_s": null,
+    "answer_text_ready_s": null,
+    "first_substantive_audio_s": null,
+    "answer_audio_all_ready_s": null,
+    "answer_playback_end_s": null
+  },
+  "over_10s_all_ready": 1,
+  "turns": [
+    {
+      "name": "报价2",
+      "asr_text": "我们啊，58岁，没有社保，给她买一年多少钱啊？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "asr_endpoint_s": 0.384,
+      "first_response_s": 0.384,
+      "answer_text_ready_s": 3.986,
+      "first_substantive_audio_s": 4.21,
+      "answer_audio_all_ready_s": 6.949,
+      "answer_playback_end_s": 15.683,
+      "agent_steps": 0,
+      "answer_chars": 62,
+      "text": "58岁没社保，基础版一年5436元。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v4_expand_fill_r1_报价2.wav",
+      "tts_reconnects": 0
+    },
+    {
+      "name": "报价3",
+      "asr_text": "按月交的话，每个月多少啊？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "asr_endpoint_s": 0.443,
+      "first_response_s": 0.443,
+      "answer_text_ready_s": 4.035,
+      "first_substantive_audio_s": 4.235,
+      "answer_audio_all_ready_s": 7.878,
+      "answer_playback_end_s": 19.042,
+      "agent_steps": 0,
+      "answer_chars": 87,
+      "text": "您35岁有社保，基础版每月42元。这是基础保障，特定药品费用能报。还想了解其他保障吗？提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v4_expand_fill_r1_报价3.wav",
+      "tts_reconnects": 0
+    },
+    {
+      "name": "病史2",
+      "asr_text": "我前年做过甲状腺结节手术，现在还能买吗？",
+      "events": [
+        "回答:缺口",
+        "提示限制"
+      ],
+      "asr_endpoint_s": 0.393,
+      "first_response_s": 0.393,
+      "answer_text_ready_s": 4.346,
+      "first_substantive_audio_s": 4.592,
+      "answer_audio_all_ready_s": 8.585,
+      "answer_playback_end_s": 20.239,
+      "agent_steps": 0,
+      "answer_chars": 90,
+      "text": "甲状腺结节手术属于既往症，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v4_expand_fill_r1_病史2.wav",
+      "tts_reconnects": 0
+    },
+    {
+      "name": "病史3",
+      "asr_text": "我有糖尿病住院，能不能报？",
+      "events": [
+        "回答:缺口",
+        "提示限制"
+      ],
+      "asr_endpoint_s": 0.48,
+      "first_response_s": 0.48,
+      "answer_text_ready_s": 4.903,
+      "first_substantive_audio_s": 5.158,
+      "answer_audio_all_ready_s": 8.282,
+      "answer_playback_end_s": 18.3,
+      "agent_steps": 0,
+      "answer_chars": 77,
+      "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v4_expand_fill_r1_病史3.wav",
+      "tts_reconnects": 0
+    },
+    {
+      "name": "比例",
+      "asr_text": "没有社保的话报多少啊？",
+      "events": [
+        "回答:报价",
+        "提示限制"
+      ],
+      "asr_endpoint_s": 0.47,
+      "first_response_s": 0.47,
+      "answer_text_ready_s": 6.061,
+      "first_substantive_audio_s": 6.244,
+      "answer_audio_all_ready_s": 10.206,
+      "answer_playback_end_s": 22.201,
+      "agent_steps": 0,
+      "answer_chars": 94,
+      "text": "您30岁没社保，基础版一年679元。医保报销的部分能不能抵扣免赔额，要以条款为准，我帮您转专员确认。提醒您一下，一般住院一年有1万元免赔额，首年生病住院有30天等待期，投保前就有的病不赔。",
+      "recording": "experiments\\recordings\\v4_expand_fill_r1_比例.wav",
+      "tts_reconnects": 0
+    }
+  ]
+}

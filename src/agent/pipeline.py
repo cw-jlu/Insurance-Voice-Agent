@@ -10,6 +10,8 @@ Routing follows the solution design (02 方案 3.4):
 
 from __future__ import annotations
 
+import os
+
 import json
 import re
 import time
@@ -230,6 +232,11 @@ def grouped_context(evidence: list[Chunk]) -> str:
     return "\n".join(out)
 
 
+# Small-model fact check is off by default (第九轮消融: no measurable accuracy gain, misblocked correct
+# prices, +0.6 s median latency). FACT_CHECK=1 turns it back on.
+FACT_CHECK = os.getenv("FACT_CHECK", "0") == "1"
+
+
 def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gaps: list[str] | None = None,
            fact_check: bool = True, gaps_judged: bool = False) -> list[str]:
     v = number_guard(text, [c.text for c in evidence], structured).violations
@@ -239,7 +246,7 @@ def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gap
     from agent import small_model
     if gaps and small_model.gap_review(question, text):
         v.append("模型复核：对缺口问题给出了结论")
-    if fact_check and evidence and not v:
+    if fact_check and FACT_CHECK and evidence and not v:
         problems = small_model.fact_check(text, grouped_context(evidence))
         v += [f"事实核对：{p}" for p in problems]
     v += compliance_guard(text).violations

@@ -111,11 +111,17 @@ class RealtimeTTS:
         self._first_audio_t: float | None = None
         self._done = threading.Event()
         self._error: dict | None = None
-        self.client = QwenTtsRealtime(model=model, callback=_CB(), url=ws_base)
-        t0 = time.perf_counter()
-        self.client.connect()
         kw = {"speech_rate": speech_rate} if speech_rate else {}
-        self.client.update_session(voice=voice, response_format=AudioFormat.PCM_24000HZ_MONO_16BIT, mode="commit", **kw)
+
+        def connect():
+            self.client = QwenTtsRealtime(model=model, callback=_CB(), url=ws_base)
+            self.client.connect()
+            self.client.update_session(voice=voice, response_format=AudioFormat.PCM_24000HZ_MONO_16BIT, mode="commit", **kw)
+
+        self._connect = connect
+        self.reconnects = 0
+        t0 = time.perf_counter()
+        connect()
         self.connect_s = time.perf_counter() - t0
 
     def _on_event(self, ev: dict) -> None:
@@ -132,10 +138,26 @@ class RealtimeTTS:
             self._done.set()
 
     def synth(self, text: str, timeout: float = 30) -> tuple[float, float, bytes]:
-        """Returns (first audio s, total s, pcm 24 kHz 16-bit mono)."""
+        """Returns (first audio s, total s, pcm 24 kHz 16-bit mono).
+
+        If the session has died (server error or dropped socket), reconnects once and retries; the
+        reconnect time is included in the returned timings."""
+        try:
+            return self._synth_once(text, timeout)
+        except Exception:
+            self.close()
+            self.reconnects += 1
+            t0 = time.perf_counter()
+            self._connect()
+            first, total, pcm = self._synth_once(text, timeout)
+            spent = time.perf_counter() - t0 - total
+            return first + spent, total + spent, pcm
+
+    def _synth_once(self, text: str, timeout: float) -> tuple[float, float, bytes]:
         with self._events_lock:
             self._audio = bytearray()
             self._first_audio_t = None
+            self._error = None
         self._done.clear()
         t0 = time.perf_counter()
         self.client.append_text(text)
