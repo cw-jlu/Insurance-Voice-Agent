@@ -1,0 +1,143 @@
+{
+ "有回声消除": {
+  "interrupt_stopped": "40/40",
+  "stop_latency_s": {
+   "p50": 0.69,
+   "p90": 1.091,
+   "max": 3.142,
+   "n": 40
+  },
+  "backchannel_wrongly_stopped": "2/30",
+  "echo_only_wrongly_stopped": "0/24"
+ },
+ "回声消除不完全": {
+  "interrupt_stopped": "40/40",
+  "stop_latency_s": {
+   "p50": 1.13,
+   "p90": 1.796,
+   "max": 2.736,
+   "n": 40
+  },
+  "backchannel_wrongly_stopped": "28/30",
+  "echo_only_wrongly_stopped": "23/24"
+ },
+ "无回声消除": {
+  "interrupt_stopped": "40/40",
+  "stop_latency_s": {
+   "p50": 1.382,
+   "p90": 2.653,
+   "max": 5.407,
+   "n": 40
+  },
+  "backchannel_wrongly_stopped": "30/30",
+  "echo_only_wrongly_stopped": "24/24"
+ }
+}
+errors 0
+  ✗ 有回声消除 附和 嗯嗯 [{'t': 1.993, 'action': 'resume', 'reason': '附和（rule）', 'asr': '嗯'}, {'t': 2.035, 'action': 'resume', 'reason': '附和（rule）', 'asr': '嗯'}, {'t': 3.443, 'action': 'stop', 'reason': '打断（model）', 'asr': '致'}]
+  ✗ 有回声消除 附和 行行 [{'t': 1.017, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '您没有'}, {'t': 1.077, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '您没有'}, {'t': 1.418, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '您没有社保'}]
+  ✗ 回声消除不完全 附和 嗯 [{'t': 0.86, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 附和 嗯嗯 [{'t': 1.084, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.145, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.799, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油包是另外'}]
+  ✗ 回声消除不完全 附和 对 [{'t': 0.638, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.699, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.294, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 附和 对对 [{'t': 0.737, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.825, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.111, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 附和 好 [{'t': 0.876, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 0.841, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 1.107, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 回声消除不完全 附和 好的 [{'t': 0.606, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.668, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.101, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 附和 行 [{'t': 0.801, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.803, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.124, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 附和 哦 [{'t': 0.635, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.694, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.12, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 附和 哦哦 [{'t': 0.64, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.704, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.124, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 附和 是 [{'t': 0.632, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.694, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.128, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 附和 是的 [{'t': 0.665, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.667, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 2.42, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 回声消除不完全 附和 了解 [{'t': 0.619, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.671, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.092, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 回声消除不完全 附和 知道了 [{'t': 2.361, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 2.361, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 2.401, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 回声消除不完全 附和 嗯，你说 [{'t': 0.648, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.713, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.124, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 附和 嗯嗯，然后呢 [{'t': 1.096, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.143, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.807, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油包是另外'}]
+  ✗ 回声消除不完全 附和 好的好的 [{'t': 0.615, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.668, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.095, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 附和 对，没错 [{'t': 0.581, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.644, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.067, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 附和 嗯，我在听 [{'t': 0.61, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.671, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.097, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 附和 哦这样啊 [{'t': 0.587, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.648, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.072, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 附和 可以 [{'t': 0.654, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.716, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.143, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 附和 好，你继续 [{'t': 0.664, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.717, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.144, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 附和 嗯哼 [{'t': 1.671, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.671, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.695, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 附和 懂了 [{'t': 0.847, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 附和 对的 [{'t': 0.63, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.707, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.125, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 附和 行行 [{'t': 0.988, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 附和 啊，是吗 [{'t': 0.648, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.698, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.132, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 附和 嗯，好 [{'t': 1.131, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.235, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.823, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '急油包嗯'}]
+  ✗ 回声消除不完全 附和 收到 [{'t': 0.656, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.72, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.145, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 1.01, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.812, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.861, 'action': 'stop', 'reason': '打断（model）', 'asr': '你在'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.628, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.694, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.118, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.609, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.667, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.104, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.607, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.666, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.096, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.943, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 0.923, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 1.108, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.871, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 0.904, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 1.101, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.887, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 0.864, 'action': 'resume', 'reason': '附和（model）', 'asr': '恭喜'}, {'t': 1.138, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.648, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.708, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.143, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.623, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.699, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.124, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.646, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.701, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.129, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.656, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.712, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.135, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.645, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.709, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.131, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 1.1, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.154, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.814, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油包是另外'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 2.276, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 2.276, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 2.296, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油包是另外'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 1.131, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.186, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油'}, {'t': 1.841, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '门急诊加油包是另外'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.578, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.643, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.058, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.624, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.688, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.108, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.644, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.723, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.141, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.607, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.669, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.097, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.642, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.714, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.129, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 回声消除不完全 只有回声 None [{'t': 0.627, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.703, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.126, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 附和 嗯 [{'t': 0.866, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 附和 嗯嗯 [{'t': 0.624, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.685, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.415, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 附和 对 [{'t': 0.635, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.695, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.113, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 附和 对对 [{'t': 1.059, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 附和 好 [{'t': 0.614, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.67, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.095, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 附和 好的 [{'t': 0.649, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.714, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.145, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 无回声消除 附和 行 [{'t': 0.615, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.679, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.115, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 附和 哦 [{'t': 0.568, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.646, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.068, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 附和 哦哦 [{'t': 1.74, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 附和 是 [{'t': 0.767, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.767, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.104, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 是的 [{'t': 0.643, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.706, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.13, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 无回声消除 附和 明白 [{'t': 0.642, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.705, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.129, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 附和 了解 [{'t': 0.621, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.684, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.101, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 附和 知道了 [{'t': 0.651, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.704, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.125, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 嗯，你说 [{'t': 0.62, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.68, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.107, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 嗯嗯，然后呢 [{'t': 3.748, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 附和 好的好的 [{'t': 0.681, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.682, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.091, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 附和 对，没错 [{'t': 0.644, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.704, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.131, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 嗯，我在听 [{'t': 0.746, 'action': 'resume', 'reason': '附和（model）', 'asr': '您三'}, {'t': 0.794, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 附和 哦这样啊 [{'t': 0.644, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.723, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.143, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 附和 原来如此 [{'t': 2.733, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 2.733, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 2.874, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 附和 可以 [{'t': 2.629, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 2.629, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 2.673, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 好，你继续 [{'t': 0.859, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 附和 嗯哼 [{'t': 0.654, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.707, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.129, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 无回声消除 附和 懂了 [{'t': 0.652, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.709, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 2.992, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 附和 对的 [{'t': 0.804, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 附和 行行 [{'t': 0.608, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.664, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.092, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 无回声消除 附和 啊，是吗 [{'t': 0.605, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.669, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.094, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 附和 嗯，好 [{'t': 0.855, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 附和 收到 [{'t': 0.618, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.67, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.09, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.878, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 1.12, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.837, 'action': 'stop', 'reason': '打断（model）', 'asr': '您三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.611, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.666, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.095, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.645, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.706, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.131, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.756, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 0.756, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般'}, {'t': 1.091, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '一般住院'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.654, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.716, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.143, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.644, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.699, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.134, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.638, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 0.695, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压'}, {'t': 1.125, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '高血压属于'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.567, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.63, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.061, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.604, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.667, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.087, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.612, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 0.674, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大'}, {'t': 1.102, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '重大疾病医疗'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.569, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.646, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.055, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.613, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.673, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.097, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.64, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 0.693, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待'}, {'t': 1.117, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '等待期是三'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.837, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.864, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 只有回声 None [{'t': 1.67, 'action': 'stop', 'reason': '打断（model）', 'asr': '门级'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.615, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.677, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.097, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.611, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.67, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.086, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.613, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 0.678, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您'}, {'t': 1.096, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '如果您没有设'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.609, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.676, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.102, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.604, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.678, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.099, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]
+  ✗ 无回声消除 只有回声 None [{'t': 0.634, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 0.696, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩'}, {'t': 1.121, 'action': 'ignore_echo', 'reason': '与刚播报内容高度重合', 'asr': '给孩子买的'}]

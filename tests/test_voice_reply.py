@@ -3,12 +3,13 @@
 import sys
 import unittest
 from pathlib import Path
+from types import SimpleNamespace
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 
 from agent.cloud import StreamResult  # noqa: E402
-from agent.pipeline import Answer, Pipeline, WAIT_ADDON_TEXT, WAIT_TEXT, addon_notice, assemble_voice_slots, item_chunks  # noqa: E402
+from agent.pipeline import Answer, Pipeline, WAIT_ADDON_TEXT, WAIT_TEXT, addon_notice, assemble_voice_slots, item_chunks, understand_merged  # noqa: E402
 from agent.session import CallSession, DISCLOSURE, LIMITS  # noqa: E402
 
 
@@ -101,6 +102,34 @@ class VoiceReplyTest(unittest.TestCase):
                          "住院能报，扣1万免赔额，按条款比例。ICU津贴需另购，每天500元。")
         self.assertEqual(assemble_voice_slots(raw, 3), "")
         self.assertEqual(assemble_voice_slots('{"answers":[{"id":2,"conclusion":"跳项"}]}', 1), "")
+
+    def test_experimental_streaming_does_not_hard_cut_long_reply(self):
+        sentences = ["这项保障按照对应条款约定处理，请核对适用责任和必要条件。" * 2 + "。",
+                     "另一个问题也应完整回答，不能因口播长度省略结论。"]
+
+        class FakeStream:
+            def __iter__(self):
+                for sentence in sentences:
+                    yield SimpleNamespace(choices=[SimpleNamespace(delta=SimpleNamespace(content=sentence))])
+
+            def close(self):
+                pass
+
+        client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: FakeStream())))
+        pipe = Pipeline(None, client=client)
+        understanding = {"intent": "保障", "slots": {}, "items": [], "topics": [], "gaps": [], "_retrieved": []}
+        spoken = []
+        reply = pipe.answer("两个问题分别说明？", voice=True, understanding=understanding, on_sentence=spoken.append)
+        self.assertEqual(reply.text, "".join(spoken))
+        self.assertIn("另一个问题", reply.text)
+        self.assertGreater(len(reply.text), 50)
+
+    def test_merged_understanding_formats_current_prompt(self):
+        raw = '{"intent":"保障","slots":{},"items":[],"topics":[],"gaps":[],"act":"提问","gaps_now":[]}'
+        with patch("agent.pipeline.cloud.chat", return_value=raw) as chat:
+            result = understand_merged("住院能报吗？", {}, client=object())
+        self.assertEqual(result["act"], "提问")
+        self.assertIn("最多 5 个", chat.call_args.args[0][0]["content"])
 
 
 if __name__ == "__main__":
