@@ -30,6 +30,50 @@ class FakePipeline:
 
 
 class VoiceReplyTest(unittest.TestCase):
+    def test_stream_does_not_release_half_sentence_before_late_bad_number(self):
+        prefix = "这项责任需要符合合同规定的条件，" * 6
+        closed = []
+        class Stream:
+            def __iter__(self):
+                yield SimpleNamespace(choices=[SimpleNamespace(delta=SimpleNamespace(content=prefix))])
+                yield SimpleNamespace(choices=[SimpleNamespace(delta=SimpleNamespace(content="赔付999999999元。"))])
+            def close(self):
+                closed.append(True)
+        client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: Stream())))
+        spoken = []
+        _, violations = Pipeline(None, client=client)._stream_generate([], [], set(), spoken.append, {})
+        self.assertEqual(spoken, [])
+        self.assertTrue(violations)
+        self.assertEqual(closed, [True])
+
+    def test_stream_preserves_separate_purchase_notice(self):
+        class Stream:
+            def __iter__(self):
+                yield SimpleNamespace(choices=[SimpleNamespace(delta=SimpleNamespace(content="ICU津贴按合同给付。"))])
+            def close(self):
+                pass
+        client = SimpleNamespace(chat=SimpleNamespace(completions=SimpleNamespace(create=lambda **_: Stream())))
+        spoken = []
+        Pipeline(None, client=client)._stream_generate([], item_chunks("R15"), set(), spoken.append, {})
+        self.assertIn("另外选购", "".join(spoken))
+
+    def test_session_delivers_sentence_before_pipeline_returns(self):
+        spoken = []
+        class StreamingPipeline(FakePipeline):
+            def answer(self, _question, _known, **kwargs):
+                callback = kwargs.get("on_sentence")
+                if callback:
+                    callback("第一项能报。")
+                    # Check delivery inside generation, before returning the complete answer.
+                    assert spoken == ["第一项能报。"]
+                    callback("第二项需另购。")
+                return Answer("第一项能报。第二项需另购。", route="保障", timings={"total": 0.0})
+        session = self.session("")
+        session.pipe = StreamingPipeline("")
+        result = session.turn("两个保障分别怎么报？", on_sentence=spoken.append)
+        self.assertEqual(result.text, "".join(spoken))
+        self.assertEqual(spoken, ["第一项能报。", "第二项需另购。"])
+
     def setUp(self):
         self.act = patch("agent.session.small_model.classify_act",
                          side_effect=lambda text, *_: "提问" if "？" in text else "附和")

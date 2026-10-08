@@ -139,11 +139,13 @@ class CallSession:
         self._say(OPENING)
         return OPENING
 
-    def turn(self, user_text: str, on_sentence=None) -> TurnResult:
+    def turn(self, user_text: str, on_sentence=None, cancel_check=None) -> TurnResult:
         """``on_sentence``: optional callback receiving each sentence as soon as it can be spoken (answer
         sentences while the model is still generating, then the flow's own sentences). The returned text
         is exactly what was handed to the callback."""
         t0 = time.perf_counter()
+        if cancel_check is not None:
+            cancel_check()
         self._spoken, self._emit_cb = [], on_sentence
         self.history.append(("用户", user_text))
         hist = self._history_text()
@@ -163,6 +165,8 @@ class CallSession:
             fr = ex.submit(self.pipe.retrieve, user_text)
             u, act, gaps_now = fu.result(), fa.result(), fg.result()
             u["_retrieved"] = fr.result()
+        if cancel_check is not None:
+            cancel_check()  # cancelled partials must not proceed to answer generation
         # Gaps are judged on this sentence alone (with history, a gap asked earlier "sticks" to every later turn),
         # and only when the detector and the understanding module agree: the detector alone misfired on ~9 of
         # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
@@ -259,7 +263,8 @@ class CallSession:
             known = {**self.profile, "_history": hist}
             steps = self.agent_steps if self.agent_steps and _is_complex(u, user_text) else 0
             a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=steps,
-                                 agent_budget_s=self.agent_budget_s, understanding=u)
+                                 agent_budget_s=self.agent_budget_s, understanding=u,
+                                 on_sentence=self._emit if self._emit_cb is not None else None)
             # a blocked answer with nothing program-made to say instead: say nothing and let the flow continue,
             # rather than an unrelated "转专员确认" line (第十轮回归)
             answer_text += "" if (a.fallback_used and a.text.startswith("这个问题我需要帮您转专员确认")) else a.text
@@ -272,6 +277,9 @@ class CallSession:
                     and ("既往" in answer_text or "投保前" in answer_text)):
                 self.flags["limits"] = True
             timings["answer"] = a.timings.get("total")
+            timings["answer_detail"] = a.timings
+            timings["answer_validation"] = {"route": a.route, "fallback_used": a.fallback_used,
+                                             "attempts": a.attempts, "violations": a.violations}
             events.append(f"回答:{a.route}" + (f"(Agent {a.timings.get('agent_steps', 0)}步)" if steps else ""))
 
         if any(self.gap_topics[g] >= 2 for g in u.get("gaps", [])) and not new_gaps:

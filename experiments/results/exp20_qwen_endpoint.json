@@ -1,0 +1,645 @@
+{
+  "voice_rules": "\n8. 这是电话通话：把回答组织成用户能在约10秒内听懂的一两句，先给结论，再给不可省略的条件或例外。用户问了几件事就逐一回答，但每件只说最关键的一句，不要为了短而漏答。问‘都保什么’等概览，只说主要责任类别和一项关键限制，不逐项朗读保额、比例、医院或床位费；问某个加油包，不顺带介绍其他产品；问计算结果，不朗读推导过程。不要重复已说过的事实或附加无关的销售提醒，细则留待用户追问。不要使用‘首先、其次、最后’。",
+  "playback": "simulated",
+  "answer_provider": "qwen",
+  "answer_model": "qwen-plus",
+  "fast_model": "qwen-flash",
+  "quality": "requires human review; no accuracy claim",
+  "rows": [
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "baseline",
+      "vad_ms": 300,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.757820000002539,
+        "answer": 0.004782100000738865,
+        "answer_detail": {
+          "understand": 1.1399999493733048e-05,
+          "total": 0.004782100000738865
+        },
+        "total": 0.7639029000019946
+      },
+      "asr_endpoint_s": 0.5170330000011019,
+      "first_response_s": 0.5170330000011019,
+      "first_substantive_audio_s": 2.1490746666677687,
+      "text_ready_s": 1.2822267999991892,
+      "all_audio_ready_s": 2.932332900000911,
+      "simulated_playback_end_s": 7.445491333334435,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 5.662187099998846,
+          "first_s": 5.875000700001692,
+          "done_s": 7.312332900000911,
+          "duration_s": 5.2964166666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6754722000005131,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7039581999997608,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1265031000002637,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.773120599998947,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.4240844000014476,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.968741000000591,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.6024935000023106,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.165845399998943,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.818852899999911,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 4.897033000001102,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 1.92,
+          "text": "我三十岁有社保",
+          "decision": "未完",
+          "decision_s": 0.5389518999982101,
+          "finished_wall_s": 18265.8740441,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 2.52,
+          "text": "我三十岁有社保啊哦不对",
+          "decision": "未完",
+          "decision_s": 0.2576128000000608,
+          "finished_wall_s": 18266.1939067,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 3.52,
+          "text": "我三十岁有社保哦不对我",
+          "decision": "未完",
+          "decision_s": 0.19440880000183824,
+          "finished_wall_s": 18267.1309119,
+          "finished_before_asr_final": true
+        }
+      ]
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "baseline",
+      "vad_ms": 500,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.534592200001498,
+        "answer": 0.0003859999997075647,
+        "answer_detail": {
+          "understand": 1.6499998309882358e-05,
+          "total": 0.0003859999997075647
+        },
+        "total": 0.5353020000002289
+      },
+      "asr_endpoint_s": 0.5185709999979009,
+      "first_response_s": 0.5185709999979009,
+      "first_substantive_audio_s": 2.1506126666645677,
+      "text_ready_s": 1.0551918999964256,
+      "all_audio_ready_s": 2.423716699996585,
+      "simulated_playback_end_s": 7.047029333331234,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 5.435121999995317,
+          "first_s": 5.667852499995206,
+          "done_s": 6.803716699996585,
+          "duration_s": 4.896416666666667
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6550800999975763,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7047222999972291,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1348238999999012,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.7779181999976572,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.4156497000003583,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 3.0043119999972987,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.610409699998854,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.174772399997892,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.80872349999845,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 4.898570999997901,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 1.92,
+          "text": "我三十岁有社保",
+          "decision": "未完",
+          "decision_s": 0.2691368000014336,
+          "finished_wall_s": 18273.1761452,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 2.52,
+          "text": "我三十岁有社保啊哦不对",
+          "decision": "未完",
+          "decision_s": 0.2587405999984185,
+          "finished_wall_s": 18273.7572913,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 3.52,
+          "text": "我三十岁有社保哦不对我",
+          "decision": "未完",
+          "decision_s": 0.25712209999983315,
+          "finished_wall_s": 18274.7714782,
+          "finished_before_asr_final": true
+        }
+      ]
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.1388494999991963,
+        "answer": 0.00025579999783076346,
+        "answer_detail": {
+          "understand": 9.899998985929415e-06,
+          "total": 0.00025579999783076346
+        },
+        "total": 1.1393177999998443
+      },
+      "asr_endpoint_s": 0.7475556000000507,
+      "first_response_s": 0.7475556000000507,
+      "first_substantive_audio_s": 2.3795972666667176,
+      "text_ready_s": 1.8887731000005443,
+      "all_audio_ready_s": 3.1920822000002955,
+      "simulated_playback_end_s": 7.7426806000000505,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 6.268706999999267,
+          "first_s": 6.452940600000147,
+          "done_s": 7.572082200000295,
+          "duration_s": 5.363083333333333
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6408654000006209,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7052664999973786,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1295466999981727,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.7487710999994306,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.3946178000005602,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.948102899998048,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.582204999998794,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.156178199998976,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.792985899999621,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 5.127555600000051,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 1.92,
+          "text": "我三十岁有社保",
+          "decision": "未完",
+          "decision_s": 0.2699631000032241,
+          "finished_wall_s": 18280.2531199,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 2.52,
+          "text": "我三十岁有社保啊哦不对",
+          "decision": "未完",
+          "decision_s": 0.20437679999668035,
+          "finished_wall_s": 18280.7895419,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 3.52,
+          "text": "我三十岁有社保哦不对我",
+          "decision": "未完",
+          "decision_s": 0.2609054000022297,
+          "finished_wall_s": 18281.8443942,
+          "finished_before_asr_final": true
+        }
+      ]
+    },
+    {
+      "case": "算术",
+      "arm": "baseline",
+      "vad_ms": 300,
+      "error": "RuntimeError",
+      "error_reason": "ASR split one intended turn into multiple final sentences",
+      "asr_events": [
+        {
+          "t": 0.6494060000004538,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.7168329000014637,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1324474000030023,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.757711800000834,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.421224500001699,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.954867300002661,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.606966100000136,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 3.8619784000002255,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算。"
+        },
+        {
+          "t": 4.481486300002871,
+          "slice_type": 0,
+          "text": "一共"
+        },
+        {
+          "t": 4.545428900000843,
+          "slice_type": 1,
+          "text": "一共"
+        },
+        {
+          "t": 4.88674280000123,
+          "slice_type": 1,
+          "text": "一共能报多少"
+        },
+        {
+          "t": 5.285025500001211,
+          "slice_type": 2,
+          "text": "一共能报多少？"
+        }
+      ],
+      "final_count": 2,
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 3.48,
+          "text": "急诊花五千住院花两万有社保",
+          "decision": "未完",
+          "decision_s": 0.23768310000014026,
+          "finished_wall_s": 18289.6045657
+        }
+      ]
+    },
+    {
+      "case": "算术",
+      "arm": "baseline",
+      "vad_ms": 500,
+      "error": "RuntimeError",
+      "error_reason": "ASR split one intended turn into multiple final sentences",
+      "asr_events": [
+        {
+          "t": 0.648712299996987,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.7091681999991124,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1317201999991084,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.7615335999980744,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.4101685999994515,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.9555730999964,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.5912999999964086,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 3.8563252999992983,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算。"
+        },
+        {
+          "t": 4.50917169999957,
+          "slice_type": 0,
+          "text": "一共"
+        },
+        {
+          "t": 4.580138499997702,
+          "slice_type": 1,
+          "text": "一共"
+        },
+        {
+          "t": 4.941531999997096,
+          "slice_type": 1,
+          "text": "一共能报多少"
+        },
+        {
+          "t": 5.274779199997283,
+          "slice_type": 2,
+          "text": "一共能报多少？"
+        }
+      ],
+      "final_count": 2,
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 3.48,
+          "text": "急诊花五千住院花两万有社保",
+          "decision": "未完",
+          "decision_s": 0.2742549000031431,
+          "finished_wall_s": 18297.6229651
+        }
+      ]
+    },
+    {
+      "case": "算术",
+      "question": "急诊花五千，住院花两万，有社保结算，一共能报多少？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "急诊花5000，住院花2万，有社保结算，一共能报多少？",
+      "text": "急诊5000元和住院2万元，有社保结算，这两笔费用都属于基础版保障范围，但要先扣掉1万元年免赔额；因为总共花了2.5万元，减去1万元免赔额后，剩余1.5万元按100%赔付，一共能报1.5万元。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 2.1418921000004048,
+        "answer": 2.041227199999412,
+        "answer_detail": {
+          "understand": 3.0499999411404133e-05,
+          "generate_ttft": 0.40611859999989974,
+          "generate_1": 2.030454199997621,
+          "total": 2.041227199999412
+        },
+        "total": 4.185314199999993
+      },
+      "asr_endpoint_s": 0.6964489999988288,
+      "first_response_s": 0.6964489999988288,
+      "first_substantive_audio_s": 5.137957800004806,
+      "text_ready_s": 4.885131500002608,
+      "all_audio_ready_s": 9.067590900001669,
+      "simulated_playback_end_s": 21.70104113333814,
+      "sentences": [
+        {
+          "text": "急诊5000元和住院2万元，有社保结算，这两笔费用都属于基础版保障范围，但要先扣掉1万元年免赔额；因为总共花了2.5万元，减去1万元免赔额后，剩余1.5万元按100%赔付，一共能报1.5万元。",
+          "emit_s": 9.705062000000908,
+          "first_s": 9.957957800004806,
+          "done_s": 13.887590900001669,
+          "duration_s": 16.563083333333335
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6375248000003921,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.7009203000015987,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1350375000001804,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.74349169999914,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.4050477999990107,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.9475674999994226,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.5881577000000107,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 4.837009200000466,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多"
+        },
+        {
+          "t": 5.337726500001736,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多少"
+        },
+        {
+          "t": 5.516448999998829,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算，一共能报多少？"
+        }
+      ],
+      "semantic_shadow": [
+        {
+          "pause_probe_audio_s": 3.48,
+          "text": "急诊花五千住院花两万有社保",
+          "decision": "未完",
+          "decision_s": 0.3578285000003234,
+          "finished_wall_s": 18305.0020797,
+          "finished_before_asr_final": true
+        },
+        {
+          "pause_probe_audio_s": 5.04,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多",
+          "decision": "未完",
+          "decision_s": 0.24253500000122585,
+          "finished_wall_s": 18306.4279002,
+          "finished_before_asr_final": true
+        }
+      ]
+    }
+  ]
+}

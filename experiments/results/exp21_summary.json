@@ -1,0 +1,755 @@
+{
+  "qwen": {
+    "qa": {
+      "completed": 543,
+      "valid": 543,
+      "errors": 0,
+      "planned": 543,
+      "n": 543,
+      "judged": 543,
+      "regex_pass": 496,
+      "judge_pass": 470,
+      "both_pass": 447,
+      "fallback": 15,
+      "answer_s": {
+        "n": 543,
+        "p50": 1.635,
+        "p90": 3.554,
+        "max": 11.923
+      },
+      "datasets": {
+        "complex": {
+          "n": 30,
+          "judged": 30,
+          "regex_pass": 19,
+          "judge_pass": 16,
+          "both_pass": 14,
+          "fallback": 6,
+          "answer_s": {
+            "n": 30,
+            "p50": 3.467,
+            "p90": 5.279,
+            "max": 11.923
+          }
+        },
+        "qa_v2": {
+          "n": 209,
+          "judged": 209,
+          "regex_pass": 194,
+          "judge_pass": 188,
+          "both_pass": 179,
+          "fallback": 5,
+          "answer_s": {
+            "n": 209,
+            "p50": 1.647,
+            "p90": 3.561,
+            "max": 9.491
+          }
+        },
+        "qa_v3": {
+          "n": 80,
+          "judged": 80,
+          "regex_pass": 76,
+          "judge_pass": 69,
+          "both_pass": 67,
+          "fallback": 1,
+          "answer_s": {
+            "n": 80,
+            "p50": 1.559,
+            "p90": 3.693,
+            "max": 9.134
+          }
+        },
+        "qa_v4": {
+          "n": 80,
+          "judged": 80,
+          "regex_pass": 73,
+          "judge_pass": 69,
+          "both_pass": 67,
+          "fallback": 0,
+          "answer_s": {
+            "n": 80,
+            "p50": 1.35,
+            "p90": 2.67,
+            "max": 4.166
+          }
+        },
+        "qa_v5": {
+          "n": 39,
+          "judged": 39,
+          "regex_pass": 35,
+          "judge_pass": 33,
+          "both_pass": 30,
+          "fallback": 0,
+          "answer_s": {
+            "n": 39,
+            "p50": 1.376,
+            "p90": 2.635,
+            "max": 11.54
+          }
+        },
+        "qa_v6": {
+          "n": 62,
+          "judged": 62,
+          "regex_pass": 60,
+          "judge_pass": 54,
+          "both_pass": 52,
+          "fallback": 2,
+          "answer_s": {
+            "n": 62,
+            "p50": 1.539,
+            "p90": 3.328,
+            "max": 5.028
+          }
+        },
+        "qa_v7": {
+          "n": 43,
+          "judged": 43,
+          "regex_pass": 39,
+          "judge_pass": 41,
+          "both_pass": 38,
+          "fallback": 1,
+          "answer_s": {
+            "n": 43,
+            "p50": 1.657,
+            "p90": 2.56,
+            "max": 8.158
+          }
+        }
+      }
+    },
+    "calls": {
+      "completed": 108,
+      "valid": 108,
+      "errors": 0,
+      "planned": 108,
+      "checks": {
+        "开场说明AI和录音": [
+          108,
+          108
+        ],
+        "被问身份时承认AI": [
+          108,
+          108
+        ],
+        "报价与真实条件一致": [
+          91,
+          91
+        ],
+        "缺口不下结论": [
+          107,
+          108
+        ],
+        "无禁用表述": [
+          108,
+          108
+        ],
+        "无做不到的承诺": [
+          106,
+          108
+        ],
+        "两次拒绝后结束": [
+          6,
+          6
+        ],
+        "要求人工或投诉时转人工": [
+          6,
+          6
+        ],
+        "发链接前门禁齐全": [
+          6,
+          6
+        ],
+        "超龄不报价": [
+          3,
+          3
+        ],
+        "发链接时用户未表示犹豫": [
+          6,
+          6
+        ]
+      },
+      "calls_with_problem": 1,
+      "calls_with_failed_check": 3,
+      "outcomes": {
+        "发链接": 6,
+        "坐席结束": 10,
+        "用户挂断/轮数用尽": 77,
+        "转人工": 15
+      }
+    },
+    "voice": {
+      "completed": 72,
+      "valid": 72,
+      "errors": 0,
+      "planned": 72,
+      "arms": {
+        "baseline": {
+          "n": 18,
+          "reuse": 0,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.673,
+            "p90": 0.721,
+            "max": 0.754
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.873,
+            "p90": 5.35,
+            "max": 9.541
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 12.102,
+            "p90": 32.437,
+            "max": 46.944
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 4.431,
+            "p90": 9.515,
+            "max": 9.541
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 26.228,
+            "p90": 35.38,
+            "max": 46.944
+          },
+          "generated_over_10s": 9
+        },
+        "stream": {
+          "n": 18,
+          "reuse": 0,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.679,
+            "p90": 0.697,
+            "max": 0.795
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.552,
+            "p90": 3.623,
+            "max": 17.168
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 9.642,
+            "p90": 25.749,
+            "max": 39.842
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 3.49,
+            "p90": 3.863,
+            "max": 17.168
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 22.015,
+            "p90": 37.36,
+            "max": 39.842
+          },
+          "generated_over_10s": 9
+        },
+        "prepare": {
+          "n": 18,
+          "reuse": 6,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.672,
+            "p90": 0.736,
+            "max": 0.757
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.941,
+            "p90": 5.224,
+            "max": 7.466
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 14.034,
+            "p90": 34.787,
+            "max": 44.526
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 4.502,
+            "p90": 6.297,
+            "max": 7.466
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 27.312,
+            "p90": 43.357,
+            "max": 44.526
+          },
+          "generated_over_10s": 9
+        },
+        "prepare_stream": {
+          "n": 18,
+          "reuse": 6,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.671,
+            "p90": 0.72,
+            "max": 0.755
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.389,
+            "p90": 3.2,
+            "max": 3.77
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 10.416,
+            "p90": 37.089,
+            "max": 44.445
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 2.916,
+            "p90": 3.466,
+            "max": 3.77
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 17.697,
+            "p90": 42.149,
+            "max": 44.445
+          },
+          "generated_over_10s": 9
+        }
+      }
+    },
+    "endpoint": {
+      "300": {
+        "n": 18,
+        "split_turns": 3,
+        "service_errors": 0,
+        "asr_endpoint_s": {
+          "n": 15,
+          "p50": 0.494,
+          "p90": 0.511,
+          "max": 0.549
+        }
+      },
+      "500": {
+        "n": 18,
+        "split_turns": 3,
+        "service_errors": 0,
+        "asr_endpoint_s": {
+          "n": 15,
+          "p50": 0.478,
+          "p90": 0.491,
+          "max": 0.507
+        }
+      }
+    }
+  },
+  "deepseek": {
+    "qa": {
+      "completed": 543,
+      "valid": 543,
+      "errors": 0,
+      "planned": 543,
+      "n": 543,
+      "judged": 543,
+      "regex_pass": 507,
+      "judge_pass": 473,
+      "both_pass": 459,
+      "fallback": 24,
+      "answer_s": {
+        "n": 543,
+        "p50": 1.431,
+        "p90": 2.509,
+        "max": 10.318
+      },
+      "datasets": {
+        "complex": {
+          "n": 30,
+          "judged": 30,
+          "regex_pass": 19,
+          "judge_pass": 16,
+          "both_pass": 15,
+          "fallback": 8,
+          "answer_s": {
+            "n": 30,
+            "p50": 2.14,
+            "p90": 3.62,
+            "max": 4.786
+          }
+        },
+        "qa_v2": {
+          "n": 209,
+          "judged": 209,
+          "regex_pass": 199,
+          "judge_pass": 192,
+          "both_pass": 186,
+          "fallback": 6,
+          "answer_s": {
+            "n": 209,
+            "p50": 1.352,
+            "p90": 2.197,
+            "max": 10.318
+          }
+        },
+        "qa_v3": {
+          "n": 80,
+          "judged": 80,
+          "regex_pass": 77,
+          "judge_pass": 67,
+          "both_pass": 67,
+          "fallback": 2,
+          "answer_s": {
+            "n": 80,
+            "p50": 1.288,
+            "p90": 2.644,
+            "max": 8.936
+          }
+        },
+        "qa_v4": {
+          "n": 80,
+          "judged": 80,
+          "regex_pass": 78,
+          "judge_pass": 70,
+          "both_pass": 69,
+          "fallback": 3,
+          "answer_s": {
+            "n": 80,
+            "p50": 1.326,
+            "p90": 2.345,
+            "max": 4.642
+          }
+        },
+        "qa_v5": {
+          "n": 39,
+          "judged": 39,
+          "regex_pass": 36,
+          "judge_pass": 35,
+          "both_pass": 33,
+          "fallback": 1,
+          "answer_s": {
+            "n": 39,
+            "p50": 1.41,
+            "p90": 1.945,
+            "max": 3.749
+          }
+        },
+        "qa_v6": {
+          "n": 62,
+          "judged": 62,
+          "regex_pass": 57,
+          "judge_pass": 53,
+          "both_pass": 49,
+          "fallback": 3,
+          "answer_s": {
+            "n": 62,
+            "p50": 1.596,
+            "p90": 2.327,
+            "max": 3.957
+          }
+        },
+        "qa_v7": {
+          "n": 43,
+          "judged": 43,
+          "regex_pass": 41,
+          "judge_pass": 40,
+          "both_pass": 40,
+          "fallback": 1,
+          "answer_s": {
+            "n": 43,
+            "p50": 1.566,
+            "p90": 2.185,
+            "max": 5.308
+          }
+        }
+      }
+    },
+    "calls": {
+      "completed": 108,
+      "valid": 108,
+      "errors": 0,
+      "planned": 108,
+      "checks": {
+        "开场说明AI和录音": [
+          108,
+          108
+        ],
+        "被问身份时承认AI": [
+          108,
+          108
+        ],
+        "报价与真实条件一致": [
+          91,
+          91
+        ],
+        "缺口不下结论": [
+          108,
+          108
+        ],
+        "无禁用表述": [
+          108,
+          108
+        ],
+        "无做不到的承诺": [
+          108,
+          108
+        ],
+        "两次拒绝后结束": [
+          6,
+          6
+        ],
+        "要求人工或投诉时转人工": [
+          4,
+          6
+        ],
+        "超龄不报价": [
+          3,
+          3
+        ],
+        "发链接前门禁齐全": [
+          1,
+          1
+        ],
+        "发链接时用户未表示犹豫": [
+          1,
+          1
+        ]
+      },
+      "calls_with_problem": 0,
+      "calls_with_failed_check": 2,
+      "outcomes": {
+        "发链接": 1,
+        "坐席结束": 10,
+        "用户挂断/轮数用尽": 87,
+        "转人工": 10
+      }
+    },
+    "voice": {
+      "completed": 72,
+      "valid": 72,
+      "errors": 0,
+      "planned": 72,
+      "arms": {
+        "baseline": {
+          "n": 18,
+          "reuse": 0,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.679,
+            "p90": 0.725,
+            "max": 1.066
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.494,
+            "p90": 3.252,
+            "max": 3.429
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 11.166,
+            "p90": 28.705,
+            "max": 32.276
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 3.153,
+            "p90": 3.394,
+            "max": 3.429
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 27.925,
+            "p90": 29.974,
+            "max": 32.276
+          },
+          "generated_over_10s": 9
+        },
+        "stream": {
+          "n": 18,
+          "reuse": 0,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.679,
+            "p90": 0.735,
+            "max": 0.773
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.57,
+            "p90": 4.752,
+            "max": 5.2
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 9.484,
+            "p90": 27.937,
+            "max": 30.834
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 3.181,
+            "p90": 4.752,
+            "max": 5.2
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 23.282,
+            "p90": 28.666,
+            "max": 30.834
+          },
+          "generated_over_10s": 8
+        },
+        "prepare": {
+          "n": 18,
+          "reuse": 6,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.666,
+            "p90": 0.731,
+            "max": 0.755
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.317,
+            "p90": 3.148,
+            "max": 3.843
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 12.715,
+            "p90": 29.674,
+            "max": 33.18
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 3.016,
+            "p90": 3.274,
+            "max": 3.843
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 24.977,
+            "p90": 30.884,
+            "max": 33.18
+          },
+          "generated_over_10s": 9
+        },
+        "prepare_stream": {
+          "n": 18,
+          "reuse": 6,
+          "opener_first_response_s": {
+            "n": 18,
+            "p50": 0.664,
+            "p90": 0.721,
+            "max": 0.736
+          },
+          "first_audio_s": {
+            "n": 18,
+            "p50": 2.299,
+            "p90": 4.051,
+            "max": 5.452
+          },
+          "simulated_playback_s": {
+            "n": 18,
+            "p50": 11.76,
+            "p90": 28.531,
+            "max": 30.926
+          },
+          "generated_n": 9,
+          "generated_first_audio_s": {
+            "n": 9,
+            "p50": 2.99,
+            "p90": 4.865,
+            "max": 5.452
+          },
+          "generated_simulated_playback_s": {
+            "n": 9,
+            "p50": 27.643,
+            "p90": 28.946,
+            "max": 30.926
+          },
+          "generated_over_10s": 9
+        }
+      }
+    },
+    "endpoint": {
+      "300": {
+        "n": 18,
+        "split_turns": 3,
+        "service_errors": 0,
+        "asr_endpoint_s": {
+          "n": 15,
+          "p50": 0.489,
+          "p90": 0.52,
+          "max": 0.898
+        }
+      },
+      "500": {
+        "n": 18,
+        "split_turns": 3,
+        "service_errors": 0,
+        "asr_endpoint_s": {
+          "n": 15,
+          "p50": 0.484,
+          "p90": 0.506,
+          "max": 0.508
+        }
+      }
+    }
+  },
+  "shared_interrupt": {
+    "有回声消除": {
+      "interrupt_stopped": "40/40",
+      "stop_latency_s": {
+        "p50": 0.788,
+        "p90": 1.472,
+        "max": 1.913,
+        "n": 40
+      },
+      "backchannel_wrongly_stopped": "5/30",
+      "echo_only_wrongly_stopped": "3/24",
+      "stop_within_500ms": 1,
+      "stopped_before_user_onset": 0
+    },
+    "回声消除不完全": {
+      "interrupt_stopped": "40/40",
+      "stop_latency_s": {
+        "p50": 1.038,
+        "p90": 1.666,
+        "max": 2.122,
+        "n": 40
+      },
+      "backchannel_wrongly_stopped": "30/30",
+      "echo_only_wrongly_stopped": "24/24",
+      "stop_within_500ms": 1,
+      "stopped_before_user_onset": 10
+    },
+    "无回声消除": {
+      "interrupt_stopped": "40/40",
+      "stop_latency_s": {
+        "p50": 1.482,
+        "p90": 2.286,
+        "max": 5.106,
+        "n": 40
+      },
+      "backchannel_wrongly_stopped": "29/30",
+      "echo_only_wrongly_stopped": "24/24",
+      "stop_within_500ms": 0,
+      "stopped_before_user_onset": 3
+    }
+  }
+}

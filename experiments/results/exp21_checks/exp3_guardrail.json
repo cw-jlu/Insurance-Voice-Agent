@@ -1,0 +1,131 @@
+{
+  "heldout2": {
+    "number_guard": {
+      "correct_answers": 6,
+      "false_positives": 0,
+      "false_positive_detail": [],
+      "mutated_answers": 44,
+      "detected": 43,
+      "detection_rate": 0.9773,
+      "missed": [
+        {
+          "case": "k2",
+          "mutation": "30→60"
+        }
+      ]
+    },
+    "gap_guard": {
+      "cases": 13,
+      "tp": 7,
+      "fp": 0,
+      "tn": 6,
+      "fn": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "errors": []
+    },
+    "compliance_guard": {
+      "cases": 6,
+      "errors": [],
+      "accuracy": 1.0
+    },
+    "identity_rule": {
+      "positives": 10,
+      "negatives": 6,
+      "missed": [],
+      "false_alarm": [],
+      "recall": 1.0,
+      "fixed_reply_admits_ai": true
+    }
+  },
+  "heldout": {
+    "number_guard": {
+      "correct_answers": 5,
+      "false_positives": 0,
+      "false_positive_detail": [],
+      "mutated_answers": 44,
+      "detected": 43,
+      "detection_rate": 0.9773,
+      "missed": [
+        {
+          "case": "h2",
+          "mutation": "30→60"
+        }
+      ]
+    },
+    "gap_guard": {
+      "cases": 12,
+      "tp": 5,
+      "fp": 0,
+      "tn": 7,
+      "fn": 0,
+      "recall": 1.0,
+      "precision": 1.0,
+      "errors": []
+    },
+    "compliance_guard": {
+      "cases": 4,
+      "errors": [],
+      "accuracy": 1.0
+    },
+    "identity_rule": {
+      "positives": 10,
+      "negatives": 6,
+      "missed": [],
+      "false_alarm": [],
+      "recall": 1.0,
+      "fixed_reply_admits_ai": true
+    }
+  },
+  "number_guard": {
+    "correct_answers": 5,
+    "false_positives": 0,
+    "false_positive_detail": [],
+    "mutated_answers": 54,
+    "detected": 51,
+    "detection_rate": 0.9444,
+    "missed": [
+      {
+        "case": "a",
+        "mutation": "300→600"
+      },
+      {
+        "case": "a",
+        "mutation": "300→600"
+      },
+      {
+        "case": "d",
+        "mutation": "30→31"
+      }
+    ]
+  },
+  "gap_guard": {
+    "cases": 28,
+    "tp": 16,
+    "fp": 0,
+    "tn": 12,
+    "fn": 0,
+    "recall": 1.0,
+    "precision": 1.0,
+    "errors": []
+  },
+  "compliance_guard": {
+    "cases": 20,
+    "errors": [],
+    "accuracy": 1.0
+  },
+  "identity_rule": {
+    "positives": 20,
+    "negatives": 10,
+    "missed": [],
+    "false_alarm": [],
+    "recall": 1.0,
+    "fixed_reply_admits_ai": true
+  },
+  "number_extraction_sample": [
+    "三百一十八元",
+    "1万",
+    "30天",
+    "60%"
+  ]
+}

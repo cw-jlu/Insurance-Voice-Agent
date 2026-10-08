@@ -1014,7 +1014,7 @@ class Pipeline:
         from agent.session import capability_guard
         from agent.speech import SentenceFeeder
 
-        feeder, spoken, bad = SentenceFeeder(), [], []
+        feeder, spoken, bad = SentenceFeeder(soft_flush=None), [], []
         ev_texts = [c.text for c in evidence]
         def release(piece: str) -> bool:
             v = number_guard(piece, ev_texts, structured).violations + compliance_guard(piece).violations
@@ -1048,8 +1048,12 @@ class Pipeline:
                     if not release(piece):
                         break
         finally:
-            if not go:
-                stream.close()  # stop generating what will not be said
+            stream.close()  # also close on cancellation raised by the sentence callback
+        if spoken:
+            current = "".join(spoken)
+            with_notice = addon_notice(current, evidence)
+            if with_notice.startswith(current) and len(with_notice) > len(current):
+                release(with_notice[len(current):])
         timings["generate_1"] = time.perf_counter() - t1
         return spoken, bad
 

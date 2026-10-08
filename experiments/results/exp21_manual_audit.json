@@ -1,0 +1,18 @@
+{
+  "scope": "targeted review of complex questions and Qwen call pricing flags; not a full human accuracy score",
+  "reviewer": "Codex source and answer review",
+  "findings": [
+    {"provider": "qwen", "dataset": "complex", "id": "C03", "issue": "明确误称基础版不保住院，套用住院补偿加油包并错误计算6000元。"},
+    {"provider": "qwen", "dataset": "complex", "id": "C12", "issue": "明确误称基础版本身不保住院费用。"},
+    {"provider": "deepseek", "dataset": "complex", "id": "C09", "issue": "意外住院被要求等待期30天后；自动判分却通过，属明确漏检。"},
+    {"provider": "both", "dataset": "complex", "id": "C26", "issue": "只报年缴318和月缴31，未回答全年月缴372与年缴相差54元；自动通过遗漏完整性问题。"},
+    {"provider": "both", "dataset": "complex", "id": "C18", "issue": "只回答58岁不能选门急诊加油包，未回答其他可选加油包；自动通过未覆盖全部子问。"},
+    {"provider": "both", "dataset": "complex", "id": "C02/C20/C28", "issue": "健康告知兜底未完整回答保障或免责问题，是共享路由/护栏问题，不能归因于主模型计算能力。"},
+    {"provider": "deepseek", "dataset": "complex", "id": "C08", "issue": "每人优惠10%与整单优惠10%在统一折扣下等价，自动判分以此为错误的理由不成立；仍需核对所有共享范围条件。"},
+    {"provider": "qwen", "dataset": "calls", "id": "pricing", "issue": "原评分漏掉回答:报价事件并强制要求未被问到的月缴价。复核改口年龄、父亲超龄、中途换人、老了续保、加油包控后修正；当前基础价格检查91/91通过，不代表所有加油包金额全通过。"},
+    {"provider": "qwen", "dataset": "calls", "id": "家族病史", "issue": "无做不到的承诺检查误报：用户可以再联系我，并非承诺回电。"},
+    {"provider": "qwen", "dataset": "calls", "id": "理赔细节", "issue": "最后直接断言必须下载众安APP才能线上理赔，原资料未支持；前轮曾拦截同类内容，后轮仍漏出。"},
+    {"provider": "qwen", "dataset": "calls", "id": "父亲超龄/round3", "issue": "缺口模型把65岁有社保报价标成缺口下结论，报价本身与费率表一致，此自动失败不支持实际违规结论。"},
+    {"provider": "deepseek", "dataset": "calls", "id": "投诉骚扰/round1,3", "issue": "用户投诉天天打电话，系统仍挽留而未转人工；共用拒绝处理模板，非DeepSeek主回答。自动失败说明列表未记录此项，但checks为false。"}
+  ]
+}

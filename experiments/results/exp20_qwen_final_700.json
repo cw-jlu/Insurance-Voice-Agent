@@ -1,0 +1,2137 @@
+{
+  "voice_rules": "\n8. 这是电话通话：把回答组织成用户能在约10秒内听懂的一两句，先给结论，再给不可省略的条件或例外。用户问了几件事就逐一回答，但每件只说最关键的一句，不要为了短而漏答。问‘都保什么’等概览，只说主要责任类别和一项关键限制，不逐项朗读保额、比例、医院或床位费；问某个加油包，不顺带介绍其他产品；问计算结果，不朗读推导过程。不要重复已说过的事实或附加无关的销售提醒，细则留待用户追问。不要使用‘首先、其次、最后’。",
+  "playback": "simulated",
+  "answer_provider": "qwen",
+  "answer_model": "qwen-plus",
+  "fast_model": "qwen-flash",
+  "quality": "requires human review; no accuracy claim",
+  "rows": [
+    {
+      "case": "报价",
+      "question": "我三十岁，有社保，一年多少钱？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "events": [
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.0650303000002168,
+        "answer": 0.0055089000015868805,
+        "answer_detail": {
+          "understand": 8.500002877553925e-06,
+          "total": 0.0055089000015868805
+        },
+        "total": 1.071798699998908
+      },
+      "asr_endpoint_s": 0.653896500001574,
+      "first_response_s": 0.653896500001574,
+      "first_substantive_audio_s": 2.285938166668241,
+      "text_ready_s": 1.7270973000029333,
+      "all_audio_ready_s": 3.0348776000044015,
+      "simulated_playback_end_s": 7.249021500001573,
+      "sentences": [
+        {
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+          "emit_s": 3.967056200002844,
+          "first_s": 4.20992660000411,
+          "done_s": 5.274877600004402,
+          "duration_s": 4.9630833333333335
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6355221000012534,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7042154000009759,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1269159000003128,
+          "slice_type": 1,
+          "text": "我三十岁"
+        },
+        {
+          "t": 1.8440872999999556,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.4140331000016886,
+          "slice_type": 1,
+          "text": "我三十岁有社保一年多少钱"
+        },
+        {
+          "t": 2.893896500001574,
+          "slice_type": 2,
+          "text": "我30岁，有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "报价",
+      "question": "我三十岁，有社保，一年多少钱？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "events": [
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6604626000007556,
+        "answer": 0.0005139999993843958,
+        "answer_detail": {
+          "understand": 1.8299997464055195e-05,
+          "total": 0.0005139999993843958
+        },
+        "total": 0.6625581000007514
+      },
+      "asr_endpoint_s": 0.651202199996769,
+      "first_response_s": 0.651202199996769,
+      "first_substantive_audio_s": 2.283243866663436,
+      "text_ready_s": 1.3158587999985318,
+      "all_audio_ready_s": 2.85296639999593,
+      "simulated_playback_end_s": 7.379660533330101,
+      "sentences": [
+        {
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+          "emit_s": 3.555770599996322,
+          "first_s": 3.8091439999952854,
+          "done_s": 5.09296639999593,
+          "duration_s": 5.096416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6551590999988548,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7280671999978949,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.2392981999983022,
+          "slice_type": 1,
+          "text": "我三十岁"
+        },
+        {
+          "t": 1.8646047999973234,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.401812799998879,
+          "slice_type": 1,
+          "text": "我三十岁有社保一年多少钱"
+        },
+        {
+          "t": 2.891202199996769,
+          "slice_type": 2,
+          "text": "我30岁，有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "报价",
+      "question": "我三十岁，有社保，一年多少钱？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "events": [
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 2,
+        "invalidations": 1,
+        "reused": true,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6202064999997674,
+        "answer": 0.00022449999960372224,
+        "answer_detail": {
+          "understand": 7.800001185387373e-06,
+          "total": 0.00022449999960372224
+        },
+        "total": 0.6211475000018254
+      },
+      "asr_endpoint_s": 0.6220054999992133,
+      "first_response_s": 0.6220054999992133,
+      "first_substantive_audio_s": 2.25404716666588,
+      "text_ready_s": 0.9121721999997678,
+      "all_audio_ready_s": 2.361066700000956,
+      "simulated_playback_end_s": 7.417130499999214,
+      "sentences": [
+        {
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+          "emit_s": 3.152141300000949,
+          "first_s": 3.344501499999751,
+          "done_s": 4.601066700000956,
+          "duration_s": 5.163083333333334
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6246326000000408,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.6805034999997588,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1113962999988871,
+          "slice_type": 1,
+          "text": "我三十岁"
+        },
+        {
+          "t": 1.8126574000016262,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.388000599999941,
+          "slice_type": 1,
+          "text": "我三十岁有社保一年多少钱"
+        },
+        {
+          "t": 2.8620054999992135,
+          "slice_type": 2,
+          "text": "我30岁，有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "报价",
+      "question": "我三十岁，有社保，一年多少钱？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "events": [
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 2,
+        "invalidations": 1,
+        "reused": true,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.485973599999852,
+        "answer": 0.00028369999927235767,
+        "answer_detail": {
+          "understand": 6.999998731771484e-06,
+          "total": 0.00028369999927235767
+        },
+        "total": 0.486490600000252
+      },
+      "asr_endpoint_s": 0.630434100001148,
+      "first_response_s": 0.630434100001148,
+      "first_substantive_audio_s": 2.262475766667815,
+      "text_ready_s": 0.770949799998343,
+      "all_audio_ready_s": 2.5306565000007684,
+      "simulated_playback_end_s": 7.825559100001149,
+      "sentences": [
+        {
+          "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+          "emit_s": 3.010878799996135,
+          "first_s": 3.3095925000015995,
+          "done_s": 4.770656500000769,
+          "duration_s": 5.563083333333333
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.605921499998658,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.6717621999996481,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.0922982000010961,
+          "slice_type": 1,
+          "text": "我三十岁"
+        },
+        {
+          "t": 1.7975317999989784,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.3788099999983388,
+          "slice_type": 1,
+          "text": "我三十岁有社保一年多少钱"
+        },
+        {
+          "t": 2.870434100001148,
+          "slice_type": 2,
+          "text": "我30岁，有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.7118996000026527,
+        "answer": 0.00047839999751886353,
+        "answer_detail": {
+          "understand": 1.9600000086938962e-05,
+          "total": 0.00047839999751886353
+        },
+        "total": 0.71283890000268
+      },
+      "asr_endpoint_s": 0.7377156000012475,
+      "first_response_s": 0.7377156000012475,
+      "first_substantive_audio_s": 2.3697572666679143,
+      "text_ready_s": 1.4528757000017505,
+      "all_audio_ready_s": 2.8014286000007997,
+      "simulated_playback_end_s": 7.46617393333458,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 5.832779699998355,
+          "first_s": 6.083208300002298,
+          "done_s": 7.1814286000008,
+          "duration_s": 5.096416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6391140000014275,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.6918891000022995,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1142393000009179,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.7496177000030002,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.409205900003144,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.952844000003097,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.592383700000937,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.162771900002554,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.7995326000018395,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 5.117715600001247,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.9820633999988786,
+        "answer": 0.0004582999972626567,
+        "answer_detail": {
+          "understand": 2.3199998395284638e-05,
+          "total": 0.0004582999972626567
+        },
+        "total": 0.9831368999984988
+      },
+      "asr_endpoint_s": 0.773827399997681,
+      "first_response_s": 0.773827399997681,
+      "first_substantive_audio_s": 2.405869066664348,
+      "text_ready_s": 1.781660599998868,
+      "all_audio_ready_s": 3.368226199997589,
+      "simulated_playback_end_s": 7.835619066664349,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 6.161560100001225,
+          "first_s": 6.446891899995535,
+          "done_s": 7.748226199997589,
+          "duration_s": 5.42975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6174200999994355,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.6662930999991659,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1180660999998508,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.735994099999516,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.410390799999732,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.9372239999975136,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.5658563999968464,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.154250799998408,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.82376739999745,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 5.153827399997681,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 3,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.6330459999990126,
+        "answer": 0.0004430999979376793,
+        "answer_detail": {
+          "understand": 2.4400000256719068e-05,
+          "total": 0.0004430999979376793
+        },
+        "total": 1.6338823000005505
+      },
+      "asr_endpoint_s": 0.7361142999990262,
+      "first_response_s": 0.7361142999990262,
+      "first_substantive_audio_s": 2.6536820999982593,
+      "text_ready_s": 2.386021899999032,
+      "all_audio_ready_s": 4.09735709999688,
+      "simulated_playback_end_s": 8.616765433331594,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 6.7659309999980906,
+          "first_s": 7.033682099998259,
+          "done_s": 8.47735709999688,
+          "duration_s": 5.9630833333333335
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6394580999985919,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.7258265999989817,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.1204569000001356,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.7390152999978454,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.390259600000718,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.9806045000004815,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.590020999999979,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.152546799999982,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.791647800000646,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 5.116114299999026,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "改口",
+      "question": "我三十岁，有社保，哦不对，我没有社保，一年多少钱？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "我30岁有社保，哦不对，我没有社保，一年多少钱？",
+      "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+      "events": [
+        "纠正:has_social:True→False",
+        "回答:报价"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 3,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.5277901000008569,
+        "answer": 0.0007239999977173284,
+        "answer_detail": {
+          "understand": 2.7099998987978324e-05,
+          "total": 0.0007239999977173284
+        },
+        "total": 0.5291479000006802
+      },
+      "asr_endpoint_s": 0.7259473999994226,
+      "first_response_s": 0.7259473999994226,
+      "first_substantive_audio_s": 2.3579890666660894,
+      "text_ready_s": 1.2616351000043506,
+      "all_audio_ready_s": 2.7213122000040313,
+      "simulated_playback_end_s": 7.521072399999423,
+      "sentences": [
+        {
+          "text": "您30岁没有社保，基础版一年679元，按月交每月67元。",
+          "emit_s": 5.641529400003492,
+          "first_s": 5.901019200005976,
+          "done_s": 7.101312200004031,
+          "duration_s": 5.163083333333334
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6287512000017159,
+          "slice_type": 0,
+          "text": "我三十"
+        },
+        {
+          "t": 0.6757725000024948,
+          "slice_type": 1,
+          "text": "我三十"
+        },
+        {
+          "t": 1.0994639000018651,
+          "slice_type": 1,
+          "text": "我三十岁有"
+        },
+        {
+          "t": 1.7410635000014736,
+          "slice_type": 1,
+          "text": "我三十岁有社保"
+        },
+        {
+          "t": 2.3861667000019224,
+          "slice_type": 1,
+          "text": "我三十岁有社保啊哦不对"
+        },
+        {
+          "t": 2.932520199999999,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我"
+        },
+        {
+          "t": 3.5627361000006204,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保"
+        },
+        {
+          "t": 4.127875900001527,
+          "slice_type": 1,
+          "text": "我三十岁有社保哦不对我没有社保一年"
+        },
+        {
+          "t": 4.781780600002094,
+          "slice_type": 1,
+          "text": "我30岁有社保，哦，不对，我没有社保一年多少钱"
+        },
+        {
+          "t": 5.1059473999994225,
+          "slice_type": 2,
+          "text": "我30岁有社保，哦不对，我没有社保，一年多少钱？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "等待期",
+      "question": "生病住院和意外住院都要等三十天吗？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "生病住院和意外住院都要等30天吗？",
+      "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+      "events": [
+        "回答:等待期(模板)"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.5523267999997188,
+        "answer": 0.0015490000005229376,
+        "answer_detail": {
+          "understand": 1.750000228639692e-05,
+          "total": 0.0015490000005229376
+        },
+        "total": 0.5555029999995895
+      },
+      "asr_endpoint_s": 0.6402411000010035,
+      "first_response_s": 0.6402411000010035,
+      "first_substantive_audio_s": 2.2722827666676704,
+      "text_ready_s": 1.205374899999879,
+      "all_audio_ready_s": 2.6623442000010984,
+      "simulated_playback_end_s": 7.968699433334337,
+      "sentences": [
+        {
+          "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+          "emit_s": 4.005277700001898,
+          "first_s": 4.269239000001107,
+          "done_s": 5.462344200001098,
+          "duration_s": 5.696416666666667
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6258689999995113,
+          "slice_type": 0,
+          "text": "生病"
+        },
+        {
+          "t": 0.6984081999980845,
+          "slice_type": 1,
+          "text": "生病"
+        },
+        {
+          "t": 1.1310911000000488,
+          "slice_type": 1,
+          "text": "生病住院和"
+        },
+        {
+          "t": 1.7509049000000232,
+          "slice_type": 1,
+          "text": "生病住院和意外住院"
+        },
+        {
+          "t": 2.418478799998411,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等"
+        },
+        {
+          "t": 2.9633590999983426,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等三十天吗"
+        },
+        {
+          "t": 3.4402411000010034,
+          "slice_type": 2,
+          "text": "生病住院和意外住院都要等30天吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "等待期",
+      "question": "生病住院和意外住院都要等三十天吗？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "生病住院和意外住院都要等30天吗？",
+      "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+      "events": [
+        "回答:等待期(模板)"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.5690610999990895,
+        "answer": 0.00028810000003431924,
+        "answer_detail": {
+          "understand": 1.3699998817173764e-05,
+          "total": 0.00028810000003431924
+        },
+        "total": 0.5697301000000152
+      },
+      "asr_endpoint_s": 0.6185681000017214,
+      "first_response_s": 0.6185681000017214,
+      "first_substantive_audio_s": 2.250609766668388,
+      "text_ready_s": 1.1895993000027376,
+      "all_audio_ready_s": 2.831748300002073,
+      "simulated_playback_end_s": 8.080359766668387,
+      "sentences": [
+        {
+          "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+          "emit_s": 3.9895582999997714,
+          "first_s": 4.230666400002519,
+          "done_s": 5.631748300002073,
+          "duration_s": 5.82975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6373426000027393,
+          "slice_type": 0,
+          "text": "生病"
+        },
+        {
+          "t": 0.6985910000003059,
+          "slice_type": 1,
+          "text": "生病"
+        },
+        {
+          "t": 1.1117014000010386,
+          "slice_type": 1,
+          "text": "生病住院和"
+        },
+        {
+          "t": 1.7316667000013695,
+          "slice_type": 1,
+          "text": "生病住院和意外住院"
+        },
+        {
+          "t": 2.3839680000019143,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等"
+        },
+        {
+          "t": 2.923521000000619,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等三十天吗"
+        },
+        {
+          "t": 3.418568100001721,
+          "slice_type": 2,
+          "text": "生病住院和意外住院都要等30天吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "等待期",
+      "question": "生病住院和意外住院都要等三十天吗？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "生病住院和意外住院都要等30天吗？",
+      "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+      "events": [
+        "回答:等待期(模板)"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 2,
+        "reused": true,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6785740999985137,
+        "answer": 0.00039990000004763715,
+        "answer_detail": {
+          "understand": 1.3299999409355223e-05,
+          "total": 0.00039990000004763715
+        },
+        "total": 0.6792669999995269
+      },
+      "asr_endpoint_s": 0.6475245000030556,
+      "first_response_s": 0.6475245000030556,
+      "first_substantive_audio_s": 2.2795661666697224,
+      "text_ready_s": 1.0107389000033438,
+      "all_audio_ready_s": 2.163158400001703,
+      "simulated_playback_end_s": 6.909316166669723,
+      "sentences": [
+        {
+          "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+          "emit_s": 3.8107049000027473,
+          "first_s": 4.019459700004518,
+          "done_s": 4.963158400001703,
+          "duration_s": 4.62975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6522162000001117,
+          "slice_type": 0,
+          "text": "生病"
+        },
+        {
+          "t": 0.7142687000014121,
+          "slice_type": 1,
+          "text": "生病"
+        },
+        {
+          "t": 1.1409226000032504,
+          "slice_type": 1,
+          "text": "生病住院和"
+        },
+        {
+          "t": 1.7676296000026923,
+          "slice_type": 1,
+          "text": "生病住院和意外住院"
+        },
+        {
+          "t": 2.422866200002318,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等"
+        },
+        {
+          "t": 2.96811770000204,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等三十天吗"
+        },
+        {
+          "t": 3.4475245000030554,
+          "slice_type": 2,
+          "text": "生病住院和意外住院都要等30天吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "等待期",
+      "question": "生病住院和意外住院都要等三十天吗？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "生病住院和意外住院都要等30天吗？",
+      "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+      "events": [
+        "回答:等待期(模板)"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 2,
+        "reused": true,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.507427499996993,
+        "answer": 0.00020709999807877466,
+        "answer_detail": {
+          "understand": 6.999998731771484e-06,
+          "total": 0.00020709999807877466
+        },
+        "total": 0.5078618999978062
+      },
+      "asr_endpoint_s": 0.6446053000028771,
+      "first_response_s": 0.6446053000028771,
+      "first_substantive_audio_s": 2.276646966669544,
+      "text_ready_s": 0.8359176000041773,
+      "all_audio_ready_s": 2.2737990000016,
+      "simulated_playback_end_s": 8.106396966669543,
+      "sentences": [
+        {
+          "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+          "emit_s": 3.635856500004593,
+          "first_s": 3.8160792000016954,
+          "done_s": 5.0737990000016,
+          "duration_s": 5.82975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6380099000016344,
+          "slice_type": 0,
+          "text": "生病"
+        },
+        {
+          "t": 0.7063534000008076,
+          "slice_type": 1,
+          "text": "生病"
+        },
+        {
+          "t": 1.1331895000002987,
+          "slice_type": 1,
+          "text": "生病住院和"
+        },
+        {
+          "t": 1.748478100002103,
+          "slice_type": 1,
+          "text": "生病住院和意外住院"
+        },
+        {
+          "t": 2.4022672999999486,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等"
+        },
+        {
+          "t": 2.9467741000007663,
+          "slice_type": 1,
+          "text": "生病住院和意外住院都要等三十天吗"
+        },
+        {
+          "t": 3.444605300002877,
+          "slice_type": 2,
+          "text": "生病住院和意外住院都要等30天吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "复合",
+      "question": "住院和门诊怎么赔，ICU还有补贴吗？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "住院和门诊怎么赔？ICU还有补贴吗？",
+      "text": "住院和门诊都赔，但要先扣1万元免赔额，之后按100%赔，共享300万保额；如果您有社保但没用社保结算，就按60%赔。ICU本身没有单独补贴，但可以另外选购尊享住院津贴加油包，选了之后ICU住院每天给500元，每次最多给30天，一年最多给60天。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6752871999997296,
+        "answer": 2.4406411000018124,
+        "answer_detail": {
+          "understand": 1.179999890155159e-05,
+          "generate_ttft": 0.3145476999998209,
+          "generate_1": 2.4282267999988107,
+          "total": 2.4406411000018124
+        },
+        "total": 3.11690340000132
+      },
+      "asr_endpoint_s": 0.6783697999996368,
+      "first_response_s": 0.6783697999996368,
+      "first_substantive_audio_s": 4.041244000003353,
+      "text_ready_s": 3.796422500002955,
+      "all_audio_ready_s": 9.442878800003818,
+      "simulated_playback_end_s": 26.234077333336685,
+      "sentences": [
+        {
+          "text": "住院和门诊都赔，但要先扣1万元免赔额，之后按100%赔，共享300万保额；如果您有社保但没用社保结算，就按60%赔。",
+          "emit_s": 6.616365800000494,
+          "first_s": 6.861244000003353,
+          "done_s": 9.375402200003009,
+          "duration_s": 10.896416666666667
+        },
+        {
+          "text": "ICU本身没有单独补贴，但可以另外选购尊享住院津贴加油包，选了之后ICU住院每天给500元，每次最多给30天，一年最多给60天。",
+          "emit_s": 6.6163871999997355,
+          "first_s": 9.75260370000251,
+          "done_s": 12.262878800003818,
+          "duration_s": 11.296416666666667
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6112713000002259,
+          "slice_type": 0,
+          "text": "祝院和"
+        },
+        {
+          "t": 0.6703919999999925,
+          "slice_type": 1,
+          "text": "祝院和"
+        },
+        {
+          "t": 1.0961261999982526,
+          "slice_type": 1,
+          "text": "住院和门诊怎么"
+        },
+        {
+          "t": 1.7273743999976432,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔"
+        },
+        {
+          "t": 2.378051699997741,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔icu还"
+        },
+        {
+          "t": 2.927805299997999,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔i还有补贴吗"
+        },
+        {
+          "t": 3.4983697999996366,
+          "slice_type": 2,
+          "text": "住院和门诊怎么赔？ICU还有补贴吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "复合",
+      "question": "住院和门诊怎么赔，ICU还有补贴吗？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "住院和门诊怎么赔？ICU还有补贴吗？",
+      "text": "住院和门诊都赔，但要先扣1万元免赔额，之后按100%赔，共享300万保额；如果您有社保但没用社保结算，就只能按60%赔。ICU补贴不在基础版里，得另外买尊享住院津贴加油包，买了的话每天给500元，没有免赔天数。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6607282000004489,
+        "answer": 2.6136346999992384,
+        "answer_detail": {
+          "understand": 8.199996955227107e-06,
+          "generate_ttft": 0.752414200000203,
+          "generate_1": 2.607890100000077,
+          "total": 2.6136346999992384,
+          "streamed_sentences": 3
+        },
+        "total": 3.2752289999989443
+      },
+      "asr_endpoint_s": 0.6767714000013076,
+      "first_response_s": 0.6767714000013076,
+      "first_substantive_audio_s": 3.010723800001579,
+      "text_ready_s": 3.965351099999389,
+      "all_audio_ready_s": 7.688924099998694,
+      "simulated_playback_end_s": 21.033307133334915,
+      "sentences": [
+        {
+          "text": "住院和门诊都赔，但要先扣1万元免赔额，之后按100%赔，共享300万保额；",
+          "emit_s": 5.577435699997295,
+          "first_s": 5.830723800001579,
+          "done_s": 7.605375000002823,
+          "duration_s": 6.763083333333333
+        },
+        {
+          "text": "如果您有社保但没用社保结算，就只能按60%赔。",
+          "emit_s": 5.963197900000523,
+          "first_s": 7.843981699999858,
+          "done_s": 8.618469500001083,
+          "duration_s": 3.6964166666666665
+        },
+        {
+          "text": "ICU补贴不在基础版里，得另外买尊享住院津贴加油包，买了的话每天给500元，没有免赔天数。",
+          "emit_s": 6.7622751999988395,
+          "first_s": 8.864657899997837,
+          "done_s": 10.508924099998694,
+          "duration_s": 7.563083333333333
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6083990000006452,
+          "slice_type": 0,
+          "text": "祝院和"
+        },
+        {
+          "t": 0.6718973999995796,
+          "slice_type": 1,
+          "text": "祝院和"
+        },
+        {
+          "t": 1.1050065999988874,
+          "slice_type": 1,
+          "text": "住院和门诊怎么"
+        },
+        {
+          "t": 1.7302221999998437,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔"
+        },
+        {
+          "t": 2.3812203999987105,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔icu还"
+        },
+        {
+          "t": 2.9335475000007136,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔i还有补贴吗"
+        },
+        {
+          "t": 3.4967714000013075,
+          "slice_type": 2,
+          "text": "住院和门诊怎么赔？ICU还有补贴吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "复合",
+      "question": "住院和门诊怎么赔，ICU还有补贴吗？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "住院和门诊怎么赔？ICU还有补贴吗？",
+      "text": "住院和门诊都得先扣1万元免赔额，之后按100%赔，共享300万保额；您有社保但没用社保结算的话，就按60%赔。ICU补贴不在基础版里，要另外买尊享住院津贴加油包，买了的话每天给500元，没有免赔天数。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 2,
+        "invalidations": 2,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.47458970000297995,
+        "answer": 2.352421300001879,
+        "answer_detail": {
+          "understand": 8.300001354655251e-06,
+          "generate_ttft": 0.6016722999993362,
+          "generate_1": 2.3465816999996605,
+          "total": 2.352421300001879
+        },
+        "total": 2.8277765000020736
+      },
+      "asr_endpoint_s": 0.6808978000005301,
+      "first_response_s": 0.6808978000005301,
+      "first_substantive_audio_s": 3.7761199999983366,
+      "text_ready_s": 3.51010479999939,
+      "all_audio_ready_s": 7.491582700000144,
+      "simulated_playback_end_s": 20.635619999998337,
+      "sentences": [
+        {
+          "text": "住院和门诊都得先扣1万元免赔额，之后按100%赔，共享300万保额；您有社保但没用社保结算的话，就按60%赔。",
+          "emit_s": 6.330044599999383,
+          "first_s": 6.596119999998336,
+          "done_s": 8.667625300000509,
+          "duration_s": 9.82975
+        },
+        {
+          "text": "ICU补贴不在基础版里，要另外买尊享住院津贴加油包，买了的话每天给500元，没有免赔天数。",
+          "emit_s": 6.3300648000004,
+          "first_s": 8.89106140000149,
+          "done_s": 10.311582700000145,
+          "duration_s": 7.02975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6182771999992838,
+          "slice_type": 0,
+          "text": "祝院和"
+        },
+        {
+          "t": 0.6791388000019651,
+          "slice_type": 1,
+          "text": "祝院和"
+        },
+        {
+          "t": 1.0991700000013225,
+          "slice_type": 1,
+          "text": "住院和门诊怎么"
+        },
+        {
+          "t": 1.729979200001253,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔"
+        },
+        {
+          "t": 2.373677300001873,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔icu还"
+        },
+        {
+          "t": 2.9253623000004154,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔i还有补贴吗"
+        },
+        {
+          "t": 3.50089780000053,
+          "slice_type": 2,
+          "text": "住院和门诊怎么赔？ICU还有补贴吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "复合",
+      "question": "住院和门诊怎么赔，ICU还有补贴吗？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "住院和门诊怎么赔？ICU还有补贴吗？",
+      "text": "住院和门诊都是扣除1万元免赔额后，按100%赔付，共享300万保额；如果您有社保但没用社保结算，就按60%赔。ICU补贴不在基础版里，需要另外选购尊享住院津贴加油包，买了之后每天给500元，没有免赔天数。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 3,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.7336746000000858,
+        "answer": 2.069239299999026,
+        "answer_detail": {
+          "understand": 8.600000001024455e-06,
+          "generate_ttft": 0.3763491999998223,
+          "generate_1": 2.0670350000000326,
+          "total": 2.069239299999026,
+          "streamed_sentences": 3
+        },
+        "total": 2.8036663999992015
+      },
+      "asr_endpoint_s": 0.6900028000015301,
+      "first_response_s": 0.6900028000015301,
+      "first_substantive_audio_s": 2.544944100005232,
+      "text_ready_s": 3.5192386000050466,
+      "all_audio_ready_s": 6.728996200002875,
+      "simulated_playback_end_s": 19.567527433338565,
+      "sentences": [
+        {
+          "text": "住院和门诊都是扣除1万元免赔额后，按100%赔付，共享300万保额；",
+          "emit_s": 5.196359900004609,
+          "first_s": 5.364944100005232,
+          "done_s": 6.6278478000058385,
+          "duration_s": 6.163083333333334
+        },
+        {
+          "text": "如果您有社保但没用社保结算，就按60%赔。",
+          "emit_s": 5.650589900003979,
+          "first_s": 6.828049400006421,
+          "done_s": 7.647712400004821,
+          "duration_s": 3.82975
+        },
+        {
+          "text": "ICU补贴不在基础版里，需要另外选购尊享住院津贴加油包，买了之后每天给500元，没有免赔天数。",
+          "emit_s": 6.283346500003972,
+          "first_s": 7.909960500004672,
+          "done_s": 9.548996200002875,
+          "duration_s": 7.02975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.591981500001566,
+          "slice_type": 0,
+          "text": "祝院和"
+        },
+        {
+          "t": 0.6717586000013398,
+          "slice_type": 1,
+          "text": "祝院和"
+        },
+        {
+          "t": 1.1072716000016953,
+          "slice_type": 1,
+          "text": "住院和门诊怎么"
+        },
+        {
+          "t": 1.7420136000000639,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔"
+        },
+        {
+          "t": 2.390380200002255,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔icu还"
+        },
+        {
+          "t": 2.944881500003248,
+          "slice_type": 1,
+          "text": "住院和门诊怎么赔i还有补贴吗"
+        },
+        {
+          "t": 3.51000280000153,
+          "slice_type": 2,
+          "text": "住院和门诊怎么赔？ICU还有补贴吗？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "算术",
+      "question": "急诊花五千，住院花两万，有社保结算，一共能报多少？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "急诊花5000，住院花2万，有社保结算，一共能报多少？",
+      "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元免赔额，所以这2.5万元里只有超出1万元的部分，也就是1.5万元能按100%报销，一共能报1.5万元。  \n另外，住院费用想0免赔、直接报，得另外选购尊享住院医疗费用补偿加油包，最高报1万元。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.5762400999992678,
+        "answer": 2.4115154999999504,
+        "answer_detail": {
+          "understand": 1.1000000085914508e-05,
+          "generate_ttft": 0.37291800000093644,
+          "generate_1": 2.4068428999999014,
+          "total": 2.4115154999999504
+        },
+        "total": 2.9888281999992614
+      },
+      "asr_endpoint_s": 0.7955854999997243,
+      "first_response_s": 0.7955854999997243,
+      "first_substantive_audio_s": 4.05829380000403,
+      "text_ready_s": 3.785701900003623,
+      "all_audio_ready_s": 8.763210200002213,
+      "simulated_playback_end_s": 24.784460466670698,
+      "sentences": [
+        {
+          "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元免赔额，所以这2.5万元里只有超出1万元的部分，也就是1.5万元能按100%报销，一共能报1.5万元。",
+          "emit_s": 8.605643000002601,
+          "first_s": 8.87829380000403,
+          "done_s": 11.814570600003208,
+          "duration_s": 13.02975
+        },
+        {
+          "text": "  \n另外，住院费用想0免赔、直接报，得另外选购尊享住院医疗费用补偿加油包，最高报1万元。",
+          "emit_s": 8.605659800003195,
+          "first_s": 12.015940400000545,
+          "done_s": 13.583210200002213,
+          "duration_s": 7.696416666666667
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6136036000025342,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.6838467000015953,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.0886275000011665,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.7255461000022478,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.3822762000017974,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.925362199999654,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.561098400001356,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 4.777140900001541,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多"
+        },
+        {
+          "t": 5.328934299999673,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多少"
+        },
+        {
+          "t": 5.615585499999725,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算，一共能报多少？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "算术",
+      "question": "急诊花五千，住院花两万，有社保结算，一共能报多少？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "急诊花5000，住院花2万，有社保结算，一共能报多少？",
+      "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元免赔额，所以这2.5万元里只有超出1万的部分能报，也就是1.5万元按100%赔付，一共能报1.5万元。另外，住院费用里如果想报免赔额以内的2万元，需要另外选购尊享住院医疗费用补偿加油包，这个加油包保额1万元、免赔额0、有社保结算的话按100%赔。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6994570999995631,
+        "answer": 2.9307872999997926,
+        "answer_detail": {
+          "understand": 2.1199997718213126e-05,
+          "generate_ttft": 0.36006239999915124,
+          "generate_1": 2.927950699999201,
+          "total": 2.9307872999997926,
+          "streamed_sentences": 2
+        },
+        "total": 3.6319412000011653
+      },
+      "asr_endpoint_s": 0.7167268000009059,
+      "first_response_s": 0.7167268000009059,
+      "first_substantive_audio_s": 3.361556799998361,
+      "text_ready_s": 4.359234499999438,
+      "all_audio_ready_s": 9.470476499998476,
+      "simulated_playback_end_s": 28.487723466665024,
+      "sentences": [
+        {
+          "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元免赔额，所以这2.5万元里只有超出1万的部分能报，也就是1.5万元按100%赔付，一共能报1.5万元。",
+          "emit_s": 7.944009899998491,
+          "first_s": 8.181556799998361,
+          "done_s": 11.450477799997316,
+          "duration_s": 12.42975
+        },
+        {
+          "text": "另外，住院费用里如果想报免赔额以内的2万元，需要另外选购尊享住院医疗费用补偿加油包，这个加油包保额1万元、免赔额0、有社保结算的话按100%赔。",
+          "emit_s": 9.115420300000551,
+          "first_s": 11.640948699998262,
+          "done_s": 14.290476499998476,
+          "duration_s": 12.696416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6357607999998436,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.706286500000715,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1292613000005076,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.748157900001388,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.415844500003004,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.946580300002097,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.5872554000015953,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 4.809402000002592,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多"
+        },
+        {
+          "t": 5.346523100000923,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多少"
+        },
+        {
+          "t": 5.536726800000906,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算，一共能报多少？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "算术",
+      "question": "急诊花五千，住院花两万，有社保结算，一共能报多少？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "急诊花5000，住院花2万，有社保结算，一共能报多少？",
+      "text": "急诊5000元和住院2万元，有社保结算，都属于基础版保障范围；但要先扣掉1万元年免赔额，之后剩余部分按100%报销，一共最多能报1.5万元。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 3,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6778310999980022,
+        "answer": 1.4350000000013097,
+        "answer_detail": {
+          "understand": 1.920000067912042e-05,
+          "generate_ttft": 0.22948949999772594,
+          "generate_1": 1.4297474000013608,
+          "total": 1.4350000000013097
+        },
+        "total": 2.11354399999982
+      },
+      "asr_endpoint_s": 0.6584667999992959,
+      "first_response_s": 0.6584667999992959,
+      "first_substantive_audio_s": 3.00899929999985,
+      "text_ready_s": 2.773402499998774,
+      "all_audio_ready_s": 5.776220299998094,
+      "simulated_playback_end_s": 15.705415966666514,
+      "sentences": [
+        {
+          "text": "急诊5000元和住院2万元，有社保结算，都属于基础版保障范围；但要先扣掉1万元年免赔额，之后剩余部分按100%报销，一共最多能报1.5万元。",
+          "emit_s": 7.593360899998515,
+          "first_s": 7.82899929999985,
+          "done_s": 10.596220299998095,
+          "duration_s": 12.696416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.5840659999994386,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.6284449999984645,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.0828417999982776,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.6956444999996165,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.361114600000292,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.9068789000011748,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.5451963000014075,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 4.761837599999126,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多"
+        },
+        {
+          "t": 5.322325100001763,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多少"
+        },
+        {
+          "t": 5.478466799999296,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算，一共能报多少？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "算术",
+      "question": "急诊花五千，住院花两万，有社保结算，一共能报多少？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "急诊花5000，住院花2万，有社保结算，一共能报多少？",
+      "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元年免赔额，所以这2.5万元里只有超过1万的部分能报，也就是1.5万元按100%赔付，一共能报1.5万元。另外，住院费用想0免赔、全额报，得另外选购尊享住院医疗费用补偿加油包，最高再报1万元。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 3,
+        "invalidations": 3,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.6634396999979799,
+        "answer": 2.4757848999979615,
+        "answer_detail": {
+          "understand": 2.559999848017469e-05,
+          "generate_ttft": 0.3745310000012978,
+          "generate_1": 2.4702268000000913,
+          "total": 2.4757848999979615,
+          "streamed_sentences": 2
+        },
+        "total": 3.140847599999688
+      },
+      "asr_endpoint_s": 0.6926067000019245,
+      "first_response_s": 0.6926067000019245,
+      "first_substantive_audio_s": 3.3430029000007195,
+      "text_ready_s": 3.8495303999986206,
+      "all_audio_ready_s": 8.177057000000495,
+      "simulated_playback_end_s": 23.802502900000718,
+      "sentences": [
+        {
+          "text": "急诊5000元和住院2万元，有社保结算，但基础版要先扣1万元年免赔额，所以这2.5万元里只有超过1万的部分能报，也就是1.5万元按100%赔付，一共能报1.5万元。",
+          "emit_s": 7.920675900000788,
+          "first_s": 8.16300290000072,
+          "done_s": 11.014137999998638,
+          "duration_s": 12.963083333333334
+        },
+        {
+          "text": "另外，住院费用想0免赔、全额报，得另外选购尊享住院医疗费用补偿加油包，最高再报1万元。",
+          "emit_s": 8.559017999999924,
+          "first_s": 11.232530400000542,
+          "done_s": 12.997057000000495,
+          "duration_s": 7.496416666666667
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6412068999998155,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.6930451000007452,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1139700999992783,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.7523140000012063,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.4140294999997423,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.9452271000009205,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.591133900001296,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 4.806405300001643,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多"
+        },
+        {
+          "t": 5.339200599999458,
+          "slice_type": 1,
+          "text": "急诊花5000，住院花2万，有社保结算一共能报多少"
+        },
+        {
+          "t": 5.512606700001925,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算，一共能报多少？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "概览",
+      "question": "这个保险主要保些什么？",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "这个保险主要保些什么啊？",
+      "text": "这个保险主要保住院、手术、特殊门诊这些大额医疗费用，还有重大疾病、恶性肿瘤先进疗法，以及特定疾病的康复住院费用。基础版里，一般医疗和门急诊共享1万元免赔额、300万保额，重大疾病医疗0免赔、300万保额，恶性肿瘤先进疗法0免赔、600万保额，特定疾病康复住院0免赔、100万保额。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.4758240999981354,
+        "answer": 2.535444600001938,
+        "answer_detail": {
+          "understand": 7.200000254670158e-06,
+          "generate_ttft": 0.3194511000001512,
+          "generate_1": 2.528040500001225,
+          "total": 2.535444600001938
+        },
+        "total": 4.0124610999992
+      },
+      "asr_endpoint_s": 0.663720799999137,
+      "first_response_s": 0.663720799999137,
+      "first_substantive_audio_s": 4.9127782000030855,
+      "text_ready_s": 4.6776819000004615,
+      "all_audio_ready_s": 11.514944600003073,
+      "simulated_playback_end_s": 29.83894486666975,
+      "sentences": [
+        {
+          "text": "这个保险主要保住院、手术、特殊门诊这些大额医疗费用，还有重大疾病、恶性肿瘤先进疗法，以及特定疾病的康复住院费用。",
+          "emit_s": 6.337620800000877,
+          "first_s": 6.572778200003086,
+          "done_s": 9.149011000004975,
+          "duration_s": 9.696416666666666
+        },
+        {
+          "text": "基础版里，一般医疗和门急诊共享1万元免赔额、300万保额，重大疾病医疗0免赔、300万保额，恶性肿瘤先进疗法0免赔、600万保额，特定疾病康复住院0免赔、100万保额。",
+          "emit_s": 6.337644600000203,
+          "first_s": 9.3850044000028,
+          "done_s": 13.174944600003073,
+          "duration_s": 15.22975
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6405166000004101,
+          "slice_type": 0,
+          "text": "这个保"
+        },
+        {
+          "t": 0.6874802000020281,
+          "slice_type": 1,
+          "text": "这个保"
+        },
+        {
+          "t": 1.1332758999997168,
+          "slice_type": 1,
+          "text": "这个保险主"
+        },
+        {
+          "t": 1.8420479000014893,
+          "slice_type": 1,
+          "text": "这个保险主要保些什么"
+        },
+        {
+          "t": 2.323720799999137,
+          "slice_type": 2,
+          "text": "这个保险主要保些什么啊？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "概览",
+      "question": "这个保险主要保些什么？",
+      "arm": "stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "这个保险主要保些什么啊？",
+      "text": "主要保这几块：一是住院、手术、特殊门诊这些一般医疗费用，社保报销后扣除1万元免赔额，剩下的按100%赔，最高300万；二是得了合同里100种重疾，相关医疗费直接0免赔、100%赔，也是最高300万；三是恶性肿瘤能用质子重离子、硼中子俘获、光免疫这些先进疗法，0免赔、100%赔，最高600万；四是16种特定疾病康复住院费用，0免赔，但在指定康复机构按80%赔、公立医院按60%赔，最高100万。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 0,
+        "invalidations": 0,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.0564190999975835,
+        "answer": 4.06899109999722,
+        "answer_detail": {
+          "understand": 1.559999873279594e-05,
+          "generate_ttft": 0.7668737999993027,
+          "generate_1": 4.060559800000192,
+          "total": 4.06899109999722,
+          "streamed_sentences": 4
+        },
+        "total": 5.132521199997427
+      },
+      "asr_endpoint_s": 0.6320525000008639,
+      "first_response_s": 0.6320525000008639,
+      "first_substantive_audio_s": 3.7061411000030056,
+      "text_ready_s": 5.767087300002313,
+      "all_audio_ready_s": 11.169994099996838,
+      "simulated_playback_end_s": 36.224891100003006,
+      "sentences": [
+        {
+          "text": "主要保这几块：一是住院、手术、特殊门诊这些一般医疗费用，社保报销后扣除1万元免赔额，剩下的按100%赔，最高300万；",
+          "emit_s": 5.0215196999997715,
+          "first_s": 5.366141100003006,
+          "done_s": 7.255024100002629,
+          "duration_s": 9.163083333333333
+        },
+        {
+          "text": "二是得了合同里100种重疾，相关医疗费直接0免赔、100%赔，也是最高300万；",
+          "emit_s": 5.783274600002187,
+          "first_s": 7.438307700002042,
+          "done_s": 8.856925000003685,
+          "duration_s": 6.8295
+        },
+        {
+          "text": "三是恶性肿瘤能用质子重离子、硼中子俘获、光免疫这些先进疗法，0免赔、100%赔，最高600万；",
+          "emit_s": 6.5325512000017625,
+          "first_s": 9.091135000002396,
+          "done_s": 10.815401900003053,
+          "duration_s": 7.82975
+        },
+        {
+          "text": "四是16种特定疾病康复住院费用，0免赔，但在指定康复机构按80%赔、公立医院按60%赔，最高100万。",
+          "emit_s": 7.386199600001419,
+          "first_s": 11.048607699998684,
+          "done_s": 12.829994099996838,
+          "duration_s": 8.696416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6048690999996325,
+          "slice_type": 0,
+          "text": "这个保"
+        },
+        {
+          "t": 0.6687993000014103,
+          "slice_type": 1,
+          "text": "这个保"
+        },
+        {
+          "t": 1.1034263000001374,
+          "slice_type": 1,
+          "text": "这个保险主"
+        },
+        {
+          "t": 1.816761400001269,
+          "slice_type": 1,
+          "text": "这个保险主要保些什么"
+        },
+        {
+          "t": 2.292052500000864,
+          "slice_type": 2,
+          "text": "这个保险主要保些什么啊？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "概览",
+      "question": "这个保险主要保些什么？",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "这个保险主要保些什么啊？",
+      "text": "这个保险主要保住院、特殊门诊、门诊手术、住院前后30天的门急诊，还有100种重大疾病和恶性肿瘤先进疗法这些医疗费用；基础版里一般医疗和门急诊共享1万元免赔额、300万保额，重疾医疗0免赔、300万保额，恶性肿瘤质子重离子等先进疗法0免赔、600万保额。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 1,
+        "invalidations": 1,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 1.0798988999995345,
+        "answer": 7.085784700000659,
+        "answer_detail": {
+          "understand": 6.60000296193175e-06,
+          "generate_ttft": 0.6679635000000417,
+          "generate_1": 4.634254199998395,
+          "generate_2": 2.4391973999991023,
+          "total": 7.085784700000659
+        },
+        "total": 8.167561399997794
+      },
+      "asr_endpoint_s": 0.6660047000003397,
+      "first_response_s": 0.6660047000003397,
+      "first_substantive_audio_s": 9.112793000000092,
+      "text_ready_s": 8.835753299997887,
+      "all_audio_ready_s": 15.1420351999985,
+      "simulated_playback_end_s": 31.075876333333422,
+      "sentences": [
+        {
+          "text": "这个保险主要保住院、特殊门诊、门诊手术、住院前后30天的门急诊，还有100种重大疾病和恶性肿瘤先进疗法这些医疗费用；基础版里一般医疗和门急诊共享1万元免赔额、300万保额，重疾医疗0免赔、300万保额，恶性肿瘤质子重离子等先进疗法0免赔、600万保额。",
+          "emit_s": 10.495692100001179,
+          "first_s": 10.772793000000092,
+          "done_s": 16.8020351999985,
+          "duration_s": 21.963083333333334
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6238333000001148,
+          "slice_type": 0,
+          "text": "这个保"
+        },
+        {
+          "t": 0.6773275999985344,
+          "slice_type": 1,
+          "text": "这个保"
+        },
+        {
+          "t": 1.1187714999978198,
+          "slice_type": 1,
+          "text": "这个保险主"
+        },
+        {
+          "t": 1.824697299998661,
+          "slice_type": 1,
+          "text": "这个保险主要保些什么"
+        },
+        {
+          "t": 2.3260047000003397,
+          "slice_type": 2,
+          "text": "这个保险主要保些什么啊？"
+        }
+      ],
+      "semantic_shadow": []
+    },
+    {
+      "case": "概览",
+      "question": "这个保险主要保些什么？",
+      "arm": "prepare_stream",
+      "vad_ms": 700,
+      "prepare_policy": "pause",
+      "asr_text": "这个保险主要保些什么啊？",
+      "text": "主要保这几块：一是住院、特殊门诊、门诊手术，还有住院前后30天的门急诊和外购药，这些加起来最高赔300万，但要先扣1万元免赔额；二是确诊合同里100种重疾后的医疗费用，也是最高300万，不设免赔额；三是恶性肿瘤的质子重离子、硼中子俘获、光免疫这些先进疗法，最高赔600万，床位费每天最多报1500元；四是16种特定疾病康复住院费用，最高赔100万，但在指定康复医院报80%，公立医院和指定民营医院报60%。",
+      "events": [
+        "回答:保障"
+      ],
+      "preparation": {
+        "preparations": 1,
+        "invalidations": 1,
+        "reused": false,
+        "failed_preparations": 0
+      },
+      "timings": {
+        "understand": 0.9181837000032829,
+        "answer": 3.9836801000019477,
+        "answer_detail": {
+          "understand": 2.0700001186924055e-05,
+          "generate_ttft": 0.6563397999998415,
+          "generate_1": 3.9749718999992183,
+          "total": 3.9836801000019477,
+          "streamed_sentences": 4
+        },
+        "total": 4.923032900001999
+      },
+      "asr_endpoint_s": 0.6425999999990746,
+      "first_response_s": 0.6425999999990746,
+      "first_substantive_audio_s": 3.485324299999629,
+      "text_ready_s": 5.581505900001357,
+      "all_audio_ready_s": 11.93027700000297,
+      "simulated_playback_end_s": 37.33765763333297,
+      "sentences": [
+        {
+          "text": "主要保这几块：一是住院、特殊门诊、门诊手术，还有住院前后30天的门急诊和外购药，这些加起来最高赔300万，但要先扣1万元免赔额；",
+          "emit_s": 4.895928900001309,
+          "first_s": 5.145324299999629,
+          "done_s": 7.425336399999651,
+          "duration_s": 10.363083333333334
+        },
+        {
+          "text": "二是确诊合同里100种重疾后的医疗费用，也是最高300万，不设免赔额；",
+          "emit_s": 5.747624800002086,
+          "first_s": 7.6833800000022165,
+          "done_s": 8.783579999999347,
+          "duration_s": 5.363083333333333
+        },
+        {
+          "text": "三是恶性肿瘤的质子重离子、硼中子俘获、光免疫这些先进疗法，最高赔600万，床位费每天最多报1500元；",
+          "emit_s": 6.496318400000746,
+          "first_s": 9.050118299997848,
+          "done_s": 11.148488999999245,
+          "duration_s": 9.02975
+        },
+        {
+          "text": "四是16种特定疾病康复住院费用，最高赔100万，但在指定康复医院报80%，公立医院和指定民营医院报60%。",
+          "emit_s": 7.124286800000846,
+          "first_s": 11.399177100000088,
+          "done_s": 13.59027700000297,
+          "duration_s": 9.096416666666666
+        }
+      ],
+      "asr_events": [
+        {
+          "t": 0.6000347000008333,
+          "slice_type": 0,
+          "text": "这个保"
+        },
+        {
+          "t": 0.6757054000008793,
+          "slice_type": 1,
+          "text": "这个保"
+        },
+        {
+          "t": 1.1038057999976445,
+          "slice_type": 1,
+          "text": "这个保险主"
+        },
+        {
+          "t": 1.8104953000001842,
+          "slice_type": 1,
+          "text": "这个保险主要保些什么"
+        },
+        {
+          "t": 2.3025999999990745,
+          "slice_type": 2,
+          "text": "这个保险主要保些什么啊？"
+        }
+      ],
+      "semantic_shadow": []
+    }
+  ]
+}

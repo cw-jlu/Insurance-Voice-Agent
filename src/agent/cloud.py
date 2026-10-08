@@ -23,9 +23,17 @@ from dotenv import load_dotenv
 
 ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(ROOT / ".env")
+load_dotenv(ROOT / ".env.deepseek")
 
 FAST_MODEL = os.getenv("FAST_MODEL", "qwen-flash")
-SLOW_MODEL = os.getenv("SLOW_MODEL", "qwen-plus")
+ANSWER_PROVIDER = os.getenv("ANSWER_PROVIDER", "deepseek").lower()
+if ANSWER_PROVIDER not in ('qwen', 'deepseek'):
+    raise ValueError('ANSWER_PROVIDER must be qwen or deepseek')
+QWEN_ANSWER_MODEL = os.getenv('QWEN_ANSWER_MODEL', 'qwen-plus')
+_legacy_slow = os.getenv('SLOW_MODEL', '')
+SLOW_MODEL = os.getenv('ANSWER_MODEL') or (
+    (_legacy_slow if _legacy_slow.startswith('deepseek-') else 'deepseek-flash')
+    if ANSWER_PROVIDER == 'deepseek' else (_legacy_slow or QWEN_ANSWER_MODEL))
 EMBED_MODEL = os.getenv("EMBED_MODEL", "qwen3.7-text-embedding")
 TTS_MODEL = os.getenv("TTS_MODEL", "qwen3-tts-flash-realtime")
 TTS_VOICE = os.getenv("TTS_VOICE", "Cherry")
@@ -33,10 +41,18 @@ TTS_VOICE = os.getenv("TTS_VOICE", "Cherry")
 
 # --- LLM -------------------------------------------------------------------------------------------
 
-def llm_client():
+def qwen_client():
     from openai import OpenAI
 
     return OpenAI(api_key=os.environ["DASHSCOPE_API_KEY"], base_url=os.environ["DASHSCOPE_BASE_URL"], timeout=30)
+
+
+def llm_client():
+    client = qwen_client()
+    if ANSWER_PROVIDER == 'deepseek':
+        from agent.model_router import AnswerModelRouter
+        return AnswerModelRouter(client, SLOW_MODEL)
+    return client
 
 
 @dataclass
@@ -292,7 +308,7 @@ class AsrEvent:
 
 
 async def tencent_asr_stream(pcm16k: bytes, vad_silence_ms: int = 500, chunk_ms: int = 40,
-                             trailing_silence_ms: int = 1500) -> tuple[list[AsrEvent], float]:
+                             trailing_silence_ms: int = 1500, on_event=None, on_audio=None) -> tuple[list[AsrEvent], float]:
     """Stream PCM at real-time pace; returns (events, audio_duration_s). Trailing silence is appended
     so the server's VAD can close the sentence, as it would in a live call."""
     import asyncio
@@ -312,7 +328,10 @@ async def tencent_asr_stream(pcm16k: bytes, vad_silence_ms: int = 500, chunk_ms:
 
         async def sender():
             for i in range(0, len(audio), step):
-                await ws.send(audio[i : i + step])
+                frame = audio[i : i + step]
+                if on_audio is not None:
+                    on_audio(frame, (i + len(frame)) / 2 / 16000)
+                await ws.send(frame)
                 target = t0 + (i + step) / 2 / 16000
                 await asyncio.sleep(max(0.0, target - time.perf_counter()))
             await ws.send(json.dumps({"type": "end"}))
@@ -326,7 +345,10 @@ async def tencent_asr_stream(pcm16k: bytes, vad_silence_ms: int = 500, chunk_ms:
                     return
                 res = d.get("result") or {}
                 if res:
-                    events.append(AsrEvent(time.perf_counter() - t0, res.get("slice_type", -1), res.get("voice_text_str", "")))
+                    event = AsrEvent(time.perf_counter() - t0, res.get("slice_type", -1), res.get("voice_text_str", ""))
+                    events.append(event)
+                    if on_event is not None:
+                        on_event(event)  # must be nonblocking: preparation runs in a worker
 
         await asyncio.gather(sender(), receiver())
     return events, speech_s

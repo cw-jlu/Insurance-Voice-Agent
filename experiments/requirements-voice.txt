@@ -1,0 +1,7 @@
+-r ../requirements.txt
+openai
+dashscope
+python-dotenv
+numpy
+scipy
+websockets

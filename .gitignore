@@ -3,5 +3,6 @@
 __pycache__/
 .venv/
 .env
+.env.deepseek
 experiments/cache/
 experiments/recordings/

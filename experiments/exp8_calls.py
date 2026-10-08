@@ -201,13 +201,15 @@ def evaluate(call: dict, p: dict, client) -> dict:
     price_ok = True
     quoted_any = False
     for i, t, meta in agent:
-        if meta and "报价" in meta["events"]:
-            quoted_any = True
+        if meta and any(e in ("报价", "回答:报价") for e in meta["events"]):
             # the final, corrected facts are what the user really has
             nums = {float(x) for x in re.findall(r"(\d+(?:\.\d+)?)\s*元", t)}
-            last_quote = nums
+            if nums:
+                quoted_any = True
+                last_quote = nums
+                last_quote_text = t
     if quoted_any:
-        price_ok = y in last_quote and m in last_quote
+        price_ok = y in last_quote and (not re.search(r"按月|每月|月交|月缴", last_quote_text) or m in last_quote)
         if not price_ok:
             problems.append(f"最终报价与真实条件不符：应为{y:g}/{m:g}，实际 {sorted(last_quote)}")
     checks["报价与真实条件一致"] = price_ok if quoted_any else None

@@ -1,0 +1,28 @@
+{
+  "voice_rules": "\n8. 这是电话通话：把回答组织成用户能在约10秒内听懂的一两句，先给结论，再给不可省略的条件或例外。用户问了几件事就逐一回答，但每件只说最关键的一句，不要为了短而漏答。问‘都保什么’等概览，只说主要责任类别和一项关键限制，不逐项朗读保额、比例、医院或床位费；问某个加油包，不顺带介绍其他产品；问计算结果，不朗读推导过程。不要重复已说过的事实或附加无关的销售提醒，细则留待用户追问。不要使用‘首先、其次、最后’。",
+  "playback": "simulated",
+  "answer_provider": "deepseek",
+  "answer_model": "deepseek-flash",
+  "fast_model": "qwen-flash",
+  "quality": "requires human review; no accuracy claim",
+  "rows": [
+    {
+      "case": "报价",
+      "arm": "baseline",
+      "vad_ms": 700,
+      "error": "AttributeError"
+    },
+    {
+      "case": "报价",
+      "arm": "stream",
+      "vad_ms": 700,
+      "error": "AttributeError"
+    },
+    {
+      "case": "报价",
+      "arm": "prepare",
+      "vad_ms": 700,
+      "error": "AttributeError"
+    }
+  ]
+}

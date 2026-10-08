@@ -1,0 +1,80 @@
+{
+  "voice_rules": "\n8. 这是电话通话：把回答组织成用户能在约10秒内听懂的一两句，先给结论，再给不可省略的条件或例外。用户问了几件事就逐一回答，但每件只说最关键的一句，不要为了短而漏答。问‘都保什么’等概览，只说主要责任类别和一项关键限制，不逐项朗读保额、比例、医院或床位费；问某个加油包，不顺带介绍其他产品；问计算结果，不朗读推导过程。不要重复已说过的事实或附加无关的销售提醒，细则留待用户追问。不要使用‘首先、其次、最后’。",
+  "playback": "simulated",
+  "answer_provider": "qwen",
+  "answer_model": "qwen-plus",
+  "fast_model": "qwen-flash",
+  "quality": "requires human review; no accuracy claim",
+  "rows": [
+    {
+      "case": "算术",
+      "arm": "baseline",
+      "vad_ms": 500,
+      "error": "RuntimeError",
+      "error_reason": "ASR split one intended turn into multiple final sentences",
+      "asr_events": [
+        {
+          "t": 0.6585014000011142,
+          "slice_type": 0,
+          "text": "急诊"
+        },
+        {
+          "t": 0.7205654999997932,
+          "slice_type": 1,
+          "text": "急诊"
+        },
+        {
+          "t": 1.1332647999988694,
+          "slice_type": 1,
+          "text": "急诊花五千"
+        },
+        {
+          "t": 1.7728959999985818,
+          "slice_type": 1,
+          "text": "急诊花五千住院"
+        },
+        {
+          "t": 2.41472960000101,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万"
+        },
+        {
+          "t": 2.9691493999998784,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保"
+        },
+        {
+          "t": 3.607225899999321,
+          "slice_type": 1,
+          "text": "急诊花五千住院花两万有社保结算"
+        },
+        {
+          "t": 3.874500400001125,
+          "slice_type": 2,
+          "text": "急诊花5000，住院花2万，有社保结算。"
+        },
+        {
+          "t": 4.510936099999526,
+          "slice_type": 0,
+          "text": "一共"
+        },
+        {
+          "t": 4.558667299999797,
+          "slice_type": 1,
+          "text": "一共"
+        },
+        {
+          "t": 4.9025475999987975,
+          "slice_type": 1,
+          "text": "一共能报多少"
+        },
+        {
+          "t": 5.30203149999943,
+          "slice_type": 2,
+          "text": "一共能报多少？"
+        }
+      ],
+      "final_count": 2
+    }
+  ]
+}

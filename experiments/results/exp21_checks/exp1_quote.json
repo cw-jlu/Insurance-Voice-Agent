@@ -1,0 +1,110 @@
+{
+  "combo_orders": 20000,
+  "combo_mismatches": 0,
+  "combo_examples": [],
+  "cases": 6784,
+  "price_mismatches": 0,
+  "ineligible_correctly_rejected": 2360,
+  "ineligible_wrongly_quoted": 0,
+  "accuracy": 1.0,
+  "mismatch_examples": [],
+  "spot_checks": {
+    "30岁有社保年缴": {
+      "got": 318.0,
+      "expected": 318.0
+    },
+    "30岁无社保年缴": {
+      "got": 679.0,
+      "expected": 679.0
+    },
+    "30岁有社保月缴": {
+      "got": 31.0,
+      "expected": 31.0
+    },
+    "30岁无社保月缴": {
+      "got": 67.0,
+      "expected": 67.0
+    },
+    "31岁有社保年缴": {
+      "got": 423.0,
+      "expected": 423.0
+    },
+    "70岁可投保": {
+      "got": true,
+      "expected": true
+    },
+    "71岁不可首次投保": {
+      "got": false,
+      "expected": false
+    },
+    "出生20天不可投保": {
+      "got": false,
+      "expected": false
+    },
+    "55岁可选门急诊加油包": {
+      "got": true,
+      "expected": true
+    },
+    "56岁不可选门急诊加油包": {
+      "got": false,
+      "expected": false
+    },
+    "重疾关爱缺性别需追问": {
+      "got": [
+        "被保人1性别"
+      ],
+      "expected": [
+        "被保人1性别"
+      ]
+    }
+  },
+  "spot_failures": [],
+  "family_discount": {
+    "1": {
+      "rate": 0.0,
+      "total": 318.0,
+      "expected": 318.0,
+      "pending": false
+    },
+    "2": {
+      "rate": 0.05,
+      "total": 604.2,
+      "expected": 604.2,
+      "pending": true
+    },
+    "3": {
+      "rate": 0.1,
+      "total": 858.6,
+      "expected": 858.6,
+      "pending": true
+    },
+    "4": {
+      "rate": 0.15,
+      "total": 1081.2,
+      "expected": 1081.2,
+      "pending": true
+    },
+    "5": {
+      "rate": 0.2,
+      "total": 1272.0,
+      "expected": 1272.0,
+      "pending": true
+    },
+    "6": {
+      "rate": 0.2,
+      "total": 1526.4,
+      "expected": 1526.4,
+      "pending": true
+    }
+  },
+  "family_failures": [],
+  "monthly_x12_more_than_annual": "30/30",
+  "renewal_only_prices": {
+    "必选计划_年龄段>70": 7,
+    "门急诊加油包_56-70岁有价格但首次投保不可选": [
+      "1019.0",
+      "1508.0",
+      "-"
+    ]
+  }
+}
