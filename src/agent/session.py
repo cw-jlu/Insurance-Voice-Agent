@@ -263,7 +263,8 @@ class CallSession:
                 self.risk["fallbacks"] += 1
             if a.route == "报价":
                 self.flags["quoted"] = True
-            if "免赔" in answer_text and "等待期" in answer_text:
+            if ("免赔" in answer_text and "等待期" in answer_text
+                    and ("既往" in answer_text or "投保前" in answer_text)):
                 self.flags["limits"] = True
             timings["answer"] = a.timings.get("total")
             events.append(f"回答:{a.route}" + (f"(Agent {a.timings.get('agent_steps', 0)}步)" if steps else ""))
@@ -282,7 +283,11 @@ class CallSession:
         if answer_text.endswith(FOLLOW_UP):  # the flow's own next question replaces the generic follow-up
             answer_text, asked = answer_text[: -len(FOLLOW_UP)], False
         hesitant = act in ("异议", "附和", "提问") and HESITATE.search(user_text)
-        step, ev = ("", []) if hesitant else self._advance(already_asked=asked)
+        # Answer the user's question first. The generic limits reminder can wait until a later
+        # turn; explicit consent still goes through the pre-link gate above, which fills it in.
+        defer_limits = (bool(answer_text) and self.flags["quoted"] and not self.flags["limits"]
+                        and not self._next_missing())
+        step, ev = ("", []) if hesitant or defer_limits else self._advance(already_asked=asked)
         if step == ASK_LINK and self._last_agent_asked_link():
             step = ""  # don't repeat the same offer turn after turn
         if hesitant and not self._last_agent_asked_link() and self.flags["quoted"]:

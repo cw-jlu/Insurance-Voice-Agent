@@ -46,7 +46,7 @@ UTTERANCES = [
     ("加油包", "门急诊加油包多大年纪能买？", {}),
 ]
 OPENER = "好的，我帮您看一下。"
-SPEECH_RATE = 1.15
+SPEECH_RATE = 1.20
 
 
 def speech_end_s(pcm16k: bytes, frame_ms: int = 20, thresh_db: float = -40.0) -> float:

@@ -108,14 +108,14 @@ def run_turn(name, text, known, pipe, user_tts, pool, opener_pcm, rec_path):
     }
 
 
-def main(rounds: int = 2):
+def main(rounds: int = 2, presynth_fixed: bool = True):
     client = cloud.llm_client()
     chunks = corpus(False)
     pipe = Pipeline(HybridRetriever(chunks, load(chunks, "clauses"), client=client), client=client)
     user_tts = cloud.RealtimeTTS(voice="Ethan")
     pool = cloud.TTSPool(3, voice="Cherry", speech_rate=SPEECH_RATE)
     t0 = time.perf_counter()
-    pool.presynth(fixed_phrases() + [OPENER])
+    pool.presynth(fixed_phrases() + [OPENER] if presynth_fixed else [OPENER])
     presynth_s = time.perf_counter() - t0
     opener_pcm = pool.cache[OPENER]
     turns = []
@@ -148,6 +148,7 @@ def main(rounds: int = 2):
     keys = ("first_response_s", "answer_text_ready_s", "first_substantive_audio_s", "answer_audio_all_ready_s", "answer_playback_end_s")
     res = {
         "version": "第八轮（四路并行理解+原话检索、模板答案、事实核对关闭、TTS 3 连接并行+固定句预合成）",
+        "presynth_fixed": presynth_fixed,
         "presynth_s": round(presynth_s, 1), "presynth_sentences": len(pool.cache),
         "turns_ok": len(ok), "errors": [t for t in turns if "error" in t],
         "all": {k: stat(k) for k in keys},

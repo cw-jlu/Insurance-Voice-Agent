@@ -1,0 +1,5226 @@
+{
+  "summary": {
+    "direct": {
+      "complete_fp": 67,
+      "complete_n": 153,
+      "missing_hit": 152,
+      "missing_n": 153,
+      "distractor_hit": 142,
+      "distractor_n": 153
+    },
+    "latency": {
+      "p50": 0.318,
+      "p90": 0.516,
+      "max": 2.011
+    },
+    "n_questions": 153,
+    "errors": 2
+  },
+  "rows": [
+    {
+      "id": "qa_v2:V001",
+      "question": "一般住院能报多少",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.616,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R14"
+        ],
+        "latency": 0.617,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R14"
+        ],
+        "latency": 0.653,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V002",
+      "question": "住院自己先要出多少钱",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.619,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.674,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.952,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V003",
+      "question": "普通生病住院怎么报",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v2",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R12"
+        ],
+        "latency": 0.676,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14"
+        ],
+        "latency": 0.76,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R14"
+        ],
+        "latency": 0.339,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V004",
+      "question": "门诊看病能报吗",
+      "gold": [
+        "R02"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.332,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.334,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.358,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V005",
+      "question": "急诊费用报不报",
+      "gold": [
+        "R02"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.279,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.337,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.275,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V006",
+      "question": "得了重病住院有免赔额吗",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v2",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.341,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.353,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.58,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V007",
+      "question": "重疾医疗能报多少",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03"
+        ],
+        "latency": 0.285,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R10",
+          "R11"
+        ],
+        "latency": 0.414,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V008",
+      "question": "癌症住院花的钱怎么报",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R05",
+          "R06",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.401,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.456,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.351,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V009",
+      "question": "中风后去康复医院住院能报吗",
+      "gold": [
+        "R04"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.29,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.396,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.396,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V010",
+      "question": "大病以后的康复治疗管不管",
+      "gold": [
+        "R04"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.196,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.254,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.302,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V011",
+      "question": "质子重离子治疗能报吗",
+      "gold": [
+        "R05"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.282,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.342,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.336,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V012",
+      "question": "癌症去日本做硼中子治疗能报吗",
+      "gold": [
+        "R05"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.353,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R11"
+        ],
+        "latency": 0.383,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.37,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V013",
+      "question": "癌症的靶向药能报吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.225,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.27,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.365,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V014",
+      "question": "罕见病的药能报吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.265,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.342,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R06"
+        ],
+        "latency": 0.461,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V015",
+      "question": "癌症用药前的基因检测能报多少",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v2",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.203,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.308,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.401,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V016",
+      "question": "得了重病去外地治疗路费能报吗",
+      "gold": [
+        "R07"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.248,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.317,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.314,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V017",
+      "question": "跨省看大病住宿费给不给",
+      "gold": [
+        "R07"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.177,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.318,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.258,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V018",
+      "question": "重疾住院请护工的钱给吗",
+      "gold": [
+        "R08"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.32,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.342,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.362,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V019",
+      "question": "大病住院护工费怎么算",
+      "gold": [
+        "R08"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.269,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.277,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.288,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V020",
+      "question": "家庭共享免赔额加油包是什么",
+      "gold": [
+        "R09"
+      ],
+      "source": "qa_v2",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.227,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.289,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.248,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V021",
+      "question": "一家人能不能共用一个免赔额",
+      "gold": [
+        "R09"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.317,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.326,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.337,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V022",
+      "question": "重疾关爱加油包确诊重疾给多少钱",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.261,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.332,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V023",
+      "question": "确诊大病能不能一次性拿一笔钱",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.205,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R10"
+        ],
+        "latency": 0.344,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.35,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V024",
+      "question": "住特需病房能报吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.296,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.296,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.318,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V025",
+      "question": "VIP病房的费用能报吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.275,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.365,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.365,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V026",
+      "question": "一万以下的住院费有办法报吗",
+      "gold": [
+        "R12"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01"
+        ],
+        "latency": 0.347,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.34,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R14"
+        ],
+        "latency": 0.354,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V027",
+      "question": "住院医疗费用补偿加油包能报多少",
+      "gold": [
+        "R12"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.316,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.358,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.368,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V028",
+      "question": "门急诊加油包每次能报多少",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v2",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.239,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.292,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.305,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V029",
+      "question": "小病看门诊有没有加油包能报",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.345,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.373,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.521,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V030",
+      "question": "住院津贴每天给多少",
+      "gold": [
+        "R14"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.246,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.311,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.307,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V031",
+      "question": "住院有没有每天的补贴",
+      "gold": [
+        "R14"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.323,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.256,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.282,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V032",
+      "question": "住ICU有额外补贴吗",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.259,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.327,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.334,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V033",
+      "question": "进重症监护室每天补多少",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.185,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.253,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.324,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V034",
+      "question": "网上买药能报吗",
+      "gold": [
+        "R16"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.3,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06",
+          "R16"
+        ],
+        "latency": 0.327,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.324,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:V035",
+      "question": "药省保加油包怎么报",
+      "gold": [
+        "R16"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.287,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.296,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.302,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P001",
+      "question": "哎呀，得了癌症住院了，那花的这些钱，到底要怎么报销啊？",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v2",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R06",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.452,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R11"
+        ],
+        "latency": 0.652,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R11"
+        ],
+        "latency": 0.535,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P003",
+      "question": "老兄，你住院的话，自己得先垫多少块钱啊？",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v2",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R05",
+          "R06",
+          "R12"
+        ],
+        "latency": 0.418,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16"
+        ],
+        "latency": 0.569,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.586,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P009",
+      "question": "哎，那门急诊加油包的话，每次最高能报销多少呀？",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.285,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.312,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P014",
+      "question": "那个罕见病的药，能不能报销啊？",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.315,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.338,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.325,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P015",
+      "question": "哎呀，那个急诊的花费能不能报销呀？",
+      "gold": [
+        "R02"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.252,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.243,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.297,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P018",
+      "question": "哎，那住ICU的话，有没有什么额外的补贴呀？",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.241,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.197,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.307,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P019",
+      "question": "进重症监护室的话，每天能补贴多少钱啊？",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v2",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.359,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.339,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v2:P040",
+      "question": "喂，那个重疾关爱加油包，万一确诊了重疾，到底能赔多少啊？",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v2",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.238,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.281,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.327,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N001",
+      "question": "生个病住院，你们这个能赔多少",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v3",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.364,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.432,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.589,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N002",
+      "question": "去医院看急诊开药能报吗",
+      "gold": [
+        "R02"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.235,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.221,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.312,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N003",
+      "question": "要是得了尿毒症这种大病，住院怎么算",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.471,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R08",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.46,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.555,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N004",
+      "question": "脑出血后去康复医院能报多少比例",
+      "gold": [
+        "R04"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.32,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.257,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.326,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N005",
+      "question": "做质子治疗的话一年最多报多少",
+      "gold": [
+        "R05"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.282,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.313,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.453,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N006",
+      "question": "癌症吃的院外特药怎么报",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.211,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.309,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.318,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N007",
+      "question": "去北京看大病，火车票能报吗",
+      "gold": [
+        "R07"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.245,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.262,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.346,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N008",
+      "question": "大病住院找护工，一天给多少",
+      "gold": [
+        "R08"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.217,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.316,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.312,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N009",
+      "question": "全家人的免赔额能合并吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.282,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.325,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N010",
+      "question": "确诊癌症能直接拿到钱吗",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03"
+        ],
+        "latency": 0.335,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R10"
+        ],
+        "latency": 0.356,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.37,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N011",
+      "question": "住国际部的费用你们管吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "qa_v3",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.326,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.398,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.634,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N012",
+      "question": "花了八千住院，免赔额都没到，有办法报吗",
+      "gold": [
+        "R12"
+      ],
+      "source": "qa_v3",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R12"
+        ],
+        "latency": 0.327,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.478,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.516,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N013",
+      "question": "平时感冒看门诊，一次能报多少钱",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v3",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.28,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.296,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N014",
+      "question": "住院一天补贴多少，头几天有吗",
+      "gold": [
+        "R14"
+      ],
+      "source": "qa_v3",
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.291,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.335,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.378,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N015",
+      "question": "进重症监护每天给钱吗",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v3",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.285,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.339,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.603,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v3:N016",
+      "question": "在网上药房买药报多少",
+      "gold": [
+        "R16"
+      ],
+      "source": "qa_v3",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.366,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.609,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16"
+        ],
+        "latency": 0.938,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V001",
+      "question": "住院做个手术花了五万，你们怎么赔",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.438,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R12"
+        ],
+        "latency": 0.401,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.404,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V002",
+      "question": "孩子半夜发烧挂急诊，这个钱能报吗",
+      "gold": [
+        "R02"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01"
+        ],
+        "latency": 0.297,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.197,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R05"
+        ],
+        "latency": 0.371,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V003",
+      "question": "要是得了白血病，治疗费还有免赔额吗",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R07",
+          "R08",
+          "R11"
+        ],
+        "latency": 0.466,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.489,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.523,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V004",
+      "question": "中风以后住院做康复，能报多少",
+      "gold": [
+        "R04"
+      ],
+      "source": "qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.258,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.366,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.355,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V005",
+      "question": "癌症做重离子治疗，你们最多报多少",
+      "gold": [
+        "R05"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.233,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.286,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05"
+        ],
+        "latency": 0.357,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V006",
+      "question": "罕见病要用的特效药能报吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.287,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.324,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.877,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V007",
+      "question": "得了大病要转到外地医院，住宿的钱管吗",
+      "gold": [
+        "R07"
+      ],
+      "source": "qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.283,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.295,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V008",
+      "question": "重病住院请护工，每天能给多少",
+      "gold": [
+        "R08"
+      ],
+      "source": "qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.229,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.258,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.256,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V009",
+      "question": "我们两口子的免赔额能一起算吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.283,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.357,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.632,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V010",
+      "question": "得了重病能一次性给一笔钱吗",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.327,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.31,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.285,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V011",
+      "question": "得了大病想住特需病房，能报吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.267,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.328,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [],
+        "latency": 2.011,
+        "error": "APITimeoutError",
+        "fallback": true
+      }
+    },
+    {
+      "id": "qa_v4:V012",
+      "question": "住院花了五千，没到一万，能报吗",
+      "gold": [
+        "R12"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01"
+        ],
+        "latency": 0.228,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.342,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R14"
+        ],
+        "latency": 0.43,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V013",
+      "question": "门诊加油包每次能报多少",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.228,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.311,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.308,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V014",
+      "question": "住院的话每天有补助吗，前几天算不算",
+      "gold": [
+        "R14"
+      ],
+      "source": "qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.223,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.315,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.247,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V015",
+      "question": "住进ICU每天能补多少钱",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.252,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.241,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.317,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v4:V016",
+      "question": "在网上买药一个月能报多少",
+      "gold": [
+        "R16"
+      ],
+      "source": "qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.273,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06",
+          "R16"
+        ],
+        "latency": 0.376,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R06"
+        ],
+        "latency": 0.44,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W001",
+      "question": "住院的钱一年最多能报多少",
+      "gold": [
+        "R01"
+      ],
+      "source": "qa_v5",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.357,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.465,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W002",
+      "question": "得了尿毒症透析，免赔额要扣多少",
+      "gold": [
+        "R03"
+      ],
+      "source": "qa_v5",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05"
+        ],
+        "latency": 0.332,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R05",
+          "R06"
+        ],
+        "latency": 0.42,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16"
+        ],
+        "latency": 0.753,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W003",
+      "question": "质子治疗一年最高能赔多少钱",
+      "gold": [
+        "R05"
+      ],
+      "source": "qa_v5",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.253,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.316,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.284,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W004",
+      "question": "大病住院护工费一天报多少",
+      "gold": [
+        "R08"
+      ],
+      "source": "qa_v5",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.258,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.305,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.328,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W005",
+      "question": "确诊癌症能拿多少钱的一次性赔款",
+      "gold": [
+        "R10"
+      ],
+      "source": "qa_v5",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R10"
+        ],
+        "latency": 0.284,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.318,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W006",
+      "question": "看门诊的加油包一次最多赔多少",
+      "gold": [
+        "R13"
+      ],
+      "source": "qa_v5",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.212,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.307,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.334,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W007",
+      "question": "普通住院每天的津贴是多少",
+      "gold": [
+        "R14"
+      ],
+      "source": "qa_v5",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.286,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.326,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.317,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W008",
+      "question": "重症监护每天补贴多少钱",
+      "gold": [
+        "R15"
+      ],
+      "source": "qa_v5",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.233,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.273,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.294,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W009",
+      "question": "网上药店买药一年最多报多少",
+      "gold": [
+        "R16"
+      ],
+      "source": "qa_v5",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.307,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R06",
+          "R16"
+        ],
+        "latency": 0.599,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.962,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W010",
+      "question": "转院去外地看大病，路费和住宿一年报多少",
+      "gold": [
+        "R07"
+      ],
+      "source": "qa_v5",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.268,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07",
+          "R08"
+        ],
+        "latency": 0.275,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.347,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W011",
+      "question": "特需部的床位费一天能报多少",
+      "gold": [
+        "R11"
+      ],
+      "source": "qa_v5",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.304,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.333,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.332,
+        "error": null
+      }
+    },
+    {
+      "id": "qa_v5:W012",
+      "question": "脑梗后在康复医院住院，报销比例多少",
+      "gold": [
+        "R04"
+      ],
+      "source": "qa_v5",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.268,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.342,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.302,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W001",
+      "question": "我妈住院动手术花了五万块，能报回来多少",
+      "gold": [
+        "R01"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.593,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12"
+        ],
+        "latency": 0.536,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.699,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W002",
+      "question": "住院前去门诊做的检查，还有出院以后复查的钱，算在里面吗",
+      "gold": [
+        "R01"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.308,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02"
+        ],
+        "latency": 0.272,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R13"
+        ],
+        "latency": 0.459,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W003",
+      "question": "小孩晚上发高烧挂急诊，花几百块钱能报吗",
+      "gold": [
+        "R02"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01"
+        ],
+        "latency": 0.276,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.335,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R13"
+        ],
+        "latency": 0.505,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W004",
+      "question": "门诊和住院加一块，一年最多赔到多少",
+      "gold": [
+        "R02"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.478,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.384,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R11",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16"
+        ],
+        "latency": 0.844,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W005",
+      "question": "要是得的是合同里那种重大疾病，还要先自己扛一万吗",
+      "gold": [
+        "R03"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R07",
+          "R08"
+        ],
+        "latency": 0.297,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.44,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.389,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W006",
+      "question": "大病住院，有医保但当时没走医保结算，报多少",
+      "gold": [
+        "R03"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.547,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12"
+        ],
+        "latency": 0.495,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R12"
+        ],
+        "latency": 0.523,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W007",
+      "question": "得了特定疾病以后住康复医院，确诊多久以内住进去才算",
+      "gold": [
+        "R04"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.301,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.291,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.272,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W008",
+      "question": "康复住院一年最多报多少，没刷医保的话比例是多少",
+      "gold": [
+        "R04"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.319,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.236,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04"
+        ],
+        "latency": 0.297,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W009",
+      "question": "听说去日本做光免疫治疗也能报？",
+      "gold": [
+        "R05"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.315,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.324,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.363,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W010",
+      "question": "做重离子治疗住院，床位费有没有上限",
+      "gold": [
+        "R05"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.387,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.384,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R12"
+        ],
+        "latency": 0.41,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W011",
+      "question": "肿瘤做基因检测，是医生开单我自己去医院做的，这个赔几成",
+      "gold": [
+        "R06"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.224,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.304,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.354,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W012",
+      "question": "罕见病的特药是直接去药店买就行吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.204,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.38,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.4,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W013",
+      "question": "陪我妈去外省做大手术，我这个陪着去的路费也能报吗",
+      "gold": [
+        "R07"
+      ],
+      "source": "old_qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.257,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.31,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.322,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W014",
+      "question": "坐飞机去外地转院，能报公务舱吗",
+      "gold": [
+        "R07"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.359,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.346,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.318,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W015",
+      "question": "海南博鳌那边的进口特药也管吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.348,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.317,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.326,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W016",
+      "question": "异地转诊住酒店，一晚上最多给多少",
+      "gold": [
+        "R07"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.28,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.25,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.342,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W017",
+      "question": "护工我自己请的，拿着发票能去报吗",
+      "gold": [
+        "R08"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.295,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.341,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.274,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W018",
+      "question": "大病护工费一年最多给几天",
+      "gold": [
+        "R08"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.272,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.283,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.281,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W019",
+      "question": "家庭共享免赔额，看门诊花的钱也一起累计吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.225,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.303,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.31,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W020",
+      "question": "我和老公放在一个订单里买，免赔额能凑一块吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.307,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.344,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.322,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W021",
+      "question": "重疾关爱那5万是报销的还是确诊就给",
+      "gold": [
+        "R10"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.259,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.296,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.312,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W022",
+      "question": "我只买基础的，得了大病会额外多给5万吗",
+      "gold": [
+        "R10"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03"
+        ],
+        "latency": 0.317,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R10"
+        ],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R10"
+        ],
+        "latency": 0.283,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W023",
+      "question": "特需部住院床位费有上限吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.267,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.273,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11"
+        ],
+        "latency": 0.341,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W024",
+      "question": "只是肺炎，算不上大病，住了医院VIP部能报吗",
+      "gold": [
+        "R11"
+      ],
+      "source": "old_qa_v4",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R12",
+          "R13"
+        ],
+        "latency": 0.268,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R12",
+          "R13"
+        ],
+        "latency": 0.521,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R09",
+          "R10",
+          "R12",
+          "R13",
+          "R14",
+          "R15",
+          "R16"
+        ],
+        "latency": 0.755,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W025",
+      "question": "住院补偿加油包，切甲状腺结节也是百分百报吗",
+      "gold": [
+        "R12"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.26,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.305,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.323,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W026",
+      "question": "腰椎间盘突出住院，补偿那个加油包管不管",
+      "gold": [
+        "R12"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.259,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.295,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.472,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W027",
+      "question": "门急诊加油包一年加起来最多报多少",
+      "gold": [
+        "R13"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.267,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.227,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.31,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W028",
+      "question": "加了门急诊加油包，看病没用医保卡，按几成报",
+      "gold": [
+        "R13"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.276,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.316,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.344,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W029",
+      "question": "住了10天院，住院津贴能拿多少",
+      "gold": [
+        "R14"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.333,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.334,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.3,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W030",
+      "question": "住院津贴一年最多能领多少天",
+      "gold": [
+        "R14"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.223,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.274,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.326,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W031",
+      "question": "在ICU住了4天，津贴给多少",
+      "gold": [
+        "R15"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.299,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.318,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.357,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W032",
+      "question": "药省保6岁孩子能用吗",
+      "gold": [
+        "R16"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.262,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.266,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.27,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W033",
+      "question": "药省保一年最多报多少钱",
+      "gold": [
+        "R16"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.292,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.25,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.282,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W034",
+      "question": "ICU津贴和普通住院津贴能一起拿吗",
+      "gold": [
+        "R15"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R14",
+          "R15"
+        ],
+        "latency": 0.274,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.28,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.404,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W035",
+      "question": "保单生效第三天出车祸住院，能赔吗",
+      "gold": [
+        "R01"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R14"
+        ],
+        "latency": 0.301,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R13"
+        ],
+        "latency": 0.705,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.828,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W036",
+      "question": "药省保买了多久才能用",
+      "gold": [
+        "R16"
+      ],
+      "source": "old_qa_v4",
+      "direct_missing": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.199,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.236,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.294,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W038",
+      "question": "药省保要是摔伤了去网上买药，也要等吗",
+      "gold": [
+        "R16"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02"
+        ],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.279,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.328,
+        "error": null
+      }
+    },
+    {
+      "id": "old_qa_v4:W039",
+      "question": "我是按没社保投保的，住院扣完免赔能报几成",
+      "gold": [
+        "R01"
+      ],
+      "source": "old_qa_v4",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.311,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.71,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R13",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.585,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C01",
+      "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "gold": [
+        "R01",
+        "R02",
+        "R15"
+      ],
+      "source": "complex",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R15"
+        ],
+        "latency": 0.281,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R14"
+        ],
+        "latency": 0.448,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R15"
+        ],
+        "latency": 0.475,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C02",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "gold": [
+        "R03",
+        "R05",
+        "R06"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R07",
+          "R08"
+        ],
+        "latency": 0.349,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R06",
+          "R07",
+          "R08",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.394,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06",
+          "R11",
+          "R14"
+        ],
+        "latency": 0.358,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C03",
+      "question": "住院花了一万五，自己出多少，没走医保会怎样",
+      "gold": [
+        "R01"
+      ],
+      "source": "complex",
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.322,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14",
+          "R15"
+        ],
+        "latency": 0.552,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R05",
+          "R06",
+          "R07",
+          "R08",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.485,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C04",
+      "question": "我有社保，门诊加油包和基础版的门急诊有什么区别",
+      "gold": [
+        "R02",
+        "R13"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.373,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.325,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.332,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C05",
+      "question": "中风以后住院、康复、请护工分别能报吗",
+      "gold": [
+        "R01",
+        "R03",
+        "R04",
+        "R08"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.402,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.388,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.342,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C06",
+      "question": "孩子5岁有社保，能买门急诊加油包和药省保吗，网上买药怎么报",
+      "gold": [
+        "R13",
+        "R16"
+      ],
+      "source": "complex",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.244,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.278,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R16"
+        ],
+        "latency": 0.331,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C07",
+      "question": "得了重病要去外省治疗，路费、住宿和护工费能报吗",
+      "gold": [
+        "R07",
+        "R08"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.306,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.31,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.738,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C08",
+      "question": "一家三口一起买，免赔额能一起算吗，有优惠吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "complex",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.235,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.254,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.362,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C11",
+      "question": "住私立医院的VIP病房能报吗，公立医院的特需部呢",
+      "gold": [
+        "R11"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R13"
+        ],
+        "latency": 0.33,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R11",
+          "R12"
+        ],
+        "latency": 0.302,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R11",
+          "R12"
+        ],
+        "latency": 0.38,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C12",
+      "question": "住院补偿加油包和基础版一起买，一万以内的住院费怎么报，看结节呢",
+      "gold": [
+        "R01",
+        "R12"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R14"
+        ],
+        "latency": 0.298,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R12",
+          "R14"
+        ],
+        "latency": 0.276,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R12"
+        ],
+        "latency": 0.367,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C13",
+      "question": "确诊重疾除了报医药费，还能拿到一笔钱吗，要另外买什么",
+      "gold": [
+        "R03",
+        "R10"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.288,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08",
+          "R10",
+          "R11"
+        ],
+        "latency": 0.375,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R07",
+          "R08",
+          "R10"
+        ],
+        "latency": 0.551,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C14",
+      "question": "住院10天能拿多少津贴，进了3天ICU呢",
+      "gold": [
+        "R14",
+        "R15"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.316,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.343,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.556,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C17",
+      "question": "医保报完以后剩下的部分怎么赔，特药里社保目录内的药呢",
+      "gold": [
+        "R06"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02"
+        ],
+        "latency": 0.329,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R02",
+          "R03",
+          "R06"
+        ],
+        "latency": 0.369,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R06"
+        ],
+        "latency": 0.38,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C19",
+      "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+      "gold": [
+        "R06"
+      ],
+      "source": "complex",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.301,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.418,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.523,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C21",
+      "question": "住院前后看门诊的钱能报吗，出院后拿药呢",
+      "gold": [
+        "R01"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R06"
+        ],
+        "latency": 0.315,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R06"
+        ],
+        "latency": 0.292,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R06"
+        ],
+        "latency": 0.34,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C22",
+      "question": "康复住院救护车能报吗，转院的救护车呢",
+      "gold": [
+        "R02",
+        "R04"
+      ],
+      "source": "complex",
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R07"
+        ],
+        "latency": 0.298,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R04",
+          "R07"
+        ],
+        "latency": 0.357,
+        "error": null
+      },
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R07"
+        ],
+        "latency": 0.535,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C23",
+      "question": "在日本做光免疫治疗能报吗，床位费有限制吗",
+      "gold": [
+        "R05"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.408,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R11"
+        ],
+        "latency": 0.303,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05"
+        ],
+        "latency": 0.323,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C24",
+      "question": "罕见病买药和癌症买药要求一样吗",
+      "gold": [
+        "R06"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.333,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R01",
+          "R03",
+          "R06"
+        ],
+        "latency": 0.444,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [],
+        "latency": 2.009,
+        "error": "APITimeoutError",
+        "fallback": true
+      }
+    },
+    {
+      "id": "complex:C27",
+      "question": "家里4口人，有的有社保有的没有，免赔额共享和家庭优惠都能用吗",
+      "gold": [
+        "R09"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.337,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.23,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.264,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C29",
+      "question": "体检查出肿瘤，住院手术和后续化疗能报吗",
+      "gold": [
+        "R03"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.312,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R05"
+        ],
+        "latency": 0.317,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R06"
+        ],
+        "latency": 0.287,
+        "error": null
+      }
+    },
+    {
+      "id": "complex:C30",
+      "question": "急诊抢救花了五千，后来住院花了两万，一共能报多少",
+      "gold": [
+        "R01",
+        "R02"
+      ],
+      "source": "complex",
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R04",
+          "R12",
+          "R14"
+        ],
+        "latency": 0.287,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R12"
+        ],
+        "latency": 0.335,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R03",
+          "R12"
+        ],
+        "latency": 0.407,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:1",
+      "question": "重症监护室一天给多少钱，最多给几天？",
+      "gold": [
+        "R15"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R01"
+      ],
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.249,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.284,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R15"
+        ],
+        "latency": 0.305,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:2",
+      "question": "白血病治疗费免赔吗，最多报多少？",
+      "gold": [
+        "R03"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R01"
+      ],
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.302,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05"
+        ],
+        "latency": 0.272,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R03",
+          "R05",
+          "R06"
+        ],
+        "latency": 0.351,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:3",
+      "question": "附加的普通门诊保障多大能买，一次最多报多少？",
+      "gold": [
+        "R13"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R02"
+      ],
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R02"
+        ],
+        "latency": 0.322,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R13"
+        ],
+        "latency": 0.374,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R02",
+          "R13"
+        ],
+        "latency": 0.419,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:4",
+      "question": "开刀后请人照顾能补贴吗，一天多少钱？",
+      "gold": [
+        "R08"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R14"
+      ],
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.289,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R08"
+        ],
+        "latency": 0.232,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.298,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:5",
+      "question": "免疫治疗药能报销吗，最多赔多少？",
+      "gold": [
+        "R06"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R03"
+      ],
+      "direct_complete": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.264,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R06"
+        ],
+        "latency": 0.293,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.37,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:6",
+      "question": "家人一起买免赔额合并计算吗，怎么算？",
+      "gold": [
+        "R09"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R01"
+      ],
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.247,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.26,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R09"
+        ],
+        "latency": 0.342,
+        "error": null
+      }
+    },
+    {
+      "id": "paraphrase:7",
+      "question": "做粒子治疗能报吗，最多多少钱？",
+      "gold": [
+        "R05"
+      ],
+      "source": "paraphrase",
+      "distractors": [
+        "R03"
+      ],
+      "direct_complete": {
+        "trigger": false,
+        "missing_items": [],
+        "latency": 0.352,
+        "error": null
+      },
+      "direct_distractor": {
+        "trigger": true,
+        "missing_items": [
+          "R05"
+        ],
+        "latency": 0.245,
+        "error": null
+      },
+      "direct_missing": {
+        "trigger": true,
+        "missing_items": [
+          "R05",
+          "R06"
+        ],
+        "latency": 0.386,
+        "error": null
+      }
+    }
+  ]
+}

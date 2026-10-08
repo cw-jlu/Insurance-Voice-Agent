@@ -1,0 +1,1754 @@
+{
+  "summary": {
+    "n": 30,
+    "gate_triggered": 4,
+    "agent_used": 4,
+    "fallbacks": 1,
+    "baseline": {
+      "regex_ok": 17,
+      "judge_ok": 21,
+      "both_ok": 16,
+      "judged_n": 30,
+      "answer_s": {
+        "n": 30,
+        "p50": 1.946,
+        "p90": 4.425,
+        "max": 6.919
+      },
+      "total_with_prep_s": {
+        "n": 30,
+        "p50": 3.029,
+        "p90": 5.539,
+        "max": 8.693
+      },
+      "over_10s": 0
+    },
+    "gated": {
+      "regex_ok": 17,
+      "judge_ok": 20,
+      "both_ok": 15,
+      "judged_n": 30,
+      "answer_s": {
+        "n": 30,
+        "p50": 2.708,
+        "p90": 4.728,
+        "max": 6.923
+      },
+      "total_with_prep_s": {
+        "n": 30,
+        "p50": 3.736,
+        "p90": 6.02,
+        "max": 7.544
+      },
+      "over_10s": 0
+    }
+  },
+  "rows": [
+    {
+      "id": "C01",
+      "source": "complex",
+      "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "gate": {
+        "triggered": true,
+        "eligible": true,
+        "invoke_agent": true,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R02",
+          "R03",
+          "R15"
+        ],
+        "missing": [
+          "R03"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R15"
+        ],
+        "model_latency_s": 0.825,
+        "parallel_prep_s": 1.163,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R15"
+      ],
+      "baseline": {
+        "text": "您妈62岁有医保，住院和门急诊费用都得先扣除1万元免赔额，再按100%报销，两项共享300万保额，但必须在二级及以上公立医院或指定民营医院普通部就诊；进ICU没有基础版补贴，需另外选购尊享住院津贴加油包，才能每天领500元，单次最多30天、一年最多60天。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致：住院和门急诊共享1万免赔额后100%报销，ICU津贴需选购加油包且500元/天，未出现错误数字或承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.882,
+        "total_with_prep_s": 3.045
+      },
+      "gated": {
+        "text": "阿姨62岁有医保，基础版能保住院和门诊，但要先扣1万元免赔额，之后按100%赔，共享300万保额；进ICU没有补贴，得另外选购尊享住院津贴加油包，才能每天领500元。投保前请如实告知健康情况，能否承保以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：住院和门急诊共享1万免赔额后100%赔付，ICU津贴需另选购加油包500元/天，且未出现错误数字或承诺。",
+        "agent_steps": 1,
+        "agent_s": 2.517,
+        "answer_s": 4.857,
+        "total_with_prep_s": 6.02
+      }
+    },
+    {
+      "id": "C02",
+      "source": "complex",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R03",
+          "R05",
+          "R06"
+        ],
+        "missing": [],
+        "have": [
+          "R03",
+          "R05",
+          "R06",
+          "R12"
+        ],
+        "model_latency_s": 0.772,
+        "parallel_prep_s": 1.052,
+        "model_error": null
+      },
+      "understood": [
+        "R03",
+        "R05",
+        "R06",
+        "R12"
+      ],
+      "baseline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "(没有|无|不设|0).{0,6}免赔|免赔.{0,4}0",
+          "600\\s*万"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出核心结论（住院、靶向药、质子重离子能否报销及免赔额），而是答非所问地提及健康告知和核保，核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.917,
+        "total_with_prep_s": 5.969
+      },
+      "gated": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "(没有|无|不设|0).{0,6}免赔|免赔.{0,4}0",
+          "600\\s*万"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出核心结论（住院、靶向药、质子重离子能否报销及免赔额），而是答非所问地提及投保和健康告知，导致核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.149,
+        "total_with_prep_s": 5.201
+      }
+    },
+    {
+      "id": "C03",
+      "source": "complex",
+      "question": "住院花了一万五，自己出多少，没走医保会怎样",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "rule_fallback",
+        "predicted": null,
+        "missing": [],
+        "have": [
+          "R01",
+          "R12"
+        ],
+        "model_latency_s": 2.345,
+        "parallel_prep_s": 2.353,
+        "model_error": "APITimeoutError"
+      },
+      "understood": [
+        "R01",
+        "R12"
+      ],
+      "baseline": {
+        "text": "一般医疗（住院）是基础版就有的保障。一般医疗和一般门急诊共享300万的年度额度。一般医疗和一般门急诊每年共享1万元免赔额。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "60\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了共享1万免赔额和300万额度，未遗漏或说错关键规则。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.186,
+        "total_with_prep_s": 5.539
+      },
+      "gated": {
+        "text": "一般医疗（住院）是基础版就有的保障。一般医疗和一般门急诊共享300万的年度额度。一般医疗和一般门急诊每年共享1万元免赔额。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "60\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未给出用户问题的核心结论（自己出多少、没走医保会怎样），且未提及免赔额后的赔付比例及未用社保结算的60%规则，核心信息缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.687,
+        "total_with_prep_s": 6.04
+      }
+    },
+    {
+      "id": "C04",
+      "source": "complex",
+      "question": "我有社保，门诊加油包和基础版的门急诊有什么区别",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R02",
+          "R13"
+        ],
+        "missing": [],
+        "have": [
+          "R02",
+          "R13"
+        ],
+        "model_latency_s": 0.693,
+        "parallel_prep_s": 0.903,
+        "model_error": null
+      },
+      "understood": [
+        "R02",
+        "R13"
+      ],
+      "baseline": {
+        "text": "您有社保的话，基础版门急诊是扣除1万元年免赔额后按100%报销，和住院共享300万保额；而门诊加油包是另外选购的，每次最多报300元、年最高1万，按50%赔，不设年免赔额。两个责任医院范围一样，都限二级及以上公立医院和指定民营医院普通部。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了基础版门急诊的1万免赔额、100%赔付比例、与住院共享保额，以及门诊加油包的次限额300元、年限额1万、50%赔付比例，且未出现错误数字或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.612,
+        "total_with_prep_s": 2.515
+      },
+      "gated": {
+        "text": "您有社保的话，基础版门急诊是扣除1万元年免赔额后按100%报销，最高报300万，和住院共享保额；而门诊加油包是每次最多报300元、每年最多1万元，按50%比例赔，不设年免赔额，但只限30天到55周岁人群，需要另外选购。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论正确：基础版门急诊与住院共享1万免赔额、100%赔付；门诊加油包次限额300元、50%比例、年限额1万、限55周岁。额外细节（不设年免赔额、需另外选购）与原文一致，未出现错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.701,
+        "total_with_prep_s": 2.604
+      }
+    },
+    {
+      "id": "C05",
+      "source": "complex",
+      "question": "中风以后住院、康复、请护工分别能报吗",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R03",
+          "R04",
+          "R08"
+        ],
+        "missing": [],
+        "have": [
+          "R03",
+          "R04",
+          "R08"
+        ],
+        "model_latency_s": 0.619,
+        "parallel_prep_s": 1.195,
+        "model_error": null
+      },
+      "understood": [
+        "R03",
+        "R04",
+        "R08"
+      ],
+      "baseline": {
+        "text": "中风后住院能报重大疾病医疗费用，300万保额、0免赔、100%赔，但要等30天等待期后初次确诊；康复住院能报特定疾病康复费用，100万保额、0免赔，二级公立医院按60%赔；护工费用能报，500元/天、单次最多30天、年累计30天，同样需等待期后确诊且在指定医院住院。所有责任都要求如实告知病史，能否投保以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致：住院按重疾医疗0免赔、康复住院按60%赔付、护工500元/天，且未出现错误数字或承诺，额外细节与原文一致。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 2.236,
+        "total_with_prep_s": 3.431
+      },
+      "gated": {
+        "text": "中风后住院能报重大疾病医疗费用，300万保额、0免赔、100%赔，但要等30天等待期后初次确诊；康复住院能报特定疾病康复费用，100万保额、0免赔，二级以上公立医院按60%赔；护工费用能报，500元/天、单次最多30天、一年最多30天，同样需等待期后确诊且在指定医院住院。三者都要求如实告知病史，能否投保以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了中风若属约定重疾时住院、康复、护工的赔付规则，数字和条件均无误，且未给出资料外的承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 2.192,
+        "total_with_prep_s": 3.387
+      }
+    },
+    {
+      "id": "C06",
+      "source": "complex",
+      "question": "孩子5岁有社保，能买门急诊加油包和药省保吗，网上买药怎么报",
+      "gate": {
+        "triggered": true,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R02",
+          "R16"
+        ],
+        "missing": [
+          "R02"
+        ],
+        "have": [
+          "R13",
+          "R16"
+        ],
+        "model_latency_s": 0.524,
+        "parallel_prep_s": 0.621,
+        "model_error": null
+      },
+      "understood": [
+        "R13",
+        "R16"
+      ],
+      "baseline": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "投保条件",
+        "regex": false,
+        "regex_missing": [
+          "50\\s*%|一半",
+          "6\\s*(周)?岁"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出核心结论（孩子5岁有社保能否购买门急诊加油包和药省保，以及网上买药如何报销），而是答非所问，导致核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 5.937,
+        "total_with_prep_s": 6.558
+      },
+      "gated": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "投保条件",
+        "regex": false,
+        "regex_missing": [
+          "50\\s*%|一半",
+          "6\\s*(周)?岁"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出核心结论（孩子5岁有社保能否购买门急诊加油包和药省保，以及网上买药如何报销），而是答非所问，缺失关键信息。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 6.923,
+        "total_with_prep_s": 7.544
+      }
+    },
+    {
+      "id": "C07",
+      "source": "complex",
+      "question": "得了重病要去外省治疗，路费、住宿和护工费能报吗",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R07",
+          "R08"
+        ],
+        "missing": [],
+        "have": [
+          "R04",
+          "R07",
+          "R08",
+          "R10"
+        ],
+        "model_latency_s": 0.488,
+        "parallel_prep_s": 1.19,
+        "model_error": null
+      },
+      "understood": [
+        "R07",
+        "R08",
+        "R10"
+      ],
+      "baseline": {
+        "text": "得了重病去外省治疗，路费和住宿费能报，最高1万元，但必须跨省住院、有转院证明，且限被保险人和一名亲属；护工费也能报，每天500元，单次最多30天、一年最多30天，但得通过保险公司指定机构提供服务。这两项都要求等待期30天后初次确诊100种重大疾病。重疾关爱加油包需要在基础版之外另外选购。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字和规则正确，未出现错误承诺或遗漏关键条件。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.823,
+        "total_with_prep_s": 3.013
+      },
+      "gated": {
+        "text": "得了重病去外省治疗，路费和住宿费能报，最高1万元，但必须跨省住院、有转院证明、住标准间每天不超500元；护工费也能报，每天500元，单次最多30天、一年最多30天，但得通过保险公司指定机构提供服务。这两项都要求等待期30天后初次确诊合同约定的100种重大疾病。重疾关爱加油包需要在基础版之外另外选购。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字和规则正确，未出现错误承诺或遗漏关键条件。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.756,
+        "total_with_prep_s": 2.946
+      }
+    },
+    {
+      "id": "C08",
+      "source": "complex",
+      "question": "一家三口一起买，免赔额能一起算吗，有优惠吗",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R09"
+        ],
+        "missing": [],
+        "have": [
+          "R09",
+          "R13"
+        ],
+        "model_latency_s": 0.306,
+        "parallel_prep_s": 0.504,
+        "model_error": null
+      },
+      "understood": [
+        "R09",
+        "R13"
+      ],
+      "baseline": {
+        "text": "一家三口一起买，基础版免赔额不能共享，但可以另外选购尊享家庭共享免赔额加油包，就能让三人共享1万元年免赔额；同时还能享受家庭单优惠，3人投保每人优惠10%。",
+        "route": "优惠",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致：家庭共享免赔额需选购加油包、共享1万免赔、3人优惠10%，未出现错误数字或承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.117,
+        "total_with_prep_s": 1.621
+      },
+      "gated": {
+        "text": "一家三口一起买，基础版的免赔额不能共享，但可以另外选购“尊享家庭共享免赔额加油包”，让三人共享1万元年免赔额；同时享受家庭单3人10%的保费优惠。",
+        "route": "优惠",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：免赔额不能直接共享但可选加油包实现共享1万免赔，且家庭单3人优惠10%，未出现错误数字或承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.42,
+        "total_with_prep_s": 1.924
+      }
+    },
+    {
+      "id": "C09",
+      "source": "complex",
+      "question": "我有高血压，买了以后高血压住院和意外住院能报吗",
+      "gate": {
+        "triggered": true,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03"
+        ],
+        "missing": [
+          "R03"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R04",
+          "R12"
+        ],
+        "model_latency_s": 0.357,
+        "parallel_prep_s": 0.557,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R12"
+      ],
+      "baseline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "regex": false,
+        "regex_missing": [
+          "既往症",
+          "意外"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出需以核保为准，未给出错误承诺或数字。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.418,
+        "total_with_prep_s": 3.975
+      },
+      "gated": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "regex": false,
+        "regex_missing": [
+          "既往症",
+          "意外"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出需以核保为准，未给出错误承诺或数字。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.446,
+        "total_with_prep_s": 4.003
+      }
+    },
+    {
+      "id": "C10",
+      "source": "complex",
+      "question": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R03",
+          "R08",
+          "R12",
+          "R14"
+        ],
+        "model_latency_s": 0.509,
+        "parallel_prep_s": 0.518,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R03"
+      ],
+      "baseline": {
+        "text": "刚买三天出车祸住院能赔，因为意外没有等待期；但要是生病住院，得等满30天等待期后才生效。所有报销都必须在二级及以上公立医院或指定民营医院普通部就诊，且既往症不保，具体以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：意外无等待期可赔，疾病需30天等待期；额外补充的医院和既往症信息正确，且提示以核保为准，未出错。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.396,
+        "total_with_prep_s": 1.914
+      },
+      "gated": {
+        "text": "刚买三天出车祸住院能赔，因为意外没有等待期；但要是生病住院，要等满30天等待期后初次确诊的疾病才能赔。所有保障都限二级及以上公立医院和指定民营医院普通部，既往症不保，具体以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：意外无等待期可赔，疾病需30天等待期；额外补充的医院限制和既往症说明与原文一致，未出现错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.244,
+        "total_with_prep_s": 1.762
+      }
+    },
+    {
+      "id": "C11",
+      "source": "complex",
+      "question": "住私立医院的VIP病房能报吗，公立医院的特需部呢",
+      "gate": {
+        "triggered": true,
+        "eligible": true,
+        "invoke_agent": true,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03",
+          "R11"
+        ],
+        "missing": [
+          "R03"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R11"
+        ],
+        "model_latency_s": 0.437,
+        "parallel_prep_s": 0.644,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R11"
+      ],
+      "baseline": {
+        "text": "基础版不报私立医院VIP病房和公立医院特需部的费用；另外选购“尊享重大疾病扩展特需医疗加油包”后，可以报销二级及以上公立医院及指定民营医疗机构的特需部、国际部、VIP部（不含观察室、联合病房和康复病房）的费用，免赔额0，100%赔付，年最高300万。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了基础版不报、需选购加油包才能报销，且报销条件、比例、限额等细节与原文相符。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.682,
+        "total_with_prep_s": 2.326
+      },
+      "gated": {
+        "text": "基础版不报私立医院VIP病房和公立医院特需部的费用；但另外选购“尊享重大疾病扩展特需医疗加油包”后，可以报销二级及以上公立医院及指定民营医疗机构的特需部、国际部、VIP部（不含观察室、联合病房和康复病房）的费用，重大疾病确诊后住院等费用100%赔，免赔额为0。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致：私立医院VIP病房基础版不赔，特需部需重疾扩展特需医疗加油包，且细节（二级及以上公立医院、指定民营、100%赔付、300万限额）与原文相符，未出现错误或额外承诺。",
+        "agent_steps": 1,
+        "agent_s": 0.707,
+        "answer_s": 3.304,
+        "total_with_prep_s": 3.948
+      }
+    },
+    {
+      "id": "C12",
+      "source": "complex",
+      "question": "住院补偿加油包和基础版一起买，一万以内的住院费怎么报，看结节呢",
+      "gate": {
+        "triggered": true,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R12"
+        ],
+        "missing": [
+          "R01"
+        ],
+        "have": [
+          "R02",
+          "R12"
+        ],
+        "model_latency_s": 0.46,
+        "parallel_prep_s": 0.604,
+        "model_error": null
+      },
+      "understood": [
+        "R12",
+        "R02"
+      ],
+      "baseline": {
+        "text": "具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "1\\s*万|一万",
+          "20\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未给出核心结论，而是推诿转专员，未按标准要点说明1万以内住院费报销规则及结节20%赔付比例。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.425,
+        "total_with_prep_s": 5.029
+      },
+      "gated": {
+        "text": "具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "1\\s*万|一万",
+          "20\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未给出核心结论，而是推脱给专员，未按标准要点说明住院补偿加油包与基础版搭配时1万以内住院费的报销规则（基础版1万免赔、加油包100%报销、结节20%），核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.803,
+        "total_with_prep_s": 4.407
+      }
+    },
+    {
+      "id": "C13",
+      "source": "complex",
+      "question": "确诊重疾除了报医药费，还能拿到一笔钱吗，要另外买什么",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R10"
+        ],
+        "missing": [],
+        "have": [
+          "R03",
+          "R06",
+          "R10"
+        ],
+        "model_latency_s": 0.274,
+        "parallel_prep_s": 0.994,
+        "model_error": null
+      },
+      "understood": [
+        "R10"
+      ],
+      "baseline": {
+        "text": "能，确诊合同约定的100种重疾，可额外获得5万元重大疾病保险金，这是尊享重疾关爱加油包的责任，需要另外选购。基础版不包含这笔钱，且有30天等待期，必须在二级及以上公立医院普通部就诊才能理赔。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了确诊重疾可额外获得5万元保险金，且需另外选购尊享重疾关爱加油包，未出现错误数字或规则。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.352,
+        "total_with_prep_s": 2.346
+      },
+      "gated": {
+        "text": "能，确诊合同约定的100种重疾，可额外获得5万元重大疾病保险金，但这是尊享重疾关爱加油包的责任，需要另外选购；基础版不包含这项保障；加油包等待期30天，限30天至70周岁人群投保。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确说明了确诊重疾可额外获得5万元保险金且需另外选购，未出现错误数字或规则。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.43,
+        "total_with_prep_s": 2.424
+      }
+    },
+    {
+      "id": "C14",
+      "source": "complex",
+      "question": "住院10天能拿多少津贴，进了3天ICU呢",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R14",
+          "R15"
+        ],
+        "missing": [],
+        "have": [
+          "R14",
+          "R15"
+        ],
+        "model_latency_s": 0.578,
+        "parallel_prep_s": 0.585,
+        "model_error": null
+      },
+      "understood": [
+        "R14",
+        "R15"
+      ],
+      "baseline": {
+        "text": "住院10天能拿700元一般住院津贴，因为次免赔3天，剩7天×100元/天；进了3天ICU能拿1500元，500元/天不设免赔天数。这两项是尊享住院津贴加油包，需要另外选购，不在基础版里。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：一般住院津贴100元/天免赔3天，ICU津贴500元/天无免赔，可叠加，且正确提示需加油包。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.95,
+        "total_with_prep_s": 2.535
+      },
+      "gated": {
+        "text": "住院10天能拿700元一般住院津贴，因为次免赔3天，剩7天×100元/天；进了3天ICU能拿1500元ICU津贴，0天免赔，3天×500元/天。这两项都得另外选购尊享住院津贴加油包才保。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：一般住院津贴100元/天免赔3天，ICU津贴500元/天无免赔，可叠加，且正确提示需加油包；数字计算正确，无错误承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.419,
+        "total_with_prep_s": 2.004
+      }
+    },
+    {
+      "id": "C15",
+      "source": "complex",
+      "question": "我女儿8岁，近视手术和看牙能报吗，住院呢",
+      "gate": {
+        "triggered": true,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R02",
+          "R03"
+        ],
+        "missing": [
+          "R03"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R14"
+        ],
+        "model_latency_s": 0.397,
+        "parallel_prep_s": 0.958,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R14"
+      ],
+      "baseline": {
+        "text": "您女儿8岁，近视手术和看牙的费用基础版不保，属于责任免除里的视力矫正手术和牙科疾病相关治疗；住院的话，基础版能报，但要等30天等待期后、在二级及以上公立医院普通部发生的费用，扣除1万元免赔额后按100%赔付。具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：近视手术和看牙不赔（意外除外），住院按一般医疗扣1万免赔额；额外细节（等待期30天、医院要求、赔付比例）与常见保险规则一致，未出现错误或矛盾。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 2.225,
+        "total_with_prep_s": 3.183
+      },
+      "gated": {
+        "text": "具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外",
+          "1\\s*万|一万"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未给出核心结论，未说明屈光不正和牙科不赔（意外除外）以及住院免赔额规则，而是推诿转专员，导致核心信息缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.684,
+        "total_with_prep_s": 5.642
+      }
+    },
+    {
+      "id": "C16",
+      "source": "complex",
+      "question": "怀孕期间生病住院能报吗，生孩子的费用呢",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R03",
+          "R12"
+        ],
+        "model_latency_s": 0.396,
+        "parallel_prep_s": 0.56,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R03"
+      ],
+      "baseline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未针对用户问题给出核心结论（分娩、产前检查不赔，怀孕不在保障范围），而是答非所问地讨论投保和医保报销，核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.086,
+        "total_with_prep_s": 4.646
+      },
+      "gated": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未针对用户问题给出核心结论（分娩、产前检查不赔，怀孕不在保障范围），而是答非所问地讨论投保和医保报销，核心结论缺失。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 4.728,
+        "total_with_prep_s": 5.288
+      }
+    },
+    {
+      "id": "C17",
+      "source": "complex",
+      "question": "医保报完以后剩下的部分怎么赔，特药里社保目录内的药呢",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R06"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R06",
+          "R09"
+        ],
+        "model_latency_s": 0.556,
+        "parallel_prep_s": 0.564,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R09"
+      ],
+      "baseline": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "100\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未提及特药中社保目录内药品社保报销后剩余按100%赔付的核心结论，且错误地引入了免赔额问题（原文明确本责任无免赔额），核心信息缺失且内容错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.873,
+        "total_with_prep_s": 4.437
+      },
+      "gated": {
+        "text": "医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "100\\s*%"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "回答未提及特药中社保目录内药品社保报销后剩余按100%赔付的核心结论，且额外提及免赔额问题，但标准要点中该责任无免赔额，属于错误细节。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.806,
+        "total_with_prep_s": 4.37
+      }
+    },
+    {
+      "id": "C18",
+      "source": "complex",
+      "question": "我58岁，能买哪些加油包，门急诊加油包可以吗",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R13"
+        ],
+        "missing": [],
+        "have": [
+          "R13"
+        ],
+        "model_latency_s": 0.528,
+        "parallel_prep_s": 0.565,
+        "model_error": null
+      },
+      "understood": [
+        "R13"
+      ],
+      "baseline": {
+        "text": "58岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买，58岁不能选。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：正确指出58岁不能买门急诊加油包，其他加油包可至70周岁，并补充了需看健康告知和核保结果，未出现错误信息。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.0,
+        "total_with_prep_s": 0.565
+      },
+      "gated": {
+        "text": "58岁可以买，首次投保的年龄是出生满30天到70周岁。门急诊加油包只能55周岁及以下买，58岁不能选。能不能承保还要看健康告知和核保结果。",
+        "route": "投保条件(模板)",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致：正确指出58岁不能买门急诊加油包，其他加油包可至70周岁，并补充了需看健康告知和核保结果，未出现错误信息。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.0,
+        "total_with_prep_s": 0.565
+      }
+    },
+    {
+      "id": "C19",
+      "source": "complex",
+      "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R05",
+          "R06"
+        ],
+        "missing": [],
+        "have": [
+          "R05",
+          "R06",
+          "R10"
+        ],
+        "model_latency_s": 0.488,
+        "parallel_prep_s": 1.774,
+        "model_error": null
+      },
+      "understood": [
+        "R05",
+        "R06",
+        "R10"
+      ],
+      "baseline": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "1\\s*万|一万",
+          "申请|审核"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出基因检测和特药的申请流程及报销额度，核心结论缺失，且答非所问。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 6.919,
+        "total_with_prep_s": 8.693
+      },
+      "gated": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。具体清单以保险条款为准，我这边可以帮您转专员确认。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "1\\s*万|一万",
+          "申请|审核"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答未针对用户问题给出基因检测和特药的申请流程及报销额度，核心结论缺失，且错误地转向了投保核保问题。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 5.418,
+        "total_with_prep_s": 7.192
+      }
+    },
+    {
+      "id": "C20",
+      "source": "complex",
+      "question": "我有甲状腺结节，买了以后结节手术能报吗，加了住院补偿加油包呢",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R12"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R12"
+        ],
+        "model_latency_s": 0.322,
+        "parallel_prep_s": 0.589,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R12"
+      ],
+      "baseline": {
+        "text": "甲状腺结节属于加油包里明确列明的结节类疾病，买了尊享住院医疗费用补偿加油包后，治疗结节的住院费用赔付比例是20%，不是100%。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。住院医疗费用补偿加油包需要在基础版之外另外选购。",
+        "route": "免责",
+        "regex": false,
+        "regex_missing": [
+          "既往症"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答错误地给出了结节手术赔付比例20%的结论，而标准要点要求以核保为准且既往症不赔，回答中擅自承诺了赔付比例，属于错误细节。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.716,
+        "total_with_prep_s": 4.305
+      },
+      "gated": {
+        "text": "甲状腺结节属于加油包里明确列出的“结节（包括炎症性、增生性、肿瘤）”，加了尊享住院医疗费用补偿加油包后，相关住院医疗费用赔付比例是20%，不是100%。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。住院医疗费用补偿加油包需要在基础版之外另外选购。",
+        "route": "免责",
+        "regex": false,
+        "regex_missing": [
+          "既往症"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，指出需以核保为准，且未对既往症赔付做出错误承诺，额外细节与原文一致。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.895,
+        "total_with_prep_s": 2.484
+      }
+    },
+    {
+      "id": "C21",
+      "source": "complex",
+      "question": "住院前后看门诊的钱能报吗，出院后拿药呢",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R02"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R02",
+          "R03",
+          "R16"
+        ],
+        "model_latency_s": 0.452,
+        "parallel_prep_s": 1.018,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R16"
+      ],
+      "baseline": {
+        "text": "能报，住院前30天和出院后30天的门急诊医疗费用，以及外购药械费用都包含在一般医疗责任里，但要扣除1万元年免赔额后按100%赔付，前提是二级及以上公立医院或指定民营医院普通部就诊，且需个人支付、必需合理；外购药还要满足合同里“外购药品及外购医疗器械费用”的特定条件。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确说明了住院前30天和出院后30天门急诊费用可报销，且补充了免赔额、赔付比例、医院范围等细节均与原文一致，无错误或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.662,
+        "total_with_prep_s": 2.68
+      },
+      "gated": {
+        "text": "能报，住院前30天和出院后30天的门急诊医疗费用，以及外购药械费用都包含在一般医疗责任里，但要扣除1万元年免赔额后按100%赔付，前提是去二级及以上公立医院或指定民营医院普通部就诊；出院后拿药属于外购药械费用，必须同时满足合同约定条件才能赔付。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了住院前30天和出院后30天门急诊费用可报销，并补充了免赔额、赔付比例及外购药械条件等正确细节，未出现错误或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.722,
+        "total_with_prep_s": 2.74
+      }
+    },
+    {
+      "id": "C22",
+      "source": "complex",
+      "question": "康复住院救护车能报吗，转院的救护车呢",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R04"
+        ],
+        "missing": [],
+        "have": [
+          "R04",
+          "R07"
+        ],
+        "model_latency_s": 0.463,
+        "parallel_prep_s": 0.948,
+        "model_error": null
+      },
+      "understood": [
+        "R04",
+        "R07"
+      ],
+      "baseline": {
+        "text": "康复住院转运救护车使用费能报，单次限额1000元，这是特定疾病康复住院费用医疗保险金里的责任；转院的救护车费用不在保障范围内，只有重大疾病异地转诊时产生的公共交通费用才报销。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答错误：转院的救护车费用并非都不在保障范围内，R02门急诊责任包含救护车使用费，且R04康复住院转运救护车也覆盖转院场景，AI给出了错误结论。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.285,
+        "total_with_prep_s": 2.233
+      },
+      "gated": {
+        "text": "康复住院转运救护车使用费能报，单次限额1000元，但必须是在确诊16种特定疾病后、在指定康复医疗机构或二级及以上公立医院普通部住院期间发生的；转院的救护车费用不在这个责任里，基础版不保。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答中“基础版不保”属于资料中没有的额外结论，且标准要点未区分版本，因此核心结论错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.197,
+        "total_with_prep_s": 2.145
+      }
+    },
+    {
+      "id": "C23",
+      "source": "complex",
+      "question": "在日本做光免疫治疗能报吗，床位费有限制吗",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R05"
+        ],
+        "missing": [],
+        "have": [
+          "R01",
+          "R05",
+          "R12"
+        ],
+        "model_latency_s": 0.489,
+        "parallel_prep_s": 0.508,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R12"
+      ],
+      "baseline": {
+        "text": "能报，但必须是等待期30天后初次确诊恶性肿瘤——重度，在日本国立癌症研究中心东医院或东京医科大学病院做的光免疫疗法治疗费用；床位费限1500元/天，不包括单人病房、套房、家庭病床。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了医院范围、床位费限制和等待期条件，未出现错误信息或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.304,
+        "total_with_prep_s": 1.812
+      },
+      "gated": {
+        "text": "能报，但必须是等待期30天后初次确诊恶性肿瘤——重度，在日本国立癌症研究中心东医院或东京医科大学病院做的光免疫疗法治疗费用；床位费限1500元/天，不包括单人病房、套房、家庭病床。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了医院范围、床位费限制和等待期条件，未出现错误信息。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.571,
+        "total_with_prep_s": 2.079
+      }
+    },
+    {
+      "id": "C24",
+      "source": "complex",
+      "question": "罕见病买药和癌症买药要求一样吗",
+      "gate": {
+        "triggered": true,
+        "eligible": true,
+        "invoke_agent": true,
+        "source": "model",
+        "predicted": [
+          "R05",
+          "R06"
+        ],
+        "missing": [
+          "R05"
+        ],
+        "have": [
+          "R01",
+          "R06"
+        ],
+        "model_latency_s": 0.519,
+        "parallel_prep_s": 0.527,
+        "model_error": null
+      },
+      "understood": [
+        "R06",
+        "R01"
+      ],
+      "baseline": {
+        "text": "不一样。罕见病买药和癌症买药都要求等待期30天后初次确诊、在指定药店购药、提前申请处方审核，但罕见病限合同约定的13种病，癌症限恶性肿瘤——重度；两者服务名称不同，一个是罕见病特药服务，一个是肿瘤特药服务。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论（要求一致）与标准要点相符，且补充的细节（等待期、指定药店、处方审核、病种限制、服务名称）均与原文一致，无错误或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.613,
+        "total_with_prep_s": 2.14
+      },
+      "gated": {
+        "text": "不一样。罕见病买药和癌症买药都要求等待期30天后初次确诊、在保险人指定药店购买、提前申请处方审核，但罕见病限合同约定的13种病，癌症限恶性肿瘤——重度；两者服务都是限被保险人本人且在等待期后的保险期限内使用。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "AI回答的核心结论与标准要点一致，正确指出两者均需指定药店购买和处方审核，并区分了罕见病13种和恶性肿瘤——重度的差异，未出现错误信息。",
+        "agent_steps": 3,
+        "agent_s": 2.509,
+        "answer_s": 3.892,
+        "total_with_prep_s": 4.419
+      }
+    },
+    {
+      "id": "C25",
+      "source": "complex",
+      "question": "我是货车司机，45岁有社保，能买吗，多少钱",
+      "gate": {
+        "triggered": false,
+        "eligible": true,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [],
+        "missing": [],
+        "have": [
+          "R01",
+          "R03",
+          "R09",
+          "R12",
+          "R14",
+          "R16"
+        ],
+        "model_latency_s": 0.458,
+        "parallel_prep_s": 0.791,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R03",
+        "R09",
+        "R12",
+        "R14"
+      ],
+      "baseline": {
+        "text": "您45岁有社保，基础版一年636元，按月交每月63元。",
+        "route": "报价",
+        "regex": false,
+        "regex_missing": [
+          "职业"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年龄、社保、价格636元均正确，未出现错误信息或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.048,
+        "total_with_prep_s": 0.839
+      },
+      "gated": {
+        "text": "您45岁有社保，基础版一年636元，按月交每月63元。",
+        "route": "报价",
+        "regex": false,
+        "regex_missing": [
+          "职业"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，年龄、社保、价格636元均正确，未出现错误信息或额外承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.0,
+        "total_with_prep_s": 0.791
+      }
+    },
+    {
+      "id": "C26",
+      "source": "complex",
+      "question": "一年交和每月交差多少，30岁有社保",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [],
+        "missing": [],
+        "have": [
+          "R16"
+        ],
+        "model_latency_s": 0.445,
+        "parallel_prep_s": 0.552,
+        "model_error": null
+      },
+      "understood": [],
+      "baseline": {
+        "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+        "route": "报价",
+        "regex": false,
+        "regex_missing": [
+          "372"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未遗漏或错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.0,
+        "total_with_prep_s": 0.552
+      },
+      "gated": {
+        "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+        "route": "报价",
+        "regex": false,
+        "regex_missing": [
+          "372"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，数字正确，未遗漏或错误。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 0.0,
+        "total_with_prep_s": 0.552
+      }
+    },
+    {
+      "id": "C27",
+      "source": "complex",
+      "question": "家里4口人，有的有社保有的没有，免赔额共享和家庭优惠都能用吗",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [],
+        "missing": [],
+        "have": [
+          "R09",
+          "R14"
+        ],
+        "model_latency_s": 0.494,
+        "parallel_prep_s": 1.154,
+        "model_error": null
+      },
+      "understood": [
+        "R09",
+        "R14"
+      ],
+      "baseline": {
+        "text": "家里4口人可以享受家庭单15%优惠，也能用家庭共享免赔额加油包——但这个加油包需要另外选购，基础版不包含；共享的是1万元年免赔额，只适用于一般医疗及外购药械费用，门急诊不参与共享。医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了4人可享15%优惠和家庭共享免赔额加油包，并补充了共享免赔额适用范围及需选购等正确细节，未出现错误或违规承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 2.256,
+        "total_with_prep_s": 3.41
+      },
+      "gated": {
+        "text": "家里4口人可以享受家庭单15%优惠，也能用家庭共享免赔额加油包——但这个加油包需要另外选购，基础版不包含；共享的是1万元年免赔额，只适用于一般医疗及外购药械费用，门急诊不参与共享。医保已经报销的部分不会重复赔；医保报销的钱能不能算进1万免赔额，要以条款为准，我帮您转专员确认。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确说明了4人可享15%优惠和家庭共享免赔额加油包，并补充了共享规则和需以条款为准的提示，未出现错误或违规承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 2.369,
+        "total_with_prep_s": 3.523
+      }
+    },
+    {
+      "id": "C28",
+      "source": "complex",
+      "question": "得了抑郁症住院和吃药能报吗",
+      "gate": {
+        "triggered": true,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03",
+          "R06"
+        ],
+        "missing": [
+          "R06"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R03",
+          "R04",
+          "R09",
+          "R12"
+        ],
+        "model_latency_s": 0.363,
+        "parallel_prep_s": 0.973,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R03",
+        "R09"
+      ],
+      "baseline": {
+        "text": "抑郁症属于责任免除中明确列明的“精神和行为障碍”，相关医疗费用不予理赔。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "核心结论与标准要点一致，正确指出抑郁症属于精神和行为障碍不赔，且补充了投保需以核保为准的合理说明。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.471,
+        "total_with_prep_s": 4.444
+      },
+      "gated": {
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "免责",
+        "regex": false,
+        "regex_missing": [
+          "不(予|能|在|会)?(理赔|报|赔|保障|承担)|免责|除外",
+          "精神"
+        ],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，即精神和行为障碍不赔，且未给出错误承诺，符合要求。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.047,
+        "total_with_prep_s": 4.02
+      }
+    },
+    {
+      "id": "C29",
+      "source": "complex",
+      "question": "体检查出肿瘤，住院手术和后续化疗能报吗",
+      "gate": {
+        "triggered": false,
+        "eligible": false,
+        "invoke_agent": false,
+        "source": "model",
+        "predicted": [
+          "R03",
+          "R05"
+        ],
+        "missing": [],
+        "have": [
+          "R03",
+          "R05",
+          "R06",
+          "R12"
+        ],
+        "model_latency_s": 0.456,
+        "parallel_prep_s": 0.601,
+        "model_error": null
+      },
+      "understood": [
+        "R03",
+        "R05",
+        "R06",
+        "R12"
+      ],
+      "baseline": {
+        "text": "体检查出肿瘤，住院手术和后续化疗能不能报，得先看是不是等待期30天后初次确诊的恶性肿瘤——重度，而且要如实做健康告知，能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，强调了等待期后初次确诊和健康告知/核保条件，未出现错误数字或承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.845,
+        "total_with_prep_s": 4.446
+      },
+      "gated": {
+        "text": "体检查出肿瘤，住院手术和后续化疗能不能报，要看是不是等待期30天后初次确诊的恶性肿瘤——重度，而且必须在二级及以上公立医院或指定民营医疗机构普通部治疗。能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": true,
+        "judge_reason": "回答核心结论与标准要点一致，正确强调了等待期后初次确诊、医院范围等条件，并提示需以健康告知和核保为准，未出现错误数字或承诺。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 3.886,
+        "total_with_prep_s": 4.487
+      }
+    },
+    {
+      "id": "C30",
+      "source": "complex",
+      "question": "急诊抢救花了五千，后来住院花了两万，一共能报多少",
+      "gate": {
+        "triggered": true,
+        "eligible": true,
+        "invoke_agent": true,
+        "source": "model",
+        "predicted": [
+          "R01",
+          "R03"
+        ],
+        "missing": [
+          "R03"
+        ],
+        "have": [
+          "R01",
+          "R02",
+          "R12",
+          "R13"
+        ],
+        "model_latency_s": 0.378,
+        "parallel_prep_s": 0.569,
+        "model_error": null
+      },
+      "understood": [
+        "R01",
+        "R02",
+        "R12"
+      ],
+      "baseline": {
+        "text": "急诊抢救5000元和住院2万元，得先扣掉1万元免赔额，剩余部分在300万额度内按100%赔；但住院费用基础版不单独报，要另外买尊享住院医疗费用补偿加油包才能报，这个加油包最高报1万元、0免赔。",
+        "route": "保障",
+        "regex": false,
+        "regex_missing": [
+          "共享|合并|一起"
+        ],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答错误地引入了“基础版不单独报、需另买加油包”等资料中不存在的规则，核心结论与标准要点（门急诊与住院共享1万免赔额后100%赔付）不一致。",
+        "agent_steps": 0,
+        "agent_s": 0,
+        "answer_s": 1.943,
+        "total_with_prep_s": 2.512
+      },
+      "gated": {
+        "text": "急诊抢救5000元和住院2万元，基础版里要先扣1万元免赔额，剩余部分按100%赔，但两者共享300万保额；另外住院费用补偿加油包可额外报1万元，需单独选购。既往症不保，具体以核保结果为准。",
+        "route": "保障",
+        "regex": true,
+        "regex_missing": [],
+        "regex_forbidden": [],
+        "judge": false,
+        "judge_reason": "AI回答中提到了“住院费用补偿加油包可额外报1万元，需单独选购”，这是标准要点和原文中未提及的额外承诺，属于资料以外的结论，因此不合格。",
+        "agent_steps": 3,
+        "agent_s": 2.676,
+        "answer_s": 4.12,
+        "total_with_prep_s": 4.689
+      }
+    }
+  ]
+}

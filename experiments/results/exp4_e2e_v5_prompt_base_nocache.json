@@ -1,0 +1,394 @@
+{
+  "version": "第八轮（四路并行理解+原话检索、模板答案、事实核对关闭、TTS 3 连接并行+固定句预合成）",
+  "presynth_fixed": false,
+  "presynth_s": 1.0,
+  "presynth_sentences": 1,
+  "turns_ok": 12,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.545,
+      "p90": 0.579,
+      "max": 0.624,
+      "n": 12
+    },
+    "answer_text_ready_s": {
+      "p50": 3.674,
+      "p90": 5.539,
+      "max": 7.697,
+      "n": 12
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.119,
+      "p90": 6.161,
+      "max": 8.005,
+      "n": 12
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 8.795,
+      "p90": 10.83,
+      "max": 15.286,
+      "n": 12
+    },
+    "answer_playback_end_s": {
+      "p50": 14.724,
+      "p90": 22.795,
+      "max": 24.743,
+      "n": 12
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 0.531,
+      "p90": 0.555,
+      "max": 0.624,
+      "n": 8
+    },
+    "answer_text_ready_s": {
+      "p50": 1.824,
+      "p90": 4.366,
+      "max": 5.539,
+      "n": 8
+    },
+    "first_substantive_audio_s": {
+      "p50": 2.25,
+      "p90": 4.755,
+      "max": 6.161,
+      "n": 8
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.283,
+      "p90": 10.801,
+      "max": 10.83,
+      "n": 8
+    },
+    "answer_playback_end_s": {
+      "p50": 8.907,
+      "p90": 17.216,
+      "max": 21.282,
+      "n": 8
+    }
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.564,
+      "p90": 0.579,
+      "max": 0.579,
+      "n": 4
+    },
+    "answer_text_ready_s": {
+      "p50": 4.381,
+      "p90": 7.697,
+      "max": 7.697,
+      "n": 4
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.75,
+      "p90": 8.005,
+      "max": 8.005,
+      "n": 4
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 10.399,
+      "p90": 15.286,
+      "max": 15.286,
+      "n": 4
+    },
+    "answer_playback_end_s": {
+      "p50": 22.795,
+      "p90": 24.743,
+      "max": 24.743,
+      "n": 4
+    }
+  },
+  "over_10s_all_ready": 4,
+  "turns": [
+    {
+      "name": "报价",
+      "asr_text": "我30岁，有社保，一年多少钱啊？",
+      "events": [
+        "回答:报价"
+      ],
+      "stage_s": {
+        "understand": 1.331,
+        "answer": 0.003,
+        "total": 1.335
+      },
+      "asr_endpoint_s": 0.489,
+      "first_response_s": 0.489,
+      "answer_text_ready_s": 1.824,
+      "first_substantive_audio_s": 2.247,
+      "answer_audio_all_ready_s": 3.652,
+      "answer_playback_end_s": 6.943,
+      "agent_steps": 0,
+      "answer_chars": 27,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_报价.wav"
+    },
+    {
+      "name": "病史",
+      "asr_text": "我有高血压好几年了，一直在吃降压药，买这个以后住院能报吗？",
+      "events": [
+        "回答:缺口"
+      ],
+      "stage_s": {
+        "understand": 2.768,
+        "answer": 2.147,
+        "total": 4.916
+      },
+      "asr_endpoint_s": 0.624,
+      "first_response_s": 0.624,
+      "answer_text_ready_s": 5.539,
+      "first_substantive_audio_s": 6.161,
+      "answer_audio_all_ready_s": 10.801,
+      "answer_playback_end_s": 14.724,
+      "agent_steps": 0,
+      "answer_chars": 59,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "高血压属于既往症，初次投保前已有的情况，基础版不保；能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_病史.wav"
+    },
+    {
+      "name": "免赔额",
+      "asr_text": "我自己先掏1万，剩下的是不是全包啊？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.232,
+        "answer": 1.91,
+        "total": 3.143
+      },
+      "asr_endpoint_s": 0.531,
+      "first_response_s": 0.531,
+      "answer_text_ready_s": 3.674,
+      "first_substantive_audio_s": 4.119,
+      "answer_audio_all_ready_s": 10.83,
+      "answer_playback_end_s": 17.216,
+      "agent_steps": 0,
+      "answer_chars": 78,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "是的，您自己先掏1万元免赔额后，剩下的符合条款的一般医疗和外购药械费用，基础版能按100%报销，最高报300万元；但要是有社保没用社保结算，就只能报60%。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_免赔额.wav"
+    },
+    {
+      "name": "保障范围",
+      "asr_text": "刷到广告说几百万保额具体都能报什么啊？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.538,
+        "answer": 2.272,
+        "total": 3.811
+      },
+      "asr_endpoint_s": 0.555,
+      "first_response_s": 0.555,
+      "answer_text_ready_s": 4.366,
+      "first_substantive_audio_s": 4.755,
+      "answer_audio_all_ready_s": 8.853,
+      "answer_playback_end_s": 21.282,
+      "agent_steps": 0,
+      "answer_chars": 95,
+      "sentences": 2,
+      "cached_sentences": 0,
+      "text": "几百万保额主要分四块：一般医疗和重疾医疗各保300万，恶性肿瘤先进疗法和特定药品各保600万；但一般医疗要先扣1万元免赔额，重疾、特药和先进疗法都不设免赔额。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_保障范围.wav"
+    },
+    {
+      "name": "价格变化",
+      "asr_text": "以后每年都是这个价吗？",
+      "events": [
+        "回答:报价"
+      ],
+      "stage_s": {
+        "understand": 0.671,
+        "answer": 0.609,
+        "total": 1.28
+      },
+      "asr_endpoint_s": 0.5,
+      "first_response_s": 0.5,
+      "answer_text_ready_s": 1.781,
+      "first_substantive_audio_s": 2.25,
+      "answer_audio_all_ready_s": 4.283,
+      "answer_playback_end_s": 4.88,
+      "agent_steps": 0,
+      "answer_chars": 19,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "不是的，保费会随着您的年龄增长而变化。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_价格变化.wav"
+    },
+    {
+      "name": "身份",
+      "asr_text": "你是真人还是机器人？",
+      "events": [
+        "承认AI"
+      ],
+      "stage_s": {
+        "understand": 0.69,
+        "total": 0.69
+      },
+      "asr_endpoint_s": 0.523,
+      "first_response_s": 0.523,
+      "answer_text_ready_s": 1.212,
+      "first_substantive_audio_s": 1.955,
+      "answer_audio_all_ready_s": 2.471,
+      "answer_playback_end_s": 8.317,
+      "agent_steps": 0,
+      "answer_chars": 42,
+      "sentences": 3,
+      "cached_sentences": 0,
+      "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_身份.wav"
+    },
+    {
+      "name": "等待期",
+      "asr_text": "等待期是多久？",
+      "events": [
+        "回答:等待期(模板)"
+      ],
+      "stage_s": {
+        "understand": 0.825,
+        "answer": 0.0,
+        "total": 0.826
+      },
+      "asr_endpoint_s": 0.52,
+      "first_response_s": 0.52,
+      "answer_text_ready_s": 1.346,
+      "first_substantive_audio_s": 1.952,
+      "answer_audio_all_ready_s": 3.086,
+      "answer_playback_end_s": 7.182,
+      "agent_steps": 0,
+      "answer_chars": 30,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_等待期.wav"
+    },
+    {
+      "name": "加油包",
+      "asr_text": "门急诊加油包多大年纪能买啊？",
+      "events": [
+        "回答:投保条件(模板)"
+      ],
+      "stage_s": {
+        "understand": 0.997,
+        "answer": 0.0,
+        "total": 0.998
+      },
+      "asr_endpoint_s": 0.546,
+      "first_response_s": 0.546,
+      "answer_text_ready_s": 1.544,
+      "first_substantive_audio_s": 1.979,
+      "answer_audio_all_ready_s": 3.622,
+      "answer_playback_end_s": 8.907,
+      "agent_steps": 0,
+      "answer_chars": 40,
+      "sentences": 2,
+      "cached_sentences": 0,
+      "text": "门急诊加油包限55周岁及以下，30岁符合年龄要求。能否承保以健康告知和核保为准。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_加油包.wav"
+    },
+    {
+      "name": "复合1",
+      "asr_text": "住院和看门诊分别怎么报进ICU有没有补贴？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.137,
+        "answer": 2.27,
+        "total": 3.407
+      },
+      "asr_endpoint_s": 0.564,
+      "first_response_s": 0.564,
+      "answer_text_ready_s": 3.972,
+      "first_substantive_audio_s": 4.299,
+      "answer_audio_all_ready_s": 8.795,
+      "answer_playback_end_s": 22.795,
+      "agent_steps": 0,
+      "answer_chars": 113,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "住院医疗费用基础版是扣除1万元免赔额后按100%报销，但需要另外选购尊享住院医疗费用补偿加油包才能保；看门诊是同样扣除1万元免赔额后按100%报销，属于基础版责任；进ICU有补贴，每天500元，但要另外选购尊享住院津贴加油包。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_复合1.wav"
+    },
+    {
+      "name": "复合2",
+      "asr_text": "得了癌症。住院靶向药和质子重离子都能报吗？有免赔额吗？",
+      "events": [
+        "回答:缺口"
+      ],
+      "stage_s": {
+        "understand": 1.12,
+        "answer": 6.109,
+        "total": 7.228
+      },
+      "asr_endpoint_s": 0.469,
+      "first_response_s": 0.469,
+      "answer_text_ready_s": 7.697,
+      "first_substantive_audio_s": 8.005,
+      "answer_audio_all_ready_s": 10.399,
+      "answer_playback_end_s": 12.968,
+      "agent_steps": 0,
+      "answer_chars": 33,
+      "sentences": 1,
+      "cached_sentences": 0,
+      "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_复合2.wav"
+    },
+    {
+      "name": "复合3",
+      "asr_text": "我女儿8岁，近视手术和看牙能报吗？住院呢？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.135,
+        "answer": 1.763,
+        "total": 2.898
+      },
+      "asr_endpoint_s": 0.579,
+      "first_response_s": 0.579,
+      "answer_text_ready_s": 3.476,
+      "first_substantive_audio_s": 3.855,
+      "answer_audio_all_ready_s": 6.627,
+      "answer_playback_end_s": 19.715,
+      "agent_steps": 0,
+      "answer_chars": 91,
+      "sentences": 2,
+      "cached_sentences": 0,
+      "text": "近视手术和看牙不能报，因为视力矫正手术和牙科疾病属于责任免除范围；住院能报，基础版包含住院医疗费用，扣除1万元免赔额后按100%赔付。住院医疗费用补偿加油包需要在基础版之外另外选购。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_复合3.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000啊，后来住院花了两万，一共能报多少？",
+      "events": [
+        "回答:保障"
+      ],
+      "stage_s": {
+        "understand": 1.725,
+        "answer": 2.111,
+        "total": 3.836
+      },
+      "asr_endpoint_s": 0.545,
+      "first_response_s": 0.545,
+      "answer_text_ready_s": 4.381,
+      "first_substantive_audio_s": 4.75,
+      "answer_audio_all_ready_s": 15.286,
+      "answer_playback_end_s": 24.743,
+      "agent_steps": 0,
+      "answer_chars": 122,
+      "sentences": 2,
+      "cached_sentences": 0,
+      "text": "急诊抢救5000元属于一般门急诊医疗费用，住院2万元属于一般医疗费用，这两项责任共享1万元免赔额和300万保额；您今年还没用过免赔额，所以先扣掉1万元，剩下1.5万元按100%赔付，一共能报1.5万元。门急诊医疗加油包需要在基础版之外另外选购。",
+      "recording": "experiments\\recordings\\v5_prompt_base_nocache_r1_复合4.wav"
+    }
+  ]
+}
