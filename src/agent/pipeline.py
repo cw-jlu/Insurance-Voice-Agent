@@ -212,8 +212,8 @@ _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用�
 要求：
 1. 只根据【资料】回答。资料里没有的内容不要说，不要推测，不要用常识补充。
 2. 回答里的每个数字（金额、比例、天数、年龄）都必须在【资料】或【报价结果】里原样出现。价格只能用【报价结果】里的数字。
-3. 口语化，先说结论，一般不超过 100 字，最多讲 3 个要点；不要 Markdown、不要列表符号、不要编号。
-4. 讲保障时顺带说一个最重要的限制（免赔额、等待期、医院范围或既往症）。
+3. 口语化，先说结论；逐一回答用户问到的事项，只讲回答必需的事实和条件，不为凑字数重复或补充无关信息；不要 Markdown、不要列表符号、不要编号。
+4. 讲保障时只补与所问直接相关的关键限制（如免赔额、等待期、医院范围或既往症），不要附加一整套通用提醒。
 5. 禁止说"什么病都能报""保证续保""肯定能赔"之类的承诺；涉及病史要提醒如实告知，能否投保以核保结果为准，不要替核保下结论。
 6. 如果【必须原样包含的话】不为空，把它自然地放进回答里。
 7. 如果相关责任属于加油包（资料里写着"××加油包"），要说明这是需要另外选购的加油包，不在基础版里。
@@ -347,9 +347,12 @@ def _eligibility_text(slots: dict, question: str) -> str:
     if age > MAX_AGE_NEW:
         return f"{age}岁超过了首次投保的年龄上限{MAX_AGE_NEW}周岁，这款产品买不了。"
     asks_outpatient = bool(re.search(r"门急诊|门诊", question))
-    tail = (f"门急诊加油包只能55周岁及以下买，{age}岁{'可以' if age <= 55 else '不能'}选。" if asks_outpatient
-            else "门急诊加油包只能55周岁及以下买。" if age > 55 else "")
-    return f"{age}岁可以买，首次投保的年龄是出生满30天到{MAX_AGE_NEW}周岁。{tail}能不能承保还要看健康告知和核保结果。"
+    if asks_outpatient:
+        return (f"门急诊加油包限55周岁及以下，{age}岁{'符合年龄要求' if age <= 55 else '不能选'}。"
+                + ("能否承保以健康告知和核保为准。" if age <= 55 else ""))
+    if re.search(r"多大|几岁|年龄限制|年龄范围", question):
+        return f"首次投保限出生满30天到{MAX_AGE_NEW}周岁，{age}岁符合年龄要求；能否承保以核保为准。"
+    return f"{age}岁符合首次投保年龄要求；能否承保以健康告知和核保为准。"
 
 
 _DISCOUNT_Q = re.compile(r"优惠|打折|折扣|便宜|全家|家里人|一家|一起买")
@@ -391,8 +394,8 @@ def _total_text(slots: dict, addons: list[str]) -> tuple[str, set] | None:
 FAMILY_SAY = "优惠的话，给家人一起买有家庭单优惠：2个人每人优惠5%，3个人10%，4个人15%，5个人及以上20%。"
 _PRICE_CHANGE_Q = re.compile(r"以后|每年|明年|后年|将来|涨|一直(都)?(是)?这个价|固定|变不变|会变|老了")
 _WAIT_Q = re.compile(r"等待期|等多久|等多长|多久(才)?(能|可以)?(用|生效|报|赔)|刚买就|买完就|马上就?(生病|住院)|意外.{0,10}(等|等待)|要等")
-WAIT_TEXT = ("疾病的等待期是30天，从保单生效算起，等待期内确诊的疾病不赔；意外受伤导致的住院和门急诊不受这30天限制。"
-             "加油包里药省保加油包的等待期是7天。")
+WAIT_TEXT = "从保单生效起，疾病等待期30天；意外住院和门急诊不受此限制。"
+WAIT_ADDON_TEXT = "药省保加油包等待期7天。"
 _ADDON_ALIASES = {
     "家庭共享免赔额加油包": r"家庭共享|共享免赔",
     "重疾关爱加油包": r"重疾关爱|重疾险|确诊.{0,4}(拿|给)钱",
@@ -462,14 +465,25 @@ def _clauses(text: str) -> int:
 def addon_notice(text: str, evidence: list[Chunk]) -> str:
     """If the answer talks about an add-on item but never says it must be bought separately, say so."""
     out = text
+    # Generic names such as "门急诊医疗" and "住院医疗费用" also occur in base-plan
+    # answers. A retrieval hit alone must not add an unrelated add-on warning.
+    specific = {
+        "R09": r"家庭共享免赔额|共享免赔额加油包",
+        "R10": r"重疾关爱|重疾给付",
+        "R11": r"扩展特需医疗|特需医疗加油包",
+        "R12": r"住院医疗费用补偿|住院补偿加油包",
+        "R13": r"门急诊医疗加油包|门诊加油包|门急诊加油包",
+        "R14": r"住院津贴|一般住院津贴",
+        "R15": r"ICU津贴|重症监护病房住院津贴",
+        "R16": r"药省保|互联网药品费用医疗保险金",
+    }
     for c in evidence:
         iid = c.meta.get("item")
         if not iid or COVERAGE[iid]["责任&加油包"] == "必选责任":
             continue
         it = COVERAGE[iid]
-        key = it["责任名称"].replace("保险金", "")[:6]
         pack = it["责任&加油包"]
-        if (key in out or pack in out or pack.replace("尊享", "") in out) and not re.search(r"另外|额外|单独|加购|附加|自选", out):
+        if (pack in out or pack.replace("尊享", "") in out or re.search(specific.get(iid, r"(?!)"), out)) and not re.search(r"另外|额外|单独|加购|另购|另买|附加|自选", out):
             out = out.rstrip() + f"{pack.replace('尊享', '')}需要在基础版之外另外选购。"
             break
     return out
@@ -508,6 +522,29 @@ def assemble_facts(raw: str, facts: list[str]) -> str:
             parts.append(facts[k - 1])
     parts += [str(d.get("calc") or "").strip("。 "), free(d.get("closing"))]
     return "。".join(dict.fromkeys(p for p in parts if p)) + "。"
+
+
+def assemble_voice_slots(raw: str, expected: int) -> str:
+    """Experimental opt-in: release only a complete one-to-one set of voice answer slots."""
+    try:
+        answers = json.loads(raw).get("answers")
+    except (ValueError, AttributeError):
+        return ""
+    if not isinstance(answers, list) or len(answers) != expected:
+        return ""
+    sentences = []
+    for i, answer in enumerate(answers, 1):
+        if not isinstance(answer, dict) or answer.get("id") != i:
+            return ""
+        conclusion = answer.get("conclusion")
+        if not isinstance(conclusion, str) or not conclusion.strip():
+            return ""
+        fields = [answer.get(key, "") for key in ("conclusion", "numbers", "condition")]
+        if not all(isinstance(value, str) for value in fields):
+            return ""
+        sentence = "，".join(value.strip(" ，;；。") for value in fields if value.strip(" ，;；。"))
+        sentences.append(sentence + "。")
+    return "".join(sentences)
 
 
 def derived_numbers(question: str, evidence: list[Chunk]) -> set[float]:
@@ -783,7 +820,8 @@ class Pipeline:
             rest = self._answer_rest(question, known, slots, voice, _PRICE_Q)
             return done(text + gap_tail + rest, "报价", topic_chunks("价格变化"), nums)
         if _WAIT_Q.search(question) and _clauses(question) <= 1 and not u.get("gaps"):
-            return done(WAIT_TEXT, "等待期(模板)", topic_chunks("等待期"))
+            wait_text = WAIT_ADDON_TEXT if re.search(r"药省保|网上买药|互联网药", question) else WAIT_TEXT
+            return done(wait_text, "等待期(模板)", topic_chunks("等待期"))
         if u.get("gaps") and set(u["gaps"]) <= TEMPLATE_ONLY_GAPS and _clauses(question) <= 1:
             lead = "这款产品的保险期间是一年。" if "续保" in u["gaps"] else ""
             return done(lead + gap_tail, "缺口(模板)", topic_chunks("保险期间"))
@@ -841,12 +879,22 @@ class Pipeline:
         ctx = grouped_context(evidence_for_prompt)
         shown = {k: v for k, v in slots.items() if not str(k).startswith("_")}
         history = known.get("_history", "")
+        voice_questions = u.get("_voice_questions") if voice else None
+        voice_questions = voice_questions if isinstance(voice_questions, list) and all(
+            isinstance(q, str) and q.strip() for q in voice_questions) else None
         user = (f"已知用户条件：{json.dumps(shown, ensure_ascii=False)}\n"
                 + (f"【最近对话】\n{history}\n" if history else "")
                 + f"【报价结果】{must_say[0] if intent == '报价' and must_say else '无'}\n"
                 f"【必须原样包含的话】{'；'.join(must_say[1:] if intent == '报价' else must_say) or '无'}\n"
                 + ("【事实】\n" + "\n".join(f"[F{i + 1}] {f}" for i, f in enumerate(facts)) + "\n" if facts else "")
                 + f"【资料】\n{ctx}\n\n用户：{question}")
+        if voice_questions and not facts:
+            user += ("\n【逐项回答槽位】\n" + "\n".join(f"{i}. {q}" for i, q in enumerate(voice_questions, 1))
+                     + "\n请输出 JSON：{\"answers\":[{\"id\":1,\"conclusion\":\"...\",\"condition\":\"...\"}]}。"
+                     "每个槽位恰好一项；conclusion 直接回答并含被问的具体数字，condition 只放会改变结论的必要条件。"
+                     "多项共用的条件只在第一项说一次，后面不要重复；不要照抄问题中的金额或复述用户背景。"
+                     "数字与条件不适用时留空；不得填入资料未支持的数字。问总额时只答最终总额。"
+                     "不要解释计算过程，不要加未问的细则。")
         msgs = [{"role": "system", "content": _ANSWER_SYS + (FACTS_RULE if facts else "") + (VOICE_RULES if voice else "")},
                 {"role": "user", "content": user}]
 
@@ -858,6 +906,11 @@ class Pipeline:
                                  response_format={"type": "json_object"})
                 text = assemble_facts(raw, facts) or "这个问题我需要帮您转专员确认一下。"
                 timings.setdefault("generate_ttft", time.perf_counter() - t1)
+            elif voice_questions:
+                raw = cloud.chat(msgs, model=self.slow_model, client=self.client, temperature=0.3,
+                                 response_format={"type": "json_object"})
+                text = assemble_voice_slots(raw, len(voice_questions))
+                timings.setdefault("generate_ttft", time.perf_counter() - t1)
             else:
                 r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3)
                 timings.setdefault("generate_ttft", r.ttft_s)
@@ -865,8 +918,9 @@ class Pipeline:
             timings[f"generate_{attempts}"] = time.perf_counter() - t1
             # Checked against the routed gaps only: checking against either path's gaps (exp14 first run) turned
             # coverage answers such as "癌症住院能报" into violations whenever one path misread the question.
-            violations = _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False),
-                                fact_check=self.fact_check, features=self.features, client=self.client)
+            violations = (["逐项回答槽位缺失"] if voice_questions and not text else
+                          _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False),
+                                 fact_check=self.fact_check, features=self.features, client=self.client))
             if not violations:
                 break
             # Rewrite as a fresh generation with the problems as constraints: sending the old answer back as a
@@ -883,8 +937,6 @@ class Pipeline:
             else:
                 text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
         text = addon_notice(text, evidence)
-        if voice:  # two questions in one sentence get room for two answers (第十轮回归: the ICU half was cut off)
-            text = cap_for_voice(text, must_say, VOICE_MAX_CHARS if _clauses(question) <= 1 else 90)
         timings["total"] = time.perf_counter() - t0
         return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
                       violations=violations, attempts=attempts, fallback_used=fallback, timings=timings)
@@ -892,32 +944,14 @@ class Pipeline:
 
 # --- streaming variant used by the voice loop --------------------------------------------------------
 
-VOICE_MAX_CHARS = 50
 FOLLOW_UP = "要不要我接着说说？"
 
 
-def cap_for_voice(text: str, keep: list[str], limit: int = VOICE_MAX_CHARS) -> str:
-    """Keep whole sentences up to ``limit`` characters (always the first one and any sentence that
-    contains a required phrase); if anything was cut, end with a follow-up question."""
-    from agent.speech import SentenceFeeder
-
-    f = SentenceFeeder(None)
-    sents = f.feed(text) + f.flush()
-    out, n, cut = [], 0, False
-    for i, s in enumerate(sents):
-        required = any(k and k in s for k in keep)
-        if i == 0 or required or (not cut and n + len(s) <= limit):
-            out.append(s)
-            n += len(s)
-        else:
-            cut = True  # keep a prefix: once a sentence is skipped, later ones are skipped too
-    if cut and not any(x.endswith(("？", "?")) for x in out[-1:]):
-        out.append(FOLLOW_UP)
-    return "".join(out)
-
-
-VOICE_RULES = ("\n8. 这是电话通话：一次只讲最关键的一到两点，整段不超过50个字（用户问了两件事时两件都答，可到90个字）；"
-               "如果还有重要内容没讲，最后用一句话问用户要不要继续了解。不要使用“首先、其次、最后”这类连接词。")
+VOICE_RULES = ("\n8. 这是电话通话：把回答组织成用户能在约10秒内听懂的一两句，先给结论，再给不可省略的条件或例外。"
+               "用户问了几件事就逐一回答，但每件只说最关键的一句，不要为了短而漏答。"
+               "问‘都保什么’等概览，只说主要责任类别和一项关键限制，不逐项朗读保额、比例、医院或床位费；"
+               "问某个加油包，不顺带介绍其他产品；问计算结果，不朗读推导过程。"
+               "不要重复已说过的事实或附加无关的销售提醒，细则留待用户追问。不要使用‘首先、其次、最后’。")
 
 
 def stream_answer(pipe: "Pipeline", question: str, known: dict | None = None, voice: bool = True):
@@ -997,8 +1031,6 @@ def stream_answer(pipe: "Pipeline", question: str, known: dict | None = None, vo
                  {"role": "user", "content": f"上面的回答有问题：{'；'.join(violations)}。请只用资料里的内容重写。"}]
     if violations:
         text = "".join(must_say) or _item_template(u.get("items", [])) or "这个问题我帮您转专员确认一下。"
-    if voice:
-        text = cap_for_voice(text, must_say, VOICE_MAX_CHARS - (len(quote_said) if quote_said else 0))
     feeder = SentenceFeeder()
     for piece in feeder.feed(text) + feeder.flush():
         yield "sentence", piece, time.perf_counter() - t0
