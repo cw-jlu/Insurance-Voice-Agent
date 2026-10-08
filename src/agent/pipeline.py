@@ -206,6 +206,52 @@ def understand(question: str, known: dict, client=None, model: str | None = None
     return u
 
 
+_MERGED_EXTRA = """
+另外输出两个字段（与上面的字段放在同一个 JSON 里）：
+ "act": 用户这句话在销售对话中的作用，从 %(acts)s 中选一个，
+ "gaps_now": 只看用户最新这一句（不考虑之前的对话），是否在问资料里没有的事项，从 ["疾病核保","续保","社保抵扣免赔额","条款清单"] 中选，没有则为空列表。
+act 的含义：提问：问保障、价格、规则等；提供信息：回答坐席的问题或补充、纠正自己的情况（年龄、社保、给谁买、病史）；
+附和：嗯、好的、你说；同意投保：愿意买、要链接、怎么买、发给我；拒绝：不需要、没兴趣、别打了、不买；
+异议：嫌贵、要考虑、已经有医保或别的保险、不信任；要人工：要求转人工或真人；投诉：表达不满、要投诉；
+身份：问是不是真人、机器人、AI、录音。一句话里既有信息又有提问时选"提问"。
+gaps_now 的含义：
+- "疾病核保"：用户说自己或家人有某种病、做过手术、在吃药，问能不能买、能不能承保、会不会影响投保、买了能不能报这个病；
+- "续保"：问能不能续保、保证续保、停售后能否续、老了能不能续、明年还能不能买；
+- "社保抵扣免赔额"：问医保/社保报销的部分能不能抵扣或计入免赔额，医保报完剩下的怎么报、还能不能报；
+- "条款清单"：问重疾清单、特药清单、指定医院名单等具体清单。
+问保障范围、价格、等待期、免赔额是多少，都不算。"""
+
+
+def understand_merged(question: str, known: dict, client=None, model: str | None = None) -> dict:
+    """One call instead of three (understand + classify_act + detect_gaps), 第十一轮对比实验。
+
+    Returns the ``understand`` dict plus ``act`` and ``gaps_now`` (gaps judged on this sentence only)."""
+    from agent.small_model import ACTS
+
+    sys = (_UNDERSTAND_SYS % {"intents": INTENTS, "topics": TOPIC_NAMES, "gaps": GAP_NAMES,
+                              "catalog": _catalog(), "max_items": MAX_ITEMS}
+           + _MERGED_EXTRA % {"acts": ACTS})
+    history = known.get("_history")
+    shown = {k: v for k, v in known.items() if not k.startswith("_")}
+    user = (f"已知条件：{json.dumps(shown, ensure_ascii=False)}\n"
+            + (f"【最近对话】\n{history}\n" if history else "")
+            + f"用户：{question}")
+    raw = cloud.chat([{"role": "system", "content": sys}, {"role": "user", "content": user}],
+                     model=model or cloud.FAST_MODEL, client=client, temperature=0,
+                     response_format={"type": "json_object"})
+    try:
+        u = json.loads(raw)
+    except json.JSONDecodeError:
+        u = {"intent": "其他", "slots": {}, "items": [], "topics": [], "gaps": [], "rewrite": question}
+    u.setdefault("slots", {})
+    u["items"] = [i for i in u.get("items", []) if i in COVERAGE][:MAX_ITEMS]
+    u["topics"] = [t for t in u.get("topics", []) if t in TOPIC_NAMES]
+    u["gaps"] = [g for g in u.get("gaps", []) if g in GAP_NAMES]
+    u["act"] = u.get("act") if u.get("act") in ACTS else "提问"
+    u["gaps_now"] = [g for g in (u.get("gaps_now") or []) if g in ("疾病核保", "续保", "社保抵扣免赔额", "条款清单")]
+    return u
+
+
 # --- generation ----------------------------------------------------------------------------------
 
 _ANSWER_SYS = """你是众安保险的 AI 电销坐席，正在电话里给用户介绍尊享e生·百万医疗保险2026版。
@@ -721,10 +767,14 @@ class Pipeline:
         return self.retriever.search(question, k=k) if self.retriever is not None else []
 
     def answer(self, question: str, known: dict | None = None, voice: bool = False,
-               agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None) -> Answer:
+               agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None,
+               on_sentence=None) -> Answer:
         """``known`` carries the call's profile; ``known["_history"]`` (recent turns, as text) and
         ``known["_prev_utterance"]`` come from CallSession. ``agent_steps`` > 0 lets the evidence
-        agent add tool calls on top of the fixed routing, within ``agent_budget_s`` seconds."""
+        agent add tool calls on top of the fixed routing, within ``agent_budget_s`` seconds.
+
+        ``on_sentence``: if given, the answer is streamed — each sentence is guarded and handed to the
+        callback as soon as the model finishes it, instead of after the whole answer (see ``_stream_generate``)."""
         known = dict(known or {})
         t0 = time.perf_counter()
         timings: dict = {}
@@ -899,6 +949,19 @@ class Pipeline:
                 {"role": "user", "content": user}]
 
         text, violations, attempts = "", [], 0
+        # The experimental stream path cannot safely handle JSON fact/slot answers or checks that
+        # need the whole reply. It never applies a character cap to released sentences.
+        if (on_sentence is not None and not u.get("gaps") and not facts and not voice_questions
+                and self.fact_check == "off"):
+            spoken, bad = self._stream_generate(msgs, evidence, structured, on_sentence, timings)
+            if spoken:
+                text = "".join(spoken) + (FOLLOW_UP if voice and bad else "")
+                timings["total"] = time.perf_counter() - t0
+                timings["streamed_sentences"] = len(spoken)
+                return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
+                              violations=bad, attempts=1, fallback_used=bool(bad), timings=timings)
+            if bad:  # the very first sentence failed: nothing was said yet, so rewrite as before
+                msgs += [{"role": "user", "content": f"回答不能出现这些问题：{'；'.join(bad)}。请只用资料里的内容回答。"}]
         for attempts in (1, 2):
             t1 = time.perf_counter()
             if facts:
@@ -940,6 +1003,55 @@ class Pipeline:
         timings["total"] = time.perf_counter() - t0
         return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
                       violations=violations, attempts=attempts, fallback_used=fallback, timings=timings)
+
+
+    def _stream_generate(self, msgs, evidence, structured, on_sentence, timings):
+        """Stream the slow model; release each sentence once it passes the rule guards.
+
+        Stops at the first sentence that fails a guard (later sentences are not said: dropping one
+        sentence mid-answer leaves dangling connectives, 实验 4). Never truncates by length.
+        Returns (spoken sentences, violations)."""
+        from agent.session import capability_guard
+        from agent.speech import SentenceFeeder
+
+        feeder, spoken, bad = SentenceFeeder(), [], []
+        ev_texts = [c.text for c in evidence]
+        def release(piece: str) -> bool:
+            v = number_guard(piece, ev_texts, structured).violations + compliance_guard(piece).violations
+            if capability_guard(piece)[1]:
+                v.append(f"能力护栏：{piece}")
+            if v:
+                bad.extend(v)
+                return False
+            spoken.append(piece)
+            on_sentence(piece)
+            return True
+
+        t1 = time.perf_counter()
+        stream = self.client.chat.completions.create(model=self.slow_model, messages=msgs, stream=True, temperature=0.3,
+                                                     extra_body={"enable_thinking": False})
+        go = True
+        try:
+            for chunk in stream:
+                d = chunk.choices[0].delta.content if chunk.choices else ""
+                if not d:
+                    continue
+                timings.setdefault("generate_ttft", time.perf_counter() - t1)
+                for piece in feeder.feed(d):
+                    if not release(piece):
+                        go = False
+                        break
+                if not go:
+                    break
+            if go:
+                for piece in feeder.flush():
+                    if not release(piece):
+                        break
+        finally:
+            if not go:
+                stream.close()  # stop generating what will not be said
+        timings["generate_1"] = time.perf_counter() - t1
+        return spoken, bad
 
 
 # --- streaming variant used by the voice loop --------------------------------------------------------

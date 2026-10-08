@@ -139,8 +139,12 @@ class CallSession:
         self._say(OPENING)
         return OPENING
 
-    def turn(self, user_text: str) -> TurnResult:
+    def turn(self, user_text: str, on_sentence=None) -> TurnResult:
+        """``on_sentence``: optional callback receiving each sentence as soon as it can be spoken (answer
+        sentences while the model is still generating, then the flow's own sentences). The returned text
+        is exactly what was handed to the callback."""
         t0 = time.perf_counter()
+        self._spoken, self._emit_cb = [], on_sentence
         self.history.append(("用户", user_text))
         hist = self._history_text()
         timings: dict = {}
@@ -249,6 +253,7 @@ class CallSession:
             self.flags["ai"] = True
             answer_text = IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。"
             events.append("承认AI")
+            self._emit(answer_text)
             has_question = bool(u.get("gaps")) or u.get("intent") not in ("身份", "闲聊", "其他")
         if has_question and act != "附和" and (act != "身份" or u.get("intent") != "身份"):
             known = {**self.profile, "_history": hist}
@@ -302,10 +307,23 @@ class CallSession:
     def _last_agent_asked_link(self) -> bool:
         return "投保链接发到您手机" in self._last_agent_text()
 
+    def _emit(self, sentence: str) -> None:
+        if self._emit_cb is not None:
+            self._spoken.append(sentence)
+            self._emit_cb(sentence)
+
     def _finish(self, text: str, act: str, events: list[str], timings: dict, t0: float) -> TurnResult:
         text, removed = capability_guard(text)
         if removed:
             events.append("能力护栏:" + "；".join(removed))
+        if self._emit_cb is not None:
+            # Sentences already streamed stay as said; release only what is left (flow steps, templates).
+            said = re.sub(r"[，。！？；\s]", "", "".join(self._spoken))
+            for s in _sentences(text):
+                if re.sub(r"[，。！？；\s]", "", s) not in said:
+                    self._emit(s)
+            text = "".join(self._spoken)
+            self._emit_cb = None
         self._say(text)
         timings["total"] = time.perf_counter() - t0
         return TurnResult(text=text, stage=self.stage, act=act, events=events, timings=timings)
