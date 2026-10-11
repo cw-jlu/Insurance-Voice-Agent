@@ -33,7 +33,7 @@ def cn_to_int(s: str) -> int | None:
     return total + num
 
 
-_NUM_RE = re.compile(r"(\d+(?:\.\d+)?|[零〇一二两三四五六七八九十百千]+)\s*(万)?\s*(%|元|天|周岁|岁|日|人|种)?")
+_NUM_RE = re.compile(r"(\d+(?:\.\d+)?|[零〇一二两三四五六七八九十百千]+)\s*(万)?(?:([一二两三四五六七八九]|[1-9])(?![\d零〇一二两三四五六七八九十百千]))?\s*(%|元|天|周岁|岁|日|人|种)?")
 # List markers in source text ("1）", "a.", "ii.") are not facts and must not whitelist numbers.
 _LIST_MARKER = re.compile(r"(?:(?<=^)|(?<=[\s；;。:：]))\s*(?:\d{1,2}[）)、.]|[a-z][.、]|[ivx]+[.、])")
 
@@ -49,7 +49,7 @@ class Num:
 def extract_numbers(text: str) -> list[Num]:
     out: list[Num] = []
     for m in _NUM_RE.finditer(text):
-        token, wan, unit = m.group(1), m.group(2), m.group(3) or ""
+        token, wan, tail, unit = m.group(1), m.group(2), m.group(3), m.group(4) or ""
         if token[0].isdigit():
             value = float(token)
         else:
@@ -61,6 +61,8 @@ def extract_numbers(text: str) -> list[Num]:
             value = float(iv)
         if wan:
             value *= 10_000
+            if tail:
+                value += (int(tail) if tail.isdigit() else _CN_DIGIT[tail]) * 1000
         unit = {"周岁": "岁", "日": "天"}.get(unit, unit)
         out.append(Num(value=value, unit=unit, raw=m.group(0), start=m.start()))
     return out

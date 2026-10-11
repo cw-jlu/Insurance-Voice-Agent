@@ -1,0 +1,1427 @@
+{
+  "reviewer": "primary agent; every final text and assigned source reviewed; no scoring API",
+  "output_sha256": "8cfaee671a500964ff576a3d16c2678d3670095553656f273527614b211db6ab",
+  "rubric": "same concise-answer rubric; bundle context counts as evidence; omissions and semantic support separated; subjective boundary judgments retained in reasons",
+  "rows": [
+    {
+      "id": "C01",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础住院/门诊共享1万与300万，另购ICU500/0/30/60及叠加；未问全部医保分支不强制复述。"
+    },
+    {
+      "id": "C02",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "合同定义、三项责任和免赔、指定特药审核及大陆质子路径正确。"
+    },
+    {
+      "id": "C03",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "15000扣1万得5000，有医保身份未结算60%得3000，假设明确。"
+    },
+    {
+      "id": "C04",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础共享300万/1万与另购门诊1万/次300/50%区分；scope保留30%身份条件。"
+    },
+    {
+      "id": "C05",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": true,
+      "reason": "住院只给一般医疗扣1万，缺合同重疾住院无免赔的关键分支；康复与护工限定正确。与C29缺分支采用同一标准。"
+    },
+    {
+      "id": "C06",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "5岁在首次年龄内，50%月100年1000，6周岁含以下不能开处方；年龄可以买按年龄资格语境理解。"
+    },
+    {
+      "id": "C07",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "护工明确合同100种，但跨省转诊仍只说重病/符合条件，缺该责任约定重疾定义门槛。"
+    },
+    {
+      "id": "C08",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购家庭共享、同投保人同订单、仅一般医疗；家庭累计3人10%。"
+    },
+    {
+      "id": "C09",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "已有高血压仍回到如果不是既往症，没有直接回答当前病史下的费用边界；条款本身及引用正确。"
+    },
+    {
+      "id": "C10",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "意外无疾病等待、疾病30天；conditional责任及医院正确。未给负数赔付，额外无金额公式建议加零下限。"
+    },
+    {
+      "id": "C11",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "指定私立与公立VIP/特需另购约定重大疾病扩展责任，不等于所有私立均除外；床位限制正确。"
+    },
+    {
+      "id": "C12",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "住院补偿需另购，1万内100%及结节20%，不得用一般60%覆盖结节条件。"
+    },
+    {
+      "id": "C13",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾关爱另购、合同100种、初诊30天、5万正确。未问意外分支不强制全列。"
+    },
+    {
+      "id": "C14",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "已购假设，普通700与ICU1500可叠加，意外无30天等待。"
+    },
+    {
+      "id": "C15",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "牙科屈光免责有意外例外；一般/重疾住院按各责任。"
+    },
+    {
+      "id": "C16",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与妊娠原因相关费用除外，孕妇无关疾病/意外不应按身份全面除外。"
+    },
+    {
+      "id": "C17",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "医保后个人合理费用、共享免赔和特药目录内外100/60、身份条件正确。"
+    },
+    {
+      "id": "C18",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "58岁新投不能门诊包，其余六包首次上限70；不是已有门诊续投情境。"
+    },
+    {
+      "id": "C19",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "已区分服务100不限额与医院路径60一万，但未交代主体保险D49一万及其与服务备注的范围冲突，仍易将服务当保险给付。"
+    },
+    {
+      "id": "C20",
+      "variant": "grouped_only",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "投保前已有结节，却继续给加包结节20%及两责任公式，未将这笔已有结节相关手术明确排除；普通住院还缩窄指定民营医院。"
+    },
+    {
+      "id": "C21",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "住院前后各30天、外购药特定条件与普通就医药费路径区分，无不限时承诺。"
+    },
+    {
+      "id": "C22",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "康复合同16种/180天/救护1000；其他转院按对应责任，不能代替一般门急诊救护车。"
+    },
+    {
+      "id": "C23",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "日本两家指定医院、恶性重度初诊、600万/0、床1500及房型除外正确。"
+    },
+    {
+      "id": "C24",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "癌症重度和13种罕见病区分、指定药店审核清单条件正确。"
+    },
+    {
+      "id": "C25",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "货车类型/营运/吨位需核对，45岁年龄及636/63价格正确。only未主动列职业条目可改进，不承诺所有货车可保。"
+    },
+    {
+      "id": "C26",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "30岁闭区间318/31，31乘12为372、差54，两个源表正确。"
+    },
+    {
+      "id": "C27",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "家庭免赔需另购及同投保同单、门急诊不纳入，四人15%；不同社保列正确。"
+    },
+    {
+      "id": "C28",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "精神行为障碍费用免责，核保与既往症分开，不按病史承诺可买。"
+    },
+    {
+      "id": "C29",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "体检查肿瘤不默认既往；一般医疗与合同重疾无免赔分支都有。"
+    },
+    {
+      "id": "C30",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "费用全符合、无补偿、免赔未用，25000扣10000乘100/60，15000/9000正确。"
+    },
+    {
+      "id": "Y001",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础门诊共享1万/300万及60%完整身份、ICU另购及500/0/30/60正确。"
+    },
+    {
+      "id": "Y002",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "一般住院1万与重疾0免赔分开、疾病30意外无等待。"
+    },
+    {
+      "id": "Y003",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾300万、合同100种指定护工500/30、机构结算，不自主理赔。"
+    },
+    {
+      "id": "Y004",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "恶性重度、特药审核清单、目录内外100/60身份，大陆质子600万0免赔正确。"
+    },
+    {
+      "id": "Y005",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "药省保7天、50%月100年1000、指定互联网药店及配送自付正确。"
+    },
+    {
+      "id": "Y006",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "新投年龄30天至55、次300/年1万/50%与身份条件30%，不承诺55为终身最高。"
+    },
+    {
+      "id": "Y007",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "问等待期，意外无疾病30；未问所有金额比例例外不机械要求。"
+    },
+    {
+      "id": "Y008",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "两津贴100/500、3/0、另购及30/60和叠加正确。"
+    },
+    {
+      "id": "Y009",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "特定疾病康复无免赔、按机构80/60及有医保身份未结算48/36正确。"
+    },
+    {
+      "id": "Y010",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "家庭2/3/4/5以上5/10/15/20%，另购同单一般医疗共享、门急诊除外正确。"
+    },
+    {
+      "id": "Y011",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "普通100/3、另购及30/60，ICU500/0叠加正确。"
+    },
+    {
+      "id": "Y012",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU500/0、另购、30/60及叠加正确，单次15000推导正确。"
+    },
+    {
+      "id": "Y013",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "合同100种、指定服务护工500/30，机构直接结算，不自主报销正确。"
+    },
+    {
+      "id": "Y014",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "约定重疾、跨省转院证明、标准间500/天和年1万正确。"
+    },
+    {
+      "id": "Y015",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "给1500及房型除外但没说明特需赔付必须满足合同重大疾病，不能已购就承诺特需床位可赔。"
+    },
+    {
+      "id": "Y016",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购门诊年1万、次300、50/条件30及首次55正确。"
+    },
+    {
+      "id": "Y017",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "夫妻39无社保1330、家庭2人5%1263.5；月131*95%=124.45正确，夫妻一起按同单语境。"
+    },
+    {
+      "id": "Y018",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "6岁279加药省保99=378，两个费率原始行引用正确。"
+    },
+    {
+      "id": "Y019",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "30岁318+141=459，合计引用双方来源齐全。"
+    },
+    {
+      "id": "Y020",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "四人15%、同投保人家庭范围及家庭价优先正确；only省略首次/指定重投条件可改善。"
+    },
+    {
+      "id": "Y021",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "用户有社保语境下说明一般住院1万100及有医保身份未结算60；身份条件按本分支理解不推成无社保全面除外。"
+    },
+    {
+      "id": "Y022",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "特药目录内医保后100、身份条件60和审核清单正确。"
+    },
+    {
+      "id": "Y023",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "条件化有医保身份未结算60，不强套无社保身份；未知比例留白可改进但不算错误承诺。"
+    },
+    {
+      "id": "Y024",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU住院医疗与津贴区分，基础住院1万/300万/100/身份条件60正确。"
+    },
+    {
+      "id": "Y025",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础门急诊共享1万，另购门诊次0/300，scope增合同重疾无免赔正确。"
+    },
+    {
+      "id": "Y026",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "首次70与未知最高续保年龄分开，不能用费率表105承诺；未知句缺资料范围证明。"
+    },
+    {
+      "id": "Y027",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "两津贴属于另购住院津贴包，不是基础自带。"
+    },
+    {
+      "id": "Y028",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾关爱另购、合同100种、意外或30天初诊、5万正确。"
+    },
+    {
+      "id": "Y029",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "34有社保月42，标准基础加包另算，对应费率行齐全。"
+    },
+    {
+      "id": "Y030",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49无社保月294；费率首投标准原句确为首次或未在指定期限重投，不是71+的在期限内。"
+    },
+    {
+      "id": "Y031",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49有社保年984，额外加包51/390/99与费率一致。"
+    },
+    {
+      "id": "Y032",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "64无社保月881，附加有社保253或年龄资格与数据一致。"
+    },
+    {
+      "id": "Y033",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316，标准费率条件正确，71+在指定期限重新投保费率不等于保证续保。"
+    },
+    {
+      "id": "Y034",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "69有社保3316；具体重新投保价格保留未知，不把105费率当续保承诺，额外71岁假设不必要。 “保费可能不同/需另确认”缺具体重新投保费率与资料范围依据。"
+    },
+    {
+      "id": "Y035",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "祛斑美容免责，未把牙科意外例外移用于美容。"
+    },
+    {
+      "id": "Y036",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "牙科矫正说一律不报，未保留免责牙科意外例外。"
+    },
+    {
+      "id": "Y037",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "醉酒导致伤害费用免责；only说很可能过于含糊但未承诺本次可赔，后续符合责任假设不是醉酒例外。"
+    },
+    {
+      "id": "Y038",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "用户已有慢性胃炎属于既往，资格需核保且既往相关费免责，不能保证承保。 单一核保义务来源不能证明资料没有慢性胃炎具体结论的集合断言。"
+    },
+    {
+      "id": "Y039",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "乳腺术后能否保不能保证，既往相关费除外，亲属年龄规则正确。"
+    },
+    {
+      "id": "Y040",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "一年期与条件重新投保费率明确，不作续保保证；无续保细则断言缺范围引用。"
+    },
+    {
+      "id": "Y041",
+      "variant": "grouped_only",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "runtime身份源支持AI/TTS及能力边界。"
+    },
+    {
+      "id": "C01",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础住院/门诊共享1万与300万，另购ICU500/0/30/60及叠加；未问全部医保分支不强制复述。"
+    },
+    {
+      "id": "C02",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "合同定义、三项责任和免赔、指定特药审核及大陆质子路径正确。"
+    },
+    {
+      "id": "C03",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "15000扣1万得5000，有医保身份未结算60%得3000，假设明确。"
+    },
+    {
+      "id": "C04",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础共享300万/1万与另购门诊1万/次300/50%区分；scope保留30%身份条件。"
+    },
+    {
+      "id": "C05",
+      "variant": "grouped_scope",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把合同100种或16种特定疾病一起归入重疾医疗无免赔，现有源不能证明所有16种均满足重疾定义。"
+    },
+    {
+      "id": "C06",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "5岁在首次年龄内，50%月100年1000，6周岁含以下不能开处方；年龄可以买按年龄资格语境理解。"
+    },
+    {
+      "id": "C07",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "跨省交通住宿未说须合同约定100种重疾，额外康复救护分支不能替代该门槛。"
+    },
+    {
+      "id": "C08",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购家庭共享、同投保人同订单、仅一般医疗；家庭累计3人10%。"
+    },
+    {
+      "id": "C09",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "明示已有高血压仍回到如果不是既往症，未直接处理用户当前病史情境。"
+    },
+    {
+      "id": "C10",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "意外无疾病等待、疾病30天；conditional责任及医院正确。未给负数赔付，额外无金额公式建议加零下限。"
+    },
+    {
+      "id": "C11",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "指定私立与公立VIP/特需另购约定重大疾病扩展责任，不等于所有私立均除外；床位限制正确。"
+    },
+    {
+      "id": "C12",
+      "variant": "grouped_scope",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "最后把未按医保身份结算60%无差别套到结节20%分支，没有保留具体结节限制。"
+    },
+    {
+      "id": "C13",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾关爱另购、合同100种、初诊30天、5万正确。未问意外分支不强制全列。"
+    },
+    {
+      "id": "C14",
+      "variant": "grouped_scope",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把两津贴说成等待30天后因意外或疾病，错误把疾病等待扩到意外。"
+    },
+    {
+      "id": "C15",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "近视看牙一概不能报，漏原文意外例外。"
+    },
+    {
+      "id": "C16",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与妊娠原因相关费用除外，孕妇无关疾病/意外不应按身份全面除外。"
+    },
+    {
+      "id": "C17",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "医保后个人合理费用、共享免赔和特药目录内外100/60、身份条件正确。"
+    },
+    {
+      "id": "C18",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "58岁新投不能门诊包，其余六包首次上限70；不是已有门诊续投情境。"
+    },
+    {
+      "id": "C19",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "区分服务与医院检测两路径，但未交代主条款D49一万与服务不限额的范围冲突。"
+    },
+    {
+      "id": "C20",
+      "variant": "grouped_scope",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "已有结节仍给一般及加包比例，再把未医保60%说到结节20%后；补既往症免责不能消除前文误导。"
+    },
+    {
+      "id": "C21",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "住院前后各30天、外购药特定条件与普通就医药费路径区分，无不限时承诺。"
+    },
+    {
+      "id": "C22",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "康复合同16种/180天/救护1000；其他转院按对应责任，不能代替一般门急诊救护车。"
+    },
+    {
+      "id": "C23",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "日本两家指定医院、恶性重度初诊、600万/0、床1500及房型除外正确。"
+    },
+    {
+      "id": "C24",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "癌症重度和13种罕见病区分、指定药店审核清单条件正确。"
+    },
+    {
+      "id": "C25",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "货车类型/营运/吨位需核对，45岁年龄及636/63价格正确。only未主动列职业条目可改进，不承诺所有货车可保。"
+    },
+    {
+      "id": "C26",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "30岁闭区间318/31，31乘12为372、差54，两个源表正确。"
+    },
+    {
+      "id": "C27",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "家庭免赔需另购及同投保同单、门急诊不纳入，四人15%；不同社保列正确。"
+    },
+    {
+      "id": "C28",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "精神行为障碍费用免责，核保与既往症分开，不按病史承诺可买。"
+    },
+    {
+      "id": "C29",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "体检查肿瘤不默认既往；一般医疗与合同重疾无免赔分支都有。"
+    },
+    {
+      "id": "C30",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "费用全符合、无补偿、免赔未用，25000扣10000乘100/60，15000/9000正确。"
+    },
+    {
+      "id": "Y001",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础门诊共享1万/300万及60%完整身份、ICU另购及500/0/30/60正确。"
+    },
+    {
+      "id": "Y002",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "一般住院1万与重疾0免赔分开、疾病30意外无等待。"
+    },
+    {
+      "id": "Y003",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾300万、合同100种指定护工500/30、机构结算，不自主理赔。"
+    },
+    {
+      "id": "Y004",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "恶性重度、特药审核清单、目录内外100/60身份，大陆质子600万0免赔正确。"
+    },
+    {
+      "id": "Y005",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "药省保7天、50%月100年1000、指定互联网药店及配送自付正确。"
+    },
+    {
+      "id": "Y006",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "新投年龄30天至55、次300/年1万/50%与身份条件30%，不承诺55为终身最高。"
+    },
+    {
+      "id": "Y007",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "问等待期，意外无疾病30；未问所有金额比例例外不机械要求。"
+    },
+    {
+      "id": "Y008",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "两津贴100/500、3/0、另购及30/60和叠加正确。"
+    },
+    {
+      "id": "Y009",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "特定疾病康复无免赔、按机构80/60及有医保身份未结算48/36正确。"
+    },
+    {
+      "id": "Y010",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "家庭2/3/4/5以上5/10/15/20%，另购同单一般医疗共享、门急诊除外正确。"
+    },
+    {
+      "id": "Y011",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "普通100/3、另购及30/60，ICU500/0叠加正确。"
+    },
+    {
+      "id": "Y012",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU500/0、另购、30/60及叠加正确，单次15000推导正确。"
+    },
+    {
+      "id": "Y013",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "合同100种、指定服务护工500/30，机构直接结算，不自主报销正确。"
+    },
+    {
+      "id": "Y014",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "约定重疾、跨省转院证明、标准间500/天和年1万正确。"
+    },
+    {
+      "id": "Y015",
+      "variant": "grouped_scope",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "明确合同重疾与房型但“只存在于此加油包”缺完整排他依据。"
+    },
+    {
+      "id": "Y016",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购门诊年1万、次300、50/条件30及首次55正确。"
+    },
+    {
+      "id": "Y017",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "夫妻39无社保1330、家庭2人5%1263.5；月131*95%=124.45正确，夫妻一起按同单语境。"
+    },
+    {
+      "id": "Y018",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "6岁279加药省保99=378，两个费率原始行引用正确。"
+    },
+    {
+      "id": "Y019",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "30岁318+141=459，合计引用双方来源齐全。"
+    },
+    {
+      "id": "Y020",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "四人15%、同投保人家庭范围及家庭价优先正确；only省略首次/指定重投条件可改善。"
+    },
+    {
+      "id": "Y021",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "用户有社保语境下说明一般住院1万100及有医保身份未结算60；身份条件按本分支理解不推成无社保全面除外。"
+    },
+    {
+      "id": "Y022",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "特药目录内医保后100、身份条件60和审核清单正确。"
+    },
+    {
+      "id": "Y023",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "条件化有医保身份未结算60，不强套无社保身份；未知比例留白可改进但不算错误承诺。 例外条款不足以证明无社保比例需要另确认。"
+    },
+    {
+      "id": "Y024",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU住院医疗与津贴区分，基础住院1万/300万/100/身份条件60正确。"
+    },
+    {
+      "id": "Y025",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础门急诊共享1万，另购门诊次0/300，scope增合同重疾无免赔正确。"
+    },
+    {
+      "id": "Y026",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "首次70与未知最高续保年龄分开，不能用费率表105承诺；未知句缺资料范围证明。"
+    },
+    {
+      "id": "Y027",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "两津贴属于另购住院津贴包，不是基础自带。"
+    },
+    {
+      "id": "Y028",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾关爱另购、合同100种、意外或30天初诊、5万正确。"
+    },
+    {
+      "id": "Y029",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "34有社保月42，标准基础加包另算，对应费率行齐全。"
+    },
+    {
+      "id": "Y030",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "49无社保月294；费率首投标准原句确为首次或未在指定期限重投，不是71+的在期限内。 最后加包另加费用没有加包费率/归属引用。"
+    },
+    {
+      "id": "Y031",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49有社保年984，额外加包51/390/99与费率一致。"
+    },
+    {
+      "id": "Y032",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "64无社保月881，附加有社保253或年龄资格与数据一致。"
+    },
+    {
+      "id": "Y033",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316，标准费率条件正确，71+在指定期限重新投保费率不等于保证续保。"
+    },
+    {
+      "id": "Y034",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "69有社保3316；具体重新投保价格保留未知，不把105费率当续保承诺，额外71岁假设不必要。 69岁续投价格不存在的否定句没有资料范围引用。"
+    },
+    {
+      "id": "Y035",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "祛斑美容免责，未把牙科意外例外移用于美容。"
+    },
+    {
+      "id": "Y036",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "牙科矫正一般除外，免责牙科有意外例外，不能一概不赔。"
+    },
+    {
+      "id": "Y037",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "醉酒导致伤害费用免责；only说很可能过于含糊但未承诺本次可赔，后续符合责任假设不是醉酒例外。"
+    },
+    {
+      "id": "Y038",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "用户已有慢性胃炎属于既往，资格需核保且既往相关费免责，不能保证承保。"
+    },
+    {
+      "id": "Y039",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "乳腺术后能否保不能保证，既往相关费除外，亲属年龄规则正确。"
+    },
+    {
+      "id": "Y040",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "一年期与条件重新投保费率明确，不作续保保证；无续保细则断言缺范围引用。"
+    },
+    {
+      "id": "Y041",
+      "variant": "grouped_scope",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "runtime身份源支持AI/TTS及能力边界。"
+    }
+  ]
+}

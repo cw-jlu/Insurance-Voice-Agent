@@ -1,0 +1,42 @@
+[
+  {
+    "dataset": "exp28_grouped_rendered.json",
+    "variant": "grouped_only",
+    "n": 71,
+    "content_pass": 64,
+    "trace_pass": 62,
+    "joint_pass": 60,
+    "median_full_text_seconds": 2.267904300002556,
+    "errors": 0
+  },
+  {
+    "dataset": "exp28_grouped_rendered.json",
+    "variant": "grouped_scope",
+    "n": 71,
+    "content_pass": 62,
+    "trace_pass": 58,
+    "joint_pass": 57,
+    "median_full_text_seconds": 2.1423826000027475,
+    "errors": 0
+  },
+  {
+    "dataset": "exp28_transfer.json",
+    "variant": "grouped_only",
+    "n": 16,
+    "content_pass": 14,
+    "trace_pass": 12,
+    "joint_pass": 12,
+    "median_full_text_seconds": 2.328223500000604,
+    "errors": 0
+  },
+  {
+    "dataset": "exp28_transfer.json",
+    "variant": "previous_bound",
+    "n": 16,
+    "content_pass": 14,
+    "trace_pass": 12,
+    "joint_pass": 10,
+    "median_full_text_seconds": 2.112059949999093,
+    "errors": 0
+  }
+]

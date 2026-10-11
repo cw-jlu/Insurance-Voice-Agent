@@ -1,0 +1,252 @@
+[
+  {
+    "id": "C01",
+    "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+    "text": "您妈62岁有医保，基础版能保住院和门诊，但得等30天等待期后；住院和门急诊共享1万元免赔额，扣除后按100%赔，总保额300万；要是没用医保结算，就只能按60%赔。ICU住院补贴不在基础版里，要另外买尊享住院津贴加油包，买了的话每天给500元，一次最多给30天，一年最多给60天。",
+    "route": "保障",
+    "timings": {
+      "understand": 1.1568906000029529,
+      "generate_ttft": 0.8175477000004321,
+      "generate_1": 3.2628669000005175,
+      "total": 4.4354330000023765
+    },
+    "attempts": 1,
+    "violations": [],
+    "fallback": false,
+    "understanding": {
+      "intent": "保障",
+      "gaps": [],
+      "items": [
+        "R01",
+        "R02",
+        "R15"
+      ],
+      "topics": [
+        "总保额",
+        "既往症",
+        "等待期",
+        "补偿原则",
+        "医院范围",
+        "社保结算比例",
+        "被保人年龄",
+        "投保人资格",
+        "职业",
+        "一人一份",
+        "生效时间",
+        "保险期间",
+        "价格变化",
+        "如实告知",
+        "其他免责",
+        "家庭单优惠"
+      ],
+      "slots": {
+        "age": 62,
+        "has_social": true,
+        "relation": "父母",
+        "gender": "女"
+      },
+      "rewrite": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "_gaps_check": [
+        "社保抵扣免赔额"
+      ],
+      "_gaps_judged": true
+    },
+    "chars": 140,
+    "model": "qwen-plus"
+  },
+  {
+    "id": "C03",
+    "question": "住院花了一万五，自己出多少，没走医保会怎样",
+    "text": "一般医疗（住院）是基础版就有的保障。一般医疗和一般门急诊共享300万的年度额度。一般医疗和一般门急诊每年共享1万元免赔额。",
+    "route": "保障",
+    "timings": {
+      "understand": 0.8164366999990307,
+      "generate_ttft": 0.5156237000010151,
+      "generate_1": 3.0605633000013768,
+      "generate_2": 3.4718319999992673,
+      "total": 7.358253599999443
+    },
+    "attempts": 2,
+    "violations": [
+      "无依据数字：5000元",
+      "无依据数字：5000元",
+      "无依据数字：3000元"
+    ],
+    "fallback": true,
+    "understanding": {
+      "intent": "保障",
+      "gaps": [],
+      "items": [
+        "R01",
+        "R12"
+      ],
+      "topics": [
+        "总保额",
+        "既往症",
+        "等待期",
+        "补偿原则",
+        "医院范围",
+        "社保结算比例",
+        "被保人年龄",
+        "投保人资格",
+        "职业",
+        "一人一份",
+        "生效时间",
+        "保险期间",
+        "价格变化",
+        "如实告知",
+        "其他免责",
+        "家庭单优惠"
+      ],
+      "slots": {},
+      "rewrite": "住院花了一万五，自己出多少，没走医保会怎样",
+      "_gaps_check": [],
+      "_gaps_judged": true
+    },
+    "chars": 61,
+    "model": "qwen-plus"
+  },
+  {
+    "id": "C09",
+    "question": "我有高血压，买了以后高血压住院和意外住院能报吗",
+    "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+    "route": "免责",
+    "timings": {
+      "understand": 0.5174712000007275,
+      "generate_ttft": 0.4725375999987591,
+      "generate_1": 1.937555299999076,
+      "generate_2": 2.4881668999987596,
+      "total": 5.488367500001914
+    },
+    "attempts": 2,
+    "violations": [
+      "模型复核：对缺口问题给出了结论"
+    ],
+    "fallback": true,
+    "understanding": {
+      "intent": "免责",
+      "gaps": [
+        "疾病核保"
+      ],
+      "items": [
+        "R01",
+        "R03"
+      ],
+      "topics": [
+        "既往症",
+        "医院范围",
+        "补偿原则",
+        "如实告知"
+      ],
+      "slots": {},
+      "rewrite": "我有高血压，买了以后高血压住院和意外住院能报吗",
+      "_gaps_check": [
+        "疾病核保"
+      ],
+      "_gaps_judged": true
+    },
+    "chars": 33,
+    "model": "qwen-plus"
+  },
+  {
+    "id": "C10",
+    "question": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+    "text": "刚买三天出车祸住院能赔，因为意外没有等待期；要是生病住院的话，要等满30天等待期之后才生效，现在还不在保障范围内。",
+    "route": "保障",
+    "timings": {
+      "understand": 0.5923495999995794,
+      "generate_ttft": 0.27879130000292207,
+      "generate_1": 1.1372744000000239,
+      "total": 1.7338325000018813
+    },
+    "attempts": 1,
+    "violations": [],
+    "fallback": false,
+    "understanding": {
+      "intent": "保障",
+      "gaps": [],
+      "items": [
+        "R01",
+        "R03"
+      ],
+      "topics": [
+        "等待期",
+        "医院范围",
+        "补偿原则",
+        "生效时间",
+        "保险期间"
+      ],
+      "slots": {},
+      "rewrite": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+      "_gaps_check": [],
+      "_gaps_judged": true
+    },
+    "chars": 57,
+    "model": "qwen-plus"
+  },
+  {
+    "id": "C18",
+    "question": "我58岁，能买哪些加油包，门急诊加油包可以吗",
+    "text": "门急诊加油包限55周岁及以下，58岁不能选。",
+    "route": "投保条件(模板)",
+    "timings": {
+      "understand": 0.5462061999969592,
+      "total": 0.5469058999988192
+    },
+    "attempts": 0,
+    "violations": [],
+    "fallback": false,
+    "understanding": {
+      "intent": "投保条件",
+      "gaps": [],
+      "items": [
+        "R13"
+      ],
+      "topics": [
+        "被保人年龄",
+        "一人一份"
+      ],
+      "slots": {
+        "age": 58,
+        "relation": "本人"
+      },
+      "rewrite": "我58岁，能买哪些加油包，门急诊加油包可以吗",
+      "_gaps_check": [],
+      "_gaps_judged": true
+    },
+    "chars": 22,
+    "model": "qwen-plus"
+  },
+  {
+    "id": "C26",
+    "question": "一年交和每月交差多少，30岁有社保",
+    "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+    "route": "报价",
+    "timings": {
+      "understand": 0.42768770000111545,
+      "total": 0.4339949000022898
+    },
+    "attempts": 0,
+    "violations": [],
+    "fallback": false,
+    "understanding": {
+      "intent": "报价",
+      "gaps": [],
+      "items": [],
+      "topics": [
+        "价格变化",
+        "被保人年龄",
+        "社保结算比例"
+      ],
+      "slots": {
+        "age": 30,
+        "has_social": true
+      },
+      "rewrite": "一年交和每月交差多少，30岁有社保",
+      "_gaps_check": [],
+      "_gaps_judged": true
+    },
+    "chars": 27,
+    "model": "qwen-plus"
+  }
+]

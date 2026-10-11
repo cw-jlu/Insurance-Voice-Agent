@@ -8,6 +8,7 @@ import re
 from dataclasses import dataclass, field
 from functools import lru_cache
 from pathlib import Path
+from agent.source_locations import pdf_locations
 
 ROOT = Path(__file__).resolve().parents[2]
 CLEAN = ROOT / "data" / "clean"
@@ -85,7 +86,8 @@ _PAGE_RE = re.compile(r"<!--\s*page\s+(\d+)\s*-->")
 def _text_chunks(filename: str, doc_label: str) -> list[Chunk]:
     chunks: list[Chunk] = []
     page = 0
-    for line in (CLEAN / "text" / filename).read_text(encoding="utf-8").splitlines():
+    locations = pdf_locations(filename)
+    for md_line, line in enumerate((CLEAN / "text" / filename).read_text(encoding="utf-8").splitlines(), 1):
         m = _PAGE_RE.search(line)
         if m:
             page = int(m.group(1))
@@ -98,8 +100,10 @@ def _text_chunks(filename: str, doc_label: str) -> list[Chunk]:
                 chunk_id=f"{doc_label}#{len(chunks)}",
                 doc=doc_label,
                 text=line,
-                source=f"{doc_label} 第{page}页",
-                meta={"page": page},
+                source=(f"{doc_label} 第{page}页 提取文本行"
+                        f"{locations[md_line]['page_text_line_start']}–{locations[md_line]['page_text_line_end']}"
+                        if md_line in locations else f"{doc_label} 第{page}页") + f"（MD行{md_line}）",
+                meta={"page": page, "md_line":md_line, "location":locations.get(md_line,{})},
             )
         )
     return chunks

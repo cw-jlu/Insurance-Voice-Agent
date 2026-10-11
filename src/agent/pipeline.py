@@ -317,6 +317,8 @@ def _guard(question: str, text: str, evidence: list[Chunk], structured: set, gap
     v += renewal_conclusion(text).violations
     v += other_conclusions(text).violations
     v += compliance_guard(text).violations
+    if re.search(r"基础版(?:不|没有|不予)(?:报销|保障|赔付)?住院(?:费|费用|保障|责任)", text):
+        v.append("基础版包含一般医疗住院保障，不可说没有住院责任")
     from agent import small_model
 
     items = {c.meta.get("item") for c in evidence if c.meta.get("item")}
@@ -395,6 +397,8 @@ def _eligibility_text(slots: dict, question: str) -> str:
     asks_outpatient = bool(re.search(r"门急诊|门诊", question))
     if asks_outpatient:
         return (f"门急诊加油包限55周岁及以下，{age}岁{'符合年龄要求' if age <= 55 else '不能选'}。"
+                + (f"其余加油包的首次投保年龄上限为{MAX_AGE_NEW}周岁，您符合年龄要求，仍须按各包条件及核保确认。"
+                   if re.search(r"哪些|其他|其余", question) else "")
                 + ("能否承保以健康告知和核保为准。" if age <= 55 else ""))
     if re.search(r"多大|几岁|年龄限制|年龄范围", question):
         return f"首次投保限出生满30天到{MAX_AGE_NEW}周岁，{age}岁符合年龄要求；能否承保以核保为准。"
@@ -593,6 +597,66 @@ def assemble_voice_slots(raw: str, expected: int) -> str:
     return "".join(sentences)
 
 
+def scoped_rule_reply(question: str, u: dict) -> tuple[str, list[str], list[str]] | None:
+    """Compose frequently paired obligations from curated responsibility rules."""
+    obligations = u.get("obligations", [])
+    # Additional questions must stay on the general route rather than be swallowed by a template.
+    if not obligations or len(obligations) > 3:
+        return None
+    if ("住院补偿加油包" in question or "住院医疗费用补偿加油包" in question):
+        if ("基础版" in question and re.search(r"一万以内|1万以内|免赔额以内", question)
+                and all(re.search(r"住院|结节|赔|报", q) for q in obligations)
+                and not re.search(r"门诊|医保|社保|已经|累计|续保|多少钱", question)):
+            return ("基础版一般住院每年1万免赔；另购住院补偿加油包，合规住院费用按100%赔、全年最多1万，结节等约定疾病按20%赔；既往症及相关费用不赔。",
+                    ["R01", "R12"], ["既往症"])
+    if "疾病核保" in u.get("gaps", []) and "意外" in question and len(obligations) == 2:
+        if all(re.search(r"报|赔|住院", q) for q in obligations):
+            return ("投保前已有病及相关费用属于既往症免责；能否投保须健康告知，以核保为准。意外住院不受疾病等待期限制，符合一般医疗保障条件才可报。",
+                    ["R01"], ["既往症", "如实告知", "等待期"])
+    if ({"R01", "R02", "R15"} <= set(u.get("items", [])) and len(obligations) == 3
+            and re.search(r"ICU|重症", question) and not re.search(r"花|天|最多|总额|算|私立|特需|VIP", question)
+            and all(re.search(r"住院|门诊|门急诊|ICU|重症", q) for q in obligations)):
+        return ("住院和一般门急诊共享每年1万免赔额，扣除后按100%赔；按有社保身份投保却没用社保结算，按60%赔。ICU津贴需另购，每天500元。",
+                ["R01", "R02", "R15"], [])
+    if (len(obligations) == 2 and re.search(r"意外|车祸", question) and re.search(r"生病|疾病", question)
+            and all(re.search(r"等待|生病|疾病|车祸|意外", q) for q in obligations)
+            and not re.search(r"多少|免赔|社保|医保|既往|高血压|加油包", question)):
+        return ("意外住院不受疾病等待期限制，符合保障条件才可报；疾病住院有30天等待期，期间罹患的疾病不赔。",
+                ["R01"], ["等待期"])
+    return None
+
+
+def obligation_guard(question: str, text: str, items: list[str], gaps: list[str]) -> list[str]:
+    """Required scope conditions that a numeric whitelist cannot detect."""
+    violations = []
+    if {"R01", "R02"} <= set(items) and re.search(r"住院.*(?:门诊|门急诊)|门诊.*住院", question):
+        if "共享" not in text and "共用" not in text:
+            violations.append("一般医疗与一般门急诊共享年度免赔额和额度，不可各算一份")
+    if "疾病核保" in gaps and not re.search(r"既往症|投保前.*(?:病|疾病)", text):
+        violations.append("必须说明既往症及相关费用免责，不可只谈疾病等待期或核保")
+    if "意外" in question and "疾病核保" in gaps and not re.search(r"意外.*(?:不受|没有|无).{0,8}等待期", text):
+        violations.append("须回答意外部分，意外伤害不受疾病等待期限制")
+    return violations
+
+
+def hospital_calculation(question: str, slots: dict, items: list[str]) -> dict | None:
+    """Compute a single R01 illustration only; do not infer settled/eligible expenses."""
+    if "R01" not in items or not re.search(r"住院.*(?:花|费用|费|支出)|住院花", question):
+        return None
+    if re.search(r"重疾|癌|津贴|加油包|医保报|社保报|既往|核保|高血压|门诊|ICU|私立|特需|续保|已经|已抵|用掉|累计", question, re.I):
+        return None
+    amounts = [n.value for n in extract_numbers(question) if n.unit in ("", "元") and n.value >= 1000]
+    if len(amounts) != 1:
+        return None
+    amount = amounts[0]
+    balance = max(0, amount - 10000)
+    lower = round(balance * .6, 2)
+    return {"rule": "R01: max(eligible_expense-remaining_deductible,0)*ratio",
+            "assumptions": ["全部费用符合一般医疗责任", "本年度1万元免赔额尚未抵扣", "未超过年度额度", "无其他补偿"],
+            "numbers": [balance, lower, amount - balance, amount - lower],
+            "text": f"假设费用全部符合一般医疗保障、年度1万免赔还未抵扣且无其他补偿，按100%赔{balance:g}元，自己付{amount-balance:g}元；若按有社保身份投保却没用社保结算，按60%赔{lower:g}元，自己付{amount-lower:g}元。实际还受合规费用、免赔余额和年度额度限制。"}
+
+
 def derived_numbers(question: str, evidence: list[Chunk]) -> set[float]:
     """方案 D: one-step results from the user's numbers and the evidence's numbers ("住院5万" − 1万 = 4万)."""
     from agent.guardrail import extract_numbers as nums
@@ -628,7 +692,7 @@ def spoken_fallback(item_ids: list[str], question: str) -> str:
     return "。".join(([facts[0]] if facts[0] not in pick else []) + pick[:3]) + "。"
 
 
-def understand_split(question: str, known: dict, client=None, model: str | None = None) -> dict:
+def understand_split(question: str, known: dict, client=None, model: str | None = None, answer_planning: bool = True) -> dict:
     """方案 C: the understanding prompt split into three short ones run side by side (intent+gaps / items+topics / slots)."""
     from agent import small_model
 
@@ -659,7 +723,8 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
             d = json.loads(raw)
         except json.JSONDecodeError:
             d = {}
-        return {"items": [i for i in d.get("items", []) if i in COVERAGE][:MAX_ITEMS],
+        return {"obligations": [q.strip() for q in d.get("obligations", []) if isinstance(q, str) and q.strip()][:8],
+                "items": [i for i in d.get("items", []) if i in COVERAGE][:MAX_ITEMS],
                 "topics": [t for t in d.get("topics", []) if t in TOPIC_NAMES]}
 
     def safe(fn, default, *a):
@@ -670,9 +735,9 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
 
     with ThreadPoolExecutor(3) as ex:
         fi = ex.submit(safe, intent, {"intent": "其他", "gaps": []})
-        fit = ex.submit(safe, items, {"items": [], "topics": []})
+        fit = ex.submit(safe, items, {"items": [], "topics": []}) if answer_planning else None
         fs = ex.submit(safe, small_model.extract_slots, {}, question, fast)
-        u = {**fi.result(), **fit.result(), "slots": fs.result(), "rewrite": question}
+        u = {**fi.result(), **(fit.result() if fit else {"items": [], "topics": []}), "slots": fs.result(), "rewrite": question}
     if "疾病核保" in u["gaps"]:
         u["topics"] = list(dict.fromkeys(u["topics"] + ["既往症", "如实告知"]))
     return u
@@ -695,11 +760,12 @@ gaps 可选 %(gaps)s，规则：
 - 条款清单：问重疾清单、特药清单、医院名单。
 没有就输出空列表。"""
 
-_SPLIT_ITEMS_SYS = """列出回答用户这句话需要查的保险责任和关键主题，只输出 JSON：{"items": [...], "topics": [...]}
+_SPLIT_ITEMS_SYS = """列出回答用户这句话需要查的保险责任和关键主题，只输出 JSON：{"items": [...], "topics": [...], "obligations": [...]}
+obligations：逐项列出用户实际问到的待答问题（字符串），并列的保障、金额、条件要拆开；年龄、社保等背景条件不是待答问题。不要增加用户没问的事项，不要写答案。核保不确定也须保留其他能回答的保障问题。
 items 从下面责任目录中选编号，问到几项就列几项（最多 5 个），只列直接相关的；没问保障就为空。
 - 问免赔额以内、自己先掏的部分能不能报 → 含 R01、R12、R09；问确诊重病能不能直接拿钱 → 含 R10、R03；
 - 问门诊/急诊 → R02（基础版）；问门诊加油包 → R13；问住院津贴/ICU补贴 → R14、R15；问网上买药 → R16。
-topics 从 %(topics)s 中选：总保额、既往症、等待期、补偿原则、医院范围、社保结算比例、被保人年龄、投保人资格、职业、一人一份、生效时间、保险期间、价格变化、如实告知、其他免责、家庭单优惠。
+topics 从 %(topics)s 中只选用户实际问到或直接影响答案的主题；不要复制整个目录。
 责任目录：
 %(catalog)s"""
 
@@ -719,7 +785,13 @@ def combine_gaps(understood: list[str], detected: list[str], question: str = "")
     question_mentions_social = not question or bool(re.search(r"(医保|社保)[^。？?]{0,12}(免赔|抵|算进|算在|计入|报完|报了|报过|剩下|剩余)|"
                                                               r"(免赔|一万|1万)[^。？?]{0,12}(医保|社保)", question))  # "既往症是什么意思" misfired (第八轮回归)
     asks_renewal = not question or bool(re.search(r"续|停售|下架|到期|不卖了", question))  # 第十轮回归: split prompt missed 续保
-    for g, either in (("条款清单", "条款清单" in understood), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social),
+    if not asks_renewal:
+        out = [g for g in out if g != "续保"]
+    out = [g for g in out if g != "条款清单" or not question or re.search(r"清单|名单|哪些药|哪[几些]家医院|列出", question)]
+    if question and not re.search(r"(医保|社保).{0,12}(报销|报了|报过|报完|抵|计入|算进|算在)|(抵扣|计入|算进|算在).{0,8}(医保|社保)", question):
+        out = [g for g in out if g != "社保抵扣免赔额"]
+        question_mentions_social = False
+    for g, either in (("条款清单", "条款清单" in understood and (not question or bool(re.search(r"清单|名单|哪些药|哪[几些]家医院|列出", question)))), ("社保抵扣免赔额", "社保抵扣免赔额" in understood + detected and question_mentions_social),
                       ("续保", "续保" in understood + detected and asks_renewal)):
         if either and g not in out:
             out.append(g)
@@ -731,9 +803,34 @@ def gaps_to_check(understood: list[str], detected: list[str]) -> list[str]:
     return list(dict.fromkeys(understood + detected))
 
 
+_DIRECT_SYS = """你是众安保险AI电话助理，回答尊享e生百万医疗2026版问题，只依据本轮资料与程序报价，不编造。
+直接理解原用户问题与最近对话，在内部选择本轮必须说的事实，再输出自然口语短答，不输出思考过程、JSON或问题清单。
+事实必须直接回答用户实际问到的一件事，或省略后会令答案错误或误导。背景不是新问题，不自行扩写待答项。
+共同条件只说一次，多个问题用短句并列。未问的保额、医院范围、等待期、流程、天数上限不主动介绍，答完即停，细节留给追问。
+但用户问“能报多少”，每项被问责任的具体金额或额度必须回答；问每天、每次、每年，按该维度回答，不能拿另一责任数字代替。
+金额题交付前在内部核对：用户点名的每项责任是否都有对应额度，不能只给比例或申请流程。仅问每月上限时只给每月金额，不加年度上限、比例或另购说明。
+保留另购、具体责任范围、既往症免责和核保边界。一般规则不代表用户一定能承保或获赔；未知部分局部说明，已知部分仍回答。
+赔付比例必须绑定该责任与投保身份：降低比例适用于按有社保身份投保却没用社保结算，不能只说没用社保就降低；投保身份未知须条件化。
+一般医疗与一般门急诊共享年度免赔和额度；家庭共享免赔加油包不含一般门急诊。不得跨责任套用比例、等待期或限额。
+简单题一两句，复合题每问一个短结论，通常争取70字，必要条件不可为字数删掉，不截断。不复述背景、不解释推导、不重复数字、不加销售引导或反问。
+举例只学习取舍：问“投保后什么时候生效”，只答投保成功后次日零时生效，不主动讲疾病等待期；问某责任每月上限，只答月上限，不主动介绍年上限。
+"""
+
+
+def direct_topics(question: str) -> list[str]:
+    patterns = {"等待期": r"等待|刚买|意外|车祸", "既往症": r"既往|投保前|高血压|结节|病史",
+                "如实告知": r"核保|健康告知|我.{0,8}(有|患|得过).{0,8}(病|癌|血压)",
+                "医院范围": r"医院|私立|特需|VIP", "社保结算比例": r"社保|医保",
+                "家庭单优惠": r"家庭|一家|几口|[2345四三两五]口|优惠", "总保额": r"总保额|总共保|保什么",
+                "其他免责": r"美容|怀孕|牙科|近视|抑郁", "补偿原则": r"报销过|报完|重复赔"}
+    return [topic for topic, pattern in patterns.items() if re.search(pattern, question, re.I)]
+
+
 class Pipeline:
     def __init__(self, retriever: HybridRetriever | None, client=None, slow_model: str | None = None,
-                 fast_model: str | None = None, fact_check: str = "off", features: frozenset | set = frozenset({"C", "D"})):
+                 fast_model: str | None = None, fact_check: str = "off", features: frozenset | set = frozenset({"C", "D"}),
+                 direct_answer: bool = False):
+        self.direct_answer = direct_answer
         self.fact_check = fact_check  # "always" | "multi" (only when evidence spans 2+ coverage items) | "off"
         # 第十轮消融的方案开关（08 方案 A–D）：A 只选不写、B 三元组比对、C 理解拆分、D 数字护栏算术与口语兜底。
         # 默认 C+D（exp15：qa_v6 87.1%/90.3%，基线 77.4%/79.0%）；A、B 消融未通过，保留为可选
@@ -742,9 +839,10 @@ class Pipeline:
         self.client = client or cloud.llm_client()
         self.slow_model = slow_model or cloud.SLOW_MODEL
         self.fast_model = fast_model or cloud.FAST_MODEL
+        self._responsibility_retriever = Retriever([item_chunks(iid)[0] for iid in COVERAGE]) if direct_answer else None
 
     def understand(self, question: str, known: dict) -> dict:
-        u = (understand_split(question, known, self.client, self.fast_model) if "C" in self.features
+        u = (understand_split(question, known, self.client, self.fast_model, answer_planning=not self.direct_answer) if self.direct_answer or "C" in self.features
              else understand(question, known, self.client, self.fast_model))
         slots = u.get("slots") or {}
         if slots.get("age") is not None and not age_stated(question, slots["age"]):
@@ -764,7 +862,16 @@ class Pipeline:
         return self.answer(rest, sub_known, voice=voice).text
 
     def retrieve(self, question: str, k: int = 4) -> list[Chunk]:
-        return self.retriever.search(question, k=k) if self.retriever is not None else []
+        retrieved = self.retriever.search(question, k=k) if self.retriever is not None else []
+        if not self.direct_answer:
+            return retrieved
+        # Responsibility routing uses the original question and local lexical retrieval, no LLM planner.
+        ranked = self._responsibility_retriever.search(question, k=3, method="tfidf")
+        aliases = {"R06": r"靶向药|特效药|特药|特定药|罕见病|基因检测", "R05": r"质子|重离子|光免疫",
+                   "R08": r"护工", "R07": r"路费|住宿|异地转诊", "R09": r"共享免赔|免赔额.{0,4}共享",
+                   "R13": r"门[急]?诊加油包|门急诊加油包", "R15": r"ICU|重症.*(补贴|津贴)"}
+        exact = [item_chunks(iid)[0] for iid, pattern in aliases.items() if re.search(pattern, question, re.I)]
+        return list({c.chunk_id: c for c in exact + retrieved + ranked}.values())
 
     def answer(self, question: str, known: dict | None = None, voice: bool = False,
                agent_steps: int = 0, agent_budget_s: float = 3.0, understanding: dict | None = None,
@@ -797,8 +904,25 @@ class Pipeline:
             if u.get("intent") == "缺口" and not u["gaps"]:
                 u["intent"] = "保障" if u.get("items") else "其他"
         else:
-            u = understanding
+            u = {**understanding, "items": list(understanding.get("items", [])),
+                 "topics": list(understanding.get("topics", []))}
+        if self.direct_answer:
+            u.pop("obligations", None)
+            u.pop("_voice_questions", None)
+            u["items"] = list(dict.fromkeys(c.meta["item"] for c in u.get("_retrieved", []) if c.meta.get("item")))[:MAX_ITEMS]
+            u["topics"] = direct_topics(question)
+            # Hypothetical coverage questions are not personal underwriting requests.
+            if not re.search(r"(我|本人|爸|妈|父亲|母亲|家人|孩子|爱人).{0,16}(有|患|得过|得了|手术|吃药|病史)", question):
+                u["gaps"] = [g for g in u.get("gaps", []) if g != "疾病核保"]
+            if u.get("intent") == "缺口" and not u.get("gaps"):
+                u["intent"] = "保障"
+        # Explicitly asked base hospitalization must not disappear when an add-on is also mentioned.
+        if re.search(r"基础版|一般医疗", question) and "住院" in question and "R01" not in u.get("items", []):
+            u["items"] = ["R01"] + u.get("items", [])
         timings["understand"] = time.perf_counter() - t0
+        trace = timings["trace"] = [{"stage": "flow" if self.direct_answer else "plan", "mode": "direct" if self.direct_answer else "slots",
+                                     "question": question, "obligations": u.get("obligations", []),
+                                     "items": list(u.get("items", [])), "gaps": list(u.get("gaps", []))}]
         # only what this sentence adds or changes: the model often echoes the known conditions back (第八轮回归 3 calls)
         new_slots = {k: v for k, v in (u.get("slots") or {}).items() if v is not None and known.get(k) != v}
         slots = {**known, **new_slots}
@@ -828,10 +952,19 @@ class Pipeline:
             u["topics"] = u.get("topics", []) + ["家庭单优惠"]
         def done(text: str, route_: str, ev: list[Chunk] | None = None, nums: set | None = None) -> Answer:
             # program text is written to length already: no voice cap (it cut the discount sentence off)
+            trace.append({"stage": "release", "source": "program", "route": route_, "chars": len(text)})
             return Answer(text, route=route_, understanding=u, evidence=ev or [], structured=nums or set(),
                           timings={**timings, "total": time.perf_counter() - t0})
 
         gap_tail = "".join(GAP_FALLBACK[g] for g in u.get("gaps", []))
+        rule_reply = scoped_rule_reply(question, u)
+        if rule_reply:
+            text, item_ids, topics = rule_reply
+            ev = [c for iid in item_ids for c in item_chunks(iid)] + [c for topic in topics for c in topic_chunks(topic)]
+            trace.append({"stage": "resolve", "items": item_ids, "evidence": [c.chunk_id for c in ev],
+                          "local_fallbacks": list(u.get("gaps", []))})
+            trace.append({"stage": "compose", "source": "scoped_rules", "text": text})
+            return done(text, "保障条件(模板)", ev)
         # The understanding module also labels "ICU补贴是多少""VIP病房能报吗" as 报价; answering those with a price is
         # wrong (第八轮验收 5 calls). The price template is used only when the words ask for a price or only give conditions.
         last_q = next((c for c in reversed(re.split(r"[。！？?，,；;]", question)) if QUESTION_MARKERS.search(c)), question)
@@ -855,6 +988,14 @@ class Pipeline:
                 return Answer(ask, route="报价-追问", understanding=u, timings={**timings, "total": time.perf_counter() - t0})
             # The whole price answer is program text; the LLM's additions here were wrong (80 题 N037/N038/N042).
             text, nums = qt
+            if re.search(r"(年|一年).*(月)|月.*年", question) and re.search(r"差|比较|划算|合算", question):
+                y = quote(Insured(int(slots["age"]), bool(slots["has_social"]), gender=slots.get("gender")), "年缴")
+                m = quote(Insured(int(slots["age"]), bool(slots["has_social"]), gender=slots.get("gender")), "月缴")
+                total, difference = round(m.total * 12, 2), round(m.total * 12 - y.total, 2)
+                text += f"月缴全年共{total:g}元，比年缴{'多' if difference >= 0 else '少'}{abs(difference):g}元。"
+                nums |= {total, abs(difference)}
+                trace.append({"stage": "calculate", "rule": "monthly*12-annual", "monthly": m.total,
+                              "annual": y.total, "total": total, "difference": difference})
             if _PRICE_CHANGE_Q.search(question) and (pc := _price_change_text(slots)):
                 text, nums = pc[0], nums | pc[1]
             if (adds := addons_in(question)) and (aq := _addon_quote_text(slots, adds)):
@@ -880,7 +1021,8 @@ class Pipeline:
             must_say.append(GAP_FALLBACK[g])
         # Underwriting questions: only the pre-existing-condition and disclosure clauses, so other
         # items' rules (e.g. an add-on's 20% for nodules) are not dragged into the answer.
-        underwriting_only = intent == "缺口" and "疾病核保" in u.get("gaps", [])
+        underwriting_only = (not self.direct_answer and intent == "缺口" and "疾病核保" in u.get("gaps", [])
+                             and not re.search(r"意外|分别|和|以及|另外|还", question))
         if underwriting_only:
             u["items"], u["topics"] = [], ["既往症", "如实告知"]
         for item in u.get("items", []):
@@ -927,17 +1069,33 @@ class Pipeline:
         if "D" in self.features:
             structured |= derived_numbers(question, evidence)
         ctx = grouped_context(evidence_for_prompt)
+        calculation = hospital_calculation(question, slots, u.get("items", []))
+        if u.get("gaps") or len(u.get("obligations", [])) > 2:
+            calculation = None
+        if calculation:
+            structured |= set(calculation["numbers"])
+            trace.append({"stage": "calculate", **calculation})
+            trace.append({"stage": "compose", "source": "program", "assumptions": calculation["assumptions"]})
+            return done(calculation["text"], "一般医疗测算(模板)", evidence, structured)
+        trace.append({"stage": "resolve", "items": list(u.get("items", [])),
+                      "evidence": [c.chunk_id for c in evidence], "local_fallbacks": list(u.get("gaps", []))})
         shown = {k: v for k, v in slots.items() if not str(k).startswith("_")}
         history = known.get("_history", "")
-        voice_questions = u.get("_voice_questions") if voice else None
+        voice_questions = (u.get("_voice_questions") or u.get("obligations")) if voice and not self.direct_answer else None
         voice_questions = voice_questions if isinstance(voice_questions, list) and all(
             isinstance(q, str) and q.strip() for q in voice_questions) else None
+        if voice_questions and len(voice_questions) == 1:
+            voice_questions = None
         user = (f"已知用户条件：{json.dumps(shown, ensure_ascii=False)}\n"
                 + (f"【最近对话】\n{history}\n" if history else "")
                 + f"【报价结果】{must_say[0] if intent == '报价' and must_say else '无'}\n"
                 f"【必须原样包含的话】{'；'.join(must_say[1:] if intent == '报价' else must_say) or '无'}\n"
                 + ("【事实】\n" + "\n".join(f"[F{i + 1}] {f}" for i, f in enumerate(facts)) + "\n" if facts else "")
                 + f"【资料】\n{ctx}\n\n用户：{question}")
+        user += ("\n【局部兜底】仅对资料不足的待答项说明无法确认，其他项仍须回答；已有病史不能承诺该病赔付。"
+                 "每个结论必须绑定对应责任的条件，意外不能套用疾病等待期。额外细节留给追问。")
+        if calculation:
+            user += "\n【程序计算】" + calculation["text"] + "；结果仅在列明假设成立时适用，不能承诺实际赔款。"
         if voice_questions and not facts:
             user += ("\n【逐项回答槽位】\n" + "\n".join(f"{i}. {q}" for i, q in enumerate(voice_questions, 1))
                      + "\n请输出 JSON：{\"answers\":[{\"id\":1,\"conclusion\":\"...\",\"condition\":\"...\"}]}。"
@@ -945,7 +1103,10 @@ class Pipeline:
                      "多项共用的条件只在第一项说一次，后面不要重复；不要照抄问题中的金额或复述用户背景。"
                      "数字与条件不适用时留空；不得填入资料未支持的数字。问总额时只答最终总额。"
                      "不要解释计算过程，不要加未问的细则。")
-        msgs = [{"role": "system", "content": _ANSWER_SYS + (FACTS_RULE if facts else "") + (VOICE_RULES if voice else "")},
+            user += ("\n【短答约束】每个conclusion只写一个直接结论，不复述问题，不主动报年度额度、医院范围、天数上限。"
+                     "condition只写会改变本题结论的条件，共有的免赔额与额度明确说共享一次。"
+                     "总回答争取70字，必要事实可超出，不截断；已知既往症免责必须明确说投保前已有病及相关费用不赔。")
+        msgs = [{"role": "system", "content": (_DIRECT_SYS if self.direct_answer else _ANSWER_SYS + (VOICE_RULES if voice else "")) + (FACTS_RULE if facts else "")},
                 {"role": "user", "content": user}]
 
         text, violations, attempts = "", [], 0
@@ -970,10 +1131,10 @@ class Pipeline:
                 text = assemble_facts(raw, facts) or "这个问题我需要帮您转专员确认一下。"
                 timings.setdefault("generate_ttft", time.perf_counter() - t1)
             elif voice_questions:
-                raw = cloud.chat(msgs, model=self.slow_model, client=self.client, temperature=0.3,
-                                 response_format={"type": "json_object"})
-                text = assemble_voice_slots(raw, len(voice_questions))
-                timings.setdefault("generate_ttft", time.perf_counter() - t1)
+                r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3,
+                                      response_format={"type": "json_object"})
+                text = assemble_voice_slots(r.text, len(voice_questions))
+                timings.setdefault("generate_ttft", r.ttft_s)
             else:
                 r = cloud.chat_stream(msgs, model=self.slow_model, client=self.client, temperature=0.3)
                 timings.setdefault("generate_ttft", r.ttft_s)
@@ -983,9 +1144,15 @@ class Pipeline:
             # coverage answers such as "癌症住院能报" into violations whenever one path misread the question.
             violations = (["逐项回答槽位缺失"] if voice_questions and not text else
                           _guard(question, text, evidence, structured, u.get("gaps"), gaps_judged=u.get("_gaps_judged", False),
-                                 fact_check=self.fact_check, features=self.features, client=self.client))
+                                 fact_check=self.fact_check,
+                                 features=self.features, client=self.client))
+            if voice_questions:
+                violations += obligation_guard(question, text, u.get("items", []), u.get("gaps", []))
             if not violations:
+                trace.append({"stage": "validate", "attempt": attempts, "violations": [],
+                              "slot_count": len(voice_questions or []), "text": text})
                 break
+            trace.append({"stage": "validate", "attempt": attempts, "violations": list(violations), "text": text})
             # Rewrite as a fresh generation with the problems as constraints: sending the old answer back as a
             # dialogue made the model apologise to the customer ("抱歉，刚才说得不够准确", 第七轮).
             msgs = [msgs[0], {"role": "user", "content": user + "\n\n【注意】回答时避免以下问题："
@@ -1000,6 +1167,7 @@ class Pipeline:
             else:
                 text = "".join(must_say) if must_say else (_item_template(u.get("items", [])) or "这个问题我需要帮您转专员确认一下。")
         text = addon_notice(text, evidence)
+        trace.append({"stage": "release", "source": "fallback" if fallback else "model", "chars": len(text)})
         timings["total"] = time.perf_counter() - t0
         return Answer(text, route=route, understanding=u, evidence=evidence, structured=structured,
                       violations=violations, attempts=attempts, fallback_used=fallback, timings=timings)

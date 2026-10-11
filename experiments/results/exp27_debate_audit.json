@@ -1,0 +1,1276 @@
+{
+  "rows": [
+    {
+      "id": "C03",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：末段等待期已过主张未引用等待期证据。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R01:D6",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "C01",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：住院段未引用医院范围证据；另R15:D118引用末尾句号与原文分号不一致。",
+      "source_refs": [
+        "R01:head",
+        "投保须知#100",
+        "责任免除#3",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "R01:D10",
+        "R02:D13",
+        "R02:D14",
+        "R02:D15",
+        "R02:D16",
+        "R15:head",
+        "R15:D118",
+        "R15:D119",
+        "R01:D5"
+      ]
+    },
+    {
+      "id": "C04",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "有社保并不等于以有社保身份投保；将未结算降至60%/30%说成仅以持有社保为条件，缺投保身份条件。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R13:head",
+        "R02:head",
+        "R02:D15",
+        "R02:D17",
+        "R02:D16",
+        "R13:D112",
+        "R13:D113",
+        "投保须知#86",
+        "R02:D13",
+        "R13:D111"
+      ]
+    },
+    {
+      "id": "C02",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "将未用社保结算后的60%扩大到上述各项，误含质子重离子先进疗法及目录外特药；R05未规定此降低比例，R06:D85明确目录外100%。 引用：癌症住院段未引用医院及100种定义证据，且最后引用R03:D23不支持全部责任60%。",
+      "source_refs": [
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D84",
+        "R06:D85",
+        "R06:D86",
+        "R05:D32",
+        "R05:D35",
+        "R05:D36",
+        "R01:D8",
+        "R01:D10",
+        "R03:D23"
+      ]
+    },
+    {
+      "id": "C06",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "R16:head",
+        "R16:D121",
+        "R16:D122",
+        "R16:D124",
+        "R16:D123",
+        "投保须知#96",
+        "rate:年缴_加油包:3"
+      ]
+    },
+    {
+      "id": "C05",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "护工虽说明指定机构及直付，但未说明服务前提交材料并审核通过这一必要申请条件。 引用：第一段引用未支持所述医院和必需合理条件。",
+      "source_refs": [
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R01:D7",
+        "R01:D8",
+        "R04:D26",
+        "R04:D27",
+        "R04:D29",
+        "R04:D31",
+        "R08:D93",
+        "R08:D94",
+        "R08:D96",
+        "R03:D19",
+        "责任免除#3",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "C07",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "将护工的二级公立/指定民营普通部就医限制同时施加给异地转诊交通住宿；R07:D87-D91未规定此医院条件。 引用：最后一段原文未支持把医院限制作用于交通住宿。",
+      "source_refs": [
+        "R07:head",
+        "R08:head",
+        "R07:D88",
+        "R07:D89",
+        "R07:D90",
+        "R07:D91",
+        "R08:D93",
+        "R08:D94",
+        "R08:D96",
+        "R07:D87"
+      ]
+    },
+    {
+      "id": "C08",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "家庭共享说可共享并需买包，但未说明同一投保人、同一订单的必要适用条件。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R09:D98",
+        "R09:head",
+        "rate-notice:尊享E生百万医疗2026年缴费率:6",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate:年缴_加油包:2",
+        "rate:年缴_加油包:3",
+        "rate:年缴_加油包:4"
+      ]
+    },
+    {
+      "id": "C09",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：意外住院段引用缺医院范围。",
+      "source_refs": [
+        "投保须知#100",
+        "责任免除#3",
+        "责任免除#4",
+        "R01:D5",
+        "R01:D8",
+        "R01:D9",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "C10",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：金额段引用未涵盖必需合理费用限制。",
+      "source_refs": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9",
+        "责任免除#2",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "C11",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "先正确说明指定民营医院VIP可扩展，随后又一概说不覆盖私立VIP；指定民营即可能是私立医院，不能全排除。 引用：最后一句引用不支持一概排除私立VIP。",
+      "source_refs": [
+        "R01:D6",
+        "责任免除#2",
+        "R11:D100",
+        "R11:D101",
+        "R11:D102",
+        "责任免除#43"
+      ]
+    },
+    {
+      "id": "C12",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": true,
+      "reason": "回答了结节20%及比例冲突，但没有回答普通责任内1万元以内住院费补偿包按100%赔这一主问。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D10",
+        "R12:head",
+        "R12:D108",
+        "R12:D107",
+        "责任免除#3",
+        "责任免除#4"
+      ]
+    },
+    {
+      "id": "C13",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把关爱包说成确诊即给5万元，未对该给付明确等待期后初次确诊/意外导致的触发条件；末句条件明确仅约束重疾医疗。 引用：投保须知#58引用的重疾关爱购买说明并非该ID逐字内容。",
+      "source_refs": [
+        "R03:D19",
+        "R03:D22",
+        "R10:D99",
+        "投保须知#58",
+        "rate:年缴_加油包:9",
+        "R03:D20"
+      ]
+    },
+    {
+      "id": "C14",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "末句等待期内出险不赔与此前意外不受疾病等待期限制冲突；援引责任免除#75属于互联网药品附加责任而非住院津贴。 引用：责任免除#75不支持住院津贴等待期内任何出险不赔。",
+      "source_refs": [
+        "R14:head",
+        "R15:head",
+        "投保须知#69",
+        "R14:D116",
+        "R15:D118",
+        "R15:D119",
+        "R14:D115",
+        "责任免除#75"
+      ]
+    },
+    {
+      "id": "C15",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "近视及牙科免责漏掉因意外所致例外，形成一概不赔；未社保结算60%又漏以有社保身份投保。 引用：免责原文有意外例外，引用不支持全面不赔；住院段引用未覆盖医院条件。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "R01:D10",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R01:D5",
+        "责任免除#3"
+      ]
+    },
+    {
+      "id": "C17",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：第二段只引用补偿原则，未支持医院限制；最后段未引用处方审核证据。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D9",
+        "责任免除#2",
+        "R06:D85",
+        "R06:D86",
+        "R06:D40",
+        "R06:D43"
+      ]
+    },
+    {
+      "id": "C16",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "责任免除#5",
+        "责任免除#12",
+        "责任免除#3",
+        "责任免除#9",
+        "投保须知#93"
+      ]
+    },
+    {
+      "id": "C18",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "投保须知#86",
+        "rate:年缴_加油包:16",
+        "投保须知#100",
+        "责任免除#3"
+      ]
+    },
+    {
+      "id": "C20",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "一般医疗未社保结算60%漏掉以有社保身份投保的前提。 引用：责任免除#4引用非逐字；补偿包0免赔没有对应引用。",
+      "source_refs": [
+        "投保须知#100",
+        "责任免除#3",
+        "责任免除#4",
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9",
+        "R12:D108",
+        "R12:D106",
+        "责任免除#46"
+      ]
+    },
+    {
+      "id": "C19",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "服务备注100%不限额与主条款基因检测费用限1万元存在冲突，答案只把路径列出而未提示限额冲突待核对；特药60%句也漏投保身份。 引用：多条引文替换原文空格/编号，不满足逐字；未正视限额冲突。",
+      "source_refs": [
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D47",
+        "R06:D43",
+        "R06:D86",
+        "R06:D84",
+        "R06:D52",
+        "R06:D53",
+        "R06:D54",
+        "R06:D85"
+      ]
+    },
+    {
+      "id": "C21",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：末段重疾100%主张只引无免赔R03:D24，不能支持比例。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D6",
+        "R01:D8",
+        "R01:D11",
+        "R01:D9",
+        "R03:D24"
+      ]
+    },
+    {
+      "id": "C22",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R04:D26",
+        "R04:D27",
+        "R04:D28",
+        "R04:D31",
+        "R04:D29",
+        "R02:D13",
+        "R02:D14",
+        "R07:D88"
+      ]
+    },
+    {
+      "id": "C23",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R05:D34",
+        "R05:head",
+        "R05:D35",
+        "R05:D36"
+      ]
+    },
+    {
+      "id": "C25",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R01:head",
+        "投保须知#88",
+        "投保须知#110",
+        "rate:年缴_必选:11",
+        "rate:月缴_必选:11",
+        "R01:D8",
+        "rate:年缴_加油包:11",
+        "rate:月缴_加油包:11",
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "C26",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "rate:年缴_必选:8",
+        "rate:月缴_必选:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8"
+      ]
+    },
+    {
+      "id": "C28",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "责任免除#4",
+        "责任免除#14",
+        "责任免除#3",
+        "投保须知#109",
+        "R01:head",
+        "R01:D8"
+      ]
+    },
+    {
+      "id": "C27",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "正确说明家庭一般医疗共享且不含一般门急诊，但无社保或未结算影响比例一句混淆无社保投保与有社保身份投保未结算；后例虽完整，不能修复前句泛化。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R09:head",
+        "R09:D98",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "R01:D9",
+        "rate:年缴_必选:2"
+      ]
+    },
+    {
+      "id": "C24",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：多条引文改写编号与空格，非逐字。",
+      "source_refs": [
+        "R06:head",
+        "R06:D38",
+        "R06:D55",
+        "R06:D56",
+        "R06:D40",
+        "R06:D57",
+        "R06:D41",
+        "R06:D58",
+        "R06:D84",
+        "R06:D85",
+        "R06:D86",
+        "R06:D45"
+      ]
+    },
+    {
+      "id": "C30",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用：住院前后门诊原因相同条件未由所引R01:D7直接支持。",
+      "source_refs": [
+        "R01:D6",
+        "责任免除#2",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R01:D7"
+      ]
+    },
+    {
+      "id": "C29",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R01:D5",
+        "R03:D19",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R01:D7",
+        "R01:D8",
+        "R01:D6",
+        "R06:D40",
+        "R06:D41",
+        "R06:D85",
+        "责任免除#3",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "Y002",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D8",
+        "R01:D10",
+        "投保须知#93",
+        "R01:D5",
+        "R03:D24",
+        "R04:D31",
+        "R05:D36",
+        "R06:D86",
+        "R03:head",
+        "R04:head",
+        "R05:head",
+        "R06:head"
+      ]
+    },
+    {
+      "id": "Y003",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R03:head",
+        "R03:D22",
+        "R03:D24",
+        "R03:D23",
+        "R08:head",
+        "R08:D94",
+        "R08:D93",
+        "R08:D96"
+      ]
+    },
+    {
+      "id": "Y005",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R16:head",
+        "投保须知#93",
+        "R16:D122",
+        "投保须知#77",
+        "R16:D121",
+        "R16:D124"
+      ]
+    },
+    {
+      "id": "Y001",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "与原始保障表、投保须知、免责及所涉费率核对，所问结论和必要条件正确。 引用逐字有效且支持句内主张。",
+      "source_refs": [
+        "R02:D13",
+        "R02:D15",
+        "R02:D17",
+        "R02:D16",
+        "R15:head",
+        "R15:D118",
+        "R15:D119",
+        "R15:D117",
+        "投保须知#93"
+      ]
+    },
+    {
+      "id": "Y004",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把有社保身份未结算时60%泛化到整个特药责任，未保留社保目录外药品100%的例外。 引用：特药60%泛化不受原文支持，且D40/D41空格非逐字。",
+      "source_refs": [
+        "R06:head",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D85",
+        "R05:head",
+        "R05:D32",
+        "R05:D35",
+        "R05:D36",
+        "责任免除#3",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "Y006",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：末段引R13:D111和D114不支持其中50%和300元数值，需D112/D113。",
+      "source_refs": [
+        "投保须知#86",
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "R13:D111",
+        "R13:D114"
+      ]
+    },
+    {
+      "id": "Y007",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R01:D5",
+        "投保须知#98",
+        "投保须知#93",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "Y009",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R04:head",
+        "R04:D31",
+        "R04:D29",
+        "R04:D30",
+        "R04:D26",
+        "R04:D27"
+      ]
+    },
+    {
+      "id": "Y008",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R14:D116",
+        "R15:D118",
+        "R14:head",
+        "R15:D119",
+        "R14:D115",
+        "R15:D117"
+      ]
+    },
+    {
+      "id": "Y010",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "R09:D98",
+        "投保须知#56",
+        "R02:D17"
+      ]
+    },
+    {
+      "id": "Y011",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "投保须知#69",
+        "R14:head",
+        "R14:D116",
+        "R14:D115",
+        "R15:D118",
+        "R15:D119",
+        "R15:D117"
+      ]
+    },
+    {
+      "id": "Y012",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段引用缺D118，D117/D119不支持单次30天及年60天。",
+      "source_refs": [
+        "R15:D118",
+        "R15:D117",
+        "R15:D119",
+        "R15:head",
+        "投保须知#69",
+        "R01:D8"
+      ]
+    },
+    {
+      "id": "Y013",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第一段只引日额，不支持必选分类；特需扩展未约束指定民营/二级公立及排除观察室等。",
+      "source_refs": [
+        "R08:D94",
+        "R08:D93",
+        "R08:D96",
+        "R08:D95",
+        "R11:D103"
+      ]
+    },
+    {
+      "id": "Y014",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "住宿费给出500元限额，但没有说明只限目的地标准间，直接泛化住宿费可报。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R07:D91",
+        "R07:head",
+        "R07:D88",
+        "R07:D89",
+        "R07:D87"
+      ]
+    },
+    {
+      "id": "Y016",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "投保须知#79",
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "R13:D111",
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "Y015",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "床位费1500元/天漏掉不包括单人病房、套房、家庭病床的必要限制，所列观察室等排除不能替代。 引用：第三段未引用一般门急诊医院范围及先进疗法种类的原句。",
+      "source_refs": [
+        "R11:D102",
+        "R11:head",
+        "R11:D100",
+        "R11:D101",
+        "R01:head",
+        "R03:head",
+        "R05:D35"
+      ]
+    },
+    {
+      "id": "Y017",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "rate:年缴_必选:10",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "投保须知#100",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ]
+    },
+    {
+      "id": "Y018",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：R16:D123引用将原文编号和空格改写，非逐字。",
+      "source_refs": [
+        "rate:年缴_必选:3",
+        "rate:年缴_加油包:3",
+        "R16:head",
+        "R16:D123",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8"
+      ]
+    },
+    {
+      "id": "Y019",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段只引费率与第14/15条标识，未引用ICU/一般津贴名称的依据。",
+      "source_refs": [
+        "rate:年缴_必选:8",
+        "rate:年缴_加油包:8",
+        "投保须知#69"
+      ]
+    },
+    {
+      "id": "Y020",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate:年缴_必选:2",
+        "rate-notice:尊享E生百万医疗2026年缴费率:14"
+      ]
+    },
+    {
+      "id": "Y022",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R06:head",
+        "R06:D86",
+        "R06:D85",
+        "R06:D40",
+        "R06:D41"
+      ]
+    },
+    {
+      "id": "Y023",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第三段同时约束重疾费用却仅引用一般医疗R01:D6。",
+      "source_refs": [
+        "R01:D9",
+        "R03:D23",
+        "R03:D24",
+        "R01:D6",
+        "责任免除#2",
+        "R01:D10"
+      ]
+    },
+    {
+      "id": "Y021",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "算例漏扣年免赔额：总合规费用2万、医保已报1万、免赔额未用，剩余1万再扣1万，应赔0元而非1万元。 引用：算例不符合引文免赔额与补偿原则，不能据此推出1万元赔付。",
+      "source_refs": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "Y026",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "生成JSONDecodeError，没有最终答案；按运行失败计入，不重跑。 无最终答案及引用。",
+      "source_refs": []
+    },
+    {
+      "id": "Y024",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：主动补充ICU需另购加油包没有引用head或投保须知购买说明。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9",
+        "R01:D10",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y027",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "R14:head",
+        "投保须知#69",
+        "R14:D116",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y025",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：R02:D17引文后半把一般医疗误写一般门急诊，非逐字。",
+      "source_refs": [
+        "R02:D15",
+        "R02:D17",
+        "R13:head",
+        "R13:D113",
+        "R09:D98"
+      ]
+    },
+    {
+      "id": "Y028",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "重疾关爱按年龄/性别每5万保额计费，误按社保身份给出20元/93元；20元实际为男关爱，93元实际为无社保家庭共享；0-4岁关爱应男20元、女19元。 引用：投保须知#58引文不存在；价格引用命中其他列，并不支持关爱保费。",
+      "source_refs": [
+        "R10:head",
+        "投保须知#58",
+        "R03:head",
+        "R03:D22",
+        "R10:D99",
+        "rate:年缴_加油包:2"
+      ]
+    },
+    {
+      "id": "Y029",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段加油包需另购泛指全部，仅引用家庭包购买说明与费率，未支持全部加油包。",
+      "source_refs": [
+        "rate:月缴_必选:9",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate:月缴_加油包:9",
+        "投保须知#56",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11"
+      ]
+    },
+    {
+      "id": "Y030",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：末段以费率标题作证据，不能支持未规定分期费/扣费期数的整个主张。",
+      "source_refs": [
+        "rate:月缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "投保须知#56",
+        "rate:月缴_加油包:12"
+      ]
+    },
+    {
+      "id": "Y031",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段只引费率标题，未支持所有加油包需另购的主张。",
+      "source_refs": [
+        "rate:年缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "投保须知#90",
+        "投保须知#100"
+      ]
+    },
+    {
+      "id": "Y032",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "主要报价及主动补充报价正确，但说门急诊只保到55周岁不成立；55是首次投保上限，费率说明56及以上可在指定期限内重新投保。 引用：第一段没有无社保投保费率引用；末段只保55与所引费率说明相反。",
+      "source_refs": [
+        "投保须知#86",
+        "投保须知#100",
+        "rate:月缴_必选:15",
+        "rate:月缴_加油包:15",
+        "投保须知#56",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5"
+      ]
+    },
+    {
+      "id": "Y033",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段仅引加油包费率行，未支持3316是基础版标准保费。",
+      "source_refs": [
+        "rate:年缴_必选:16",
+        "投保须知#86",
+        "rate:年缴_加油包:16",
+        "投保须知#100"
+      ]
+    },
+    {
+      "id": "Y034",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "rate:年缴_必选:16",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate:年缴_加油包:16",
+        "投保须知#86",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:13"
+      ]
+    },
+    {
+      "id": "Y035",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "美容性祛斑免责正确，但主动补充说只有意外治疗才可能赔、并仅限公立医院，排除非美容的疾病性治疗和指定民营机构，原文不支持这些限缩。 引用：所引意外一般医疗不支持非美容性祛斑只有意外时才可能赔。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12",
+        "责任免除#55",
+        "R01:D5",
+        "R01:D6"
+      ]
+    },
+    {
+      "id": "Y037",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "责任免除#8",
+        "责任免除#6",
+        "责任免除#7",
+        "R01:D7",
+        "R01:D5"
+      ]
+    },
+    {
+      "id": "Y036",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第二段用一般医疗及门急诊费用分类，不能证明全体加油包无正畸保障。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12",
+        "R01:D7",
+        "R02:D14"
+      ]
+    },
+    {
+      "id": "Y038",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "投保须知#100",
+        "投保须知#109",
+        "责任免除#3",
+        "责任免除#4",
+        "投保须知#86",
+        "投保须知#93"
+      ]
+    },
+    {
+      "id": "Y040",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用：第一段保险期间原文只能证明1年，不能单独证明无续保/重新投保条款。",
+      "source_refs": [
+        "投保须知#91",
+        "rate-notice:尊享E生百万医疗2026年缴费率:13",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "责任免除#3"
+      ]
+    },
+    {
+      "id": "Y039",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "独立核对原始责任、投保须知、免责及费率，所问内容与必要条件正确。 引用逐字有效并支持句内主张。",
+      "source_refs": [
+        "投保须知#87",
+        "投保须知#86",
+        "投保须知#100",
+        "投保须知#109",
+        "责任免除#3",
+        "责任免除#4",
+        "投保须知#93",
+        "R01:D5"
+      ]
+    },
+    {
+      "id": "Y041",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "未回答已知运行系统的AI语音身份且自称众安电话助理无依据；承保公司说明与客服电话不证明本助理身份或语音来源。 引用：承保公司和客服电话引用不支持助理身份或AI声音回答。",
+      "source_refs": [
+        "投保须知#105",
+        "投保须知#103"
+      ]
+    }
+  ],
+  "audited_count": 71,
+  "scope": "完整冻结71题；仅看该候选答案，独立对照原始知识、投保须知、责任免除及费率。ID含运行时由原始数据构建的head/rate/rate-notice；逐字校验保留原文标点及空格。"
+}

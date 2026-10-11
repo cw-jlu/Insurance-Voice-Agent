@@ -1,0 +1,4037 @@
+{
+  "method": "Primary agent manually read every frozen answer and reviewed against source; no API judge, no independent second reviewer.",
+  "criteria": "Content requires factual correctness, required branches and conditions. Strict tracing additionally requires citations to support each assertion, including collection-wide absence/exclusivity. Mechanical valid IDs/quotes are not semantic tracing.",
+  "limits": [
+    "Fixed development plus deliberately selected diagnostic cases, not independent random customer holdout.",
+    "Single frozen sample per question; no answer repair or prompt changes.",
+    "E09/E19 reimbursed expense not numerically specified: reference amount assumes stated compliant expense is personal residual expense; wrong remaining annual deductible is unambiguous.",
+    "Latency is full text completion, not first audio; STT/TTS not called.",
+    "Mechanisms are inferred from observable answers, not model internal reasoning."
+  ],
+  "model": "deepseek-flash",
+  "answer_snapshot_sha256": "8133d53dbac3cf15f2e2c01d7651af82d3074cfc4956181b613e47a4e2998dcf",
+  "source_snapshot_sha256": "bd0c67c061bb79267f1799ab3ac7aa1ded93633c94c6b58b5198a39fc6aa5df4",
+  "groups": {
+    "development71": {
+      "n": 71,
+      "content_correct": {
+        "passed": 66,
+        "percent": 92.96
+      },
+      "traceable": {
+        "passed": 64,
+        "percent": 90.14
+      },
+      "joint_correct": {
+        "passed": 62,
+        "percent": 87.32
+      },
+      "content_failures": [
+        "C05",
+        "C09",
+        "C12",
+        "C19",
+        "C20"
+      ],
+      "trace_failures": [
+        "C12",
+        "C19",
+        "C20",
+        "C22",
+        "Y026",
+        "Y034",
+        "Y040"
+      ]
+    },
+    "prior_boundary16": {
+      "n": 16,
+      "content_correct": {
+        "passed": 13,
+        "percent": 81.25
+      },
+      "traceable": {
+        "passed": 12,
+        "percent": 75.0
+      },
+      "joint_correct": {
+        "passed": 12,
+        "percent": 75.0
+      },
+      "content_failures": [
+        "N07",
+        "N08",
+        "N09"
+      ],
+      "trace_failures": [
+        "N07",
+        "N08",
+        "N09",
+        "N15"
+      ]
+    },
+    "new40": {
+      "n": 40,
+      "content_correct": {
+        "passed": 35,
+        "percent": 87.5
+      },
+      "traceable": {
+        "passed": 32,
+        "percent": 80.0
+      },
+      "joint_correct": {
+        "passed": 32,
+        "percent": 80.0
+      },
+      "content_failures": [
+        "E05",
+        "E08",
+        "E09",
+        "E19",
+        "E31"
+      ],
+      "trace_failures": [
+        "E05",
+        "E08",
+        "E09",
+        "E19",
+        "E31",
+        "E32",
+        "E33",
+        "E34"
+      ]
+    }
+  },
+  "overall": {
+    "n": 127,
+    "content_correct": {
+      "passed": 114,
+      "percent": 89.76
+    },
+    "traceable": {
+      "passed": 108,
+      "percent": 85.04
+    },
+    "joint_correct": {
+      "passed": 106,
+      "percent": 83.46
+    },
+    "content_failures": [
+      "C05",
+      "C09",
+      "C12",
+      "C19",
+      "C20",
+      "N07",
+      "N08",
+      "N09",
+      "E05",
+      "E08",
+      "E09",
+      "E19",
+      "E31"
+    ],
+    "trace_failures": [
+      "C12",
+      "C19",
+      "C20",
+      "C22",
+      "Y026",
+      "Y034",
+      "Y040",
+      "N07",
+      "N08",
+      "N09",
+      "N15",
+      "E05",
+      "E08",
+      "E09",
+      "E19",
+      "E31",
+      "E32",
+      "E33",
+      "E34"
+    ]
+  },
+  "latency_s": {
+    "median": 2.676988100000017,
+    "p95_nearest_rank": 3.610605099998793,
+    "max": 4.790207800000644
+  },
+  "median_answer_chars": 165,
+  "mechanical_provenance_pass": 126,
+  "model_calls": 127,
+  "retained_empty_answers": 0,
+  "content_error_categories": {
+    "必要分支遗漏": 1,
+    "未应用用户已知事实": 3,
+    "比例条件组合未定义": 1,
+    "未呈现原资料范围冲突": 1,
+    "整体资格前后矛盾": 1,
+    "错误套用首次年龄限制": 1,
+    "额外说明缩窄条件": 1,
+    "计算漏扣医保补偿": 1,
+    "未应用年度累计状态": 1,
+    "算术及年度累计状态": 1,
+    "未记载被推成无约束": 1
+  },
+  "rows": [
+    {
+      "id": "C01",
+      "group": "development71",
+      "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "基础住院/门诊共享1万与300万，另购ICU500/0/30/60及叠加；未问全部医保分支不强制复述。",
+      "review_note": "基础住院/门诊共享1万与300万，另购ICU500/0/30/60及叠加；未问全部医保分支不强制复述。",
+      "answer": "您母亲62岁，如果买的是必选责任，住院医疗费用属于一般医疗及外购药械费用医疗保险金，在二级及二级以上公立医院或约定民营医院普通部，扣除1万元年免赔额后按100%赔付，年累计以300万元为限，且与一般门急诊责任共享这1万元免赔额和300万元保额。看门诊属于一般门急诊医疗及外购药械费用医疗保险金，同样在二级及二级以上公立医院或约定民营医院普通部，扣除1万元年免赔额后按100%赔付，年累计以300万元为限，与一般医疗责任共享免赔额和保额。ICU补贴方面，ICU重症监护病房住院津贴保险金属于尊享住院津贴加油包，需另购；假设已购，在二级及二级以上公立医院或约定民营医院普通部ICU住院，日津贴额500元/日，次免赔0天，单次累计最多30天、年累计最多60天，且可与一般住院津贴责任叠加赔付。另外提醒，如果是以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算，上述一般医疗和一般门急诊的赔付比例会调整为60%。",
+      "source_ids": [
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D10",
+        "R02:D13",
+        "R02:D15",
+        "R02:D17",
+        "R15:head",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119",
+        "R01:D9",
+        "R02:D16"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 13,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "ad5f161c679724db04ee90176c4966bb2dac699aba959e6b382873d21734cc15"
+    },
+    {
+      "id": "C02",
+      "group": "development71",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "合同定义、三项责任和免赔、指定特药审核及大陆质子路径正确。",
+      "review_note": "合同定义、三项责任和免赔、指定特药审核及大陆质子路径正确。",
+      "answer": "癌症住院和靶向药能否报销，要看是否属于合同约定的重大疾病医疗责任范围：如果被保险人在等待期30天后初次确诊罹患本合同约定的100种重大疾病，在二级及二级以上公立医院或指定民营医疗机构普通部发生的必需且合理的住院医疗费用、特殊门诊医疗费用、门诊手术医疗费用、住院前30天和出院后30天门急诊医疗费用、重大疾病门急诊医疗费用和外购药品及外购医疗器械费用，可以按重大疾病医疗及外购药械费用医疗保险金申请，年累计给付以300万元为限。这项重大疾病医疗责任无免赔额，赔付比例按100%；但以有基本医疗保险或公费医疗身份参保、却未以基本医疗保险或公费医疗身份就诊并结算的，赔付比例调整为60%。质子重离子属于恶性肿瘤先进疗法医疗责任：在等待期30天后初次确诊罹患恶性肿瘤——重度，在经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构（限中国大陆境内）接受质子重离子治疗而发生的医疗费用可以申请，年累计给付以600万元为限，床位费限1500元/天，本责任无免赔额；但化学疗法、肿瘤免疫疗法、肿瘤内分泌疗法和肿瘤靶向疗法所产生的药品费不包括在内。靶向药如果属于特定药品费用医疗保险金项下恶性肿瘤——重度院外特定药品费用，需在保险人指定药店购买、购买前按指定流程提交材料并通过处方审核，且仅赔付责任内约定药品清单中列明的药品，年累计给付以600万元为限，本责任无免赔额。",
+      "source_ids": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R03:D23",
+        "R03:D24",
+        "R05:D32",
+        "R05:D35",
+        "R05:D36",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D84",
+        "R06:D85",
+        "R06:D86"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 16,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "e655f10884dc1440989a438556e4f7c7807dbc1971baf2665d9b58b94e21652b"
+    },
+    {
+      "id": "C03",
+      "group": "development71",
+      "question": "住院花了一万五，自己出多少，没走医保会怎样",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "15000扣1万得5000，有医保身份未结算60%得3000，假设明确。",
+      "review_note": "15000扣1万得5000，有医保身份未结算60%得3000，假设明确。",
+      "answer": "按一般医疗及外购药械费用医疗保险金算，假设这1.5万元费用全符合责任范围、1万元年免赔额还没用过、也没有医保等其他补偿，那么赔付金额是（15000-10000）×100%=5000元，您自己承担10000元。如果是以有基本医疗保险或公费医疗身份参保，但这次没以该身份就诊并结算，同样假设费用全符合、免赔额未用、无其他补偿，赔付金额是（15000-10000）×60%=3000元，您自己承担12000元。如果这次住院属于合同约定的100种重大疾病，重大疾病医疗及外购药械费用医疗保险金无免赔额，假设费用全符合、无其他补偿，按100%赔付为15000元，自己承担0元；若以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算，则按60%赔付为9000元，自己承担6000元。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R03:D22",
+        "R03:D23",
+        "R03:D24"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "34d9d479d8aa72bc1594169fcc7a17cde0c70ca0eed4806c21cb21362204763f"
+    },
+    {
+      "id": "C04",
+      "group": "development71",
+      "question": "我有社保，门诊加油包和基础版的门急诊有什么区别",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "基础共享300万/1万与另购门诊1万/次300/50%区分；scope保留30%身份条件。",
+      "review_note": "基础共享300万/1万与另购门诊1万/次300/50%区分；scope保留30%身份条件。",
+      "answer": "基础版的一般门急诊医疗及外购药械费用医疗保险金是必选责任，保额300万，与一般医疗共享300万保额和1万元年免赔额，在扣除1万元年免赔额后按100%赔付。门诊加油包的门急诊医疗保险金需另购，保额1万，赔付比例50%，次免赔0元、次限额300元，单次门急诊以300元为限、年累计以1万元为限。两者区别在于：基础版门急诊是必选责任、与一般医疗共享300万保额和1万免赔额、扣除免赔后按100%赔付；门诊加油包是可选加油包、独立1万保额、无年免赔额但每次限300元、按50%赔付。另外，以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，基础版门急诊赔付比例调整为60%，门诊加油包调整为30%。",
+      "source_ids": [
+        "R02:head",
+        "R02:D15",
+        "R02:D17",
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "R02:D16"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 14,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "598c9d5d20d770b4f34843e6843137a76b591d64d7e84a85866cfa51976b7cd3"
+    },
+    {
+      "id": "C05",
+      "group": "development71",
+      "question": "中风以后住院、康复、请护工分别能报吗",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "content_correct": false,
+      "traceable": true,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "必要分支遗漏",
+      "reason": "只说一般住院扣1万，未说明符合合同重疾时无免赔，不能只提可能属于重大疾病却不回答其给付区别。",
+      "review_note": "需区分一般住院、约定重疾、16种特定康复及指定机构护工。",
+      "answer": "中风住院能否报销，要看是否属于合同约定的疾病或重大疾病，并且要满足等待期、医院范围等条件；一般医疗在扣除1万元年免赔额后按100%赔付，若以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算，则按60%赔付。康复费用方面，只有因合同约定的16种特定疾病，在初次确诊之日起180日内，在指定康复医疗机构或二级及以上公立医院普通部等住院发生的康复住院治疗费用才可报销；指定康复医疗机构按80%赔付，公立医院普通部等按60%赔付，若以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算，则分别调整为48%和36%。护工费用方面，只有因合同约定的100种重大疾病住院，且经保险人指定或认可的医疗服务机构提供住院护工服务，才按500元/天给付，单次住院以30天为限，同一保险年度累计以30天为限，且需提前申请审核，由保险人与指定机构直接结算。",
+      "source_ids": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "R04:D26",
+        "R04:D27",
+        "R04:D28",
+        "R04:D29",
+        "R04:D30",
+        "R08:D93",
+        "R08:D94",
+        "R08:D95",
+        "R08:D96"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 14,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "fe962d49aee16e0c1e7babfb2f7f4bdf50caac8e5a0f40ae2eac44d2078a455f"
+    },
+    {
+      "id": "C06",
+      "group": "development71",
+      "question": "孩子5岁有社保，能买门急诊加油包和药省保吗，网上买药怎么报",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "5岁在首次年龄内，50%月100年1000，6周岁含以下不能开处方；年龄可以买按年龄资格语境理解。",
+      "review_note": "5岁在首次年龄内，50%月100年1000，6周岁含以下不能开处方；年龄可以买按年龄资格语境理解。",
+      "answer": "5岁孩子可以买尊享门急诊医疗加油包，该加油包投保年龄为出生满30天至55周岁，赔付比例50%，单次门急诊限额300元，年累计限额1万元。药省保加油包也可以买，首次投保年龄为出生满30天至70周岁，但要注意6周岁（含）以下被保险人无法开具处方药品，所以5岁孩子网上买药时不能开处方药。网上买药报销方面，在保险人认可的互联网药店内产生的药品费用，按50%赔付，即保障范围内50%由众安保险直付给指定互联网药店，您支付剩余50%，月赔付限额100元，年累计限额1000元，配送费需自行承担。",
+      "source_ids": [
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "投保须知#86",
+        "R16:head",
+        "R16:D123",
+        "R16:D121",
+        "R16:D122",
+        "R16:D124"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "f20f746b10b4401408aeee653acee98ba59d3d9d4ac24a4fe229d5155e406423"
+    },
+    {
+      "id": "C07",
+      "group": "development71",
+      "question": "得了重病要去外省治疗，路费、住宿和护工费能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "本轮转诊及护工都明确合同100种重疾，转院证明、指定服务及结算正确。",
+      "review_note": "本轮转诊及护工都明确合同100种重疾，转院证明、指定服务及结算正确。",
+      "answer": "您问的路费、住宿和护工费，在尊享e生百万医疗2026版里分别对应不同责任，不能笼统说能报或不能报。如果是合同约定的100种重大疾病，因病情需要跨省住院治疗，经申请并由转出医院开具转院证明，被保险人和一名亲属陪同发生的必需且合理的异地转诊公共交通费用和住宿费用可以按100%赔付，年累计以1万元为限；飞机最高经济舱，火车最高软卧或一等座，住宿限标准间且单日500元/天为限。护工费方面，若属于合同约定的100种重大疾病、在二级及以上公立医院或指定民营医疗机构普通部住院，且由保险人指定或认可的医疗服务机构提供住院护工服务，可按500元/天给付，单次以30天为限、年累计以30天为限，由保险人与指定机构直接结算，不接受自主申请理赔。如果只是普通疾病或非约定重疾，这两项异地转诊和护工责任不适用；另外护工费若不在保险人指定或认可的机构和形式内发生，也属于免责范围。",
+      "source_ids": [
+        "R07:head",
+        "R08:head",
+        "R07:D87",
+        "R07:D88",
+        "R07:D89",
+        "R07:D90",
+        "R07:D91",
+        "R08:D93",
+        "R08:D94",
+        "R08:D96",
+        "责任免除#16"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 13,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6d36e5c6e71fef6b4acefbe2fe9bbcf8764221a75b7e2296f16963b52f2bab64"
+    },
+    {
+      "id": "C08",
+      "group": "development71",
+      "question": "一家三口一起买，免赔额能一起算吗，有优惠吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "另购家庭共享、同投保人同订单、仅一般医疗；家庭累计3人10%。",
+      "review_note": "另购家庭共享、同投保人同订单、仅一般医疗；家庭累计3人10%。",
+      "answer": "一家三口一起买，免赔额可以共享，但需要另购“尊享家庭共享免赔额加油包”，且仅限同一投保人在同一订单内的被保险人，针对一般医疗及外购药械费用医疗保险金共享年免赔额1万元，一般门急诊医疗及外购药械费用医疗保险金不在此共享年免赔额累计范围内。优惠方面，本产品有家庭单用户优享价格：同一投保人名下尊享医疗险系列+众民保医疗险系列产品保单家庭成员及当前产品订单新增的家庭成员人数之和累计为3人时，当前订单每人价格优享10%。",
+      "source_ids": [
+        "R09:D98",
+        "投保须知#57",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "f0c798594f12ad6b0f17d13e245269e4a00e6c3c74a27f271f120fd316302f9a"
+    },
+    {
+      "id": "C09",
+      "group": "development71",
+      "question": "我有高血压，买了以后高血压住院和意外住院能报吗",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": true,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未应用用户已知事实",
+      "reason": "用户已有高血压，仍转到如果不是既往症，没有直接落实当前病史的费用边界；引用条款自身正确。",
+      "review_note": "用户已有高血压，必须直接处理当前既往症情境，不能绕回如果不是。",
+      "answer": "高血压住院能否报销，关键看这次高血压是否属于“既往症”：条款明确，初次投保前或非上一张保单期满后指定期限内重新投保前的既往症，不予理赔。如果高血压不是既往症，且满足等待期30天后因罹患疾病、在二级及二级以上公立医院普通部住院等条件，一般医疗责任在扣除1万元年免赔额后按100%赔付，年累计以300万元为限。意外住院属于意外伤害事故导致的住院，不受等待期限制，同样在扣除1万元年免赔额后按100%赔付，年累计以300万元为限。另外，以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，赔付比例调整为60%。",
+      "source_ids": [
+        "责任免除#3",
+        "责任免除#4",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 11,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "7d7f4973ab3f1030ceea04b94e71ef0a5d729d91e0d90e8e7d6b866bb146c4e7"
+    },
+    {
+      "id": "C10",
+      "group": "development71",
+      "question": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "意外无疾病等待、疾病30天；conditional责任及医院正确。未给负数赔付，额外无金额公式建议加零下限。",
+      "review_note": "意外无疾病等待、疾病30天；conditional责任及医院正确。未给负数赔付，额外无金额公式建议加零下限。",
+      "answer": "刚买三天出车祸住院，一般医疗及外购药械费用医疗保险金可以赔，因为这项责任对意外伤害事故没有等待期限制，但要在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部发生必需且合理的住院医疗费用，并扣除1万元年免赔额后按100%比例给付。如果是生病住院，一般医疗及外购药械费用医疗保险金要等待期30天后因罹患疾病才赔，刚买三天通常还在等待期内，所以这项责任一般不能赔。另外，如果以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，扣除1万元年免赔额后按60%比例给付。",
+      "source_ids": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "533363e037d48b380b8c60d8bf1df22f72b3500a4a584c5b85ae8c66535122a4"
+    },
+    {
+      "id": "C11",
+      "group": "development71",
+      "question": "住私立医院的VIP病房能报吗，公立医院的特需部呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "指定私立与公立VIP/特需另购约定重大疾病扩展责任，不等于所有私立均除外；床位限制正确。",
+      "review_note": "指定私立与公立VIP/特需另购约定重大疾病扩展责任，不等于所有私立均除外；床位限制正确。",
+      "answer": "按尊享e生百万医疗2026版必选责任的医院范围，一般医疗、一般门急诊、重大疾病医疗等责任都限二级及二级以上的公立医院及本保单约定的指定民营医疗机构普通部，私立医院VIP病房和公立医院特需部都不在这个范围内。只有另购尊享重大疾病扩展特需医疗加油包后，在二级及二级以上的公立医院及本保单约定的指定民营医疗机构特需医疗部、国际部、VIP部（不包括观察室、联合病房和康复病房）接受治疗，才按100%赔付，年累计以300万元为限，床位费限1500元/天（不包括单人病房、套房、家庭病床）。这个加油包还要求初次确诊罹患本产品定义的重大疾病，且需满足合同对该重大疾病的定义。",
+      "source_ids": [
+        "R01:head",
+        "R01:D6",
+        "R02:head",
+        "R02:D13",
+        "R03:head",
+        "R03:D20",
+        "R11:head",
+        "R11:D101",
+        "R11:D102",
+        "R11:D100"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "f66d36570b865cab88ecd57a1364bad56b30601d63f70ee9f229fcc3633246d9"
+    },
+    {
+      "id": "C12",
+      "group": "development71",
+      "question": "住院补偿加油包和基础版一起买，一万以内的住院费怎么报，看结节呢",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "比例条件组合未定义",
+      "reason": "结节20%后声称医保未结两责任都会调60%；R12:D107/D108未明确同时满足的优先级，不能承诺60%覆盖20%。",
+      "review_note": "住院补偿需另购，1万内100%及结节20%，不得用一般60%覆盖结节条件。",
+      "answer": "住院医疗费用补偿加油包需另购，假设已购且费用全符合、无其他补偿时，它按100%赔付，年累计以1万元为限，但治疗疾病含结节（包括炎症性、增生性、肿瘤）的，赔付比例降为20%。基础版的一般医疗及外购药械费用医疗保险金有1万元年免赔额，扣除后按100%赔付，所以1万元以内的住院费在基础版下通常达不到免赔额、无法获赔。如果以有基本医疗保险或公费医疗身份参保，但未以该身份就诊并结算，基础版和住院医疗费用补偿加油包的赔付比例都会调整为60%。",
+      "source_ids": [
+        "R12:D106",
+        "R12:D108",
+        "R12:head",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R12:D107"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "31afac307ba7607467d1529c4370b04d20d7dcef2678259a7a4e7e84f5a3d012"
+    },
+    {
+      "id": "C13",
+      "group": "development71",
+      "question": "确诊重疾除了报医药费，还能拿到一笔钱吗，要另外买什么",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "重疾关爱另购、合同100种、初诊30天、5万正确。未问意外分支不强制全列。",
+      "review_note": "重疾关爱另购、合同100种、初诊30天、5万正确。未问意外分支不强制全列。",
+      "answer": "确诊合同约定的100种重大疾病后，必选责任里的重大疾病医疗及外购药械费用医疗保险金是报销医疗费的，不是额外给一笔现金。想额外拿到一笔钱，需要另购尊享重疾关爱加油包，确诊合同约定的100种重大疾病后给付5万元重大疾病保险金。这个5万元是加油包责任，需另购，且同样要求因意外导致罹患或在等待期30天后初次确诊合同约定的100种重大疾病。",
+      "source_ids": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R10:D99",
+        "投保须知#58",
+        "R10:head"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "79a22cf4e1fc34b362179a7b723c4060fc123a87b41290e58d323f1c50ffa090"
+    },
+    {
+      "id": "C14",
+      "group": "development71",
+      "question": "住院10天能拿多少津贴，进了3天ICU呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "已购假设，普通700与ICU1500可叠加，意外无30天等待。",
+      "review_note": "已购假设，普通700与ICU1500可叠加，意外无30天等待。",
+      "answer": "住院津贴和ICU津贴都属于尊享住院津贴加油包，需要另外购买；如果已购，一般住院津贴是100元/日，每次住院有3天免赔，住院10天可试算为（10-3）×100=700元。ICU重症监护病房住院津贴是500元/日，没有免赔天数，进3天ICU可试算为3×500=1500元，并且这项可与一般住院津贴叠加赔付。两项合计试算为700+1500=2200元，但前提是已购买该加油包、住院符合合同约定的医院和给付条件，且单次住院累计给付天数以30天为限。",
+      "source_ids": [
+        "R14:head",
+        "R14:D115",
+        "R14:D116",
+        "R15:head",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "beba768d254a10075c07000bc2858df66f89ce8a602b285ca1458d4171e59683"
+    },
+    {
+      "id": "C15",
+      "group": "development71",
+      "question": "我女儿8岁，近视手术和看牙能报吗，住院呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "本轮保留牙科/屈光意外例外，一般医疗及身份60%限定正确。",
+      "review_note": "本轮保留牙科/屈光意外例外，一般医疗及身份60%限定正确。",
+      "answer": "近视手术和看牙，这款产品的责任免除里明确把屈光不正、牙科疾病及相关治疗列为不予理赔，所以一般不能报销。不过这两项免责都保留了意外例外：如果是因意外导致的，不受此限，可以按对应医疗责任申请。住院方面，一般医疗及外购药械费用医疗保险金包含住院医疗费用，在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部发生、必需且合理的费用，扣除1万元年免赔额后按100%赔付，年累计以300万元为限。如果是以有基本医疗保险或公费医疗身份参保，但未以该身份就诊并结算的，扣除1万元年免赔额后按60%赔付。",
+      "source_ids": [
+        "责任免除#5",
+        "责任免除#12",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "1730d75fb7f1e35bff1258ae1b065b00072e272fcb50028562898f9840d3d7ce"
+    },
+    {
+      "id": "C16",
+      "group": "development71",
+      "question": "怀孕期间生病住院能报吗，生孩子的费用呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "与妊娠原因相关费用除外，孕妇无关疾病/意外不应按身份全面除外。",
+      "review_note": "与妊娠原因相关费用除外，孕妇无关疾病/意外不应按身份全面除外。",
+      "answer": "怀孕期间生病住院，如果属于合同约定的一般医疗责任范围，在扣除1万元年免赔额后按约定比例赔付，但怀孕、流产、分娩（含剖腹产）及由以上原因导致的并发症所产生的医疗费属于免责，不予理赔。生孩子的费用，包括分娩（含剖腹产）、产前产后检查以及由以上原因导致的并发症，都在责任免除范围内，不予理赔。",
+      "source_ids": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "责任免除#5",
+        "责任免除#12"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "1c5bdb944ff01d308188b65c1ba8542c2a1ccc758ac071125a437345e2713487"
+    },
+    {
+      "id": "C17",
+      "group": "development71",
+      "question": "医保报完以后剩下的部分怎么赔，特药里社保目录内的药呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "医保后个人合理费用、共享免赔和特药目录内外100/60、身份条件正确。",
+      "review_note": "医保后个人合理费用、共享免赔和特药目录内外100/60、身份条件正确。",
+      "answer": "医保报完以后，剩余需个人支付且必需合理的部分，先扣除1万元年免赔额，再按100%赔付；如果是以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算，则扣除1万元年免赔额后按60%赔付。如果是合同约定的100种重大疾病医疗费用，则无免赔额，按100%赔付；同样以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的，比例调整为60%。特药里社保目录内的药，社保报销后剩余部分按100%赔付；以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的，比例调整为60%；社保目录外药品按100%赔付。特药责任无免赔额，但仅赔付责任内约定药品清单中列明的药品，且需在指定药店购买、提前申请并通过处方审核。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D9",
+        "责任免除#2",
+        "R03:D22",
+        "R03:D23",
+        "R03:D24",
+        "R06:D85",
+        "R06:D86",
+        "R06:D40",
+        "R06:D41"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "b2837c68d2c71c5e72a0df7f53c19e725b2ff88a9258c9e903930b1add990239"
+    },
+    {
+      "id": "C18",
+      "group": "development71",
+      "question": "我58岁，能买哪些加油包，门急诊加油包可以吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "58岁新投不能门诊包，其余六包首次上限70；不是已有门诊续投情境。",
+      "review_note": "58岁新投不能门诊包，其余六包首次上限70；不是已有门诊续投情境。",
+      "answer": "您58岁，可选的加油包有：尊享家庭共享免赔额加油包、尊享重疾关爱加油包、尊享重大疾病扩展特需医疗加油包、尊享住院医疗费用补偿加油包、尊享住院津贴加油包、尊享药省保加油包。尊享门急诊医疗加油包不可以，因为它的投保年龄是出生满30天至55周岁（含），您58岁已超出。",
+      "source_ids": [
+        "R09:head",
+        "R10:head",
+        "R11:head",
+        "R12:head",
+        "R14:head",
+        "R15:head",
+        "R16:head",
+        "投保须知#86",
+        "R13:head"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "682df6ea8c19b999b103dbdffb92338ce1ef59bab1f8568c513b3b8b1917e74f"
+    },
+    {
+      "id": "C19",
+      "group": "development71",
+      "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未呈现原资料范围冲突",
+      "reason": "只讲服务100不限额/医院60一万，遗漏主体保险D49一万与服务D52不限额差异，不能由服务备注直接概括保险给付。",
+      "review_note": "检测服务与保险条款需区分，源主体D49为1万、D52服务不限额，两者不能隐去冲突。",
+      "answer": "癌症相关的基因检测和特效药，主要走“特定药品费用医疗保险金”这项必选责任，但基因检测和特定药品都必须先按保险人指定流程提交材料并通过审核，特定药品还须在保险人指定的药店购买。基因检测的赔付分两种路径：通过增值服务（用药前基因检测）申请的，赔付比例100%、不限额，保险公司与服务商直接结算；由医院开方、客户前往符合合同要求的医疗机构或基因检测机构检测的，赔付比例60%、走理赔流程、限额1万元；若检测机构均不符合合同要求，则无法赔付。特效药（特定药品）方面，须在保险人指定药店购买并通过处方审核，仅赔付责任内约定药品清单中列明的药品；若为社保目录内药品，社保报销后剩余部分按100%赔付，以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的调整为60%；若为社保目录外药品，100%赔付。这项责任无免赔额，年累计给付以600万元为限。",
+      "source_ids": [
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D46",
+        "R06:D47",
+        "R06:D52",
+        "R06:D53",
+        "R06:D54",
+        "R06:D85",
+        "R06:D84",
+        "R06:D86"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 13,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "1ec4d5e146dfa58011d2b2cedfed8d738bc0836c8c07c0af057e63d4c0b27e4b"
+    },
+    {
+      "id": "C20",
+      "group": "development71",
+      "question": "我有甲状腺结节，买了以后结节手术能报吗，加了住院补偿加油包呢",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未应用用户已知事实",
+      "reason": "投前已有结节，却再说另购补偿包结节20%，没有把这笔已有结节相关手术明确排除，易造成加包可覆盖印象。",
+      "review_note": "明确已患结节；不能在既往症事实后暗示加包20%即可覆盖既往症。",
+      "answer": "甲状腺结节手术能否报销，关键看它是否属于“既往症”：本产品对初次投保前或非上一张保单期满后指定期限内重新投保前的既往症，不予理赔。如果该结节手术不属于既往症，且满足一般医疗责任条件（在二级及二级以上公立医院或指定民营医疗机构普通部发生、必需且合理、等待期30天后因疾病），则按一般医疗及外购药械费用医疗保险金赔付：扣除1万元年免赔额后按100%比例，年累计以300万元为限。若以有基本医疗保险或公费医疗身份参保，但未以该身份就诊并结算，则扣除1万元年免赔额后按60%比例赔付。如果另购了尊享住院医疗费用补偿加油包，该责任对结节（包括炎症性、增生性、肿瘤）治疗的赔付比例为20%，年累计以1万元为限，且不承担脊椎疾病治疗费用。",
+      "source_ids": [
+        "责任免除#3",
+        "责任免除#4",
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R12:D106",
+        "R12:D108",
+        "R12:D109"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "b84379356f8a032076b3a3ce33eff6c6add7b3c325be5f09bd7afb9f28004428"
+    },
+    {
+      "id": "C21",
+      "group": "development71",
+      "question": "住院前后看门诊的钱能报吗，出院后拿药呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "住院前后各30天、外购药特定条件与普通就医药费路径区分，无不限时承诺。",
+      "review_note": "住院前后各30天、外购药特定条件与普通就医药费路径区分，无不限时承诺。",
+      "answer": "住院前30天和出院后30天的门急诊医疗费用，属于一般医疗及外购药械费用医疗保险金的范围，可以按规定报销。出院后拿药能否报销，要看这笔药费是否属于该责任约定的外购药品及外购医疗器械费用，且必须同时满足合同释义二十七的特定条件，不是所有出院带药都自动纳入。报销时要在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部发生，扣除1万元年免赔额后按100%比例给付，年累计以300万元为限；如果以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算，则扣除1万元年免赔额后按60%给付。",
+      "source_ids": [
+        "R01:D7",
+        "R01:D6",
+        "R01:D8",
+        "R01:D11",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "db401add4a5e66d1f6187f7d9c116a28d9923511279b88ba52bbec61c6139a3e"
+    },
+    {
+      "id": "C22",
+      "group": "development71",
+      "question": "康复住院救护车能报吗，转院的救护车呢",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "排他结论缺依据",
+      "reason": "各路径金额和限制正确；仅列R04不能充分证明所有康复相关救护都只有此责任覆盖，正式费用定义未齐。此项只扣严格溯源，不认定已证实赔付错误。",
+      "review_note": "康复合同16种/180天/救护1000；其他转院按对应责任，不能代替一般门急诊救护车。",
+      "answer": "康复住院相关的救护车费用，只有在特定疾病康复住院费用医疗保险金这项责任下才可能涉及，且必须是因合同约定的16种特定疾病、在初次确诊之日起180日内、在约定医院普通部住院、以治疗该特定疾病为目的的康复住院治疗费用，其中包含康复住院转运救护车使用费，该费用单次限额1000元。转院的救护车要看具体情形：如果是重大疾病异地转诊，这项责任只赔异地转诊产生的公共交通费用和住宿费用，并不包含救护车费用；如果是特定药品费用责任中特定进口药品及特定医疗机构住院医疗费用，其住院医疗费用里包含救护车使用费，但前提是经海南博鳌超级医院、博鳌恒大国际医院确诊清单内疾病并使用临床急需进口药品治疗。另外，一般门急诊医疗及外购药械费用医疗保险金的门急诊医疗费用里包含救护车使用费，但仅限在二级及二级以上公立医院或约定民营医疗机构普通部接受门诊或急诊治疗期间发生。",
+      "source_ids": [
+        "R04:D26",
+        "R04:D27",
+        "R04:D28",
+        "R04:D31",
+        "R07:D88",
+        "R06:D65",
+        "R06:D67",
+        "R02:D13",
+        "R02:D14"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 9,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "efccf00285c899f4dff5783166bdc1fee109043b3c24f8b9496320d39b3f0526"
+    },
+    {
+      "id": "C23",
+      "group": "development71",
+      "question": "在日本做光免疫治疗能报吗，床位费有限制吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "日本两家指定医院、恶性重度初诊、600万/0、床1500及房型除外正确。",
+      "review_note": "日本两家指定医院、恶性重度初诊、600万/0、床1500及房型除外正确。",
+      "answer": "在日本做光免疫治疗，本产品恶性肿瘤先进疗法医疗责任可以赔付，但必须同时满足：在等待期30天后初次确诊罹患恶性肿瘤——重度，且在日本国立癌症研究中心东医院或日本东京医科大学病院接受光免疫疗法治疗，赔付比例100%，年累计给付以600万元为限，本责任无免赔额。该责任下床位费限1500元/天，不包括单人病房、套房、家庭病床。另外，光免疫疗法医疗费用不包括化学疗法、肿瘤免疫疗法、肿瘤内分泌疗法和肿瘤靶向疗法所产生的药品费。",
+      "source_ids": [
+        "R05:D34",
+        "R05:D35",
+        "R05:D36"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "3ae33c85e16a9257cbaf4c55bc71c6924a4935e7148b92c5a4cc74730b6924fc"
+    },
+    {
+      "id": "C24",
+      "group": "development71",
+      "question": "罕见病买药和癌症买药要求一样吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "癌症重度和13种罕见病区分、指定药店审核清单条件正确。",
+      "review_note": "癌症重度和13种罕见病区分、指定药店审核清单条件正确。",
+      "answer": "不一样，癌症买药和罕见病买药在“特定药品费用医疗保险金”里是两类不同的费用，癌症对应的是“恶性肿瘤——重度院外特定药品费用”，罕见病对应的是“罕见病特定药品费用”。癌症买药要求：被保险人须在等待期30天后初次确诊罹患恶性肿瘤——重度，治疗实际发生的合理且必需的且同时满足合同定义的特定药品费用，且须在保险人指定的药店购买、购买前按保险人指定流程提交材料并通过处方审核。罕见病买药要求：被保险人须在等待期30天后初次确诊罹患本合同约定的13种罕见病，治疗实际发生的合理且必需的且同时满足合同定义的特定药品费用，同样须在保险人指定的药店购买、购买前按保险人指定流程提交材料并通过处方审核。两者赔付比例和限额相同：均按100%赔付，年累计给付以600万元为限，且本责任无免赔额。",
+      "source_ids": [
+        "R06:D38",
+        "R06:D55",
+        "R06:D56",
+        "R06:D40",
+        "R06:D41",
+        "R06:D57",
+        "R06:D58",
+        "R06:D84",
+        "R06:D86"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 11,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "759a092306e8ab6d7606ad3c41e23661f329d0fae1b0a5c7a0a9702764f4607b"
+    },
+    {
+      "id": "C25",
+      "group": "development71",
+      "question": "我是货车司机，45岁有社保，能买吗，多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "货车类型/营运/吨位需核对，45岁年龄及636/63价格正确。only未主动列职业条目可改进，不承诺所有货车可保。",
+      "review_note": "货车类型/营运/吨位需核对，45岁年龄及636/63价格正确。only未主动列职业条目可改进，不承诺所有货车可保。",
+      "answer": "您45岁、有社保，年龄在首次投保30天至70周岁的范围内，但能否投保还要看职业是否不在《众安保险特殊职业类别表》内，货车司机是否属于该表需要核对。如果职业符合要求，必选计划有社保的年缴保费是636元，月缴是63元。以上只是必选计划的保费，加油包需要另外购买、费用另算。",
+      "source_ids": [
+        "投保须知#86",
+        "投保须知#88",
+        "责任免除#0",
+        "rate:年缴_必选:11",
+        "rate:月缴_必选:11",
+        "投保须知#56",
+        "投保须知#57",
+        "投保须知#58"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "464c5a2f98e1c85c11c55ed7f3fe64a5cb2dab2f23e69917aaf0545a0f820aee"
+    },
+    {
+      "id": "C26",
+      "group": "development71",
+      "question": "一年交和每月交差多少，30岁有社保",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "30岁闭区间318/31，31乘12为372、差54，两个源表正确。",
+      "review_note": "30岁闭区间318/31，31乘12为372、差54，两个源表正确。",
+      "answer": "30岁有社保，必选计划年缴是318元，月缴是31元。如果按月缴31元交满12个月，合计约372元，比年缴318元多约54元。",
+      "source_ids": [
+        "rate:年缴_必选:8",
+        "rate:月缴_必选:8"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6aeef61176b22abe2f90ea5c593330b943872c9f032c6fc2ee8207d151106583"
+    },
+    {
+      "id": "C27",
+      "group": "development71",
+      "question": "家里4口人，有的有社保有的没有，免赔额共享和家庭优惠都能用吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "家庭免赔需另购及同投保同单、门急诊不纳入，四人15%；不同社保列正确。",
+      "review_note": "家庭免赔需另购及同投保同单、门急诊不纳入，四人15%；不同社保列正确。",
+      "answer": "家庭共享免赔额需要另购尊享家庭共享免赔额加油包，购买后同一投保人在同一订单内的被保险人，针对一般医疗及外购药械费用医疗保险金共享年免赔额1万元，但一般门急诊医疗及外购药械费用医疗保险金不在此共享年免赔额累计的范围内。家庭单优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列产品保单家庭成员及当前产品订单新增的家庭成员人数之和累计为4人时，当前订单每人价格优享15%。有社保和无社保的成员都可以投保，但保费不同，例如必选计划年缴保费有社保和无社保分别按对应费率表收取。",
+      "source_ids": [
+        "R09:D98",
+        "投保须知#57",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate:年缴_必选:2",
+        "rate:年缴_必选:3",
+        "rate:年缴_必选:4",
+        "rate:年缴_必选:5",
+        "rate:年缴_必选:6",
+        "rate:年缴_必选:7",
+        "rate:年缴_必选:8",
+        "rate:年缴_必选:9",
+        "rate:年缴_必选:10",
+        "rate:年缴_必选:11",
+        "rate:年缴_必选:12",
+        "rate:年缴_必选:13",
+        "rate:年缴_必选:14",
+        "rate:年缴_必选:15",
+        "rate:年缴_必选:16"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 19,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "47ae0f8cc3becf9ac577a68449cc4ffd6e58bfc66077492c7c11f4a81c862006"
+    },
+    {
+      "id": "C28",
+      "group": "development71",
+      "question": "得了抑郁症住院和吃药能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "精神行为障碍费用免责，核保与既往症分开，不按病史承诺可买。",
+      "review_note": "精神行为障碍费用免责，核保与既往症分开，不按病史承诺可买。",
+      "answer": "抑郁症属于精神和行为障碍，本产品责任免除明确约定：因精神和行为障碍产生的医疗费不予理赔。所以因抑郁症住院和吃药的费用，按现有条款不在赔付范围内。另外，如果抑郁症在初次投保前就已存在，还涉及既往症免责，同样不予理赔。",
+      "source_ids": [
+        "责任免除#4",
+        "责任免除#14",
+        "责任免除#3",
+        "责任免除#9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6435473350dd62ad91b9bb0a05a509a5e643cd59f9b3fa4c0e0a25fe49a2faa2"
+    },
+    {
+      "id": "C29",
+      "group": "development71",
+      "question": "体检查出肿瘤，住院手术和后续化疗能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "体检查肿瘤不默认既往；一般医疗与合同重疾无免赔分支都有。",
+      "review_note": "体检查肿瘤不默认既往；一般医疗与合同重疾无免赔分支都有。",
+      "answer": "如果这次肿瘤住院手术和后续化疗属于合同约定的一般医疗范围，在二级及二级以上公立医院普通部或本保单约定的指定民营医疗机构普通部发生，且是等待期30天后因罹患疾病住院，那么住院医疗费用和特殊门诊医疗费用（化疗通常属于特殊门诊）在扣除1万元年免赔额后，按100%比例报销，年累计以300万元为限。如果该肿瘤属于合同约定的100种重大疾病，则按重大疾病医疗责任报销，无免赔额，按100%比例，年累计以300万元为限。如果是以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，一般医疗和重大疾病医疗的赔付比例都调整为60%。另外，如果这次肿瘤在初次投保前或非上一张保单期满后指定期限内重新投保前已经存在，属于既往症，相关医疗费用不予理赔。",
+      "source_ids": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R03:D19",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R01:D9",
+        "R03:D23",
+        "责任免除#3",
+        "责任免除#4"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 12,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "abcd0291d7d1ff35daf854e3b6e86b2cb21ca4d0ec9060ace5f3b82ed88a10fe"
+    },
+    {
+      "id": "C30",
+      "group": "development71",
+      "question": "急诊抢救花了五千，后来住院花了两万，一共能报多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "费用全符合、无补偿、免赔未用，25000扣10000乘100/60，15000/9000正确。",
+      "review_note": "费用全符合、无补偿、免赔未用，25000扣10000乘100/60，15000/9000正确。",
+      "answer": "您说的急诊抢救和住院，如果都属于一般医疗及外购药械费用医疗保险金责任范围，住院医疗费用和住院前后门急诊医疗费用可以一起算，但一般门急诊医疗及外购药械费用医疗保险金不包含住院前后门急诊医疗费用。在假设费用全符合、1万元年免赔额未使用、无其他补偿的情况下，一般医疗责任按（急诊抢救费5000元＋住院费20000元－1万元免赔额）×100%试算，约15000元。如果是以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，则扣除1万元年免赔额后按60%赔付，试算约9000元。",
+      "source_ids": [
+        "R01:D7",
+        "R02:D13",
+        "R01:D8",
+        "R01:D10",
+        "R02:D17",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "08d76859b0f585235e090b6f3f48e5c4dcc9fc2b1d772e6f2e6769eead390dc5"
+    },
+    {
+      "id": "Y001",
+      "group": "development71",
+      "question": "门诊能报吗？住ICU有没有额外补贴？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "基础门诊共享1万/300万及60%完整身份、ICU另购及500/0/30/60正确。",
+      "review_note": "基础门诊共享1万/300万及60%完整身份、ICU另购及500/0/30/60正确。",
+      "answer": "门诊可以报：一般门急诊医疗及外购药械费用医疗保险金属于必选责任，在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部接受门诊或急诊治疗期间发生的、需个人支付的必需且合理的一般门急诊医疗费用可以赔付，费用包括诊疗费、急诊室费、检查检验费、治疗费、药品费、救护车使用费。这项责任有1万元年免赔额，扣除后按100%赔付，年累计以300万元为限，并与一般医疗及外购药械费用医疗保险金共享这1万元免赔额和300万元保额。ICU重症监护病房住院津贴保险金属于尊享住院津贴加油包，需另购；假设已购，在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部的ICU重症监护病房住院治疗，日津贴额500元/日，次免赔天数为0天，单次累计给付天数以30天为限，年累计给付天数以60天为限，且可与一般住院津贴责任叠加赔付。",
+      "source_ids": [
+        "R02:head",
+        "R02:D13",
+        "R02:D14",
+        "R02:D15",
+        "R02:D17",
+        "R15:head",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 9,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "30fb8d81df17680e641251a97c8e3bc66ab7879da01709879ec943d2632c01fb"
+    },
+    {
+      "id": "Y002",
+      "group": "development71",
+      "question": "住院有免赔额吗，等待期多久？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "一般住院1万与重疾0免赔分开、疾病30意外无等待。",
+      "review_note": "一般住院1万与重疾0免赔分开、疾病30意外无等待。",
+      "answer": "住院医疗费用属于一般医疗及外购药械费用医疗保险金，这项责任有1万元年免赔额，且与一般门急诊医疗及外购药械费用医疗责任共享这1万元年免赔额。等待期方面，本产品必选计划的等待期为30天，因意外伤害事故导致的不受这个疾病等待期限制，疾病医疗需在等待期30天后。另外，重大疾病医疗及外购药械费用医疗保险金无免赔额，等待期同样为30天。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D7",
+        "投保须知#93",
+        "R01:D5",
+        "R03:D24",
+        "R03:head"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "4c903a77ba4a1dd95bacce404575b9b477a3d104b90ff5020e8d409c004360f8"
+    },
+    {
+      "id": "Y003",
+      "group": "development71",
+      "question": "重疾医疗最多报多少，护工费给不给？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "重疾300万、合同100种指定护工500/30、机构结算，不自主理赔。",
+      "review_note": "重疾300万、合同100种指定护工500/30、机构结算，不自主理赔。",
+      "answer": "重疾医疗（重大疾病医疗及外购药械费用医疗保险金）年累计给付以300万元为限，本责任无免赔额，按100%的赔付比例给付；如果是以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算的，赔付比例调整为60%。护工费是有的，但属于重大疾病住院护工费用保险金：需初次确诊罹患合同约定的100种重大疾病、在二级及二级以上公立医院或指定民营医疗机构普通部住院，且经保险人指定或认可的医疗服务机构提供住院护工服务，按500元/天给付，单次住院以30天为限、同一保险年度累计以30天为限，由保险人与指定或认可的服务机构直接结算，不接受投被保人自主申请理赔。",
+      "source_ids": [
+        "R03:D22",
+        "R03:D24",
+        "R03:D23",
+        "R08:D93",
+        "R08:D94",
+        "R08:D96"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "bb4ec960b31f1d8e0459cda3b2eb12263ebeda9ca815e7d6b4e06446fb3b490f"
+    },
+    {
+      "id": "Y004",
+      "group": "development71",
+      "question": "癌症特效药能报吗，质子重离子呢？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "恶性重度、特药审核清单、目录内外100/60身份，大陆质子600万0免赔正确。",
+      "review_note": "恶性重度、特药审核清单、目录内外100/60身份，大陆质子600万0免赔正确。",
+      "answer": "癌症特效药属于特定药品费用医疗保险金，是必选责任，在等待期30天后初次确诊恶性肿瘤——重度，治疗实际发生的合理且必需、同时满足合同定义的特定药品费用可以报，但仅赔付责任内约定药品清单中列明的药品，且须在保险人指定的药店购买、购药前按指定流程提交材料并通过处方审核。这项责任赔付比例100%，年累计给付以600万元为限，无免赔额；若为社保目录内药品，社保报销后剩余部分按100%赔付，以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的调整为60%，社保目录外药品100%赔付。质子重离子属于恶性肿瘤先进疗法医疗责任，也是必选责任，在等待期30天后初次确诊恶性肿瘤——重度，在经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构（限中国大陆境内，不含港澳台）接受治疗发生的质子重离子医疗费用可以报，但不包括化学疗法、肿瘤免疫疗法、肿瘤内分泌疗法和肿瘤靶向疗法所产生的药品费。这项责任赔付比例100%，年累计给付以600万元为限，无免赔额，床位费限1500元/天（不包括单人病房、套房、家庭病床）。",
+      "source_ids": [
+        "R06:head",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D85",
+        "R06:D84",
+        "R06:D86",
+        "R05:head",
+        "R05:D32",
+        "R05:D35",
+        "R05:D36"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 12,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "d1b918d198d0b12f840a9b137cc7717a76528267f1d8db2a68ee807e98f09e35"
+    },
+    {
+      "id": "Y005",
+      "group": "development71",
+      "question": "药省保要等几天，一个月最多报多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "药省保7天、50%月100年1000、指定互联网药店及配送自付正确。",
+      "review_note": "药省保7天、50%月100年1000、指定互联网药店及配送自付正确。",
+      "answer": "尊享药省保加油包是需另购的附加保障，它的等待期是7天，也就是保单生效后要等7天，之后发生的互联网药品费用才在保障范围内。它按50%的比例赔付，月赔付限额100元，年累计给付以1000元为限，所以一个月最多报100元。另外，这项责任限在指定买药平台合作的互联网药店买药，配送费要自己承担。",
+      "source_ids": [
+        "R16:head",
+        "R16:D120",
+        "投保须知#93",
+        "投保须知#96",
+        "R16:D121",
+        "R16:D122",
+        "R16:D124"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "28890ebf669236c881c20bb18f9101b8f26c4660fa3f43c01b77e3c1c1b73002"
+    },
+    {
+      "id": "Y006",
+      "group": "development71",
+      "question": "门诊加油包多大岁数能买，一次能报多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "新投年龄30天至55、次300/年1万/50%与身份条件30%，不承诺55为终身最高。",
+      "review_note": "新投年龄30天至55、次300/年1万/50%与身份条件30%，不承诺55为终身最高。",
+      "answer": "尊享门急诊医疗加油包首次投保年龄是出生满30天至55周岁（含），其他加油包首次投保年龄为出生满30天至70周岁（含）。门急诊医疗保险金单次门急诊以300元为限，年累计给付以1万元为限。赔付比例是50%，以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的，比例调整为30%。",
+      "source_ids": [
+        "投保须知#86",
+        "R13:D112",
+        "R13:D113"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "9fd0d8da7a2f1721dc054fabf826fabbd88f69155a558671d38ba59c2a0abd90"
+    },
+    {
+      "id": "Y007",
+      "group": "development71",
+      "question": "意外住院要等吗？生病住院呢？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "问等待期，意外无疾病30；未问所有金额比例例外不机械要求。",
+      "review_note": "问等待期，意外无疾病30；未问所有金额比例例外不机械要求。",
+      "answer": "意外住院不用等等待期，因为一般医疗责任写的是因遭受意外伤害事故、或在等待期30天后因罹患疾病，意外属于前者。生病住院要等，一般医疗责任要求等待期30天后因罹患疾病，本产品必选计划的等待期为30天。",
+      "source_ids": [
+        "R01:D5",
+        "R01:head",
+        "投保须知#93"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "309c9d2e0b5a5c1b884ed65a0e4ffd96f9353e59f44fd79cf27a20d8ba9c067b"
+    },
+    {
+      "id": "Y008",
+      "group": "development71",
+      "question": "住院津贴一天多少，ICU一天多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "两津贴100/500、3/0、另购及30/60和叠加正确。",
+      "review_note": "两津贴100/500、3/0、另购及30/60和叠加正确。",
+      "answer": "一般住院津贴的日津贴额是100元/日，次免赔天数为3天。ICU重症监护病房住院津贴的日津贴额是500元/日，次免赔天数为0天。这两项津贴都属于尊享住院津贴加油包，需要另购该加油包才能享有，且ICU津贴可与一般住院津贴叠加赔付。",
+      "source_ids": [
+        "R14:D116",
+        "投保须知#71",
+        "R15:D118",
+        "投保须知#73",
+        "R14:head",
+        "R15:head",
+        "R15:D119",
+        "投保须知#74"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "2ae088f279946dc0afac12c42d632424978c270d2fd49a2ca761b2fa9286498c"
+    },
+    {
+      "id": "Y009",
+      "group": "development71",
+      "question": "康复住院有免赔额吗，按多少比例报？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "特定疾病康复无免赔、按机构80/60及有医保身份未结算48/36正确。",
+      "review_note": "特定疾病康复无免赔、按机构80/60及有医保身份未结算48/36正确。",
+      "answer": "特定疾病康复住院费用医疗保险金本身没有免赔额。赔付比例分两种：在本保单约定的指定康复医疗机构普通部按80%给付；在二级及二级以上公立医院普通部或本保单约定的指定民营医疗机构普通部按60%给付。如果是以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算的，指定康复医疗机构普通部调整为48%，二级及二级以上公立医院普通部及指定民营医疗机构普通部调整为36%。另外，这项责任要求是合同约定的16种特定疾病，且需在初次确诊之日起180日内住院发生的康复住院治疗费用。",
+      "source_ids": [
+        "R04:D31",
+        "R04:head",
+        "R04:D29",
+        "R04:D30",
+        "R04:D26",
+        "R04:D27"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "66834c37f4999631fbf79e03a7134c06daf26ca2ae9d9c5daa6d82b92573b65f"
+    },
+    {
+      "id": "Y010",
+      "group": "development71",
+      "question": "家庭单怎么优惠，全家的免赔额能一起算吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "家庭2/3/4/5以上5/10/15/20%，另购同单一般医疗共享、门急诊除外正确。",
+      "review_note": "家庭2/3/4/5以上5/10/15/20%，另购同单一般医疗共享、门急诊除外正确。",
+      "answer": "家庭单优惠按同一投保人名下尊享医疗险系列加众民保医疗险系列保单的家庭成员人数与当前订单新增家庭成员人数之和计算：累计2人每人优享5%，3人优享10%，4人优享15%，5人及以上优享20%。全家免赔额一起算需要另购尊享家庭共享免赔额加油包，同一投保人在同一订单内的被保险人针对一般医疗及外购药械费用医疗保险金共享年免赔额1万元，但一般门急诊医疗及外购药械费用医疗保险金不在此共享年免赔额累计的范围内。",
+      "source_ids": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "R09:D98",
+        "投保须知#57"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6f0daf896f520f35bc19896ef34c6379eaf4024ef68ffcb262fc2866ca8c540a"
+    },
+    {
+      "id": "Y011",
+      "group": "development71",
+      "question": "住院津贴一天能拿多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "普通100/3、另购及30/60，ICU500/0叠加正确。",
+      "review_note": "普通100/3、另购及30/60，ICU500/0叠加正确。",
+      "answer": "住院津贴分两项，都需要另购尊享住院津贴加油包：一般住院津贴日津贴额100元/日，次免赔天数为3天；ICU重症监护病房住院津贴日津贴额500元/日，次免赔天数为0天。一般住院津贴单次住院累计给付以30天为限，多次住院年累计以60天为限；ICU津贴同样单次以30天为限、年累计以60天为限，且ICU津贴可与一般住院津贴叠加赔付。",
+      "source_ids": [
+        "R14:D116",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "37216c59622654777942960a8daff5ce592bded7eceb7aa82d27136755c753a5"
+    },
+    {
+      "id": "Y012",
+      "group": "development71",
+      "question": "ICU一天能补多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "直接核查原始xlsx D118：ICU本身也有同病因间隔30日合并住院规定，回答正确；不按初步误读扣分。",
+      "review_note": "直接核查原始xlsx D118：ICU本身也有同病因间隔30日合并住院规定，回答正确；不按初步误读扣分。",
+      "answer": "ICU重症监护病房住院津贴是尊享住院津贴加油包里的责任，需要另购该加油包才能享有。在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部的ICU重症监护病房住院，日津贴额是500元/日，次免赔天数为0天。同一保险期间内，一次住院累计给付天数以30天为限，多次住院累计给付天数以60天为限。如果本次住院与前次住院原因相同，且前次出院与本次入院间隔不超过30日，则视为同一次住院。",
+      "source_ids": [
+        "R15:head",
+        "R15:D117",
+        "R15:D118"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "22808dfadc8c610415e0777b4b8087e1de11bc5c8e0800bf6ad96860845391ee"
+    },
+    {
+      "id": "Y013",
+      "group": "development71",
+      "question": "大病住院请护工，一天能给多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "合同100种、指定服务护工500/30，机构直接结算，不自主报销正确。",
+      "review_note": "合同100种、指定服务护工500/30，机构直接结算，不自主报销正确。",
+      "answer": "尊享e生百万医疗2026版里，重大疾病住院护工费用保险金是按500元/天给付的。但这项责任只针对合同约定的100种重大疾病，且需在二级及二级以上公立医院或指定民营医疗机构普通部住院，并由保险人指定或认可的医疗服务机构提供护工服务。单次住院给付以30天为限，同一保险年度累计给付也以30天为限。",
+      "source_ids": [
+        "R08:D94",
+        "投保须知#52",
+        "R08:D93",
+        "投保须知#51"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "bfea2af9862757f8dcc26577f8d21a87b1db46668f055fe3f190bd2862e60957"
+    },
+    {
+      "id": "Y014",
+      "group": "development71",
+      "question": "转院到外地看大病，住宿一天最多报多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "约定重疾、跨省转院证明、标准间500/天和年1万正确。",
+      "review_note": "约定重疾、跨省转院证明、标准间500/天和年1万正确。",
+      "answer": "这项保障叫重大疾病异地转诊公共交通费用及住宿费用保险金，属于必选责任，住宿费单日限额是500元/天。要拿到这笔住宿费，需要满足：被保险人因意外或等待期30天后初次确诊合同约定的100种重大疾病，因病情需要跨省或自治区或直辖市住院治疗，经申请并由转出医院开具转院证明，住宿费是到达转院目的地后、以标准间为限。这项责任按100%赔付，年累计给付以1万元为限，无免赔额。",
+      "source_ids": [
+        "R07:head",
+        "R07:D91",
+        "R07:D87",
+        "R07:D88",
+        "R07:D89"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "8c9045b26abfa91bf6fc23d015b2738ca9e5dd093721764c5c41e636d17d6281"
+    },
+    {
+      "id": "Y015",
+      "group": "development71",
+      "question": "特需病房的床位费一天最多报多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "本轮同时说明特需与先进疗法两项床位1500及房型限制，限定合同疾病/医院，未套用基础。",
+      "review_note": "本轮同时说明特需与先进疗法两项床位1500及房型限制，限定合同疾病/医院，未套用基础。",
+      "answer": "特需病房的床位费限额要看具体责任：如果是“尊享重大疾病扩展特需医疗加油包”里的重大疾病扩展特需医疗保险金，床位费限1500元/天，且不包括单人病房、套房、家庭病床。如果是“恶性肿瘤先进疗法医疗责任”下的治疗，床位费同样限1500元/天，也不包括单人病房、套房、家庭病床。但这两项责任都要求先满足各自合同约定的疾病定义和就医条件，不是所有特需病房费用都按这个限额报销。",
+      "source_ids": [
+        "R11:D102",
+        "R11:head",
+        "R05:D35",
+        "R11:D100",
+        "R11:D101",
+        "R05:D32",
+        "R05:D33",
+        "R05:D34"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "70aeea61c5065f7c5ec8593bec026b2ff26829b3535cb1dcdf07182d8fd85bfd"
+    },
+    {
+      "id": "Y016",
+      "group": "development71",
+      "question": "门诊加油包一年最多能报多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "另购门诊年1万、次300、50/条件30及首次55正确。",
+      "review_note": "另购门诊年1万、次300、50/条件30及首次55正确。",
+      "answer": "门诊加油包指尊享门急诊医疗加油包，需另购；它的门急诊医疗保险金年累计给付以1万元为限。同时单次门急诊以300元为限，赔付比例50%，以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算的调整为30%。",
+      "source_ids": [
+        "R13:head",
+        "R13:D112",
+        "投保须知#82",
+        "R13:D113",
+        "投保须知#83"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "c7787655dcf9c906d305bc4ab8bc65cdb51d99cbe10d30f54994c1c0838ee873"
+    },
+    {
+      "id": "Y017",
+      "group": "development71",
+      "question": "我和我老公都39岁，都没社保，两个人一起买每人多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "夫妻39无社保1330、家庭2人5%1263.5；月131*95%=124.45正确，夫妻一起按同单语境。",
+      "review_note": "夫妻39无社保1330、家庭2人5%1263.5；月131*95%=124.45正确，夫妻一起按同单语境。",
+      "answer": "您和您老公都是39岁、无社保，如果两人一起投保必选计划，按36-40岁无社保档每人年缴1330元。两人一起投保属于同一投保人同一订单的家庭单，累计2人时当前订单每人价格优享5%，所以每人试算为1330×0.95=1263.5元。以上只是必选计划的保费试算，不含任何加油包；如果加购加油包，需要按对应加油包的无社保费率另行计算。",
+      "source_ids": [
+        "rate:年缴_必选:10",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate:年缴_加油包:10"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "312c4f1f1563bdeb4790a29ac79bfa09155dc8c7abf94cbffbd5d47b8d1e4885"
+    },
+    {
+      "id": "Y018",
+      "group": "development71",
+      "question": "孩子6岁有社保，基础版加药省保一年一共多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "6岁279加药省保99=378，两个费率原始行引用正确。",
+      "review_note": "6岁279加药省保99=378，两个费率原始行引用正确。",
+      "answer": "6岁孩子有社保，基础版（必选计划）年缴保费是279元。药省保加油包年缴保费是99元，需另购。所以基础版加药省保一年合计378元。",
+      "source_ids": [
+        "rate:年缴_必选:3",
+        "rate:年缴_加油包:3"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "9ef61b876de5eb90eb9e429a429b2c5241b534e9348104b7212e5661b37cec35"
+    },
+    {
+      "id": "Y019",
+      "group": "development71",
+      "question": "我30岁有社保，基础版加上住院津贴加油包，一年总共多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "30岁318+141=459，合计引用双方来源齐全。",
+      "review_note": "30岁318+141=459，合计引用双方来源齐全。",
+      "answer": "按30岁有社保、年缴、个人单标准保费计算，基础必选计划是318元，住院津贴加油包是141元，两项合计459元。住院津贴加油包需另购，包含一般住院津贴和ICU重症监护病房住院津贴：一般住院津贴日津贴额100元/日，次免赔天数为3天，单次累计给付天数以30天为限，年累计给付天数以60天为限；ICU重症监护病房住院津贴日津贴额500元/日，次免赔天数为0天，单次累计给付天数以30天为限，年累计给付天数以60天为限，且本责任可与一般住院津贴责任叠加赔付。",
+      "source_ids": [
+        "rate:年缴_必选:8",
+        "rate:年缴_加油包:8",
+        "R14:head",
+        "R14:D116",
+        "R15:head",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "749ddb18b58dbf77af101bcf3707371c63ca95eca44402099d6932aa4fdd2a01"
+    },
+    {
+      "id": "Y020",
+      "group": "development71",
+      "question": "我们一家四口一起买能便宜多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "四人15%、同投保人家庭范围及家庭价优先正确；only省略首次/指定重投条件可改善。",
+      "review_note": "四人15%、同投保人家庭范围及家庭价优先正确；only省略首次/指定重投条件可改善。",
+      "answer": "一家四口一起买，如果同一投保人名下尊享医疗险系列加众民保医疗险系列保单的家庭成员及当前订单新增家庭成员人数累计为4人，当前订单每人价格优享15%。这个优享价格适用于首次投保，或在上一张保单期满后于保险人指定期限内通过指定路径重新投保时多人投保。家庭成员限本人、配偶、子女、父母、配偶父母（经配偶父母本人同意）。",
+      "source_ids": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6df2b71dc63605fceb171f549b727c04d744b8dfaebfe0dbc348cb674cec8b7d"
+    },
+    {
+      "id": "Y021",
+      "group": "development71",
+      "question": "一般住院有社保的话怎么报",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "用户有社保语境下说明一般住院1万100及有医保身份未结算60；身份条件按本分支理解不推成无社保全面除外。",
+      "review_note": "用户有社保语境下说明一般住院1万100及有医保身份未结算60；身份条件按本分支理解不推成无社保全面除外。",
+      "answer": "一般住院属于一般医疗及外购药械费用医疗保险金，在扣除1万元年免赔额后按100%赔付，年累计以300万元为限。如果是以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，扣除1万元年免赔额后按60%赔付。假设费用全符合、免赔额未用、无其他补偿，试算赔付金额 =（符合范围的住院医疗费用 − 1万元）× 100%。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "d6fbd2c850a6ca44c50537d274f967d2644dc60a44371c11d6f614f6382518ef"
+    },
+    {
+      "id": "Y022",
+      "group": "development71",
+      "question": "特药里社保目录内的药怎么报",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "特药目录内医保后100、身份条件60和审核清单正确。",
+      "review_note": "特药目录内医保后100、身份条件60和审核清单正确。",
+      "answer": "特定药品费用医疗保险金里，社保目录内的药品，社保报销后剩余部分按100%赔付。但以有基本医疗保险或公费医疗身份参保、却未以基本医疗保险或公费医疗身份就诊并结算的，赔付比例调整为60%。另外，仅赔付责任内约定药品清单中列明的药品，且需在保险人指定药店购买、购药前按指定流程提交材料并通过处方审核。",
+      "source_ids": [
+        "R06:D85",
+        "投保须知#43",
+        "R06:D40",
+        "R06:D41"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "e165e0b28333150f4f99fa01dddf2ffdbe78771d13caef8fa625774d6173af4e"
+    },
+    {
+      "id": "Y023",
+      "group": "development71",
+      "question": "没走社保看病，住院报多少比例",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "条件化有医保身份未结算60，不强套无社保身份；未知比例留白可改进但不算错误承诺。",
+      "review_note": "条件化有医保身份未结算60，不强套无社保身份；未知比例留白可改进但不算错误承诺。",
+      "answer": "如果您是以有基本医疗保险或公费医疗身份参保，但这次住院没以该身份就诊并结算，一般医疗及外购药械费用医疗保险金在扣除1万元年免赔额后，按60%的赔付比例给付。如果这次住院属于合同约定的100种重大疾病，重大疾病医疗及外购药械费用医疗保险金同样在未以基本医疗保险或公费医疗身份就诊并结算时，赔付比例调整为60%，且该责任无免赔额。假设费用全符合、免赔额未用、无其他补偿，一般住院的试算赔付金额为（符合范围的住院费用－1万元）×60%。",
+      "source_ids": [
+        "R01:D9",
+        "投保须知#5",
+        "R03:D23",
+        "R03:D24",
+        "投保须知#19",
+        "投保须知#21",
+        "R01:D8"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "a8c2ce04678ed8c9c58ad3d043f535eda595dd0163e7bf59d6060b79568ecb8d"
+    },
+    {
+      "id": "Y024",
+      "group": "development71",
+      "question": "ICU住院的医疗费基础版报不报",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "ICU住院医疗与津贴区分，基础住院1万/300万/100/身份条件60正确。",
+      "review_note": "ICU住院医疗与津贴区分，基础住院1万/300万/100/身份条件60正确。",
+      "answer": "基础版的一般医疗及外购药械费用医疗保险金包含住院医疗费用，ICU住院的医疗费属于住院医疗费用，因此属于该责任范围。报销时需在二级及二级以上的公立医院及本保单约定的指定民营医疗机构普通部发生，扣除1万元年免赔额后按100%赔付，年累计以300万元为限。如果以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算，则扣除1万元年免赔额后按60%赔付。",
+      "source_ids": [
+        "R01:D7",
+        "R01:D6",
+        "R01:D5",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "003be70207f3a94d16609f1ff2e2f5c8d60116206b7846158a9ce6470fad1c24"
+    },
+    {
+      "id": "Y025",
+      "group": "development71",
+      "question": "门急诊有免赔额吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "基础门急诊共享1万，另购门诊次0/300，scope增合同重疾无免赔正确。",
+      "review_note": "基础门急诊共享1万，另购门诊次0/300，scope增合同重疾无免赔正确。",
+      "answer": "门急诊的免赔额要分两种情况看：一般门急诊医疗及外购药械费用医疗保险金有1万元年免赔额，且与一般医疗及外购药械费用医疗保险金共享这1万元年免赔额。另外，尊享门急诊医疗加油包的门急诊医疗保险金是次免赔0元、次限额300元，但这项需要另购加油包才享有。",
+      "source_ids": [
+        "R02:head",
+        "R02:D15",
+        "R02:D17",
+        "R01:D10",
+        "R13:head",
+        "R13:D112"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "33a98964ec5e613e8a69c4defdfc4de3b20a522330a9d94469dfd94966adb1a4"
+    },
+    {
+      "id": "Y026",
+      "group": "development71",
+      "question": "基础版最多能保到多少岁",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "首次70及未知最高续保年龄结论合理，局部投保年龄/费率引用不能证明全资料没有最高年龄规定。",
+      "review_note": "首次70与未知最高续保年龄分开，不能用费率表105承诺；未知句缺资料范围证明。",
+      "answer": "基础版（必选计划）首次投保年龄是出生满30天至70周岁（含）。但“最多能保到多少岁”不能只看首次投保年龄，现有资料没有给出续保可到多少岁的明确上限，所以无法确认最高保障年龄。",
+      "source_ids": [
+        "投保须知#86",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "fe189b5cdee5ed91cc1e01b81dc981d1181daad280d526776ebb3feb10069d22"
+    },
+    {
+      "id": "Y027",
+      "group": "development71",
+      "question": "住院津贴是基础版自带的吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "两津贴属于另购住院津贴包，不是基础自带。",
+      "review_note": "两津贴属于另购住院津贴包，不是基础自带。",
+      "answer": "住院津贴不是基础版自带的，它属于尊享住院津贴加油包，需要另外购买。这个加油包包含一般住院津贴和ICU重症监护病房住院津贴两项，一般住院津贴日津贴额100元/日、次免赔3天，ICU重症监护病房住院津贴日津贴额500元/日、次免赔0天，两项可以叠加赔付。",
+      "source_ids": [
+        "R14:head",
+        "R14:D115",
+        "R14:D116",
+        "R15:head",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "7da73f6b6a7ccf3ba46d3f2e9195d82b2028b46b5c5123f198e3fdeb13096185"
+    },
+    {
+      "id": "Y028",
+      "group": "development71",
+      "question": "重疾确诊一次性给的5万，买基础版就有吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "重疾关爱另购、合同100种、意外或30天初诊、5万正确。",
+      "review_note": "重疾关爱另购、合同100种、意外或30天初诊、5万正确。",
+      "answer": "重疾确诊一次性给5万的是“重大疾病保险金”，它属于“尊享重疾关爱加油包”，不在基础版必选责任里，需要另外购买该加油包才有。这项责任的给付条件是：在保险期间内，因意外伤害事故导致罹患，或在等待期30天后初次确诊罹患本产品定义的100种重大疾病，本产品给付5万元重大疾病保险金。",
+      "source_ids": [
+        "R10:head",
+        "R10:D99",
+        "投保须知#58"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "a6f4d8c62fb85fb53177f654ec83a7b8fec6c4d3726001e77529bb1574562ee7"
+    },
+    {
+      "id": "Y029",
+      "group": "development71",
+      "question": "我姐今年34岁，单位交着社保，按月缴要多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "34有社保月42，标准基础加包另算，对应费率行齐全。",
+      "review_note": "34有社保月42，标准基础加包另算，对应费率行齐全。",
+      "answer": "您姐姐34岁、单位交社保，如果按有社保身份投保必选计划，月缴标准保费是42元。这个42元只是必选计划的标准保费，如果再加购加油包，费用要另算。",
+      "source_ids": [
+        "rate:月缴_必选:9",
+        "rate:月缴_加油包:9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "705e9ef86789c7074416f867f87e44942794bdaf8fc1ee169be8de6c426edc87"
+    },
+    {
+      "id": "Y030",
+      "group": "development71",
+      "question": "我今年49岁，没参加医保，按月缴要多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "49无社保月294；费率首投标准原句确为首次或未在指定期限重投，不是71+的在期限内。",
+      "review_note": "49无社保月294；费率首投标准原句确为首次或未在指定期限重投，不是71+的在期限内。",
+      "answer": "您49岁、没参加医保，按尊享e生百万医疗2026版月缴版必选计划的无社保标准保费，每月是294元。这个294元是首次投保、投保保单数量为1的个人单标准保费，如果符合家庭单优享价格规则，实际价格会按对应人数比例优享。",
+      "source_ids": [
+        "rate:月缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "45f7f822291b953b85750dbefc546484e58560221d43294ec4d147bea0ca2ebb"
+    },
+    {
+      "id": "Y031",
+      "group": "development71",
+      "question": "我今年49岁，参加了医保，年缴多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "49有社保年984，额外加包51/390/99与费率一致。",
+      "review_note": "49有社保年984，额外加包51/390/99与费率一致。",
+      "answer": "您49岁、以有社保身份投保，必选计划年缴保费是984元。这个价格是首次投保或未在上一张保单期满后指定期限内重新投保、投保保单数量为1的个人单标准保费。如果多人投保符合家庭单优享规则，价格会按人数有5%到20%的优享，最终以家庭单优享价格为准。",
+      "source_ids": [
+        "rate:年缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate-notice:尊享E生百万医疗2026年缴费率:14"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "8ae76f61be04bbd9710e12d75202227c9a8937ca8f37923b49813d3bc0a02f11"
+    },
+    {
+      "id": "Y032",
+      "group": "development71",
+      "question": "我姐今年64岁，社保没交了，按月缴要多少",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "64无社保月881，附加有社保253或年龄资格与数据一致。",
+      "review_note": "64无社保月881，附加有社保253或年龄资格与数据一致。",
+      "answer": "您姐姐64岁，在月缴版费率表里对应61至65周岁这一档。如果按无社保身份投保必选计划，月缴标准保费是881元。如果按有社保身份投保，同一档月缴是253元。以上是个人单标准保费，若符合家庭单优享规则，价格会按人数另有折扣。",
+      "source_ids": [
+        "rate:月缴_必选:15",
+        "rate-notice:尊享E生百万医疗2026月缴费率:7",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "907b22799a9d37207457220ec3b05260d679c7df6c15bffc57405bb1b361192f"
+    },
+    {
+      "id": "Y033",
+      "group": "development71",
+      "question": "我哥今年69岁，单位交着社保，年缴多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "69有社保年3316，标准费率条件正确，71+在指定期限重新投保费率不等于保证续保。",
+      "review_note": "69有社保年3316，标准费率条件正确，71+在指定期限重新投保费率不等于保证续保。",
+      "answer": "您哥69岁，如果首次投保，必选计划有社保身份的年缴保费是3316元。这个价格是首次投保、投保保单数量为1的个人单标准保费，如果属于家庭单或优选体等情形，价格可能另有优享规则。",
+      "source_ids": [
+        "rate:年缴_必选:16",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:14"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "983d672f988440a85add54b34611de63b3a5f1b650420e155a1076036727bd52"
+    },
+    {
+      "id": "Y034",
+      "group": "development71",
+      "question": "我姐今年69岁，参加了医保，年缴多少钱",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "69岁3316正确；无69岁续保价的集合否定缺范围证明，额外71岁假设也不必要。",
+      "review_note": "69有社保3316；具体重新投保价格保留未知，不把105费率当续保承诺，额外71岁假设不必要。",
+      "answer": "您姐姐69岁，如果首次投保，必选计划有社保身份的年缴保费是3316元。这个价格对应首次投保年龄出生满30天至70周岁、投保保单数量为1的个人单标准保费。如果她不是首次投保，而是71周岁及以上在上一张保单期满后指定期限内重新投保，那费率表里没有69岁对应的续保价格，需要另行确认。",
+      "source_ids": [
+        "rate:年缴_必选:16",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "2408d4a1c0b176a29671bdb79c63d22f7e7e3125238470e284c2a28720d3e0bd"
+    },
+    {
+      "id": "Y035",
+      "group": "development71",
+      "question": "做激光祛斑能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "祛斑美容免责，未把牙科意外例外移用于美容。",
+      "review_note": "祛斑美容免责，未把牙科意外例外移用于美容。",
+      "answer": "激光祛斑属于美容或整容治疗，按责任免除约定，这类治疗产生的医疗费不予理赔。所以做激光祛斑的费用，这款尊享e生百万医疗2026版不能报销。",
+      "source_ids": [
+        "责任免除#5",
+        "责任免除#12"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "cda9766e2bd8827d4ac3ed923b03d90c719200437db567ff3a0891eb2ddd6bd3"
+    },
+    {
+      "id": "Y036",
+      "group": "development71",
+      "question": "整牙矫正能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "本轮保留牙科意外例外。",
+      "review_note": "本轮保留牙科意外例外。",
+      "answer": "整牙矫正属于牙科疾病及相关治疗，本产品责任免除明确不予理赔。不过因意外所致的牙科治疗不受此限，可以按对应医疗责任申请。",
+      "source_ids": [
+        "责任免除#12",
+        "责任免除#49"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "ddc5390cd93a924b7e7c9e34bef2f5e2bbec13161ed74f67ad254c74c18443ea"
+    },
+    {
+      "id": "Y037",
+      "group": "development71",
+      "question": "因为醉酒摔伤住院能报吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "醉酒导致伤害费用免责；only说很可能过于含糊但未承诺本次可赔，后续符合责任假设不是醉酒例外。",
+      "review_note": "醉酒导致伤害费用免责；only说很可能过于含糊但未承诺本次可赔，后续符合责任假设不是醉酒例外。",
+      "answer": "醉酒摔伤住院，一般医疗及外购药械费用医疗保险金是不赔的，因为责任免除明确把被保险人醉酒列为不承担保险金给付责任的情形。不过如果这次摔伤属于意外伤害事故，且满足在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部就诊、费用必需且合理等条件，一般医疗责任本身是覆盖意外伤害导致的住院医疗费用的。但醉酒这一免责情形会直接排除赔付，所以最终能否报销，关键要看这次住院是否被认定为醉酒所致。",
+      "source_ids": [
+        "责任免除#8",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "cbd61c8a39a0a21dbcb4f1a2dd6f9b67cc4d754032b103921ccc701f12349276"
+    },
+    {
+      "id": "Y038",
+      "group": "development71",
+      "question": "我有慢性胃炎，能投保吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "已知慢性胃炎费用免责与核保区分，不承诺承保。",
+      "review_note": "已知慢性胃炎费用免责与核保区分，不承诺承保。",
+      "answer": "慢性胃炎属于既往症，按本产品责任免除条款，初次投保前已有的既往症相关医疗费用不予理赔。能否承保需要核保，本系统不能保证核保结果，建议您如实告知健康状况后由保险公司核保确认。",
+      "source_ids": [
+        "责任免除#3",
+        "责任免除#4",
+        "责任免除#9",
+        "投保须知#100",
+        "投保须知#109",
+        "runtime:identity"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "a6b9c49c80a74be918dfa6943153a76071020f1ccc645370d7e64fdd0198e645"
+    },
+    {
+      "id": "Y039",
+      "group": "development71",
+      "question": "我老婆做过乳腺手术，能给她买吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "乳腺术后能否保不能保证，既往相关费除外，亲属年龄规则正确。",
+      "review_note": "乳腺术后能否保不能保证，既往相关费除外，亲属年龄规则正确。",
+      "answer": "您太太做过乳腺手术，能不能买这款产品，需要先经过核保，核保通过才能投保，我这边不能直接承诺可以承保。另外要提醒您，初次投保前或非上一张保单期满后指定期限内重新投保前的既往症，是不予理赔的。所以即使核保通过、成功投保，她这次乳腺手术相关的既往症后续产生的医疗费用，按条款也是不赔的。",
+      "source_ids": [
+        "投保须知#100",
+        "投保须知#109",
+        "责任免除#3",
+        "责任免除#9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "2072ab84c212a0ba769cf72693c2552488a0ba5777c88494acf304ea4e0e8503"
+    },
+    {
+      "id": "Y040",
+      "group": "development71",
+      "question": "这个保险到期以后还能接着买吗",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "不保证续保和一年期正确；资料没直接续保规则的全局否定未引用资料目录/缺失记录。",
+      "review_note": "一年期与条件重新投保费率明确，不作续保保证；无续保细则断言缺范围引用。",
+      "answer": "这款产品的保险期间是1年，到期后能否接着买，现有资料没有直接写明续保规则。资料只提到，71周岁及以上适用的是在上一张保单期满后指定期限内重新投保的费率，说明存在期满后重新投保的路径，但具体能否续保、需要满足什么条件，资料不足，无法确认。",
+      "source_ids": [
+        "投保须知#91",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "dc8294fbe783782f0273ac9e36dc6ca845cd374c9a67951bf5ca61f3b9bb0e96"
+    },
+    {
+      "id": "Y041",
+      "group": "development71",
+      "question": "你这声音是AI生成的吧",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "runtime身份源支持AI/TTS及能力边界。",
+      "review_note": "runtime身份源支持AI/TTS及能力边界。",
+      "answer": "是的，我的声音是AI语音合成生成的，不是真人坐席。我是本系统的AI语音保险助理，可以根据所提供的保险资料回答尊享e生百万医疗2026版的问题，但不能保证核保或理赔结果。",
+      "source_ids": [
+        "runtime:identity"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "23bc2e9788a790e41eda76c6bec5f32bcad79ef05e453c7c5e40c8425b2f14b4"
+    },
+    {
+      "id": "N01",
+      "group": "prior_boundary16",
+      "question": "我30岁有医保，基础保障按月交一年比按年交贵多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "318年缴、31月缴，372-318=54；两个费率行齐全。",
+      "review_note": "318年缴、31月缴，372-318=54；两个费率行齐全。",
+      "answer": "按您30岁有社保、基础保障（必选计划）来算：年缴保费318元，月缴每月31元、一年12个月合计372元，月缴比年缴贵54元。这是个人单标准保费，若符合家庭单优享价格规则，价格会按人数另有优惠，实际以投保页面为准。",
+      "source_ids": [
+        "rate:年缴_必选:8",
+        "rate:月缴_必选:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "0d8f8d7a4da0e9d45914391e8ca07d5f9879aecf4302c8edcd401eb7b12a0db5"
+    },
+    {
+      "id": "N02",
+      "group": "prior_boundary16",
+      "question": "我31岁有医保，基础保障按月交一年比按年交贵多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "31岁423/42，504-423=81；年龄边界及标准费率条件正确。",
+      "review_note": "31岁423/42，504-423=81；年龄边界及标准费率条件正确。",
+      "answer": "按您31岁有社保、基础必选计划、个人单标准保费来算，月缴每月42元，一年12个月合计504元；年缴一年423元，所以月缴一年比年缴贵81元。这个差额只适用于首次投保或未在上一张保单期满后指定期限内重新投保、投保保单数量为1的个人单标准保费，如果走家庭单优享价格，价格会另算。",
+      "source_ids": [
+        "rate:月缴_必选:9",
+        "rate:年缴_必选:9",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:7",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "cbb4ba5d559a4db350bbe817f11bb1df170084b01a4d11a496b6304dbb49da79"
+    },
+    {
+      "id": "N03",
+      "group": "prior_boundary16",
+      "question": "我投保时选的是无社保身份，住院也没走医保，是不是只能报60%？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "无社保身份不满足有医保身份投保未结算的60%合取条件。",
+      "review_note": "无社保身份不满足有医保身份投保未结算的60%合取条件。",
+      "answer": "不是的，60%比例只适用于“以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算”的情形。您投保时选的是无社保身份，住院也没走医保，并不符合上述“有参保身份但未按该身份就诊结算”的条件，所以不能据此直接得出只能报60%的结论。一般医疗及外购药械费用医疗保险金在扣除1万元年免赔额后按100%赔付，年累计以300万元为限；重大疾病医疗及外购药械费用医疗保险金无免赔额，按100%赔付，年累计以300万元为限。",
+      "source_ids": [
+        "R01:D9",
+        "R02:D16",
+        "R03:D23",
+        "R01:D8",
+        "R03:D22",
+        "R03:D24"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 9,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "1cbd94682f3af9438e05310f84894ffc69bd0686435175edf43c626e0283b8aa"
+    },
+    {
+      "id": "N04",
+      "group": "prior_boundary16",
+      "question": "投保选了有医保，住院没有用医保结算，符合范围的费用15000元，没有其他补偿，年免赔还没用，赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "15000扣未使用1万，再乘60%=3000，假设完整。",
+      "review_note": "15000扣未使用1万，再乘60%=3000，假设完整。",
+      "answer": "您以有医保身份投保但未用医保结算，一般医疗及外购药械费用医疗保险金在扣除1万元年免赔额后，按60%的赔付比例给付。假设这15000元费用全符合保障范围、年免赔额1万元尚未使用且无其他补偿，试算赔付金额为（15000-10000）×60%=3000元。",
+      "source_ids": [
+        "R01:D9",
+        "投保须知#5",
+        "R01:D8",
+        "R01:D10"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "e2eba0f7cc6396d602770fbbeb8aedbc219bc02bdb7f3c39e8d14d857ab5ddad"
+    },
+    {
+      "id": "N05",
+      "group": "prior_boundary16",
+      "question": "我怀孕了，因摔断手臂住院的费用能报吗？生孩子的住院费也一起报吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "骨折意外与妊娠原因费用区分，医保身份条件和医院范围正确。",
+      "review_note": "骨折意外与妊娠原因费用区分，医保身份条件和医院范围正确。",
+      "answer": "摔断手臂属于意外伤害事故，若在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部住院，一般医疗及外购药械费用医疗保险金可覆盖住院医疗费用，扣除1万元年免赔额后按100%赔付，年累计以300万元为限。但若您以有基本医疗保险或公费医疗身份参保，却未以该身份就诊并结算，则扣除1万元年免赔额后按60%赔付。生孩子的住院费属于怀孕、分娩相关费用，责任免除明确不予理赔。",
+      "source_ids": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "责任免除#5",
+        "责任免除#12"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "02e2aa52419a393e885f71729598d0457616b4d8fa36b8766076e56cccb74a57"
+    },
+    {
+      "id": "N06",
+      "group": "prior_boundary16",
+      "question": "三个人买了家庭共享免赔额包，我看普通门诊自己花的钱，能计入家人的共享免赔吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "家庭共享只一般医疗；普通门急诊不计家庭共享，与本人两责任共享区分。",
+      "review_note": "家庭共享只一般医疗；普通门急诊不计家庭共享，与本人两责任共享区分。",
+      "answer": "不能，普通门诊自己花的钱不计入家庭共享免赔额。家庭共享免赔额只针对一般医疗及外购药械费用医疗保险金共享年免赔额1万元，一般门急诊医疗及外购药械费用医疗保险金不在此共享年免赔额累计的范围内。",
+      "source_ids": [
+        "R09:D98",
+        "投保须知#57"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "ef3fc1bd0669f244d49c9398458c3495cf969d534c0f9af1e4938969a197f17b"
+    },
+    {
+      "id": "N07",
+      "group": "prior_boundary16",
+      "question": "买保险之前已经查出甲状腺结节，加上住院补偿包，之后结节手术能按20%报吗？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未应用用户已知事实",
+      "reason": "先说结节补偿确实20%，后才说既往相关不赔且再留认定悬念；用户已明确投前查出同一结节，另有20/60组合覆盖问题。",
+      "review_note": "见错误判定：已知既往结节仍先承诺20%，且把60%当覆盖比例。",
+      "answer": "您问的是“尊享住院医疗费用补偿加油包”这项附加保障，它需要另外购买，假设您已购，结节手术的住院医疗费用补偿确实按20%赔付。但这项责任年累计给付以1万元为限，且以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算的，比例会调整为60%。另外，您投保前已查出甲状腺结节，属于既往症，既往症引起的相关费用不予理赔，所以这项20%能否实际拿到，还要看本次手术是否被认定为该既往症所致。",
+      "source_ids": [
+        "R12:D108",
+        "R12:head",
+        "R12:D106",
+        "R12:D107",
+        "责任免除#3",
+        "责任免除#9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "2ad35df672f3e521cf853d059827cb2902549a8b9fc6e411819a96243d01c779"
+    },
+    {
+      "id": "N08",
+      "group": "prior_boundary16",
+      "question": "我开营运货车，总质量4吨，42岁有医保，可以买吗？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "整体资格前后矛盾",
+      "reason": "先因42岁说可以投保，后说4吨营运货车在排除表可能不能；年龄是必要而非充分条件，职业事实已明确。",
+      "review_note": "见错误判定：满足年龄不等于符合整体投保条件。",
+      "answer": "您42岁有医保，年龄在30天到70周岁的投保范围内，可以投保。但您的职业是营运货车司机，总质量4吨，属于《众安保险特殊职业类别表》中的“营运货车司机及随车工人（总质量4吨及4吨以上）”，而本产品要求被保险人不属于该特殊职业类别表，所以按现有资料您可能无法投保。另外，即使投保成功，初次投保前或非上一张保单期满后指定期限内重新投保前的既往症，以及从事特殊职业类别表中所列职业导致的医疗费用，保险公司也不承担赔付责任。",
+      "source_ids": [
+        "R01:head",
+        "投保须知#86",
+        "投保须知#110",
+        "投保须知#88",
+        "责任免除#3",
+        "责任免除#13"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "f8f4d151cb70b3a524d3b509dfc3d51e34d8d5840caaba9331f536af8b223a03"
+    },
+    {
+      "id": "N09",
+      "group": "prior_boundary16",
+      "question": "我56岁，去年买了门急诊加油包，到期按保险公司指定期限重新投保，今年还能按这个包的费率买吗？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "错误套用首次年龄限制",
+      "reason": "用户已明确指定期限重新投保；首句仍因56超过首次55拒绝，第二句却正确引56—60费率1019，内在矛盾。",
+      "review_note": "见错误判定：明确指定期限重新投保仍套首次55岁限制。",
+      "answer": "您56岁，已超过门急诊加油包首次投保年龄上限55周岁，所以今年不能再按门急诊加油包的费率重新投保。门急诊加油包在56周岁及以上仅适用于在上一张保单期满后指定期限内重新投保的情形，费率表中56-60岁门急诊加油包有社保为1019元、无社保为1019元。",
+      "source_ids": [
+        "R13:head",
+        "投保须知#86",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate:年缴_加油包:14"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "372ea79cff99280f24229594ad36c9655ae03b9930d4e2b5780c92c1bdfb4422"
+    },
+    {
+      "id": "N10",
+      "group": "prior_boundary16",
+      "question": "基因检测主条款写一万元，服务备注写不限额，是不是所有检测都不限额？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "明确主体1万与服务不限额冲突，区分服务、医院及不合格机构路径，未承诺一概不限额。",
+      "review_note": "明确主体1万与服务不限额冲突，区分服务、医院及不合格机构路径，未承诺一概不限额。",
+      "answer": "不是所有基因检测都不限额，主条款和服务备注确实存在冲突，需要以合同约定和审核结论为准。按服务备注，通过增值服务（用药前基因检测）申请的，赔付比例100%、不限额，由保险公司与服务商直接结算。由医院开方、客户前往符合合同要求的医疗机构或基因检测机构进行检测的，赔付比例60%、走理赔流程、限额1万。若检测的医院或基因检测机构均不符合合同要求，则无法赔付。",
+      "source_ids": [
+        "R06:D49",
+        "R06:D52",
+        "R06:D53",
+        "R06:D54"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "42c3412aa3ff2c8b519693abb6131f2499d14c937fdebdffedd573e7aa256f64"
+    },
+    {
+      "id": "N11",
+      "group": "prior_boundary16",
+      "question": "普通住院10天，其中ICU3天，已买住院津贴包，两项可以加起来拿2200元吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "一般700+ICU1500=2200，另购已知、医院和疾病等待/意外条件正确。",
+      "review_note": "一般700+ICU1500=2200，另购已知、医院和疾病等待/意外条件正确。",
+      "answer": "您已购住院津贴包的话，一般住院津贴和ICU重症监护病房住院津贴是可以叠加赔付的。按您说的普通住院10天其中ICU3天试算：一般住院津贴为100元/日乘以（10天减3天免赔天数）等于700元；ICU津贴为500元/日乘以3天等于1500元；两项合计2200元。这个试算的前提是：住院符合合同约定的医院范围，且属于意外伤害事故或等待期30天后因患疾病导致的住院。",
+      "source_ids": [
+        "R15:D119",
+        "投保须知#74",
+        "R14:D116",
+        "R15:D118",
+        "R14:D115",
+        "R15:D117"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "223400924b5379c260b81a5937ff820a8bd50271bdad1efedd4edce10d50017c"
+    },
+    {
+      "id": "N12",
+      "group": "prior_boundary16",
+      "question": "今天生效的住院津贴包，明天车祸住ICU两天，是否要等30天才有津贴？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "意外不受疾病30天等待；一般3天与ICU0免赔区分正确。",
+      "review_note": "意外不受疾病30天等待；一般3天与ICU0免赔区分正确。",
+      "answer": "住院津贴包属于附加保障，需要另购；若已购，一般住院津贴的等待期是30天，但条款写的是“因遭受意外伤害事故或在等待期30天后因患疾病”，车祸属于意外伤害事故，不受30天疾病等待期限制。ICU重症监护病房住院津贴同样写明“因遭受意外伤害事故或在等待期30天后因患疾病”，所以车祸住ICU也不因30天等待期而被排除。但津贴按实际住院天数扣除免赔天数后乘以日津贴额计算：一般住院津贴日额100元、次免赔3天，ICU津贴日额500元、次免赔0天，且单次累计给付天数以30天为限、年累计以60天为限。",
+      "source_ids": [
+        "R14:head",
+        "R14:D115",
+        "投保须知#93",
+        "R15:head",
+        "R15:D117",
+        "R14:D116",
+        "R15:D118"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "fd70b5555ba53a934ba09e274ac24e880d8bb15c6c081c39fd05b92b9401a08c"
+    },
+    {
+      "id": "N13",
+      "group": "prior_boundary16",
+      "question": "确诊的癌症满足合同重疾定义，住院和化疗都走一般医疗扣一万元吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "已知满足合同重疾，不套一般免赔；重疾0及身份60%正确。",
+      "review_note": "已知满足合同重疾，不套一般免赔；重疾0及身份60%正确。",
+      "answer": "如果确诊的癌症满足合同约定的100种重大疾病定义，住院和化疗费用应走重大疾病医疗及外购药械费用医疗保险金，该责任无免赔额，按100%比例赔付。但若以有基本医疗保险或公费医疗身份参保、却未以该身份就诊并结算，则赔付比例调整为60%。一般医疗责任才扣1万元年免赔额，且与一般门急诊医疗责任共享该免赔额。",
+      "source_ids": [
+        "R03:D19",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R03:D23",
+        "R01:D8",
+        "R01:D10"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6cfdaf9ee9ea4f7ccdb7d8afd657f4e20b5d95101471ce032b9b8e2fb7525c85"
+    },
+    {
+      "id": "N14",
+      "group": "prior_boundary16",
+      "question": "请我自己找的护工照顾重疾住院，一天500元，拿发票就能报吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "自己找护工不符合指定服务、机构直结条件，不承诺发票报销。",
+      "review_note": "自己找护工不符合指定服务、机构直结条件，不承诺发票报销。",
+      "answer": "您自己找的护工，一天500元拿发票，这项重大疾病住院护工费用保险金不能按发票报销。这项责任要求经保险人指定或认可的医疗服务机构提供住院护工服务，赔付费用由保险人与该机构直接结算，不接受投被保人自主申请理赔。如果按这项责任给付，标准是500元/天，单次住院以30天为限，同一保险年度累计也以30天为限。",
+      "source_ids": [
+        "R08:D93",
+        "R08:D96",
+        "责任免除#16",
+        "R08:D94"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "7ff91260218b308933213e5cc361995b697ce9fa0e5d2771d0584d7c19a73221"
+    },
+    {
+      "id": "N15",
+      "group": "prior_boundary16",
+      "question": "64岁无社保，基础保障月缴881元，是不是保证我可以一直续到105岁？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "不保证105岁与881价格正确；第一段资料没有支持续保条款未给任何source_ids。",
+      "review_note": "不承诺105岁保证续保，881费率正确；未知结论没有来源范围引用。",
+      "answer": "您问的“保证一直续到105岁”，现有资料里没有能支持这个结论的续保条款，我不能向您承诺可以保证续到105岁。我能确认的是：本产品保险期间为1年，首次投保年龄为出生满30天至70周岁（含），71周岁及以上为在上一张保单期满后指定期限内重新投保。您64岁无社保、基础保障月缴881元，与月缴必选计划61至65岁无社保881元这一行一致。",
+      "source_ids": [
+        "投保须知#86",
+        "投保须知#91",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate:月缴_必选:15"
+      ],
+      "mechanical_provenance": {
+        "valid": false,
+        "faults": [
+          "claim[0] has no citations"
+        ],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "4c0e9253dffc7bca63f1d913e242724eb5bcc7730382ca183e1b0ba200ee555a"
+    },
+    {
+      "id": "N16",
+      "group": "prior_boundary16",
+      "question": "孩子正好6岁，药省保能开处方药吗？网上普通购药怎么赔？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "正好6岁不能开处方；指定平台50%、月100/年1000和额度假设正确。",
+      "review_note": "正好6岁不能开处方；指定平台50%、月100/年1000和额度假设正确。",
+      "answer": "药省保是尊享药省保加油包，需另购；6周岁（含）以下被保险人无法开具处方药品，所以您孩子正好6岁，在药省保互联网购药中不能开处方药。网上普通购药方面，药省保的互联网药品费用医疗保险金限在保险人认可的互联网药店内产生的药品费用，按50%赔付比例给付，即保障范围内50%的药品费用由众安保险直付给指定互联网药店，您需要支付剩余的50%，月赔付限额100元，年累计给付以1000元为限。假设药品费用全符合、当月尚未使用过赔付额度，则赔付金额=符合保障范围的药品费用×50%，且当月赔付不超过100元、当年累计不超过1000元。",
+      "source_ids": [
+        "R16:D123",
+        "R16:head",
+        "R16:D121",
+        "R16:D122"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "b6bc8855024cb18c94462214d3a49b57b197d632f8300acf99ad5ae3aecb245a"
+    },
+    {
+      "id": "E01",
+      "group": "new40",
+      "question": "孩子4岁有医保，只买基础版，按当前标准费率年缴多少钱？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "4岁有社保806，0—4闭区间正确。",
+      "review_note": "4岁有社保806，0—4闭区间正确。",
+      "answer": "4岁孩子只买基础版、按有社保身份年缴，当前标准保费是806元。这是首次投保或未在上一张保单期满后指定期限内重新投保、投保保单数量为1的个人单标准保费。",
+      "source_ids": [
+        "rate:年缴_必选:2",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "2d459f93e8a3fc5c237b383869d37e5cc89aac51b7c18016a6f6d67c9d2610ba"
+    },
+    {
+      "id": "E02",
+      "group": "new40",
+      "question": "孩子正好5岁，有医保，只买基础版年缴多少钱？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "5岁有社保279，5—10闭区间正确。",
+      "review_note": "5岁有社保279，5—10闭区间正确。",
+      "answer": "5岁孩子有医保、只买基础版（必选计划）年缴保费是279元。这个价格是首次投保、投保保单数量为1的个人单标准保费。",
+      "source_ids": [
+        "rate:年缴_必选:3",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "3377962ee49f342b318eb5ba0eca4d9f111da89f1cf20154a6903e84a33613ab"
+    },
+    {
+      "id": "E03",
+      "group": "new40",
+      "question": "55岁没有社保，基础版每月标准保费是多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "55岁无社保月399及家庭价条件正确。",
+      "review_note": "55岁无社保月399及家庭价条件正确。",
+      "answer": "55岁无社保投保基础版（必选计划），月缴标准保费是399元。这是个人单标准保费，若符合家庭单优享规则，价格会按对应人数比例下调。",
+      "source_ids": [
+        "rate:月缴_必选:13",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "40fb5243f2f128c6ac15f5b135b9573da81a78f78961305c732352287cc5f035"
+    },
+    {
+      "id": "E04",
+      "group": "new40",
+      "question": "56岁有社保，基础版年缴标准保费是多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "56岁有社保年1645及标准费率条件正确。",
+      "review_note": "56岁有社保年1645及标准费率条件正确。",
+      "answer": "56岁有社保，基础版（必选计划）年缴标准保费是1645元。这是首次投保或未在上一张保单期满后指定期限内重新投保、投保保单数量为1的个人单标准保费。",
+      "source_ids": [
+        "rate:年缴_必选:14",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "4cbb9fb26366dd6bd1d5ecb866ad9d51a531e87786852dad8119de1249322530"
+    },
+    {
+      "id": "E05",
+      "group": "new40",
+      "question": "31岁女性，重疾关爱加油包每5万元保额年缴多少钱？不要算基础版。",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "额外说明缩窄条件",
+      "reason": "价格56正确；额外说需等待30天初诊才给付，原始D99还允许意外导致罹患，不能用才排除该分支。",
+      "review_note": "56元女性费率正确；额外断言等待30天才给付，遗漏D99意外路径。",
+      "answer": "31岁女性投保尊享重疾关爱加油包，每5万元保额的年缴保费是56元。该加油包保额固定为5万元，对应重大疾病保险金5万元，需在等待期30天后初次确诊罹患本产品定义的100种重大疾病才给付。",
+      "source_ids": [
+        "rate:年缴_加油包:9",
+        "R10:head",
+        "R10:D99"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "1824cdbaaa787ea614af71122f712a33b9e0c1a2918d25dbeeeec3e02f86dcad"
+    },
+    {
+      "id": "E06",
+      "group": "new40",
+      "question": "31岁男性，重疾关爱加油包每5万元保额年缴多少钱？不要算基础版。",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "31岁男性51元，未混入基础保费。",
+      "review_note": "31岁男性51元，未混入基础保费。",
+      "answer": "31岁男性，尊享重疾关爱加油包每5万元保额的年缴保费是51元。这个价格是首次投保或未在上一张保单期满后指定期限内重新投保、投保保单数量为1的个人单标准保费。",
+      "source_ids": [
+        "rate:年缴_加油包:9",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "f6bc2412862f59923905241bffd32a1cc9ba6ee794f2398a5f20b93976210d47"
+    },
+    {
+      "id": "E07",
+      "group": "new40",
+      "question": "普通住院合规费用8000元，已用医保结算，没其他补偿，一般医疗年免赔还没用，能赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "8000低于未使用1万年免赔，赔0，不给负数。",
+      "review_note": "8000低于未使用1万年免赔，赔0，不给负数。",
+      "answer": "按一般医疗及外购药械费用医疗保险金，在扣除1万元年免赔额后，按100%的赔付比例给付。假设这8000元费用全符合责任范围、免赔额未使用且无其他补偿，则赔付金额为0元，因为8000元未超过1万元年免赔额。若以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，则扣除1万元年免赔额后按60%的赔付比例给付。",
+      "source_ids": [
+        "R01:D8",
+        "投保须知#4",
+        "R01:D10",
+        "投保须知#6",
+        "R01:D9",
+        "投保须知#5"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "726ec569464ba0ddb290928e21ff025fec5718d2b2d9a75fda06de54f0e73d79"
+    },
+    {
+      "id": "E08",
+      "group": "new40",
+      "question": "普通住院合规费用20000元，其中医保报了10000元，一般医疗年免赔还没用，没有其他补偿，商业险赔多少？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "计算漏扣医保补偿",
+      "reason": "回答10000，正确为max(20000-10000医保已报-10000未用年免赔,0)=0；免责#2已在所引证据中，模型公式却没应用。",
+      "review_note": "医保已报10000仍漏扣，详见错误记录。",
+      "answer": "按一般医疗及外购药械费用医疗保险金试算：假设这20000元费用全符合责任范围、免赔额未使用、无其他补偿，且您以有基本医疗保险或公费医疗身份参保并以该身份就诊结算，则赔付金额为（20000-10000）×100%=10000元。若您以有基本医疗保险或公费医疗身份参保，但未以该身份就诊并结算，则扣除1万元年免赔额后按60%赔付，即（20000-10000）×60%=6000元。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "责任免除#2",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "778863f32580affb88fac9aeff37b36468837cbe33f91425720299387bc80a29"
+    },
+    {
+      "id": "E09",
+      "group": "new40",
+      "question": "一般医疗年度免赔已抵扣6000元，这次普通住院合规费用9000元，医保身份投保且已医保结算，没有其他补偿，赔多少？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未应用年度累计状态",
+      "reason": "回答0，正确剩余免赔10000-6000=4000，按本题个人合规费用口径9000-4000=5000；若9000含未量化医保报销须另扣，不能径直重新扣全年度1万。",
+      "review_note": "年免赔已用6000仍重扣完整10000，详见错误记录。",
+      "answer": "按一般医疗及外购药械费用医疗保险金算，这次普通住院合规费用9000元，先扣年免赔额1万元，剩余为0，所以本次赔付0元。该责任年免赔额1万元与一般门急诊医疗及外购药械费用医疗责任共享，且以有基本医疗保险或公费医疗身份参保、并已按该身份就诊结算时，扣除1万元年免赔额后按100%赔付。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D7",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "ac5b6f07e625132ff067e854e9eab767967ceeb5192f9d39335a9b570f8d2341"
+    },
+    {
+      "id": "E10",
+      "group": "new40",
+      "question": "我按无社保身份投保，普通住院合规费用15000元，年免赔没用，也没其他补偿，赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "无社保身份15000减10000=5000，不强套60%。",
+      "review_note": "无社保身份15000减10000=5000，不强套60%。",
+      "answer": "按无社保身份投保，普通住院合规费用15000元、年免赔未用且无其他补偿时，一般医疗及外购药械费用医疗保险金在扣除1万元年免赔额后按100%赔付，试算赔付5000元。该赔付比例100%的适用前提是：以有基本医疗保险或公费医疗身份参保，但未以基本医疗保险或公费医疗身份就诊并结算的，才按60%赔付；你按无社保身份投保，不落入该60%情形。",
+      "source_ids": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "155d4d1fcdc5ff7a615ae42959bf8962ec5e1c66845628d7b75887cbb074599d"
+    },
+    {
+      "id": "E11",
+      "group": "new40",
+      "question": "已买住院津贴包，普通住院2天，符合责任条件，这次一般住院津贴能领多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "两天低于次免赔3天给0，未负数赔付。",
+      "review_note": "两天低于次免赔3天给0，未负数赔付。",
+      "answer": "您已购的尊享住院津贴加油包中，一般住院津贴日津贴额是100元/日，次免赔天数为3天。按您说的普通住院2天、符合责任条件来算，实际住院天数2天扣除次免赔3天后为负数，所以这次一般住院津贴可领金额为0元。",
+      "source_ids": [
+        "R14:D116",
+        "R14:head",
+        "R14:D115"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "b34bb30463968c0b071cdc4d3da6e2b10fe47982b5feeaf605055bb21cbcae05"
+    },
+    {
+      "id": "E12",
+      "group": "new40",
+      "question": "已买津贴包，符合责任条件，总共住院2天，两天都在ICU，普通和ICU津贴加起来多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "一般0加ICU1000，未把一般免赔套ICU；“2减3等于0天”按可给付天数零下限理解，措辞不严谨但结果正确。",
+      "review_note": "一般0加ICU1000，未把一般免赔套ICU；“2减3等于0天”按可给付天数零下限理解，措辞不严谨但结果正确。",
+      "answer": "您已购的尊享住院津贴加油包里，一般住院津贴日津贴额100元/日，次免赔天数为3天，按每次实际住院天数扣除每次住院免赔天数后乘以日津贴额给付。ICU重症监护病房住院津贴日津贴额500元/日，次免赔天数为0天，且本责任可与一般住院津贴责任叠加赔付。按您住院2天且两天都在ICU计算：一般住院津贴为2天减3天免赔，等于0天，即0元；ICU津贴为2天乘500元/日，等于1000元；两项合计1000元。",
+      "source_ids": [
+        "R14:D115",
+        "R14:D116",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "dbfcbb8c5de286aeed19ae886460c6a52093784ea2b81ae28a2a704105b3b1d6"
+    },
+    {
+      "id": "E13",
+      "group": "new40",
+      "question": "已买津贴包，责任条件全符合，普通住院40天，今年没有领过津贴，一次最多领多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "40减3=37给付天，再限30，3000，不先截住院天数再减免赔。",
+      "review_note": "40减3=37给付天，再限30，3000，不先截住院天数再减免赔。",
+      "answer": "您已购的尊享住院津贴加油包中，一般住院津贴日津贴额100元/日，次免赔天数为3天，单次住院累计给付天数以30天为限。本次普通住院40天，扣除3天免赔天数后为37天，但单次住院最多只给付30天，所以一次最多可领30天×100元/日=3000元。",
+      "source_ids": [
+        "R14:D116"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 2,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "166d5cd06f494966ca3e17add326682c1ea41fda29051fd67b014303bcd88297"
+    },
+    {
+      "id": "E14",
+      "group": "new40",
+      "question": "已买津贴包，同一病因住院两次，每次10天，出院后20天又入院，其他责任条件都满足，一般住院津贴免赔扣几次、领多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "同病因间隔20日合并，只扣一次3天，1700。",
+      "review_note": "同病因间隔20日合并，只扣一次3天，1700。",
+      "answer": "您已购的尊享住院津贴加油包中，一般住院津贴的次免赔天数为3天，同一病因且前次出院与本次入院间隔不超过30日的两次住院视为同一次住院，因此只扣一次3天免赔。两次住院各10天合计20天，扣除3天免赔后按100元/日计算，可领1700元。",
+      "source_ids": [
+        "R14:D116",
+        "R14:D115"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 3,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "787162dc180aa83e04081e22818408c1104bbef6ebe214f0fbf9b405ccddce90"
+    },
+    {
+      "id": "E15",
+      "group": "new40",
+      "question": "已购门急诊包，有医保身份投保且医保结算，单次合规门诊费200元，无其他补偿，今年限额没用过，赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "200合规费50%=100，单次及年度限额正确。",
+      "review_note": "200合规费50%=100，单次及年度限额正确。",
+      "answer": "您已购门急诊医疗加油包，该责任单次门急诊以300元为限，年累计给付以1万元为限，赔付比例50%，且以有基本医疗保险或公费医疗身份参保、但未以基本医疗保险或公费医疗身份就诊并结算的，赔付比例调整为30%。您有医保身份投保且医保结算，单次合规门诊费200元未超过单次300元限额，按50%赔付，试算赔付金额为200×50%=100元。",
+      "source_ids": [
+        "R13:D112",
+        "R13:D113"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "6b7acacc52c12d86f9daa41e1b07ceb942d2ba35adcfdaa5ee3d4c7ad6954ef6"
+    },
+    {
+      "id": "E16",
+      "group": "new40",
+      "question": "已购门急诊包，以有医保身份投保却没按医保结算，单次合规门诊费200元，其他条件满足，赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "有医保身份未结算30%，200*30%=60，条件正确。",
+      "review_note": "有医保身份未结算30%，200*30%=60，条件正确。",
+      "answer": "您已购门急诊医疗加油包，以有医保身份投保但未按医保身份就诊结算，该责任赔付比例调整为30%。假设这200元全符合当地医保政策规定、必需且合理，且本次门急诊无其他补偿，按单次门急诊限额300元计，试算赔付为200×30%=60元。实际赔付仍需以费用合规性、是否已有医保或其他补偿、以及单次门急诊认定为准。",
+      "source_ids": [
+        "R13:D113",
+        "R13:D111",
+        "R13:D112",
+        "R13:D114",
+        "责任免除#2"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "54437de82b171dffa9c3da12cd590d90b171c8062846a619e99f2159c7e9681b"
+    },
+    {
+      "id": "E17",
+      "group": "new40",
+      "question": "已购药省保，指定互联网药店买100元合规药品，当月已赔90元、年度限额还充足，本次还能赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "月剩10，50%计算50受剩余额度约束，赔10。",
+      "review_note": "月剩10，50%计算50受剩余额度约束，赔10。",
+      "answer": "药省保的互联网药品费用医疗保险金按50%赔付，月赔付限额100元，年累计给付以1000元为限。您当月已赔90元，本次100元合规药品按50%计算为50元，但月限额只剩10元，所以本次最多还能赔10元。",
+      "source_ids": [
+        "R16:D121",
+        "R16:D122"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "72264f1ea361a5144c999a9ef8d2d7c1245c978e2b2c5392885320cdc658d076"
+    },
+    {
+      "id": "E18",
+      "group": "new40",
+      "question": "药省保今年已赔900元，本月未赔，指定平台这次合规药费400元，其他条件满足，本次能赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "400*50%=200，月/年剩余同时100，赔100。",
+      "review_note": "400*50%=200，月/年剩余同时100，赔100。",
+      "answer": "药省保（互联网药品费用医疗保险金）按50%赔付，月赔付限额100元，年累计给付以1000元为限。本次合规药费400元，按50%计算为200元，但受月赔付限额100元限制，因此本次最多可赔100元。今年已赔900元，年累计限额1000元，剩余额度100元，与本次月限额100元一致，所以本次赔付100元后年累计达到1000元。",
+      "source_ids": [
+        "R16:D121",
+        "R16:D122"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "5b4f0a579427ecaed81e9215dbd4c8e8fbcf104d98e1455319d348a66a6a488f"
+    },
+    {
+      "id": "E19",
+      "group": "new40",
+      "question": "基础一般医疗年免赔已抵扣7000元，这次普通门急诊合规费用5000元，已医保结算且无其他补偿，基础门急诊赔多少？",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "算术及年度累计状态",
+      "reason": "说已抵7000共享正确，却把10000-7000算成1000，给4000；本题个人合规费用口径应剩3000、赔2000。若5000含医保已报须另扣，该口径歧义不影响现有减法错误。",
+      "review_note": "10000-7000错算1000，详见错误记录。",
+      "answer": "您问的是基础门急诊医疗责任，它和一般医疗责任共享1万元年免赔额，所以已抵扣的7000元可以继续用于门急诊。这次门急诊合规费用5000元，已医保结算且无其他补偿，假设费用全符合、免赔额已抵扣7000元，则剩余免赔额1000元，可赔金额为（5000-1000）×100%=4000元。如果未以有基本医疗保险或公费医疗身份就诊并结算，赔付比例会调整为60%，但您已说明医保结算，所以按100%计算。",
+      "source_ids": [
+        "R02:D15",
+        "R02:D17",
+        "R01:D10",
+        "R02:D16"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "d06684174d7d1ee0bc1fe7a7ff0893ac65a76cc34de7e13481869fc6c2b364dd"
+    },
+    {
+      "id": "E20",
+      "group": "new40",
+      "question": "普通疾病住院，在保单约定的指定民营医院普通部，是不是因为私立就一概不赔？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "指定民营普通部在基础范围，不一概私立不赔，身份条件正确。",
+      "review_note": "指定民营普通部在基础范围，不一概私立不赔，身份条件正确。",
+      "answer": "不是一概不赔，一般医疗及外购药械费用医疗保险金认可的医院范围包括二级及二级以上的公立医院及本保单约定的指定民营医疗机构普通部。所以关键不是公立还是民营，而是这家民营医院是否属于本保单约定的指定民营医疗机构，并且就诊的是普通部。如果符合上述医院范围，普通疾病住院在扣除1万元年免赔额后按100%赔付，年累计以300万元为限；若以有基本医疗保险或公费医疗身份参保但未以该身份就诊并结算，则扣除1万元年免赔额后按60%赔付。",
+      "source_ids": [
+        "R01:head",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "5109bdef7564167ffa7e062390dba24729cd38a9442be74ea260747af4f60554"
+    },
+    {
+      "id": "E21",
+      "group": "new40",
+      "question": "我买了重疾特需加油包，符合合同重疾定义，去不在保单约定名单内的私立医院VIP部，这样也能报吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "明确名单外不符合医院范围，随后可能无法/审核用语偏弱但没有承诺符合。",
+      "review_note": "明确名单外不符合医院范围，随后可能无法/审核用语偏弱但没有承诺符合。",
+      "answer": "您买的尊享重大疾病扩展特需医疗加油包，医院范围是二级及二级以上的公立医院及本保单约定的指定民营医疗机构特需医疗部、国际部、VIP部，不包括观察室、联合病房和康复病房。所以，如果这家私立医院不在保单约定的指定民营医疗机构名单内，就不符合该加油包约定的医院范围，相关费用可能无法报销。另外，该加油包要求初次确诊罹患本产品定义的重大疾病，且需在合同约定的医院接受治疗，具体能否赔付还要以合同约定和理赔审核为准。",
+      "source_ids": [
+        "R11:head",
+        "R11:D101",
+        "责任免除#2",
+        "R11:D100"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "9569e0adc5e5174359248b61f397997b6f760a663aba102aba01b0f64682cb5e"
+    },
+    {
+      "id": "E22",
+      "group": "new40",
+      "question": "我投保前有甲状腺结节，投保后因车祸骨折住院，和结节无关，保险会不会因为有结节把骨折费用也排除？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "无关车祸不按既往体质全面排除，费用原因范围与核保区分。",
+      "review_note": "无关车祸不按既往体质全面排除，费用原因范围与核保区分。",
+      "answer": "骨折住院费用不会因为您投保前有甲状腺结节而被排除，因为一般医疗责任对意外伤害事故导致的医疗费用是保障的，且既往症免责针对的是既往症本身引起的相关费用。但骨折住院费用能否获赔，还需满足在二级及二级以上公立医院或指定民营医疗机构普通部就诊、费用必需且合理等条件，并扣除1万元年免赔额后按约定比例赔付。另外，甲状腺结节本身的承保资格需经核保确认，我不能承诺一定承保。",
+      "source_ids": [
+        "R01:D5",
+        "责任免除#9",
+        "责任免除#4",
+        "R01:D6",
+        "R01:D8",
+        "投保须知#100",
+        "runtime:identity"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "08e072b83926eb4ce0fe4a2b5c27c7c901ffc65c0776816840337136f84fc630"
+    },
+    {
+      "id": "E23",
+      "group": "new40",
+      "question": "乳腺疾病投保前已确诊，投保成功后为这个同一病做手术，过了30天等待期是不是就能报？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "同一投前疾病不能靠等待期解除既往症免责。",
+      "review_note": "同一投前疾病不能靠等待期解除既往症免责。",
+      "answer": "不能仅凭“过了30天等待期”就判断能报，因为条款明确：初次投保前或非上一张保单期满后指定期限内重新投保前的既往症，不予理赔。您说的乳腺疾病在投保前已确诊，属于投保前既往症，因此为这个同一病做手术的费用，按现有条款属于不予理赔情形。另外，等待期只限制等待期内确诊疾病所导致的医疗费用，不改变既往症免责的结论。",
+      "source_ids": [
+        "责任免除#3",
+        "责任免除#4",
+        "责任免除#9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "5bf730d1ca704d0caa43e351fa8d0d800576c39aed62bce0d48ed0c9abd47c9e"
+    },
+    {
+      "id": "E24",
+      "group": "new40",
+      "question": "投保后过等待期才首次确诊结节，不属于既往症，已购住院补偿包且按医保身份结算，合规住院费10000元，其他条件满足，这个包赔多少？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "非既往结节且医保已结，住院补偿20%=2000；额外无结节假设冗余但分支事实正确。",
+      "review_note": "非既往结节且医保已结，住院补偿20%=2000；额外无结节假设冗余但分支事实正确。",
+      "answer": "您已购的尊享住院医疗费用补偿加油包，在二级及二级以上公立医院普通部或指定民营医疗机构发生合规住院费用，按100%赔付，年累计以1万元为限。但该责任对治疗疾病含结节（包括炎症性、增生性、肿瘤）的一种或多种的，赔付比例调整为20%。假设费用全符合、免赔未用、无其他补偿，若本次住院治疗疾病含结节，试算赔付为10000×20%=2000元；若不含结节，试算赔付为10000×100%=10000元。",
+      "source_ids": [
+        "R12:D105",
+        "R12:D106",
+        "R12:D108"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "7b97e16574cf68854380c6c9a49c38dd5ffd577cf745e2891af22ae6a089a870"
+    },
+    {
+      "id": "E25",
+      "group": "new40",
+      "question": "住院补偿包同时写结节20%、有医保身份未结算60%，如果两条同时满足，到底取20%、60%还是乘成12%？资料明确写组合方式了吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "完整R12只列20/60未给组合算法，明确不选择12/20/60；局部资料不足可由完整责任包核查，不代表所有正式条款都没规则。",
+      "review_note": "完整R12只列20/60未给组合算法，明确不选择12/20/60；局部资料不足可由完整责任包核查，不代表所有正式条款都没规则。",
+      "answer": "您问的这两条确实都写在“尊享住院医疗费用补偿加油包”的住院医疗费用补偿保险金里，一条是治疗疾病含结节等时赔付比例为20%，另一条是以有基本医疗保险或公费医疗身份参保、但未以该身份就诊并结算时赔付比例调整为60%。但资料没有写明这两条同时满足时是取20%、取60%还是相乘，也没有写组合方式，所以不能直接给出12%或任一单一比例。这属于条款未明确的冲突点，需要以保险公司最终解释或正式条款约定为准。",
+      "source_ids": [
+        "R12:D107",
+        "R12:D108"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "5df782e2b8a923f95675dda022dbb82509a6df45b75e9020fa81e961bfac911d"
+    },
+    {
+      "id": "E26",
+      "group": "new40",
+      "question": "投保60天后才首次出现腰椎间盘突出，不是既往症，住院补偿包不赔脊椎病，是不是基础一般医疗也就一定不赔？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "补偿包脊椎排除不自动跨到基础责任；已知非既往仍反问既往不必要，但未否认已知事实或承诺错误赔付。",
+      "review_note": "补偿包脊椎排除不自动跨到基础责任；已知非既往仍反问既往不必要，但未否认已知事实或承诺错误赔付。",
+      "answer": "不一定，住院医疗费用补偿加油包不赔脊椎病，只说明这个加油包不赔，不能推出基础的一般医疗及外购药械费用医疗保险金也一定不赔。基础一般医疗及外购药械费用医疗保险金本身包含住院医疗费用，在等待期30天后因罹患疾病，在二级及二级以上公立医院或指定民营医疗机构普通部发生必需且合理的费用，扣除1万元年免赔额后按100%赔付，年累计以300万元为限。但最终能否获赔，还要看是否属于既往症、是否在等待期内确诊、是否在约定医院就诊等条件，这些条件目前无法仅凭“投保60天后首次出现”完全确认。",
+      "source_ids": [
+        "R12:D109",
+        "R01:D7",
+        "R01:D8",
+        "R01:D5",
+        "R01:D6",
+        "责任免除#3",
+        "责任免除#9"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 11,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "08d6c22ba6bcdf67ccb888912c19d3ca72de4fcf03d74d7302e1b0d86b84377f"
+    },
+    {
+      "id": "E27",
+      "group": "new40",
+      "question": "已经确认符合合同16种特定疾病的康复条件，但还没确认是否符合100种重疾，能不能直接说重大疾病医疗也无免赔？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "16康复与100重疾定义分开，不从前者推后者免赔。",
+      "review_note": "16康复与100重疾定义分开，不从前者推后者免赔。",
+      "answer": "不能直接这么说。重大疾病医疗及外购药械费用医疗保险金确实无免赔额，但它的适用前提是初次确诊罹患本合同约定的100种重大疾病，而您目前只确认了符合16种特定疾病的康复条件，还没确认是否符合100种重疾。16种特定疾病对应的是特定疾病康复住院费用医疗保险金，该责任同样无免赔额，但它和100种重疾的重大疾病医疗责任是两项不同的责任，不能互相套用。",
+      "source_ids": [
+        "R03:D19",
+        "R03:D24",
+        "R04:D26",
+        "R04:D31"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "ecdf900ab422b83fac0d16dbec469a50eecceb41b7ef7a51cf547b2ecbb6f944"
+    },
+    {
+      "id": "E28",
+      "group": "new40",
+      "question": "只是普通疾病，没满足合同重大疾病定义，跨省住院能领重大疾病异地转诊住宿补贴吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "普通病不满足重大转诊疾病前提。",
+      "review_note": "普通病不满足重大转诊疾病前提。",
+      "answer": "不能领，这项重大疾病异地转诊公共交通费用及住宿费用保险金要求被保险人因意外或等待期30天后初次确诊罹患合同约定的100种重大疾病。您只是普通疾病、没满足合同重大疾病定义，就不符合这项责任的疾病前提，所以跨省住院也不能据此领取该补贴。",
+      "source_ids": [
+        "R07:D87",
+        "R07:D88"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "3a26f9355cf9d8dc3b12b724fa57beb2b060835338f37f1c364b71225de1f5be"
+    },
+    {
+      "id": "E29",
+      "group": "new40",
+      "question": "符合合同重疾跨省转诊，转院证明等条件都满足，我带两名亲属一起去，两人的交通住宿费能都报吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "仅一名亲属，年1万/标准房500与舱位上限正确。",
+      "review_note": "仅一名亲属，年1万/标准房500与舱位上限正确。",
+      "answer": "这项重大疾病异地转诊公共交通费用及住宿费用保险金，只覆盖被保险人和被保险人的一名亲属陪同（如有）发生的必需且合理的异地转诊交通和住宿费用。所以您带两名亲属一起去，通常只能报其中一名亲属的交通住宿费，另一名亲属的费用不在本责任范围内。该责任年累计给付以1万元为限，住宿费以标准间为限、单日限额500元/天，飞机最高经济舱、火车以软卧或一等座为限。",
+      "source_ids": [
+        "R07:D88",
+        "投保须知#46",
+        "R07:D89",
+        "R07:D90",
+        "R07:D91",
+        "投保须知#47",
+        "投保须知#48",
+        "投保须知#49"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 10,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "d3fd928a9b1b7aef0952c271d3109401f31ab301ba7e0d1fb64d84bfd2632523"
+    },
+    {
+      "id": "E30",
+      "group": "new40",
+      "question": "合同重疾跨省转诊条件满足，坐飞机商务舱，能按商务舱价格全额报交通费吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "商务舱不能按其价格全额报，经济含超级经济舱；未编造全部不赔。",
+      "review_note": "商务舱不能按其价格全额报，经济含超级经济舱；未编造全部不赔。",
+      "answer": "不能按商务舱价格全额报销，条款明确被保险人飞机舱位级别最高以经济舱（包含超级经济舱）为限。这项重大疾病异地转诊公共交通费用及住宿费用保险金按100%比例给付，年累计以1万元为限，且需满足因病情需要跨省或自治区或直辖市住院治疗、经申请并由转出医院开具转院证明等条件。",
+      "source_ids": [
+        "R07:D90",
+        "投保须知#48",
+        "R07:D88",
+        "R07:D89",
+        "投保须知#46",
+        "投保须知#47"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "86a99a0323cfa6b01cfb78ecbfce37248f6ffe6dd4784381cc6724ee9b811298"
+    },
+    {
+      "id": "E31",
+      "group": "new40",
+      "question": "基础一般医疗普通部住院的床位费，是不是也统一每天最多1500元？原文有这个限制吗？",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "content_correct": false,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "未记载被推成无约束",
+      "reason": "基础摘要未列1500，不能断言基础没有任何1500限制；完整合同住院费用定义未提供。应说现有基础材料未见，不能把另两责任上限迁移。",
+      "review_note": "未见基础床位1500不能证明基础无床位上限，详见错误记录。",
+      "answer": "不是的，基础一般医疗普通部住院的床位费并没有每天最多1500元的限制。原文中1500元/天的床位费限额只出现在恶性肿瘤先进疗法医疗责任和重大疾病扩展特需医疗加油包里，不是基础一般医疗普通部住院的规则。",
+      "source_ids": [
+        "R01:head",
+        "R01:D7",
+        "R05:D35",
+        "R11:D102"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 4,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "3553119a537cd4d3444329546b5777e3a3ce80bca3e80dc712a5b69313aa0418"
+    },
+    {
+      "id": "E32",
+      "group": "new40",
+      "question": "把特药保障的完整药品清单给我，资料里有没有完整清单？别猜药名。",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "不猜清单正确；清单名称及更新条款不能证明当前整个资料包不存在完整明细。",
+      "review_note": "未编造药名，清单名称及更新规则正确；全资料没有完整清单的否定没有范围证据。",
+      "answer": "我查了本轮资料，里面没有特药保障的完整药品清单，所以不能给你逐条药名。资料只说明仅赔付责任内约定的药品清单中列明的药品，并提到《特种进口药品及疾病》清单和《指定疾病急需药品清单》这两个清单名称，但都没有附具体药品明细。另外，约定的药品清单以保险人最新公布信息为准，保险人保留对药品清单进行变更的权利，将根据医疗水平的发展对药品清单进行更新。",
+      "source_ids": [
+        "R06:D85",
+        "R06:D66",
+        "R06:D78"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "98504bb9e6e82d9922d258143845ea26052bd42ccabde373a515a65b802b3102"
+    },
+    {
+      "id": "E33",
+      "group": "new40",
+      "question": "原位癌是否一定在这个合同100种重大疾病定义里？你手里的资料能确认这个定义吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "保留未知正确；责任文字引用不证明所有附件均无定义/病种表。",
+      "review_note": "未知100种完整定义，不凭原位癌名称判断；全资料缺定义的否定引用不具集合范围证明。",
+      "answer": "我手里的资料只能确认本合同重大疾病医疗责任对应的是“本合同约定的100种重大疾病”，但没有给出这100种重大疾病的具体定义或病种清单，所以无法确认原位癌是否一定在这100种重大疾病定义里。关于原位癌本身的定义，现有资料里也没有收录，因此不能凭名称推断它是否满足合同定义。",
+      "source_ids": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R03:D23",
+        "R03:D24",
+        "R03:D25",
+        "投保须知#15",
+        "投保须知#16",
+        "投保须知#17",
+        "投保须知#18",
+        "投保须知#19",
+        "投保须知#20",
+        "投保须知#21",
+        "投保须知#22"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 17,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "71e0492fdd95b88bd01b5f13bbba4fab383d97702ee8df0bbec674538bb72fad"
+    },
+    {
+      "id": "E34",
+      "group": "new40",
+      "question": "能不能把所有约定民营医院的完整名单列出来？资料给全了吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": false,
+      "joint_correct": false,
+      "error_stage": "answer_generation_or_claim_support",
+      "error_category": "资料缺失断言无范围证据",
+      "reason": "不编医院名单正确；医院范围引用不证明全包缺名单，也不证明民营名单以最新公布信息为准。",
+      "review_note": "未编完整民营名单、范围正确；资料不完整及保险公司最新名单说法缺直接集合/更新证据。",
+      "answer": "我这边资料里没有收录完整的约定民营医院名单，只写了医院范围是“二级及二级以上的公立医院及本保单约定的指定民营医疗机构普通部”，具体名单需要以保单约定或保险公司最新公布的信息为准。所以资料不算给全，我无法把完整名单逐条列给您。",
+      "source_ids": [
+        "R01:head",
+        "R01:D6",
+        "R02:head",
+        "R02:D13",
+        "R03:head",
+        "R03:D20"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 8,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "392d8f1eb9452b3aac9531c1f77fef70298b7dc5f96697233fcb3091d6ea4f9b"
+    },
+    {
+      "id": "E35",
+      "group": "new40",
+      "question": "基础版写外购药械费用，是不是只要有医院处方，任何院外药都能报？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "外购药械需释义27特定条件，不把处方当充分条件；医院及海南扩展来自原文。",
+      "review_note": "外购药械需释义27特定条件，不把处方当充分条件；医院及海南扩展来自原文。",
+      "answer": "不是只要有医院处方、任何院外药都能报。外购药品及外购医疗器械费用必须且同时满足合同《个人医疗保险条款（互联网2025版）》中“释义二十七、外购药品及外购医疗器械费用”的特定条件，具体条件需以该释义为准。另外，外购药械费用还须发生在二级及二级以上公立医院或本保单约定的指定民营医疗机构普通部，其中外购药械费用扩展众安（海南）互联网医院。",
+      "source_ids": [
+        "R01:D11",
+        "R02:D18",
+        "R03:D25",
+        "R01:D6",
+        "R02:D13",
+        "R03:D20"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 9,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "e10499acf6057f727985870d97f88a045a2945c4b3196416edef5588ff492e75"
+    },
+    {
+      "id": "E36",
+      "group": "new40",
+      "question": "费率表有到105岁的年龄档，是不是证明我70岁首次买后就保证续保到105岁？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "105费率不是保证续保，引用一年期与指定期限重新投保规则支持推论，不作全资料缺规则断言。",
+      "review_note": "105费率不是保证续保，引用一年期与指定期限重新投保规则支持推论，不作全资料缺规则断言。",
+      "answer": "费率表出现105岁年龄档，只能说明该表列到了这个年龄段的保费，不能证明70岁首次投保后就保证续保到105岁。投保须知写明被保险人投保时年龄为出生满30天至70周岁（含），本产品保险期间为1年。费率表注明71周岁及以上为在上一张保单期满后指定期限内重新投保的保费，这属于续保时的费率适用说明，不是保证续保承诺。",
+      "source_ids": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate:年缴_必选:23",
+        "投保须知#86",
+        "投保须知#91"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "8f6f3658f8f2fc857c4a5c1b22bdde4b21b893ee1c9c9de89bd5a5e894cf4f7f"
+    },
+    {
+      "id": "E37",
+      "group": "new40",
+      "question": "我开的货车总质量3吨，而且非营运，特殊职业表里营运4吨及以上那一条能直接套在我身上拒保吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "3吨非营运不满足4吨及以上营运条目；未承诺一定保。",
+      "review_note": "3吨非营运不满足4吨及以上营运条目；未承诺一定保。",
+      "answer": "不能仅凭您说的“总质量3吨、非营运”就直接套用特殊职业表里“营运货车司机及随车工人（总质量4吨及4吨以上）”那一条来拒保。特殊职业表里写的是“营运货车司机及随车工人（总质量4吨及4吨以上）”，而您描述的是非营运、总质量3吨，两个条件都不吻合，所以不能直接套用。但最终能否承保，还要看您的职业是否属于《众安保险特殊职业类别表》中的职业类别，以及核保结论，我这里不能承诺一定承保。",
+      "source_ids": [
+        "投保须知#110",
+        "投保须知#88",
+        "责任免除#13",
+        "runtime:identity"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 7,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "40424e885ed7e32e6d70fa7bdd9b1ef98f3acdabdf025774963e73e60bcd8b22"
+    },
+    {
+      "id": "E38",
+      "group": "new40",
+      "question": "我是危险货物运输作业员，40岁，有医保，按这份职业表能投保吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "危货运输在排除职业表，不用年龄代替职业资格；因此导致费用免责。",
+      "review_note": "危货运输在排除职业表，不用年龄代替职业资格；因此导致费用免责。",
+      "answer": "按这份职业表，危险货物运输作业员属于《众安保险特殊职业类别表》列明的职业，而本产品要求被保险人不属于该特殊职业类别表，所以按该职业表通常不能投保。另外，若被保险人从事该特殊职业类别表中的职业，保险人对因此导致的医疗费用也不承担给付责任。",
+      "source_ids": [
+        "投保须知#88",
+        "投保须知#110",
+        "责任免除#0",
+        "责任免除#13",
+        "责任免除#50"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 5,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "35bcef06dfe5041ab9e4241c42102255171161d104d28167bc80e988f338b352"
+    },
+    {
+      "id": "E39",
+      "group": "new40",
+      "question": "71岁从没买过这款保险，现在第一次买，能不能直接按71岁的费率投保？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "71首投超70，71费率是指定期限重新投保，不保证首投。",
+      "review_note": "71首投超70，71费率是指定期限重新投保，不保证首投。",
+      "answer": "71岁从没买过这款保险、现在第一次投保，不能直接按71岁的费率投保。因为首次投保年龄要求是出生满30天至70周岁（含），71周岁及以上只适用于在上一张保单期满后指定期限内重新投保的情形。所以您这种情况首次投保时年龄已超出70周岁，无法按71岁费率投保。",
+      "source_ids": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "投保须知#86"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "a83e0c6f7807a7c6556663454a83d9b605fa03a79771d9666ce622864702669c"
+    },
+    {
+      "id": "E40",
+      "group": "new40",
+      "question": "我和配偶不同投保人、不同订单，各买家庭共享免赔包，两个订单还能合在一起只算一万元免赔吗？",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "content_correct": true,
+      "traceable": true,
+      "joint_correct": true,
+      "error_stage": null,
+      "error_category": null,
+      "reason": "不同投保人/订单不能跨单共享，且家庭共享不含一般门急诊。",
+      "review_note": "不同投保人/订单不能跨单共享，且家庭共享不含一般门急诊。",
+      "answer": "按现有条款，家庭共享免赔额只限同一投保人在同一订单内的被保险人，针对一般医疗及外购药械费用医疗保险金共享年免赔额1万元。您和配偶是两个不同投保人、两个不同订单，不符合“同一投保人在同一订单内”这个条件，所以两个订单不能合在一起只算一万元免赔额。另外提醒，一般门急诊医疗及外购药械费用医疗保险金不在这项共享年免赔额累计范围内。",
+      "source_ids": [
+        "R09:D98",
+        "投保须知#57"
+      ],
+      "mechanical_provenance": {
+        "valid": true,
+        "faults": [],
+        "references": 6,
+        "semantic_entailment_checked": false
+      },
+      "record_sha256": "468186bd6c7bd0fb5f7c023bc31f633ec1692fec2bfafd328bf5a345851a9598"
+    }
+  ]
+}

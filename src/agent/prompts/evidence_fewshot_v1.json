@@ -1,0 +1,54 @@
+{
+  "version": "evidence_fewshot_v1",
+  "scope": "虚构产品的行为示例；不是当前产品证据，不含客户记录或当前产品费率。",
+  "examples": [
+    {
+      "pattern": "已知医保补偿与年度免赔已用额同时参与计算",
+      "evidence": {"DEMO/calculation": "医疗补偿不赔已从医保或其他途径报销的部分；年度免赔8000元，已抵扣部分不重复扣，剩余合规个人费用按100%给付。"},
+      "question": "总合规费用23000元，医保已报9000元，年度免赔已抵3000元，无其他补偿，赔多少？",
+      "answer": {"segments": [{"text": "年度剩余免赔为8000−3000=5000元，扣掉医保已报9000元后，试算可赔23000−9000−5000=9000元。", "source_ids": ["DEMO/calculation"], "derivation": "max(23000-9000-max(8000-3000,0),0)×100%=9000"}], "unknowns": []}
+    },
+    {
+      "pattern": "直接应用用户已有病史，附加包不能解除免责",
+      "evidence": {"DEMO/history": "投保前已经存在的疾病引起的相关费用不予赔付，此免责适用于基础和附加包。", "DEMO/addon": "附加住院补偿包需另购，非既往的良性病变费用按35%给付。"},
+      "question": "我买之前已有良性病变，现在为同一病做手术，买补偿包能赔35%吗？",
+      "answer": {"segments": [{"text": "按您已说明的投保前病史，这次同一疾病引起的手术费用属于既往相关费用免责，另购补偿包也不能据此按35%赔付。", "source_ids": ["DEMO/history", "DEMO/addon"], "derivation": ""}], "unknowns": []}
+    },
+    {
+      "pattern": "首次与按指定期限重新投保不能混用",
+      "evidence": {"DEMO/age": "附加门诊包首次投保最高50岁；51—60岁费率适用于上一张保单期满后指定期限内重新投保，仍需满足其他投保条件；不保证续保。"},
+      "question": "我57岁，去年已买这个包，今年在指定期限重新投保，是否因为超过50就一定不能适用费率？",
+      "answer": {"segments": [{"text": "您描述的是指定期限内重新投保，属于51—60岁费率的适用情形，不能用首次最高50岁直接拒绝；是否承保仍须满足其他条件，这不代表保证续保。", "source_ids": ["DEMO/age"], "derivation": ""}], "unknowns": []}
+    },
+    {
+      "pattern": "摘要未记载不是合同没有限制，缺失结论引用资料范围",
+      "evidence": {"DEMO/basic": "基础住院保障摘要列有免赔和比例，未列床位费上限。", "DEMO/special": "另购高端住院包的床位费限900元/天。", "DEMO/manifest": "本轮提供基础保障摘要和高端住院包介绍；未提供基础完整合同及住院费用定义附件。"},
+      "question": "基础住院床位也限900吗，还是没有限制？",
+      "answer": {"segments": [{"text": "现有基础摘要未列床位费上限，不能把高端包900元/天直接套到基础；本轮缺基础完整合同和费用定义，也不能确认基础没有限制。", "source_ids": ["DEMO/basic", "DEMO/special", "DEMO/manifest"], "derivation": ""}], "unknowns": [{"question": "基础床位费的具体上限", "reason": "缺基础完整合同及费用定义附件"}]}
+    },
+    {
+      "pattern": "主体保险给付与服务备注范围不同，保留冲突",
+      "evidence": {"DEMO/insurance": "合同保险责任的检测费用给付限6000元。", "DEMO/service": "增值服务介绍注明指定服务商检测直结不限额。"},
+      "question": "这是不是保险检测费全部不限额？",
+      "answer": {"segments": [{"text": "不能这样承诺：保险责任写限6000元，增值服务另写指定服务商直结不限额，两份材料的路径与限额不同，需要确认各自适用范围。", "source_ids": ["DEMO/insurance", "DEMO/service"], "derivation": ""}], "unknowns": [{"question": "两条路径的适用边界", "reason": "现有材料未解释保险给付与服务直结范围关系"}]}
+    },
+    {
+      "pattern": "只问价格只答价格与必要报价条件",
+      "evidence": {"DEMO/rate": "虚构附加关爱包：26—35岁女性，年缴标准保费120元。", "DEMO/benefit": "给付另有意外或疾病等待期及合同疾病定义条件。"},
+      "question": "我29岁女性，这个附加包年缴标准保费是多少，只报它的价格？",
+      "answer": {"segments": [{"text": "按29岁女性对应的标准费率，这个附加包年缴120元。", "source_ids": ["DEMO/rate"], "derivation": ""}], "unknowns": []}
+    },
+    {
+      "pattern": "年龄符合不是整体资格符合",
+      "evidence": {"DEMO/eligibility": "首次年龄20—60岁，且不得从事特殊职业表列明职业。", "DEMO/occupation": "特殊职业表列明高空爆破作业员。"},
+      "question": "我33岁，职业是高空爆破作业员，能投保吗？",
+      "answer": {"segments": [{"text": "您的年龄符合，但职业明确在排除表内，所以按现有投保条件不符合，不能仅因33岁就说可以投保。", "source_ids": ["DEMO/eligibility", "DEMO/occupation"], "derivation": ""}], "unknowns": []}
+    },
+    {
+      "pattern": "两比例同时触发但未规定组合方式，不能自行覆盖或相乘",
+      "evidence": {"DEMO/ratio": "本责任完整摘要：特定良性疾病给付35%；有医保身份投保却未医保结算，比例调整65%；其余列明项目为医院范围和年度限额。"},
+      "question": "上述两条同时满足，赔35%、65%还是22.75%？",
+      "answer": {"segments": [{"text": "该责任摘要分别列了35%和65%，但没有说明同时满足时的组合或优先级，不能自行选其中一个或相乘，需要补充正式条款确认。", "source_ids": ["DEMO/ratio"], "derivation": ""}], "unknowns": [{"question": "两条比例同时触发的实际给付比例", "reason": "责任摘要未定义组合方式"}]}
+    }
+  ]
+}

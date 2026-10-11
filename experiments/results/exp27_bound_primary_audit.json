@@ -1,0 +1,1210 @@
+{
+  "reviewer": "primary agent; source-based, not an API judge",
+  "reviewed_output_sha256": "1e2086465b34b53852c6f5b1d3b41dc1f77d01673ba548633bc4675122dde8e2",
+  "rubric": "fact correctness AND asked-item completeness AND necessary conditions; traceability separately requires each spoken sentence supported by its assigned sources. Conditions may be stated once and inherited in the same answer, absent explicit contradictory expansion. No forced recitation of all unasked terms.",
+  "rows": [
+    {
+      "id": "C01",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把医院、社保投保身份及结算前提并列后说否则60%，扩大60%适用范围；该段也未引用医院范围。",
+      "source_refs": [
+        "R01:head",
+        "R02:head",
+        "投保须知#86",
+        "R01:D8",
+        "R01:D9",
+        "R01:D10",
+        "R02:D15",
+        "R02:D16",
+        "R02:D17",
+        "R15:head",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "C02",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "三问均有结论，但质子重离子省去仅中国大陆的必要地域限制；未将原文全部作用条件保留在口播。",
+      "source_refs": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D86",
+        "R05:D32",
+        "R05:D36",
+        "R01:D8",
+        "R01:D10"
+      ]
+    },
+    {
+      "id": "C03",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "一般责任假设、免赔余额/补偿、5000/3000和自付10000/12000正确，60%投保身份前提明确。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D10",
+        "责任免除#1",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "C04",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础与加油包分清，1万免赔/共享300万与50%次限300年1万、年龄均正确；未问结算方式不要求枚举全部分支。",
+      "source_refs": [
+        "R02:head",
+        "R02:D15",
+        "R02:D17",
+        "R13:head",
+        "R13:D112",
+        "R13:D113",
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "C05",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "中风不直接认定合同重疾；康复16种180日及机构80/60、护工指定审核直付500/日准确。",
+      "source_refs": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R03:D24",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R04:D26",
+        "R04:D27",
+        "R04:D28",
+        "R04:D29",
+        "R04:D31",
+        "R08:D93",
+        "R08:D94",
+        "R08:D95",
+        "R08:D96",
+        "责任免除#3",
+        "责任免除#4"
+      ]
+    },
+    {
+      "id": "C06",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "5岁年龄、687/99、药省保指定互联网药店50%月100年1000和6岁含处方限制有据；最后一段未直接引用包归属元数据。",
+      "source_refs": [
+        "投保须知#86",
+        "rate:年缴_加油包:3",
+        "R16:D121",
+        "R16:D122",
+        "R16:D124",
+        "R16:D123"
+      ]
+    },
+    {
+      "id": "C07",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "把泛称重病套到约定重疾的转诊及护工，未说明须符合合同定义；所引原文含该限定，口播不能泛化。",
+      "source_refs": [
+        "R07:D87",
+        "R07:D88",
+        "R07:D92",
+        "R07:D89",
+        "R07:D90",
+        "R07:D91",
+        "R08:D93",
+        "R08:D94",
+        "R08:D96"
+      ]
+    },
+    {
+      "id": "C08",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "需加购、同一投保人同一订单、仅一般医疗及不含一般门急诊、三人10%有据。",
+      "source_refs": [
+        "R09:D98",
+        "投保须知#57",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ]
+    },
+    {
+      "id": "C09",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "相关条款条件本身正确，但用户明确已有高血压，答案绕到如果不是既往症，也未说明无法保证核保承保，未充分回答此人当前情境。",
+      "source_refs": [
+        "责任免除#3",
+        "责任免除#4",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "R01:D10"
+      ]
+    },
+    {
+      "id": "C10",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "事故不受疾病等待限制、疾病30日与等待期确诊免责、60%有社保投保身份均明确。",
+      "source_refs": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "C11",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "普通部与指定民营特需/国际/VIP区分、加购且约定重疾、床位1500及房型除外准确。",
+      "source_refs": [
+        "R01:D6",
+        "R02:D13",
+        "R03:D20",
+        "责任免除#2",
+        "R11:D100",
+        "R11:D101",
+        "R11:D102"
+      ]
+    },
+    {
+      "id": "C12",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "正常补偿包100%、结节20%、一般医疗1万免赔及有社保身份未结算60%可作分项概述；首段引用未直接覆盖加油包归属和0免赔结构字段。",
+      "source_refs": [
+        "R12:head",
+        "R12:D105",
+        "R12:D106",
+        "R12:D108",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "R12:D107"
+      ]
+    },
+    {
+      "id": "C13",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础重疾医疗报销和另购重疾关爱5万给付，约定100种有明确区别。",
+      "source_refs": [
+        "R03:D19",
+        "R03:D20",
+        "R03:D21",
+        "R03:D22",
+        "R10:D99",
+        "投保须知#58"
+      ]
+    },
+    {
+      "id": "C14",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "已购前提明确，普通(10-3)*100=700、ICU3*500=1500、叠加2200正确；明确是试算。",
+      "source_refs": [
+        "R14:head",
+        "R15:head",
+        "R14:D115",
+        "R14:D116",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "C15",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "近视/牙科免责保留意外例外，事故和疾病等待关系准确，住院免赔与60%身份有据。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12",
+        "责任免除#49",
+        "责任免除#57",
+        "责任免除#58",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "C16",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "原因免责未扩大成孕妇全部疾病免责；无关疾病按责任及既往症/等待限制，60%身份前提明确。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12",
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "责任免除#3",
+        "责任免除#9",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "C17",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "问医保后剩余赔付比例，按净个人负担语境理解；基础/重疾免赔和特药目录内剩余100%，60%身份前提均有据，不要求再列完整购药申请流程。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D9",
+        "R03:D22",
+        "R03:D23",
+        "R03:D24",
+        "R06:D85"
+      ]
+    },
+    {
+      "id": "C18",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "按58岁年龄资格回答包选择，门诊55与其它70正确；这不是个案核保承诺。",
+      "source_refs": [
+        "投保须知#86",
+        "R09:head",
+        "R10:head",
+        "R11:head",
+        "R12:head",
+        "R14:head",
+        "R15:head",
+        "R16:head",
+        "R13:head"
+      ]
+    },
+    {
+      "id": "C19",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "合同段一万/指定机构与非指定60有出处，但未区分D52服务路径不限额、D53/D54资质路径，也未说明源内限额冲突，不能覆盖所问申请和额度。",
+      "source_refs": [
+        "R06:D37",
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D47",
+        "R06:D48",
+        "R06:D49",
+        "R06:D84",
+        "R06:D86",
+        "R06:D85"
+      ]
+    },
+    {
+      "id": "C20",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "已有结节作为既往症除外后，仍说加包该责任对结节仍可赔20%，再退回是否认定既往症，容易误导当前已有结节可以加包赔。",
+      "source_refs": [
+        "责任免除#3",
+        "责任免除#4",
+        "责任免除#9",
+        "R12:D104",
+        "R12:D106",
+        "R12:D108",
+        "责任免除#46"
+      ]
+    },
+    {
+      "id": "C21",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "住院前后30日及外购药合同特定条件、医院、免赔和社保身份准确。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D6",
+        "R01:D5",
+        "R01:D11",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "C22",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "康复救护车1000/16种180日与一般门急诊救护车分别解释，未一律否定所有转院救护车。",
+      "source_refs": [
+        "R04:D26",
+        "R04:D27",
+        "R04:D28",
+        "R04:D31",
+        "R02:D13",
+        "R02:D14",
+        "R07:D88"
+      ]
+    },
+    {
+      "id": "C23",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重度癌症初诊30日、两家日本医院、床位1500及房型除外，费用种类排除有据。",
+      "source_refs": [
+        "R05:D34",
+        "R05:head",
+        "R05:D35",
+        "R05:D36"
+      ]
+    },
+    {
+      "id": "C24",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "癌症重度/13种罕见病、指定药店处方审核、同项共享600万和社保目录比例正确。",
+      "source_refs": [
+        "R06:D38",
+        "R06:D56",
+        "R06:D84",
+        "R06:D85",
+        "R06:D86",
+        "R06:D40",
+        "R06:D41",
+        "R06:D57",
+        "R06:D58"
+      ]
+    },
+    {
+      "id": "C25",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "未保证货车司机职业合格，636年/63月正确；仍可更充分利用已提供特殊职业附录说明营运4吨以上等限制并追问吨位。",
+      "source_refs": [
+        "投保须知#86",
+        "投保须知#88",
+        "责任免除#0",
+        "rate:年缴_必选:11",
+        "rate:月缴_必选:11"
+      ]
+    },
+    {
+      "id": "C26",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "年龄30明确选[26,30]，318/31、31*12=372、差54及来源行准确。",
+      "source_refs": [
+        "rate:年缴_必选:8",
+        "rate:月缴_必选:8"
+      ]
+    },
+    {
+      "id": "C27",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "加购共享范围和四人15%正确，社保身份改变保费不否定家庭共享；未把同一人的责任共享误判为家庭共享。",
+      "source_refs": [
+        "R09:D98",
+        "投保须知#57",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate:年缴_必选:2",
+        "rate:年缴_加油包:2"
+      ]
+    },
+    {
+      "id": "C28",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "抑郁症精神行为障碍及既往症免责，无承保保证；配置身份支持能力边界。",
+      "source_refs": [
+        "责任免除#4",
+        "责任免除#14",
+        "责任免除#3",
+        "责任免除#9",
+        "投保须知#100",
+        "runtime:identity"
+      ]
+    },
+    {
+      "id": "C29",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "对肿瘤仅给一般医疗扣1万，缺少若符合合同重疾可按重疾责任无免赔的关键分支；不是所有肿瘤费用都按一般医疗处理。",
+      "source_refs": [
+        "责任免除#3",
+        "责任免除#9",
+        "责任免除#4",
+        "R01:D6",
+        "R01:D7",
+        "R01:D8",
+        "R01:D9",
+        "R06:D40",
+        "R06:D41",
+        "R06:D43"
+      ]
+    },
+    {
+      "id": "C30",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "合规、免赔未用、无补偿假设正确，共扣一次赔15000/9000，社保身份明确；第一段把所有急诊归入一般医疗却未引R02，属于跨责任引用不全。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D8",
+        "R01:D10",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "Y001",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "基础门急诊和可选门诊包/ICU津贴分清，所有金额及身份正确；加油包归属两段仅引用描述单元格，缺直接归属元数据。",
+      "source_refs": [
+        "R02:D13",
+        "R02:D15",
+        "R02:D17",
+        "R13:D112",
+        "R13:D113",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y002",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "一般共享1万、疾病30日与事故条件、重疾无免赔有据；不因未逐一重复意外例外而判失败。",
+      "source_refs": [
+        "R01:head",
+        "R01:D7",
+        "R01:D8",
+        "R01:D10",
+        "投保须知#93",
+        "R01:D5",
+        "R03:head",
+        "R03:D24",
+        "R03:D19"
+      ]
+    },
+    {
+      "id": "Y003",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "重疾300万0免赔、身份未结算60，护工机构审核直付及不可自主申请均有据。",
+      "source_refs": [
+        "R03:D22",
+        "R03:D24",
+        "R03:D23",
+        "R08:D93",
+        "R08:D94",
+        "R08:D95",
+        "R08:D96"
+      ]
+    },
+    {
+      "id": "Y004",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "特药审核/药店、重度初诊条件和质子大陆限制、额度比例房型准确；两处必选归属仅有条款句引用未引头部字段。",
+      "source_refs": [
+        "R06:D38",
+        "R06:D40",
+        "R06:D41",
+        "R06:D84",
+        "R06:D85",
+        "R06:D86",
+        "R05:D32",
+        "R05:D35",
+        "R05:D36"
+      ]
+    },
+    {
+      "id": "Y005",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "R16原文等待7日后因意外或疾病，未把R01的意外无等待错误移用；月100年1000及直付50%需加购准确。",
+      "source_refs": [
+        "R16:head",
+        "R16:D120",
+        "投保须知#93",
+        "投保须知#96",
+        "R16:D121",
+        "R16:D122",
+        "投保须知#74"
+      ]
+    },
+    {
+      "id": "Y006",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "首次门诊包55、次限300年1万、50/30的社保身份条件正确。",
+      "source_refs": [
+        "投保须知#86",
+        "R13:D112",
+        "R13:D113"
+      ]
+    },
+    {
+      "id": "Y007",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "事故无等待、疾病30日、等待期内确诊医疗费免责有据。",
+      "source_refs": [
+        "R01:D5",
+        "R01:D6",
+        "R01:D7",
+        "R01:head",
+        "责任免除#9"
+      ]
+    },
+    {
+      "id": "Y008",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "普通100次免赔3、ICU500次免赔0、需另购和叠加正确；最后段只有R14头和R15叠加句，未直接引ICU加包归属。",
+      "source_refs": [
+        "R14:D116",
+        "R15:D118",
+        "R14:head",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y009",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "限定特定疾病康复责任，零免赔及机构80/60、身份未结算48/36有据，不要求比例短问穷尽180日期限。",
+      "source_refs": [
+        "R04:D31",
+        "R04:head",
+        "R04:D29",
+        "R04:D30"
+      ]
+    },
+    {
+      "id": "Y010",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "优惠人数及关系正确，家庭加购共享与单人责任共享分清，未把门急诊排除扩大到个人共享。",
+      "source_refs": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "R09:D98",
+        "投保须知#57",
+        "R01:D10",
+        "R02:D17",
+        "责任免除#1"
+      ]
+    },
+    {
+      "id": "Y011",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购明确，普通/ICU日额、免赔、30/60及叠加正确。",
+      "source_refs": [
+        "R14:head",
+        "R14:D115",
+        "R14:D116",
+        "R15:head",
+        "R15:D117",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y012",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "另购明确，ICU500、0次免赔、30/60与叠加有据。",
+      "source_refs": [
+        "R15:head",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y013",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "约定重疾、机构服务及审核直付不可自主理赔有据，不承诺自聘护工领现金。",
+      "source_refs": [
+        "R08:head",
+        "R08:D94",
+        "R08:D93",
+        "R08:D95",
+        "R08:D96"
+      ]
+    },
+    {
+      "id": "Y014",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "500标准间、约定重疾和跨省转院证明、年1万100%有据。",
+      "source_refs": [
+        "R07:D91",
+        "投保须知#49",
+        "R07:D87",
+        "R07:D88",
+        "R07:D89"
+      ]
+    },
+    {
+      "id": "Y015",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "1500及特需加包/重疾/房型正确，但只在该包有约定与无该包就不在整份计划范围的绝对排他结论无足够证据；R05另有床位限额，不能据缺少特需措辞作全计划排除。",
+      "source_refs": [
+        "R11:D102",
+        "投保须知#62",
+        "R11:D100",
+        "R11:D101",
+        "投保须知#59",
+        "投保须知#60",
+        "投保须知#61",
+        "R01:D6",
+        "R03:D20"
+      ]
+    },
+    {
+      "id": "Y016",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "需另购、年1万次300、50/30社保身份准确。",
+      "source_refs": [
+        "R13:D112",
+        "R13:head",
+        "R13:D113"
+      ]
+    },
+    {
+      "id": "Y017",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "39无社保年1330，夫妻同单每人95%为1263.5；月131*95%=124.45，对应原始闭区间及折扣。",
+      "source_refs": [
+        "rate:年缴_必选:10",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate:月缴_必选:10",
+        "rate-notice:尊享E生百万医疗2026月缴费率:7",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8"
+      ]
+    },
+    {
+      "id": "Y018",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "6岁基础279加药省保99=378，未错误补充6岁可以开处方药。",
+      "source_refs": [
+        "rate:年缴_必选:3",
+        "rate:年缴_加油包:3"
+      ]
+    },
+    {
+      "id": "Y019",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "30岁318+141=459正确；合计所在句只直接引用141加油包费率，未给基费引用，计算输入需在同句绑定。",
+      "source_refs": [
+        "rate:年缴_必选:8",
+        "rate:年缴_加油包:8"
+      ]
+    },
+    {
+      "id": "Y020",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "四人15及同一投保人/订单、首次或指定路径重新投保、优惠不叠加条件准确。",
+      "source_refs": [
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:14"
+      ]
+    },
+    {
+      "id": "Y021",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "在用户有社保语境内明确投保身份及结算条件，1万免赔100/60与个人支付试算有据；不将其理解成对无社保投保的一般性排除。",
+      "source_refs": [
+        "R01:D8",
+        "R01:D10",
+        "R01:D9",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "Y022",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "清单范围、社保后剩余100%及有社保身份未结算60%、0免赔600万正确；此处问比例不要求完整申请流程。",
+      "source_refs": [
+        "R06:D85",
+        "R06:D86",
+        "R06:D84"
+      ]
+    },
+    {
+      "id": "Y023",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "将60%明确条件化而非对所有未走医保者下结论，并指出无社保身份不应强套60%；无社保具体比例留白可改进，但不计错误承诺；无社保另确认句仅靠例外原文不能证明需另确认。",
+      "source_refs": [
+        "R01:D9",
+        "R01:D8",
+        "R03:D23",
+        "R03:D24"
+      ]
+    },
+    {
+      "id": "Y024",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU住院医疗与津贴区分，60%身份在同一回答上一句已明确，可承接语境，不要求每次摘要再重复；并非错误泛化所有无社保身份。",
+      "source_refs": [
+        "R01:D7",
+        "R01:D5",
+        "R01:D6",
+        "R01:D8",
+        "R01:D9"
+      ]
+    },
+    {
+      "id": "Y025",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "基础共享1万、重疾0及门诊包0次免赔300准确；未声称加包自带基础。",
+      "source_refs": [
+        "R02:head",
+        "R02:D15",
+        "R02:D17",
+        "R03:head",
+        "R03:D24",
+        "R13:head",
+        "R13:D112"
+      ]
+    },
+    {
+      "id": "Y026",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "首次上限70与未知最高续保年龄分开，未按费率105承诺续保；未知句无清单范围引用，provenance机械检查也指出空引用。",
+      "source_refs": [
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "Y027",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "非基础、需另购，普通和ICU日额/免赔/限天叠加准确。",
+      "source_refs": [
+        "投保须知#69",
+        "R14:head",
+        "R15:head",
+        "R14:D116",
+        "R15:D118",
+        "R15:D119"
+      ]
+    },
+    {
+      "id": "Y028",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "5万属于重疾关爱加包及约定100种初诊/事故或等待条件正确，没有扩写未问价格。",
+      "source_refs": [
+        "R10:D99",
+        "投保须知#58"
+      ]
+    },
+    {
+      "id": "Y029",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "34有社保月42及闭区间正确，额外家庭优惠以条件化表达。",
+      "source_refs": [
+        "rate:月缴_必选:9",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11",
+        "rate-notice:尊享E生百万医疗2026月缴费率:14"
+      ]
+    },
+    {
+      "id": "Y030",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49无社保月294及标准费率条件、家庭优惠规则正确。",
+      "source_refs": [
+        "rate:月缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8",
+        "rate-notice:尊享E生百万医疗2026月缴费率:11",
+        "rate-notice:尊享E生百万医疗2026月缴费率:14"
+      ]
+    },
+    {
+      "id": "Y031",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49有社保年984及家庭人数折扣正确。",
+      "source_refs": [
+        "rate:年缴_必选:12",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ]
+    },
+    {
+      "id": "Y032",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "64无社保月881、年8898正确；年龄范围内可以投保按其年龄资格语境审，不作核保一定承保解读，实际话术仍应避免这种歧义。",
+      "source_refs": [
+        "R01:head",
+        "投保须知#86",
+        "rate:月缴_必选:15",
+        "rate:年缴_必选:15",
+        "rate-notice:尊享E生百万医疗2026月缴费率:5",
+        "rate-notice:尊享E生百万医疗2026月缴费率:8"
+      ]
+    },
+    {
+      "id": "Y033",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316、首次及个人单标准、条件化家庭折扣有据。",
+      "source_refs": [
+        "rate:年缴_必选:16",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ]
+    },
+    {
+      "id": "Y034",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316，首次/身份与家庭优惠限定有据。",
+      "source_refs": [
+        "rate:年缴_必选:16",
+        "rate-notice:尊享E生百万医疗2026年缴费率:7",
+        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+      ]
+    },
+    {
+      "id": "Y035",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "激光祛斑美容免责有据，不涉及意外牙科等例外。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12"
+      ]
+    },
+    {
+      "id": "Y036",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "牙科矫正免责且保留意外例外。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12"
+      ]
+    },
+    {
+      "id": "Y037",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "醉酒事故导致医疗费用免责，不用意外无等待去消除醉酒免责。",
+      "source_refs": [
+        "责任免除#8",
+        "R01:D6",
+        "R01:D8"
+      ]
+    },
+    {
+      "id": "Y038",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "无法确认慢性胃炎个案核保，既往症相关费除外及首次年龄疾病等待有据。",
+      "source_refs": [
+        "投保须知#100",
+        "投保须知#109",
+        "责任免除#3",
+        "责任免除#4",
+        "责任免除#9",
+        "投保须知#86",
+        "投保须知#93"
+      ]
+    },
+    {
+      "id": "Y039",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "乳腺手术不保证承保，健康告知/核保与既往症费用区分，家庭关系和年龄有据。",
+      "source_refs": [
+        "投保须知#100",
+        "投保须知#109",
+        "责任免除#3",
+        "责任免除#4",
+        "责任免除#9",
+        "投保须知#86",
+        "投保须知#87"
+      ]
+    },
+    {
+      "id": "Y040",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "一年期、指定期限重新投保费率与无理赔优选优惠有据，不承诺续保；一年保险期引用不足以单独证明所有资料缺少直接续保规则。",
+      "source_refs": [
+        "投保须知#91",
+        "rate-notice:尊享E生百万医疗2026年缴费率:5",
+        "rate-notice:尊享E生百万医疗2026年缴费率:13"
+      ]
+    },
+    {
+      "id": "Y041",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "系统身份runtime来源证明AI/TTS及能力边界，未用保险合同证明AI身份。",
+      "source_refs": [
+        "runtime:identity"
+      ]
+    }
+  ]
+}

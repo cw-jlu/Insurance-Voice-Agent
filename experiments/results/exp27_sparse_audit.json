@@ -1,0 +1,989 @@
+{
+  "method": "独立人工盲审；只读本候选37题与原始保障计划/须知/免责/费率。overall=facts_correct&&complete&&conditions_ok，traceable另计。事实不足但明确未知不自动视为事实错误；有源可答却漏答使complete失败。未要求全量复述未问条件。引用需在本句中支持事实，不以相同数字或有效ID替代蕴含核对。 补审到71题；费率说明第1页明确71岁以上指定期重新投保场景，有限续保年龄场景可据此回答但不能保证续保。",
+  "rows": [
+    {
+      "id": "C01",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "未回答基础住院/门急诊免赔比例，检索缺R01/R02却以年龄拒绝门诊，并称津贴保到70而非首次年龄。年龄不能保证承保；引用无法支持基础门诊无可报责任或保证可买。",
+      "source_refs": [
+        "R01:D8-D10",
+        "R02:D15-D17",
+        "投保须知#86",
+        "R15:D118-D119"
+      ]
+    },
+    {
+      "id": "C02",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "三问均答且特药/先进疗法条件基本对；首句把癌症住院泛称重疾无免赔，未限定约定重大疾病。首句引用未涵盖医院/必选属性，特药句缺处方审核引文，核保句引用的是特药服务审核而非承保核保。",
+      "source_refs": [
+        "R03:D19-D24",
+        "R06:D38-D41",
+        "R05:D32-D36"
+      ]
+    },
+    {
+      "id": "C03",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "单独R12补偿包假设算术可成立，但用户未问加油包，完全漏基础R01应扣1万年免赔，故整体自付结论误导。年保额余额/其他补偿假设未交代；R12证据不支持住院赔付关键只有是否购买此包。",
+      "source_refs": [
+        "R01:D8-D10",
+        "R12:D105-D108",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "C04",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": true,
+      "reason": "基础/加包区别、免赔比例正确；年龄上限差异只在unknowns，实际text没说门诊包限55岁，属本题区别的重要项。每个已陈述句引用覆盖其事实，因此追溯单列通过。",
+      "source_refs": [
+        "R02:D15-D17",
+        "R13:D112-D114",
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "C05",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "住院是否可报不以是否100种重疾/16种特定疾病为唯一前提，一般住院R01也适用。将津贴附加条款康复科免责推到普通医疗责任，原一般医疗免责反有符合合同康复治疗费例外；康复180天条件未说。",
+      "source_refs": [
+        "R01:D5-D8",
+        "R04:D26-D31",
+        "责任免除#68",
+        "责任免除个人医疗第4项"
+      ]
+    },
+    {
+      "id": "C06",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "年龄/社保按题给条件，门诊包、药省保及买药直付路径均答；6岁含以下处方限制正确。可以买按年龄资格解读，未把核保保证作为额外事实。",
+      "source_refs": [
+        "R13:head",
+        "R13:D113",
+        "R16:D121-D124",
+        "投保须知#96"
+      ]
+    },
+    {
+      "id": "C07",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "交通住宿/护工/机构直付与额度正确，但主动称两项必须等待期后初次确诊才适用，遗漏原文因意外伤害导致罹患的另一适用路径，绝对化条件。第一句引用D88未支持100种重疾属性。",
+      "source_refs": [
+        "R07:D87-D91",
+        "R08:D93-D96"
+      ]
+    },
+    {
+      "id": "C08",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "家庭共享须另购、一般门急诊排除、三人同投保人优惠10%均准确。未要求复述用户未问的免赔额数值。",
+      "source_refs": [
+        "R09:D98",
+        "投保须知#56",
+        "年缴费率第1-2页家庭优享"
+      ]
+    },
+    {
+      "id": "C09",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "明确不确认高血压既往症赔付，不把未知本身当虚假事实；但原始免责有既往症排除而没答，高血压住院核心问项未解决。改讲R12包且泛称未用社保60%没保留投保身份；核保/既往症未知引用不支持。",
+      "source_refs": [
+        "责任免除#3-4",
+        "责任免除住院补偿第2项",
+        "R01:D5-D9",
+        "R12:D107"
+      ]
+    },
+    {
+      "id": "C10",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "意外不受疾病等待、第三天疾病不赔均答。主动R12内容按条件性示例处理，无须本题穷尽社保比例；但R12句引D106/D109没有加购身份支持，津贴句引用未支持100元事实以外的另购归属。",
+      "source_refs": [
+        "R12:D104-D109",
+        "R12:head",
+        "R14:D115-D116"
+      ]
+    },
+    {
+      "id": "C11",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "私立须指定民营、约定重疾、另购特需包、床位限制均说明。单人房/套房限制按句中床位部分解读，未扩大至所有其他费用。",
+      "source_refs": [
+        "R11:head",
+        "R11:D100-D103"
+      ]
+    },
+    {
+      "id": "C12",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "一万以内的费用在已购补偿包内报销及结节20%均答，未强制要求复述此题无需计算的基础免赔。对既往结节仅保留待确认不直接承诺20%，内容可接受；但核保/既往症末句只有脊椎免责引用，不支持。",
+      "source_refs": [
+        "R12:D104-D109",
+        "责任免除住院补偿第2项"
+      ]
+    },
+    {
+      "id": "C13",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "主要重疾报销/另购5万正确，主动保费称有社保0-4岁20元，却未限定男性，女性19元；11-15岁17元引文未覆盖该年龄行。重疾投保/首次确诊条件可简略但未经题给性别不能给统一示例价。",
+      "source_refs": [
+        "R03:head",
+        "R10:D99",
+        "年缴_加油包.csv第2-4行"
+      ]
+    },
+    {
+      "id": "C14",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "700元/1500元、加购和可叠加正确。最后句两项医院范围与疾病条件只引用ICU D117，不直接支持一般津贴条件；属于内容正确但句内引用不全。",
+      "source_refs": [
+        "R14:D115-D116",
+        "R15:D117-D119"
+      ]
+    },
+    {
+      "id": "C15",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "牙科无意外例外而绝对不赔，且只讲R12包不答基础住院；主动基础保费279没说明仅有社保，题目未给社保。价引文只给年龄不含价格。",
+      "source_refs": [
+        "责任免除个人医疗第4项",
+        "R01:D8-D9",
+        "年缴_必选.csv第3行",
+        "R12:head"
+      ]
+    },
+    {
+      "id": "C16",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "未把怀孕身份一概排除是合理的，但分娩免责原文存在而回避无法确认，孕产相关疾病/并发症免责也漏。R12疾病责任不能支持生育可赔未知的判定。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除个人医疗第4项",
+        "责任免除住院补偿第5项",
+        "R12:D104-D108"
+      ]
+    },
+    {
+      "id": "C17",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": false,
+      "reason": "特药医保后剩余100%及指定购药正确，但泛问医保后剩余赔付没有补偿原则/一般医疗免赔说明，只讲特药和重疾。最后重疾60%省略投保身份且相关必选属性引文没涵盖。",
+      "source_refs": [
+        "责任免除#2",
+        "R01:D8-D10",
+        "R06:D40-D41",
+        "R06:D85-D86",
+        "R03:D23"
+      ]
+    },
+    {
+      "id": "C18",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "门诊包限55与其他包首次至70、58岁年龄资格及核保保留正确；年龄引文与列头支持包类型列表，核保保留为证据不足表达而非具体承保事实。",
+      "source_refs": [
+        "投保须知#86",
+        "年缴_加油包.csv列头"
+      ]
+    },
+    {
+      "id": "C19",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "基因检测区分服务直付不限额与理赔60%限1万，药品指定药店和审核均答。首句必选属性引用未覆盖，特药申请句说购药前处方审核却引D40/D44没引D41，整体trace不完整。源内不同路径按原始D52-D54接受。",
+      "source_refs": [
+        "R06:D38-D54",
+        "R06:D84-D86"
+      ]
+    },
+    {
+      "id": "C20",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "已知投保前结节，却直接按加包20%回答，末尾未知既往症不足以纠正。原既往症免责适用于R12；又把结节20%泛改未社保结算60%暗示比例升高，不能由D107独立确定此组合。",
+      "source_refs": [
+        "责任免除#3-4",
+        "责任免除住院补偿第2项",
+        "R12:D107-D108"
+      ]
+    },
+    {
+      "id": "C21",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "前后30天门诊、外购药条件、共享免赔与身份60%正确。最后重疾句主动讲100种却未引D19，且100%重疾比例未保留有社保未结算60%的对应例外；本题未给社保身份，内容按正常比例概述接受，追溯不全。",
+      "source_refs": [
+        "R01:D6-D11",
+        "R03:D19-D24"
+      ]
+    },
+    {
+      "id": "C22",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": false,
+      "reason": "康复转运1000及机构比例正确，对普通转院只称本轮未知；原R02 D14含救护车，第二问仍未答。引用康复责任不能证明所有普通转院没有相应可报条款。",
+      "source_refs": [
+        "R04:D26-D31",
+        "R02:D14"
+      ]
+    },
+    {
+      "id": "C23",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "日本两医院、初次重度、600万、床位1500/天、无免赔均正确。末句引D34不能支持已从其他途径补偿的限制，需免责补偿原则证据。",
+      "source_refs": [
+        "R05:D34-D36",
+        "责任免除#2"
+      ]
+    },
+    {
+      "id": "C24",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "同一责任的差异病种与两类共同指定药店/处方审核说明清楚，含13种罕见病；100%按正常责任比例概述，未把未问社保状态当必须复述。",
+      "source_refs": [
+        "R06:head",
+        "R06:D38-D41",
+        "R06:D56-D58",
+        "R06:D86"
+      ]
+    },
+    {
+      "id": "C25",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "价格636/63与列头正确。前句年龄即可以投保与职业未知相冲突，资料无职业限制是检索不足，原须知要求非特殊职业表；应区分年龄资格与实际可保，核心职业问项未完整回答。",
+      "source_refs": [
+        "投保须知#86",
+        "投保须知职业类别条目",
+        "年缴_必选.csv第11行",
+        "月缴_必选.csv第11行"
+      ]
+    },
+    {
+      "id": "C26",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "年318/月31/年372/差54，基础标准计划假设明确，计算准确。",
+      "source_refs": [
+        "年缴_必选.csv年龄26-30行",
+        "月缴_必选.csv年龄26-30行"
+      ]
+    },
+    {
+      "id": "C27",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "四人15%、家庭共享不含一般门急诊及混合社保各费率正确。优惠句引用未提供有/无社保各自费率的证据；最后仍按各自1万需额外避免被解读成个人住院/门诊不共享，本句按家庭排除解释接受。",
+      "source_refs": [
+        "R09:D98",
+        "R02:D17",
+        "年缴费率第1-2页家庭优享",
+        "年缴_必选.csv列头"
+      ]
+    },
+    {
+      "id": "C28",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "精神行为障碍免责存在，却不答住院吃药不赔；另声称抑郁症不在已列16疾病中，但D26只有数量未给名单，无据补充。引用标题不支持疾病结论或核保/既往症。",
+      "source_refs": [
+        "责任免除#4",
+        "责任免除个人医疗精神行为障碍项",
+        "R04:D26"
+      ]
+    },
+    {
+      "id": "C29",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "限定普通化疗不在先进疗法责任内这一事实正确，但没答R01/R03下住院手术/化疗是否可报，主要问项缺失；既往症核保保留没说明首次确诊和投保前病史免责。引用津贴体检免责不支持此题全部核保结论。",
+      "source_refs": [
+        "R01:D5-D8",
+        "R03:D19-D24",
+        "R05:D32-D34",
+        "责任免除#3-4"
+      ]
+    },
+    {
+      "id": "C30",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "实际text不报合计金额且没讲R01/R02共享。隐藏derivation把无社保投保也按60%错误，门诊包把赔付次限300先乘50%得150也错误；R01 D9 quote尾标点与源不同非主要问题，错误计算和缺身份前提更实质。",
+      "source_refs": [
+        "R01:D8-D10",
+        "R02:D15-D17",
+        "R13:D112-D113"
+      ]
+    },
+    {
+      "id": "Y001",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "主动断言一般门急诊必选责任不存在，直接与R02冲突；ICU津贴正确不能弥补门诊错误。R13引用不支持排除基础责任。",
+      "source_refs": [
+        "R02:head",
+        "R02:D12-D17",
+        "R15:D117-D119"
+      ]
+    },
+    {
+      "id": "Y002",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": true,
+      "reason": "所说加包零免赔和津贴数字均有据，但用户问住院，漏基础住院1万免赔，以加包代替回答造成核心问项不完整；引用自身所讲加包内容有效，不等于整体正确。",
+      "source_refs": [
+        "R01:D8-D10",
+        "R12:head",
+        "R14:head",
+        "R15:head"
+      ]
+    },
+    {
+      "id": "Y003",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": true,
+      "overall": false,
+      "traceable": true,
+      "reason": "护工500/天/1.5万及审核直付正确，重疾医疗报销300万没有在实际text回答，拿护工责任替代。各已陈述内容引用支持，故traceable单列通过。",
+      "source_refs": [
+        "R03:D22",
+        "R08:D93-D96",
+        "R10:D99"
+      ]
+    },
+    {
+      "id": "Y004",
+      "facts_correct": false,
+      "complete": true,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "药店/处方及质子条件大体正确，但主动说两项都先经审核或指定流程申请，R05 D36只给就医协助服务，不能推出所有质子治疗须先审核。特药100%作为统一承诺也未区分医保目录/有社保未结算60%。",
+      "source_refs": [
+        "R06:D38-D41",
+        "R06:D85-D86",
+        "R05:D32-D36"
+      ]
+    },
+    {
+      "id": "Y005",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "等待7天/月赔100、年1000/50%、指定买药平台及200元示例正确，引用覆盖且计算注明示例。",
+      "source_refs": [
+        "R16:head",
+        "R16:D121-D122",
+        "投保须知#93"
+      ]
+    },
+    {
+      "id": "Y006",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "投保年龄30天-55含、50%赔付次限300、身份降30%均答且一次算法正确；括号未社保是承接前句有社保投保限定，不孤立强判。",
+      "source_refs": [
+        "投保须知#86",
+        "R13:head",
+        "R13:D111-D113"
+      ]
+    },
+    {
+      "id": "Y007",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "意外不等、疾病30天两问均答，主动责任归属准确；本题未要求基础具体免赔，不因额外举例是加包而失败。",
+      "source_refs": [
+        "R12:D104",
+        "R12:head",
+        "R14:head",
+        "R15:head",
+        "R08:head"
+      ]
+    },
+    {
+      "id": "Y008",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "日额100/500、免赔3/0、另购叠加准确；末句两项加购引用只有R14头和R15叠加，缺ICU加购归属引用。",
+      "source_refs": [
+        "R14:D115-D116",
+        "R15:D117-D119"
+      ]
+    },
+    {
+      "id": "Y009",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "康复零免赔、机构80/60、社保投保未结算48/36、16特定疾病180天完整正确。",
+      "source_refs": [
+        "R04:D26-D31"
+      ]
+    },
+    {
+      "id": "Y010",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "人数优惠、同投保人同订单家庭免赔且门急诊排除、主动费率示例正确，引用覆盖。",
+      "source_refs": [
+        "R09:D98",
+        "年缴费率第1-2页",
+        "年缴_加油包.csv第2-3行"
+      ]
+    },
+    {
+      "id": "Y011",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "一般100/3天、ICU500/0天、叠加另购及医院年龄准确，引用覆盖。",
+      "source_refs": [
+        "R14:D116",
+        "R15:D118-D119",
+        "R14:head",
+        "R15:head"
+      ]
+    },
+    {
+      "id": "Y012",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "ICU500日额、另购、0免赔、按天给付叠加准确。",
+      "source_refs": [
+        "R15:head",
+        "R15:D117-D119"
+      ]
+    },
+    {
+      "id": "Y013",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "护工500日额与30天、年1.5万及指定审核机构直付正确；未要求短问穷尽重疾定义细目。",
+      "source_refs": [
+        "R08:D93-D96",
+        "R08:head"
+      ]
+    },
+    {
+      "id": "Y014",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "住宿日500总交通住宿年1万及转院证明正确；主动初次100种重疾的句内引用头和D88不支持疾病初次条件，须D87。",
+      "source_refs": [
+        "R07:D87-D91"
+      ]
+    },
+    {
+      "id": "Y015",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "床位1500日、特需加购指定医院及不含单人套房正确；名称已限定重大疾病责任，不要求短问额外详列定义。",
+      "source_refs": [
+        "R11:head",
+        "R11:D101-D102"
+      ]
+    },
+    {
+      "id": "Y016",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "年1万次300与50%、有社保投保不结算30%、55岁范围正确。",
+      "source_refs": [
+        "R13:D111-D113",
+        "R13:head"
+      ]
+    },
+    {
+      "id": "Y017",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "39无社保年1330打95折1263.5/人合2527正确，年缴基础计划假设明确。",
+      "source_refs": [
+        "年缴_必选.csv第10行",
+        "年缴费率第1页家庭优享"
+      ]
+    },
+    {
+      "id": "Y018",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "279+99=378，6岁含无法开处方，直付责任月年限与指定药店正确，引用完整。",
+      "source_refs": [
+        "年缴_必选.csv第3行",
+        "年缴_加油包.csv第3行",
+        "R16:head",
+        "R16:D123"
+      ]
+    },
+    {
+      "id": "Y019",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "年缴318+141=459正确，30岁有社保假设明确；津贴是有无社保共用列，不改变金额，列取值可溯。",
+      "source_refs": [
+        "年缴_必选.csv第8行",
+        "年缴_加油包.csv第8行"
+      ]
+    },
+    {
+      "id": "Y020",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "累计四人优惠15%及同投保人规则正确；隐藏算式每人×4只可同价格，实际文字说按各人取原价，无错误金额承诺。",
+      "source_refs": [
+        "年缴费率第1-2页家庭优享",
+        "年缴_必选.csv列头"
+      ]
+    },
+    {
+      "id": "Y021",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "基础住院扣1万后100%、社保投保不结算60%、个人门诊共享正确；首句引用头和D8缺必需合理费用D6，末津贴加购引用D116不支持另购。",
+      "source_refs": [
+        "R01:D6-D10",
+        "R14:head",
+        "R14:D116"
+      ]
+    },
+    {
+      "id": "Y022",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "医保目录内特药剩余100%、身份前提60%、指定处方药店正确；末句引用无D41不支持处方审核及无D85不支持清单。",
+      "source_refs": [
+        "R06:D40-D43",
+        "R06:D85-D86"
+      ]
+    },
+    {
+      "id": "Y023",
+      "facts_correct": true,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "R12有社保参保未结算60%成立，但未回答基础住院R01；后主动康复36/48没保留有社保身份参保条件。",
+      "source_refs": [
+        "R01:D9",
+        "R12:D107",
+        "R04:D30"
+      ]
+    },
+    {
+      "id": "Y024",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "否定基础ICU医疗报销错误，津贴须加购不代表基础住院医疗无责任；60%又没投保身份条件。引用津贴无法支持基础否定。",
+      "source_refs": [
+        "R01:D7",
+        "R04:D28",
+        "R15:D117-D118",
+        "R12:D107"
+      ]
+    },
+    {
+      "id": "Y025",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "基础与加包免赔共享区别正确；末句说共享却只引D15和R13头，缺R02 D17；句内引用应支持共享主张。",
+      "source_refs": [
+        "R02:D15-D17",
+        "R13:head"
+      ]
+    },
+    {
+      "id": "Y026",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "首次70与费率页明确71以上指定期重新投保分开，未知最高续保年龄未杜撰。此处费率证据增加续保场景，允许有限结论，不等于保证续保。",
+      "source_refs": [
+        "投保须知#86",
+        "年缴费率第1页"
+      ]
+    },
+    {
+      "id": "Y027",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "津贴非基础、100与500免赔叠加及基础护工500的责任区别准确；护工短额外提及未宣称任意自聘可赔。",
+      "source_refs": [
+        "R14:head",
+        "R15:head",
+        "R14:D116",
+        "R15:D118-D119",
+        "R08:D94"
+      ]
+    },
+    {
+      "id": "Y028",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "重疾5万须另购及初次约定疾病条件正确；末句重复基础不含/须购却只引用费率列头，引用不完全。",
+      "source_refs": [
+        "R10:head",
+        "R10:D99",
+        "年缴_加油包.csv列头"
+      ]
+    },
+    {
+      "id": "Y029",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "34有社保月42及家庭优惠/另购示例正确。",
+      "source_refs": [
+        "月缴_必选.csv第9行",
+        "月缴费率第1-2页"
+      ]
+    },
+    {
+      "id": "Y030",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "49无社保月294及首次个人标准保费、家庭人数优惠准确。",
+      "source_refs": [
+        "月缴_必选.csv第12行",
+        "月缴费率第1-2页"
+      ]
+    },
+    {
+      "id": "Y031",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "49有社保年984及标准价正确；加包另价句只引用必选费率说明，未支持加包另算事实。",
+      "source_refs": [
+        "年缴_必选.csv第12行",
+        "年缴_加油包.csv",
+        "年缴费率第1-2页"
+      ]
+    },
+    {
+      "id": "Y032",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "64无社保月881、津贴月73.1正确；R16头不支持津贴另购，费率裸行未给列头，句内追溯不全。",
+      "source_refs": [
+        "月缴_必选.csv第15行",
+        "月缴_加油包.csv第15行",
+        "R14:head"
+      ]
+    },
+    {
+      "id": "Y033",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316、首次门诊包55限制及家庭优选价保留均有据。",
+      "source_refs": [
+        "年缴_必选.csv第16行",
+        "年缴费率第1-2页"
+      ]
+    },
+    {
+      "id": "Y034",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "69有社保年3316与首次门诊包55上限正确，未保证续保。",
+      "source_refs": [
+        "年缴_必选.csv第16行",
+        "年缴费率第1-2页"
+      ]
+    },
+    {
+      "id": "Y035",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "激光祛斑美容项目对应免责，原文支持。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#12"
+      ]
+    },
+    {
+      "id": "Y036",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "整牙矫正按常规牙科项目排除正确，未要求无事故问额外例外；中句必需合理/牙科除外引R01 D7 R02 D14只是费用清单不能直接支持。",
+      "source_refs": [
+        "责任免除#5",
+        "责任免除#49",
+        "R01:D6",
+        "R02:D13"
+      ]
+    },
+    {
+      "id": "Y037",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": true,
+      "reason": "醉酒伤害免责及加包费用条件准确，对应免责原文支持。",
+      "source_refs": [
+        "责任免除#44",
+        "责任免除#8",
+        "R12:D104-D105"
+      ]
+    },
+    {
+      "id": "Y038",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "胃炎承保核保未知、初次既往症免责与年龄等待准确；首句核保引用只有既往症免责，不能支持核保流程。",
+      "source_refs": [
+        "责任免除#3",
+        "R12:D104",
+        "投保须知承保流程",
+        "年缴费率第1页"
+      ]
+    },
+    {
+      "id": "Y039",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "乳腺手术既往病因/治疗性质不明，不保证承保合理；具体疾病责任可保留确认，本题只问投保。核保及既往症句引用年龄/美容免责不支持这些主张。",
+      "source_refs": [
+        "投保须知承保流程",
+        "责任免除#3-4",
+        "投保须知#86"
+      ]
+    },
+    {
+      "id": "Y040",
+      "facts_correct": true,
+      "complete": true,
+      "conditions_ok": true,
+      "overall": true,
+      "traceable": false,
+      "reason": "未保证能续保，费率里的指定期重新投保和优选价场景表述正确；首句称无直接规则但引用恰为重新投保规则，无法作为该句支持。",
+      "source_refs": [
+        "年缴费率第1页",
+        "年缴费率第2页优选体"
+      ]
+    },
+    {
+      "id": "Y041",
+      "facts_correct": false,
+      "complete": false,
+      "conditions_ok": false,
+      "overall": false,
+      "traceable": false,
+      "reason": "身份问必须承认AI，答案以保险证据无声音说明回避，无完整真实身份回答；保单查询引用不支持身份未知。",
+      "source_refs": [
+        "qa_v7:Y041产品身份要求",
+        "投保须知#101"
+      ]
+    }
+  ]
+}

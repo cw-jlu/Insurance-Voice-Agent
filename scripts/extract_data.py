@@ -161,5 +161,9 @@ if __name__ == "__main__":
     extract_xlsx()
     copy_md()
     (ROOT / "data/extraction_report.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    sys.path.insert(0, str(ROOT / 'src'))
+    from agent.source_locations import INDEX, build_index
+    INDEX.parent.mkdir(parents=True, exist_ok=True)
+    INDEX.write_text(json.dumps(build_index(), ensure_ascii=False, indent=2), encoding='utf-8')
     print(json.dumps(report, ensure_ascii=False, indent=2))
     sys.exit(0)
