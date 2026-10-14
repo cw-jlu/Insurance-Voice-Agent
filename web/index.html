@@ -20,13 +20,16 @@
       <div class="session-settings">
         <label for="mode">运行方式</label><select id="mode"><option value="replay">录制回放 · 无需云服务</option><option value="deepseek">实时咨询 · DeepSeek</option><option value="qwen">实时咨询 · Qwen 对照</option></select>
         <label class="check"><input type="checkbox" id="speak" checked><span>朗读回答</span></label>
-        <label class="check"><input type="checkbox" id="cloud-voice"><span>使用云端语音</span></label>
+        <label class="check"><input type="checkbox" id="cloud-voice" checked><span>使用云端语音</span></label>
+        <label for="playback-rate" class="speed-label">回答播放速度</label><select id="playback-rate"><option value="0.75">0.75 × · 慢速</option><option value="1" selected>1 × · 原速</option><option value="1.25">1.25 ×</option><option value="1.5">1.5 ×</option><option value="2">2 × · 快速</option></select>
+        <label class="check"><input type="checkbox" id="auto-send" checked><span>说完自动发送</span></label>
         <p id="mode-note">正在载入演示配置。</p>
       </div>
       <div class="release"><span>核心冻结版</span><strong>2026.10.14</strong><small id="release-tag">v0.1.0-core-20261014</small></div>
+      <div class="rehearsal"><span>陈为 · 个人参赛</span><p id="rehearsal-time">总结呈现 · 03:00</p><button id="timer-toggle" class="outline">开始15分钟演练</button><button id="timer-reset" class="quiet">重置</button></div>
     </aside>
     <section class="conversation" aria-label="咨询会话">
-      <div class="conversation-heading"><div><h1 id="scenario-title">完整对话回放</h1><p id="scenario-subtitle">查看报价、条件更正、追问与人工请求。</p></div><span id="session-mode" class="mode-label">历史回放</span></div>
+      <div class="conversation-heading"><div><h1 id="scenario-title">现场自由提问</h1><p id="scenario-subtitle">语音提问，实时回答。每轮都有耗时与依据。</p></div><span id="session-mode" class="mode-label">准备连接</span></div>
       <div id="messages" class="messages" role="log" aria-label="会话消息" aria-live="polite">
         <div class="welcome" id="welcome"><span class="welcome-symbol">问</span><h2>把复杂问题，问清楚。</h2><p>从保费到理赔条件，看看助手如何跟进每个问题。右侧可以核对已确认信息、未完成事项和回答依据。</p><div class="welcome-note">回放保留原始实验中的失败与局限。实时咨询使用当前冻结链路。</div></div>
       </div>
@@ -41,7 +44,9 @@
       <div class="inspector-heading"><h2>会话核对</h2><span id="stage">准备回放</span></div>
       <div class="inspector-content"><section><h3>已确认信息</h3><dl id="profile" class="facts"><div class="empty">随咨询补充年龄、医保等信息。</div></dl></section>
         <section><div class="section-title"><h3>咨询待办</h3><span id="task-count">0</span></div><div id="tasks" class="tasks"><p class="empty">问题和未确认条件会保留在这里。</p></div></section>
+        <section><h3>本轮实测耗时</h3><dl id="latency" class="facts"><div class="empty">提问后实时展示。并行阶段不能相加。</div></dl><div id="timeline" class="timeline"></div><p class="measurement-note">首声与播完由浏览器事件计时；回放耗时单独标注。</p></section>
         <section><h3>本轮回答依据</h3><div id="citations"><p class="empty">业务回答后可展开查看原文依据。</p></div></section>
+        <details class="trace" id="history-details"><summary>完整对话记录 <span id="history-count">0轮</span></summary><div id="history-log"><p class="empty">包括问题、生成正文、实际已播、耗时与来源。</p></div></details>
         <details class="trace"><summary>处理记录</summary><pre id="events">开始咨询后显示处理过程。</pre></details>
         <details class="limits"><summary>当前版本的验证范围</summary><p>复杂题正确处理26/30（86.7%）；复杂完整回答超过10秒。自然打断、来源支持和安全人工路由仍有缺口。</p><p>规划修复通过124项测试和5个真实模型用例，完整语音待复测。保存人工请求不代表已接通，短信发送尚未集成。</p><p>网页的句尾播放回执用于会话状态管理，不等价于声学DAC或真人电话验收。</p></details>
       </div>

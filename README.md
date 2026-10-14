@@ -32,14 +32,16 @@ python -m unittest discover -s tests -q
 
 ## 网页演示
 
-演示标签：`v0.1.0-demo-20261014`，在冻结核心之外提供网页服务。默认录制回放无需凭据；实时DeepSeek与Qwen对照模式按服务配置启用。
+答辩演示标签：`v0.2.0-defense-20261014`，在冻结核心之外提供网页服务。配置DeepSeek后默认实时自由提问；未配置时使用离线回放，并提示缺失。Qwen仅用于主动选择的对照。
 
 ```powershell
 .\start-demo.ps1
 ```
 
-打开`http://127.0.0.1:8080`。已有依赖时可直接运行`python scripts/run_demo.py`；当前Windows TLS异常环境使用`--native-https`。支持场景选择、连续咨询、条件更正、语音识别/朗读、停止、待办与原文查看、会话导出。
+打开`http://127.0.0.1:8080`。已有依赖时可直接运行`python scripts/run_demo.py`；当前Windows TLS异常环境使用`--native-https`。支持现场语音新问题、说完自动发送、0.75–2倍播放、连续咨询、条件更正、实时阶段耗时、完整原文溯源、逐轮生成/已播记录、JSON导出和3+7+5分钟演练计时。
 
 可选容器启动：`docker compose up --build -d`。凭据使用`.env.demo.example`对应的本地`.env.demo`，不进入镜像或Git。完整步骤、已测范围及容器未实测说明见[Web服务与冻结版本](docs/30-Web演示服务与冻结版本.md)。
 
-验证冻结核心：`python scripts/verify_freeze.py`。Web包装后136项测试通过，业务准确率和语音指标不因包装自动提升。
+验证冻结核心：`python scripts/verify_freeze.py`。答辩版142项测试通过，业务准确率和语音指标不因包装自动提升。配置检查：`python scripts/check_demo.py`。打包：`python scripts/package_submission.py`。
+
+陈为个人参赛材料：[3分钟讲稿、7分钟演示与答辩准备](docs/31-陈为个人参赛答辩与提交说明.md)、[实现与验证口径](docs/32-答辩演示版实现与验证.md)。资料包包含原始结果和复现步骤，不包含服务密钥。

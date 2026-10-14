@@ -1,9 +1,10 @@
 /* Plain browser client. No service keys, model prompts or credentials live here. */
 const $ = id => document.getElementById(id);
 const welcomeTemplate = $('welcome').cloneNode(true);
-const ui = {session:null, socket:null, scenarios:[], selected:'replay', health:null,
+const ui = {session:null, socket:null, scenarios:[], selected:'free', health:null,
   busy:false, turn:0, agent:null, speech:new Map(), queue:[], speaking:false,
-  audio:null, audioUrl:null, speechGeneration:0, done:false, microphone:null, pendingMode:null};
+  audio:null, audioUrl:null, speechGeneration:0, done:false, microphone:null, pendingMode:null,
+  turnStart:0, stages:new Map(), metrics:{}, inputMetrics:{}, finishedTrace:null, played:new Set(), sentenceCount:0};
 
 function note(text=''){ $('notice').textContent=text; $('notice').hidden=!text; }
 function connected(text,good=false){$('connection').textContent=text;$('connection').classList.toggle('connected',good);}
@@ -39,6 +40,32 @@ function renderState(state){
   $('question').readOnly=state.mode==='replay';
   if(state.mode==='replay')$('question').value=state.next_question||'';
   renderSuggestions();
+  renderHistory(state.turns||[]);
+}
+function metric(label,value){const row=element('div');row.append(element('dt','',label),element('dd','',typeof value==='number'?`${value.toFixed(2)} s`:value));$('latency').append(row);}
+function reportMetric(key,value){ui.metrics[key]=value;send({type:'browser_metrics',turn:ui.turn,metrics:{[key]:value}});renderLatency();}
+function renderLatency(){
+  $('latency').replaceChildren();
+  const names={recording_s:'语音采集时长',asr_connect_s:'识别服务连接',asr_finalize_s:'结束到识别确认',first_sound_s:'回答首声（含承接）',first_business_sound_s:'业务正文首声',playback_end_s:'本轮完整播完'};
+  for(const [key,label] of Object.entries(names))if(ui.metrics[key]!==undefined)metric(label,ui.metrics[key]);
+  if(ui.finishedTrace){metric(ui.session?.mode==='replay'?'回放文本就绪':'生成与校验完成',ui.finishedTrace.text_ready_s);metric('全部音频就绪',ui.finishedTrace.audio_ready_s);}
+  $('timeline').replaceChildren();
+  for(const entry of ui.stages.values()){
+    const row=element('div',`stage-row ${entry.status}`);
+    const name=entry.model?`${entry.name} · ${entry.model}`:entry.sentence!==undefined?`${entry.name} · 第${entry.sentence+1}句`:entry.name;
+    row.append(element('span','',name),element('strong','',entry.duration_s!==undefined?`${entry.duration_s.toFixed(2)} s`:entry.status==='running'?'进行中…':'未完成'));
+    row.title=`相对本轮发送：${entry.start_s.toFixed(2)}s → ${entry.end_s?.toFixed(2)||'…'}s${entry.tokens?.total_tokens?'；'+entry.tokens.total_tokens+' tokens':''}`;
+    $('timeline').append(row);
+  }
+}
+function renderHistory(turns){
+  $('history-count').textContent=`${turns.length}轮`;$('history-log').replaceChildren();
+  for(const turn of turns){
+    const d=element('details','history-turn');d.append(element('summary','',`${turn.turn}. ${turn.question}${turn.cancelled?' · 已停止':''}`));
+    d.append(element('p','history-label','生成正文'),element('p','',turn.response||'生成未完成'),element('p','history-label','已播完句子'),element('p','',turn.heard||'尚无句尾播放回执'));
+    if(turn.trace){const button=element('button','outline','查看本轮耗时与溯源');button.type='button';button.onclick=()=>{ui.stages=new Map((turn.stages||[]).map(s=>[s.id,s]));ui.metrics={...turn.browser_metrics};renderTrace(turn.trace);};d.append(button);}
+    $('history-log').append(d);
+  }
 }
 function renderSuggestions(){
   $('suggestions').replaceChildren();
@@ -49,10 +76,20 @@ function renderSuggestions(){
   else $('send').firstChild.textContent='发送问题 ';
 }
 function renderTrace(trace){
+  ui.finishedTrace=trace;for(const entry of trace.stages||[])ui.stages.set(entry.id,entry);renderLatency();
   $('events').textContent=(trace.events||[]).join('\n')||'本轮未记录额外流程事件。';
   if(trace.recorded_case)$('events').textContent+=`\n历史批次：${trace.recorded_batch} / ${trace.recorded_case}\n原实验整轮播完：${Number(trace.recorded_playback_end_s).toFixed(2)}秒`;
   $('citations').replaceChildren();const seen=new Set();
-  for(const citation of trace.citations||[]){if(seen.has(citation.id))continue;seen.add(citation.id);const details=element('details','citation');details.append(element('summary','',citation.id),element('p','',citation.quote));$('citations').append(details);}
+  for(const citation of trace.citations||[]){
+    if(seen.has(citation.id))continue;seen.add(citation.id);
+    const details=element('details','citation');details.append(element('summary','',citation.id));
+    const supported=(trace.claims||[]).filter(c=>(c.citations||[]).some(s=>s.id===citation.id)).map(c=>c.text).join('\n');
+    if(supported)details.append(element('p','claim-text','引用该来源的答句：'+supported));
+    details.append(element('p','',citation.quote),element('pre','source-location',JSON.stringify(citation.location,null,2)));
+    const b=element('button','outline','核对完整原始证据');b.type='button';b.onclick=async()=>{
+      b.disabled=true;try{const source=await request(`/api/sessions/${ui.session.id}/sources/${encodeURIComponent(citation.id)}`);details.append(element('p','source-label',source.source+'\n'+source.path+'\nSHA-256: '+source.sha256),element('p','',source.text));b.remove();}catch(e){note(e.message);b.disabled=false;}
+    };details.append(b);$('citations').append(details);
+  }
   if(!seen.size)$('citations').append(element('p','empty','本轮没有业务原文引用。流程承接与人工通知不等价于业务事实。'));
 }
 function stopSpeech(){
@@ -67,9 +104,11 @@ function stopAnswer(){
 }
 function playbackComplete(unit,generation){
   if(generation!==ui.speechGeneration)return;
+  ui.played.add(unit.index);
   send({type:'receipt',turn:unit.turn,index:unit.index});ui.speaking=false;
   if(ui.agent)ui.agent.state.textContent=ui.done&&!ui.queue.length?'本轮已播完':'正在朗读';
   if(ui.done&&!ui.queue.length)$('stop').disabled=true;
+  if(ui.done&&!ui.queue.length&&ui.played.size===ui.sentenceCount)reportMetric('playback_end_s',(performance.now()-ui.turnStart)/1000);
   playNext();
 }
 function playbackFailed(unit,generation=ui.speechGeneration){
@@ -83,12 +122,19 @@ function playNext(){
   if(!$('speak').checked){$('seen').hidden=false;ui.queue=[];return;}
   ui.speaking=true;$('stop').disabled=false;const generation=ui.speechGeneration;
   if(ui.agent)ui.agent.state.textContent='正在朗读';
+  const rate=Number($('playback-rate').value);
+  const started=()=>{
+    if(generation!==ui.speechGeneration)return;
+    if(ui.metrics.first_sound_s===undefined)reportMetric('first_sound_s',(performance.now()-ui.turnStart)/1000);
+    if(unit.kind==='business'&&ui.metrics.first_business_sound_s===undefined)reportMetric('first_business_sound_s',(performance.now()-ui.turnStart)/1000);
+    reportMetric('rate',rate);
+  };
   if(unit.wav){
     const bytes=Uint8Array.from(atob(unit.wav),c=>c.charCodeAt(0));const audioUrl=URL.createObjectURL(new Blob([bytes],{type:'audio/wav'}));ui.audioUrl=audioUrl;
     const audio=ui.audio=new Audio(audioUrl);audio.onended=()=>{URL.revokeObjectURL(audioUrl);if(ui.audio===audio)ui.audioUrl=null;playbackComplete(unit,generation);};
-    audio.onerror=()=>playbackFailed(unit,generation);audio.play().catch(()=>playbackFailed(unit,generation));
+    audio.playbackRate=rate;audio.onplaying=started;audio.onerror=()=>playbackFailed(unit,generation);audio.play().catch(()=>playbackFailed(unit,generation));
   }else if('speechSynthesis' in window){
-    const utterance=new SpeechSynthesisUtterance(unit.text);utterance.lang='zh-CN';utterance.rate=1.1;
+    const utterance=new SpeechSynthesisUtterance(unit.text);utterance.lang='zh-CN';utterance.rate=rate;utterance.onstart=started;
     const voice=speechSynthesis.getVoices().find(v=>v.lang.startsWith('zh'));if(voice)utterance.voice=voice;
     utterance.onend=()=>playbackComplete(unit,generation);utterance.onerror=e=>{if(generation===ui.speechGeneration&&e.error!=='canceled'&&e.error!=='interrupted')playbackFailed(unit,generation);};
     speechSynthesis.speak(utterance);
@@ -101,14 +147,19 @@ function audioReady(data){
 function socketEvent(data){
   if(data.type==='state'||data.type==='receipt'){renderState(data.state);return;}
   if(data.type==='turn_start'){
+    ui.played.clear();ui.sentenceCount=0;
+    ui.stages.clear();ui.finishedTrace=null;ui.metrics={...ui.inputMetrics};ui.inputMetrics={};renderLatency();
+    send({type:'browser_metrics',turn:data.turn,metrics:ui.metrics});
     ui.turn=data.turn;ui.done=false;stopSpeech();message('user',data.question);ui.agent=message('agent','');ui.agent.node.classList.add('pending');ui.agent.state.textContent='正在理解问题并核对材料';busy(true);$('seen').hidden=true;return;
   }
   if(data.turn!==undefined&&data.turn!==ui.turn)return;
-  if(data.type==='sentence'){ui.agent.body.textContent+=data.text;ui.speech.set(data.index,{text:data.text,index:data.index,turn:data.turn});scroll();}
+  if(data.type==='stage'){ui.stages.set(data.stage.id,data.stage);renderLatency();}
+  if(data.type==='sentence'){ui.sentenceCount++;ui.agent.body.textContent+=data.text;ui.speech.set(data.index,{text:data.text,index:data.index,turn:data.turn,kind:data.kind});scroll();}
   if(data.type==='audio'||data.type==='audio_fallback')audioReady(data);
   if(data.type==='turn_done'){
-    ui.done=true;busy(false);ui.agent.node.classList.remove('pending');ui.agent.state.textContent=ui.speaking?'正在朗读':`本轮文字已就绪 · ${data.elapsed_s.toFixed(2)}秒`;
+    ui.done=true;busy(false);ui.agent.node.classList.remove('pending');ui.agent.state.textContent=ui.speaking?'正在朗读':`生成与校验已完成 · ${data.trace.text_ready_s.toFixed(2)}秒`;
     renderTrace(data.trace);renderState(data.state);if(!$('speak').checked)$('seen').hidden=false;
+    if($('speak').checked&&!ui.speaking&&!ui.queue.length&&ui.metrics.first_sound_s!==undefined&&ui.played.size===ui.sentenceCount)reportMetric('playback_end_s',(performance.now()-ui.turnStart)/1000);
   }
   if(data.type==='stopped'){renderState(data.state);busy(false);}
   if(data.type==='error'){note(data.message);busy(false);if(data.state)renderState(data.state);if(ui.agent)ui.agent.state.textContent='本轮未完成';}
@@ -118,8 +169,14 @@ async function newSession(){
   const old=ui.session;ui.session=null;ui.socket?.close();ui.socket=null;
   if(old)await request(`/api/sessions/${old.id}`,{method:'DELETE'}).catch(()=>{});
   const mode=$('mode').value;
+  const selected=ui.scenarios.find(s=>s.id===ui.selected);
+  if(selected?.mode!==(mode==='replay'?'replay':'live'))ui.selected=mode==='replay'?'replay':'free';
+  const scenario=ui.scenarios.find(s=>s.id===ui.selected);
+  $('scenario-title').textContent=scenario.name;$('scenario-subtitle').textContent=scenario.description;
+  document.querySelectorAll('.scenario').forEach(n=>n.classList.toggle('active',n.dataset.scenario===ui.selected));
   ui.session=await request('/api/sessions',{method:'POST',body:JSON.stringify({mode:mode==='replay'?'replay':'live',provider:mode==='replay'?'deepseek':mode})});
   $('messages').replaceChildren(welcomeTemplate.cloneNode(true));ui.agent=null;ui.done=false;$('seen').hidden=true;note();
+  ui.metrics={};ui.inputMetrics={};ui.stages.clear();ui.finishedTrace=null;renderLatency();
   $('citations').replaceChildren(element('p','empty','业务回答后可展开查看原文依据。'));$('events').textContent='开始咨询后显示处理过程。';
   const url=new URL(`/api/sessions/${ui.session.id}/ws`,location.href);url.protocol=location.protocol==='https:'?'wss:':'ws:';
   const socket=ui.socket=new WebSocket(url);
@@ -128,6 +185,7 @@ async function newSession(){
   socket.onclose=()=>{if(ui.socket===socket){connected('连接已关闭');$('send').disabled=true;stopSpeech();}};
   socket.onerror=()=>note('连接失败，请确认演示服务正在运行。');
   renderState(ui.session);updateModeNote();
+  if(mode!=='replay')$('cloud-voice').checked=ui.health.capabilities.cloud_tts;
 }
 function updateModeNote(){
   const replay=$('mode').value==='replay';
@@ -140,6 +198,7 @@ function updateModeNote(){
 async function submit(){
   const text=$('question').value.trim();if(!text||ui.busy)return;
   if(ui.speaking)stopAnswer();note();send({type:'turn',text,cloud_voice:$('cloud-voice').checked&&$('speak').checked});busy(true);
+  ui.turnStart=performance.now();
   if(ui.session.mode!=='replay')$('question').value='';
 }
 
@@ -153,19 +212,20 @@ async function startMicrophone(){
     const silence=context.createGain();silence.gain.value=0;source.connect(worklet);worklet.connect(silence);silence.connect(context.destination);
     const url=new URL('/api/asr',location.href);url.protocol=location.protocol==='https:'?'wss:':'ws:';
     const socket=new WebSocket(url);socket.binaryType='arraybuffer';
-    const mic=ui.microphone={stream,context,source,worklet,silence,socket,ready:false,finals:[],submit:true,timer:null};
+    const mic=ui.microphone={stream,context,source,worklet,silence,socket,ready:false,finals:[],submit:$('auto-send').checked,timer:null,started:performance.now(),ending:false};
+    $('question').value='';
     worklet.port.onmessage=e=>{if(mic.ready&&socket.readyState===WebSocket.OPEN)socket.send(e.data);};
     socket.onmessage=e=>{
       const data=JSON.parse(e.data);
-      if(data.type==='ready'){mic.ready=true;note('正在听，讲完后点击“结束录音”。');}
+      if(data.type==='ready'){mic.ready=true;mic.readyAt=performance.now();ui.inputMetrics.asr_connect_s=(mic.readyAt-mic.started)/1000;note($('auto-send').checked?'正在听，停顿后会自动提交；也可点击结束录音。':'正在听，结束录音后可修改文本再发送。');}
       if(data.type==='partial')$('question').value=[...mic.finals,data.text].join('');
-      if(data.type==='final'){mic.finals.push(data.text);$('question').value=mic.finals.join('');}
-      if(data.type==='done'){const shouldSubmit=mic.submit;cleanupMicrophone(mic);note();if(shouldSubmit&&$('question').value.trim())submit();}
+      if(data.type==='final'){mic.finals.push(data.text);$('question').value=mic.finals.join('');if($('auto-send').checked&&!mic.ending)endMicrophone(true);}
+      if(data.type==='done'){ui.inputMetrics.asr_finalize_s=mic.endAt?(performance.now()-mic.endAt)/1000:0;const shouldSubmit=mic.submit;cleanupMicrophone(mic);note();if(shouldSubmit&&$('question').value.trim())submit();}
       if(data.type==='error'){note(data.message);cleanupMicrophone(mic);}
     };
     socket.onerror=()=>{note('语音连接失败，可继续文字咨询。');cleanupMicrophone(mic);};
     socket.onclose=()=>{if(ui.microphone===mic){cleanupMicrophone(mic);note('语音连接已结束，识别文本保留在输入框。');}};
-    mic.timer=setTimeout(()=>endMicrophone(),55000);$('microphone').textContent='结束录音';
+    mic.timer=setTimeout(()=>endMicrophone($('auto-send').checked),55000);$('microphone').textContent='结束录音';
   }catch(error){note(error.name==='NotAllowedError'?'未获得麦克风权限，可继续文字咨询。':'录音未能启动，可继续文字咨询。');if(ui.microphone)cleanupMicrophone(ui.microphone);else{stream?.getTracks().forEach(t=>t.stop());context?.close();}}
 }
 function cleanupMicrophone(mic){
@@ -173,14 +233,15 @@ function cleanupMicrophone(mic){
   if(mic.socket.readyState<2)mic.socket.close();if(ui.microphone===mic)ui.microphone=null;$('microphone').textContent='开始说话';
 }
 async function endMicrophone(shouldSubmit=true){
-  const mic=ui.microphone;if(!mic)return;mic.submit=shouldSubmit;mic.ready=false;clearTimeout(mic.timer);mic.stream.getTracks().forEach(t=>t.stop());
+  const mic=ui.microphone;if(!mic||mic.ending)return;mic.ending=true;mic.endAt=performance.now();ui.inputMetrics.recording_s=(mic.endAt-(mic.readyAt||mic.started))/1000;mic.submit=shouldSubmit;mic.ready=false;clearTimeout(mic.timer);mic.stream.getTracks().forEach(t=>t.stop());
   if(mic.socket.readyState===WebSocket.OPEN){mic.socket.send(JSON.stringify({type:'end'}));note('正在确认识别结果…');mic.timer=setTimeout(()=>{cleanupMicrophone(mic);note('识别确认超时，文字可编辑后发送。');},12000);}else cleanupMicrophone(mic);
 }
 
 $('composer').addEventListener('submit',e=>{e.preventDefault();submit();});
 $('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();submit();}});
 $('stop').addEventListener('click',stopAnswer);
-$('microphone').addEventListener('click',()=>ui.microphone?endMicrophone():startMicrophone());
+$('microphone').addEventListener('click',()=>ui.microphone?endMicrophone($('auto-send').checked):startMicrophone());
+$('playback-rate').addEventListener('change',()=>{const rate=Number($('playback-rate').value);if(ui.audio)ui.audio.playbackRate=rate;if(ui.turn)reportMetric('rate',rate);note(ui.audio?'已调整当前音频的播放速度。':'播放速度用于下一句浏览器朗读或云端音频。');});
 $('seen').addEventListener('click',()=>{stopSpeech();send({type:'seen'});$('seen').hidden=true;if(ui.agent)ui.agent.state.textContent='用户已确认读完文字；非声学播放验收。';});
 $('speak').addEventListener('change',()=>{if(!$('speak').checked){stopSpeech();if(ui.agent)$('seen').hidden=false;}});
 $('new-session').addEventListener('click',()=>$('reset-dialog').showModal());
@@ -195,11 +256,25 @@ async function init(){
   try{
     [ui.health,ui.scenarios]=await Promise.all([request('/api/health'),request('/api/scenarios')]);
     for(const provider of ['deepseek','qwen']){const option=$('mode').querySelector(`option[value="${provider}"]`);if(!ui.health.capabilities[provider]){option.disabled=true;option.textContent+=' · 未配置';}}
-    for(const scenario of ui.scenarios){const b=element('button',`scenario${scenario.id===ui.selected?' active':''}`);b.append(element('strong','',scenario.name),element('span','',scenario.description));b.addEventListener('click',()=>{
+    $('mode').value=ui.health.capabilities.deepseek?'deepseek':'replay';
+    if($('mode').value==='replay'){ui.selected='replay';$('scenario-title').textContent='完整对话回放';$('scenario-subtitle').textContent='DeepSeek尚未配置。补好本地密钥并重启后，可现场自由提问。';}
+    for(const scenario of ui.scenarios){const b=element('button',`scenario${scenario.id===ui.selected?' active':''}`);b.dataset.scenario=scenario.id;b.append(element('strong','',scenario.name),element('span','',scenario.description));b.addEventListener('click',()=>{
       ui.selected=scenario.id;document.querySelectorAll('.scenario').forEach(n=>n.classList.remove('active'));b.classList.add('active');$('scenario-title').textContent=scenario.name;$('scenario-subtitle').textContent=scenario.description;
       if(scenario.mode==='live'&&ui.session.mode==='replay')note('这是自由提问场景，请先切换到已配置的实时模式。');renderSuggestions();
     });$('scenarios').append(b);}
     await newSession();
   }catch(error){connected('服务未连接');note(error.message);busy(false);}
 }
+let rehearsalElapsed=0,rehearsalStart=null;
+function drawTimer(){
+  const elapsed=rehearsalElapsed+(rehearsalStart===null?0:(performance.now()-rehearsalStart)/1000);
+  const stage=elapsed<180?'总结呈现':elapsed<600?'落地演示':elapsed<900?'评委提问':'演练结束';
+  const left=Math.max(0,(elapsed<180?180:elapsed<600?600:900)-elapsed);
+  $('rehearsal-time').textContent=`${stage} · ${String(Math.floor(left/60)).padStart(2,'0')}:${String(Math.floor(left%60)).padStart(2,'0')}`;
+  $('rehearsal-time').classList.toggle('time-warning',left<=60&&elapsed<900);
+  if(elapsed>=900&&rehearsalStart!==null){rehearsalElapsed=900;rehearsalStart=null;$('timer-toggle').textContent='演练完成';}
+}
+$('timer-toggle').onclick=()=>{if(rehearsalStart===null){if(rehearsalElapsed>=900)rehearsalElapsed=0;rehearsalStart=performance.now();$('timer-toggle').textContent='暂停演练';}else{rehearsalElapsed+=(performance.now()-rehearsalStart)/1000;rehearsalStart=null;$('timer-toggle').textContent='继续演练';}drawTimer();};
+$('timer-reset').onclick=()=>{rehearsalElapsed=0;rehearsalStart=null;$('timer-toggle').textContent='开始15分钟演练';drawTimer();};
+setInterval(drawTimer,1000);
 init();

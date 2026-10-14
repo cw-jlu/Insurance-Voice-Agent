@@ -18,12 +18,14 @@ from agent import cloud
 from agent.evidence_answer import EvidenceAnswerer, grouped_evidence, source_registry
 from agent.evidence_pipeline import EvidencePipeline
 from agent.session import CallSession, HANDOFF, LINK_SENT, _sentences
+from demo.telemetry import Timeline, ObservedPipeline
 
 ROOT = Path(__file__).resolve().parents[2]
 REPLAY = ROOT / 'experiments/results/exp44_voice_current/voice'
 CORE_TAG = 'v0.1.0-core-20261014'
-DEMO_TAG = 'v0.1.0-demo-20261014'
+DEMO_TAG = 'v0.2.0-defense-20261014'
 SCENARIOS = [
+    {'id':'free','name':'现场自由提问','description':'评委提出新问题，实时识别、回答并查看全过程。','mode':'live'},
     {'id':'replay','name':'完整对话回放','description':'7轮已保存的真实实验，离线查看报价、更正与人工请求。','mode':'replay'},
     {'id':'price','name':'报价与条件更正','description':'先报价，再更正医保身份，检查差额是否更新。','mode':'live',
      'questions':['我35岁有医保，首次买必选计划个人单，年缴、月缴和全年差额各是多少？','说错了，我没有医保，三个金额重新算。']},
@@ -103,6 +105,7 @@ def wav_base64(pcm):
 class Speech:
     text: str
     received: bool = False
+    kind: str = 'flow'
 
 
 class DemoSession:
@@ -123,7 +126,10 @@ class DemoSession:
         self.last_seen=time.monotonic()
         self.log=[]
         self.tts=None
+        self.tts_lock=threading.Lock()
         self._generation_committed=False
+        self.timeline=None
+        self.current_record=None
 
     def replay_row(self,index=None):
         index=self.replay_index if index is None else index
@@ -145,7 +151,8 @@ class DemoSession:
         return {**deepcopy(state),'id':self.id,'mode':self.mode,'provider':self.provider,
                 'next_question':next_row['question'] if next_row else None,
                 'replay_step':self.replay_index,'turn_id':self.turn_id,
-                'played_text':self.heard(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG}
+                'played_text':self.heard(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG,
+                'turns':deepcopy(self.log)}
 
     def receipt(self,turn,index):
         if turn!=self.turn_id or self.cancelled.is_set():
@@ -156,6 +163,18 @@ class DemoSession:
             return False
         self.speech[index].received=True
         self._commit_receipt()
+        if self.current_record:
+            self.current_record['heard']=self.heard()
+            self.current_record['playback_complete']=all(s.received for s in self.speech) and self._generation_committed
+        return True
+
+    def browser_metric(self, turn, data):
+        if turn!=self.turn_id or not self.current_record or self.cancelled.is_set():return False
+        import math
+        allowed=('first_sound_s','first_business_sound_s','playback_end_s','recording_s','asr_connect_s','asr_finalize_s','rate')
+        valid={k:float(v) for k,v in data.items() if k in allowed and type(v) in (int,float)
+               and math.isfinite(v) and 0<=v<=600}
+        self.current_record.setdefault('browser_metrics',{}).update(valid)
         return True
 
     def _commit_receipt(self):
@@ -174,12 +193,32 @@ class DemoSession:
                 # Discard pending clone mutations, retaining actual user input and completed speech.
                 self.session.history.append(('用户',self.active_text))
                 if self.heard():self.session.history.append(('坐席',self.heard()))
-        if self.active_text:
-            self.log.append({'turn':self.turn_id,'question':self.active_text,'heard':self.heard(),'cancelled':True})
+        if self.current_record and not self.current_record.get('playback_complete'):
+            self.current_record.update(heard=self.heard(),cancelled=True)
+            if self.timeline:self.current_record['stages']=self.timeline.snapshot()
 
     def export(self):
         return {'session':self.snapshot(),'turns':deepcopy(self.log),
                 'note':'回放为exp44历史记录；浏览器播放回执不是声学DAC验收。' }
+
+    def synthesize(self,text,check,timeline,index):
+        # A cancelled asyncio task cannot stop a blocking synth call. Serialize
+        # connection use so its late audio never mixes with the next question.
+        with self.tts_lock:
+            check()
+            if self.tts is None:
+                with timeline.span('语音服务连接',category='tts'):
+                    self.tts=cloud.RealtimeTTS()
+            check()
+            with timeline.span('语音合成',category='tts',sentence=index) as stage:
+                first,total,pcm=self.tts.synth(text)
+                stage.update(first_packet_s=first,audio_duration_s=len(pcm)/48000)
+            check()
+            return pcm
+
+    def close_tts(self):
+        with self.tts_lock:
+            if self.tts is not None:self.tts.close();self.tts=None
 
     async def run(self,text,send,cloud_voice=False):
         if self.session is not None and self.session.ended:
@@ -191,11 +230,18 @@ class DemoSession:
         epoch=self.turn_id
         cancelled=self.cancelled=threading.Event()
         self.speech=[];self.active_text=text;self.result=None;self._generation_committed=False
+        self.current_record={'turn':epoch,'question':text,'response':'','heard':'','cancelled':False,
+                             'created_at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'mode':self.mode,
+                             'provider':self.provider,'browser_metrics':{},'stages':[]}
+        self.log.append(self.current_record)
         await send({'type':'turn_start','turn':epoch,'question':text})
         begin=time.perf_counter()
         loop=asyncio.get_running_loop()
         queue=asyncio.Queue()
         candidate=clone(self.session) if self.session is not None else None
+        timeline=self.timeline=Timeline(lambda entry:loop.call_soon_threadsafe(queue.put_nowait,{'stage':entry}))
+        if candidate is not None and isinstance(self.pipe,EvidencePipeline):
+            candidate.pipe=ObservedPipeline(self.pipe,timeline,WebAnswerer)
 
         def check():
             if cancelled.is_set():raise RuntimeError('cancelled')
@@ -203,7 +249,8 @@ class DemoSession:
         def emit(piece):
             check()
             for sentence in _sentences(demo_text(piece) if candidate is not None else piece):
-                loop.call_soon_threadsafe(queue.put_nowait,sentence)
+                kind='business' if timeline.business_ready else 'acknowledgment' if candidate is not None else 'replay'
+                loop.call_soon_threadsafe(queue.put_nowait,{'sentence':sentence,'kind':kind})
 
         def generate():
             try:
@@ -213,6 +260,7 @@ class DemoSession:
                 for piece in _sentences(row['session_text']):emit(piece)
                 return None
             finally:
+                timeline.text_ready_s=timeline.elapsed()
                 loop.call_soon_threadsafe(queue.put_nowait,None)
 
         future=loop.run_in_executor(None,generate)
@@ -222,13 +270,16 @@ class DemoSession:
                 if piece is None:break
                 check()
                 if epoch!=self.turn_id:return
-                index=len(self.speech);self.speech.append(Speech(piece))
+                if 'stage' in piece:
+                    await send({'type':'stage','turn':epoch,'stage':piece['stage']});continue
+                kind=piece['kind'];piece=piece['sentence']
+                self.current_record['response']+=piece
+                index=len(self.speech);self.speech.append(Speech(piece,kind=kind))
                 await send({'type':'sentence','turn':epoch,'index':index,'text':piece,
-                            'elapsed_s':round(time.perf_counter()-begin,3)})
+                            'kind':kind,'elapsed_s':round(time.perf_counter()-begin,3)})
                 if cloud_voice and self.mode=='live':
                     try:
-                        if self.tts is None:self.tts=await asyncio.to_thread(cloud.RealtimeTTS)
-                        _,_,pcm=await asyncio.to_thread(self.tts.synth,piece)
+                        pcm=await asyncio.to_thread(self.synthesize,piece,check,timeline,index)
                         check()
                         await send({'type':'audio','turn':epoch,'index':index,'wav':wav_base64(pcm)})
                     except Exception:
@@ -236,7 +287,7 @@ class DemoSession:
                         await send({'type':'audio_fallback','turn':epoch,'index':index,
                                     'message':'云语音暂不可用，此句可用浏览器朗读。'})
                         if self.tts is not None:
-                            await asyncio.to_thread(self.tts.close);self.tts=None
+                            await asyncio.to_thread(self.close_tts)
                 else:
                     await send({'type':'audio_fallback','turn':epoch,'index':index,'message':''})
             result=await future
@@ -256,11 +307,12 @@ class DemoSession:
                 for claim in detail.get('structured',{}).get('claims',[]):
                     for citation in claim.get('citations',[]):
                         if not any(c['id']==citation['id'] for c in citations):
-                            citations.append({'id':citation['id'],'quote':citation.get('quote','')[:6000],
+                            citations.append({'id':citation['id'],'quote':citation.get('quote',''),
                                               'location':citation.get('location',{})})
                 trace={'events':result.events,'citations':citations,'timings':{
                     k:v for k,v in result.timings.items() if k in ('total','understand','answer')},
                        'validation':result.timings.get('answer_validation',{}),
+                       'claims':detail.get('structured',{}).get('claims',[]),
                        'consultation_fault':result.timings.get('answer_detail',{}).get('consultation_fault')}
                 response=result.text
             else:
@@ -271,13 +323,18 @@ class DemoSession:
                 detail=row['timings'].get('answer_detail',{}).get('evidence_result',{})
                 citations=[]
                 for claim in detail.get('structured',{}).get('claims',[]):
-                    citations.extend({'id':c['id'],'quote':c.get('quote','')[:6000],'location':c.get('location',{})}
+                    citations.extend({'id':c['id'],'quote':c.get('quote',''),'location':c.get('location',{})}
                                      for c in claim.get('citations',[]))
                 trace={'events':row.get('events',[]),'citations':citations,
                        'recorded_playback_end_s':row.get('actual_dac_playback_end_s'),
                        'recorded_case':row['id'],'recorded_batch':'exp44_voice_current'}
+                trace['claims']=detail.get('structured',{}).get('claims',[])
                 response=row['session_text']
-            self.log.append({'turn':epoch,'question':text,'response':response,'trace':trace})
+            trace.update(stages=timeline.snapshot(),text_ready_s=timeline.text_ready_s,
+                         audio_ready_s=round(time.perf_counter()-begin,3))
+            self._generation_committed=True
+            self.current_record.update(response=response,trace=trace,stages=timeline.snapshot(),
+                                       heard=self.heard(),playback_complete=all(s.received for s in self.speech))
             await send({'type':'turn_done','turn':epoch,'text':response,'trace':trace,
                         'elapsed_s':round(time.perf_counter()-begin,3),'state':self.snapshot()})
         except asyncio.CancelledError:
@@ -297,7 +354,7 @@ class DemoSession:
             self.task.cancel()
             await asyncio.gather(self.task,return_exceptions=True)
         if self.tts is not None:
-            await asyncio.to_thread(self.tts.close);self.tts=None
+            await asyncio.to_thread(self.close_tts)
 
 
 class DemoStore:
@@ -317,14 +374,18 @@ class DemoStore:
                 from demo.source_compat import install_source_compat
                 install_source_compat(ROOT)
                 self.evidence=grouped_evidence()
-            client=cloud.llm_client() if provider=='deepseek' else cloud.qwen_client()
+            client=cloud.qwen_client()
+            model=cloud.QWEN_ANSWER_MODEL
+            if provider=='deepseek':
+                from agent.model_router import AnswerModelRouter
+                model=cloud.SLOW_MODEL if cloud.SLOW_MODEL.startswith('deepseek-') else 'deepseek-flash'
+                client=AnswerModelRouter(client,model)
             if os.name=='nt' and os.getenv('DEMO_NATIVE_HTTPS')=='1':
                 import sys
                 import httpx
                 sys.path.insert(0,str(ROOT/'experiments'))
                 from windows_https_transport import WindowsHttpsTransport
                 client=client.with_options(http_client=httpx.Client(transport=WindowsHttpsTransport()))
-            model=cloud.SLOW_MODEL if provider=='deepseek' else cloud.QWEN_ANSWER_MODEL
             pipe=EvidencePipeline(self.evidence,client=client,answerer=WebAnswerer(client,model))
         session=DemoSession(mode,provider,pipe)
         self.sessions[session.id]=session

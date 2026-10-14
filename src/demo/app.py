@@ -79,6 +79,18 @@ def create_app(store=None):
     @app.get('/api/sessions/{sid}/export')
     def export(sid:str):return get_session(sid).export()
 
+    @app.get('/api/sessions/{sid}/sources/{source_id:path}')
+    def source(sid:str,source_id:str):
+        get_session(sid)
+        from agent.evidence_answer import grouped_evidence, source_registry
+        from demo.source_compat import install_source_compat
+        install_source_compat(ROOT)
+        if store.evidence is None:store.evidence=grouped_evidence()
+        item=source_registry(store.evidence).get(source_id)
+        if item is None:raise HTTPException(404,'来源不在证据索引中')
+        return {'id':item.id,'text':item.text,'source':item.source,'path':item.path,
+                'sha256':item.sha256,'location':item.location}
+
     @app.delete('/api/sessions/{sid}')
     async def delete(sid:str):
         session=get_session(sid)
@@ -126,6 +138,10 @@ def create_app(store=None):
                 elif kind=='receipt':
                     accepted=session.receipt(data.get('turn'),data.get('index'))
                     await send({'type':'receipt','accepted':accepted,'state':session.snapshot()})
+                elif kind=='browser_metrics':
+                    metrics=data.get('metrics')
+                    if isinstance(metrics,dict):session.browser_metric(data.get('turn'),metrics)
+                    await send({'type':'state','state':session.snapshot()})
                 elif kind=='stop':
                     session.stop()
                     if session.task is not None and not session.task.done():
@@ -133,7 +149,7 @@ def create_app(store=None):
                     await send({'type':'stopped','state':session.snapshot()})
                 elif kind=='seen':
                     # Text-only reading is explicit and never described as acoustic playback.
-                    if session.result is not None:
+                    if session._generation_committed:
                         for i in range(len(session.speech)):session.receipt(session.turn_id,i)
                     await send({'type':'state','state':session.snapshot()})
                 else:await send({'type':'error','message':'不支持的会话操作。'})
