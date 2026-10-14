@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="保险复杂咨询演示台：连续提问、条件更正、来源核对和语音交互。">
+  <title>知保 · 复杂咨询演示台</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/app.js" defer></script>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="知保演示台首页"><span class="brand-mark">知</span><span>知保 <span class="brand-sub">咨询演示台</span></span></a>
+    <div class="top-actions"><span id="connection" class="connection">正在连接</span><button id="export" class="quiet">导出会话</button><button id="new-session" class="outline">新建会话</button></div>
+  </header>
+  <main class="workspace">
+    <aside class="scenarios" aria-label="演示场景">
+      <div class="sidebar-heading"><h2>演示场景</h2><span>从一段咨询开始</span></div>
+      <nav id="scenarios"></nav>
+      <div class="session-settings">
+        <label for="mode">运行方式</label><select id="mode"><option value="replay">录制回放 · 无需云服务</option><option value="deepseek">实时咨询 · DeepSeek</option><option value="qwen">实时咨询 · Qwen 对照</option></select>
+        <label class="check"><input type="checkbox" id="speak" checked><span>朗读回答</span></label>
+        <label class="check"><input type="checkbox" id="cloud-voice"><span>使用云端语音</span></label>
+        <p id="mode-note">正在载入演示配置。</p>
+      </div>
+      <div class="release"><span>核心冻结版</span><strong>2026.10.14</strong><small id="release-tag">v0.1.0-core-20261014</small></div>
+    </aside>
+    <section class="conversation" aria-label="咨询会话">
+      <div class="conversation-heading"><div><h1 id="scenario-title">完整对话回放</h1><p id="scenario-subtitle">查看报价、条件更正、追问与人工请求。</p></div><span id="session-mode" class="mode-label">历史回放</span></div>
+      <div id="messages" class="messages" role="log" aria-label="会话消息" aria-live="polite">
+        <div class="welcome" id="welcome"><span class="welcome-symbol">问</span><h2>把复杂问题，问清楚。</h2><p>从保费到理赔条件，看看助手如何跟进每个问题。右侧可以核对已确认信息、未完成事项和回答依据。</p><div class="welcome-note">回放保留原始实验中的失败与局限。实时咨询使用当前冻结链路。</div></div>
+      </div>
+      <div class="composer-wrap">
+        <div id="notice" class="notice" role="status" hidden></div>
+        <div id="suggestions" class="suggestions"></div>
+        <form id="composer" class="composer"><label class="sr-only" for="question">咨询问题</label><textarea id="question" rows="2" maxlength="2000" placeholder="输入问题，也可以补充或更正刚才的条件…"></textarea><div class="composer-actions"><div class="voice-actions"><button type="button" id="microphone" class="quiet" title="开始录音会显式停止当前播报">开始说话</button><button type="button" id="stop" class="quiet" disabled>停止回答</button><button type="button" id="seen" class="quiet" hidden>已读完，继续咨询</button></div><button id="send" type="submit" class="primary">发送问题 <span aria-hidden="true">↑</span></button></div></form>
+        <p class="composer-note" id="composer-note">麦克风与自动朗读可能需要浏览器授权。录音按钮采用显式打断。</p>
+      </div>
+    </section>
+    <aside class="inspector" aria-label="会话核对">
+      <div class="inspector-heading"><h2>会话核对</h2><span id="stage">准备回放</span></div>
+      <div class="inspector-content"><section><h3>已确认信息</h3><dl id="profile" class="facts"><div class="empty">随咨询补充年龄、医保等信息。</div></dl></section>
+        <section><div class="section-title"><h3>咨询待办</h3><span id="task-count">0</span></div><div id="tasks" class="tasks"><p class="empty">问题和未确认条件会保留在这里。</p></div></section>
+        <section><h3>本轮回答依据</h3><div id="citations"><p class="empty">业务回答后可展开查看原文依据。</p></div></section>
+        <details class="trace"><summary>处理记录</summary><pre id="events">开始咨询后显示处理过程。</pre></details>
+        <details class="limits"><summary>当前版本的验证范围</summary><p>复杂题正确处理26/30（86.7%）；复杂完整回答超过10秒。自然打断、来源支持和安全人工路由仍有缺口。</p><p>规划修复通过124项测试和5个真实模型用例，完整语音待复测。保存人工请求不代表已接通，短信发送尚未集成。</p><p>网页的句尾播放回执用于会话状态管理，不等价于声学DAC或真人电话验收。</p></details>
+      </div>
+    </aside>
+  </main>
+  <dialog id="reset-dialog"><h2>开始新会话？</h2><p>当前问题和条件不会带入新会话。需要保留记录，可以先导出。</p><div class="dialog-actions"><button id="reset-cancel" class="outline">继续当前会话</button><button id="reset-confirm" class="primary">开始新会话</button></div></dialog>
+</body>
+</html>

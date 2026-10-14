@@ -1,0 +1,11 @@
+.git
+.env
+.env.deepseek
+.env.demo
+.venv
+**/__pycache__
+demo-runtime
+experiments/cache
+experiments/recordings
+保险复杂咨询全双工语音Agent
+保险复杂咨询全双工语音Agent.zip

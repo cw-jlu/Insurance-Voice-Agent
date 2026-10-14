@@ -1,0 +1,50 @@
+{
+  "tag": "v0.1.0-demo-20261014",
+  "date": "2026-10-14",
+  "core_tag": "v0.1.0-core-20261014",
+  "core_commit": "dd45b21",
+  "tests_passed": 136,
+  "core_checksum_verified": true,
+  "browser": {
+    "desktop": "1440x1000",
+    "mobile": "390x844",
+    "replay_turns": 7,
+    "page_errors": 0,
+    "live_qwen_yearly_quotes": [
+      423,
+      971
+    ]
+  },
+  "speech": {
+    "cloud_tts_connected": true,
+    "web_asr_connected": true,
+    "browser_synthetic_microphone_connected": true,
+    "human_microphone_aec_tested": false
+  },
+  "limits": [
+    "DeepSeek live not tested: missing key",
+    "Docker not built: runtime unavailable",
+    "Natural barge-in not validated: microphone button explicitly stops playback",
+    "Browser receipts are not acoustic DAC receipts",
+    "Qwen comparison uses additional v4 protocol reminders",
+    "Core business metrics remain exp44"
+  ],
+  "hash_normalization": "CRLF normalized to LF",
+  "files": {
+    "compose.yaml": "3c788511d8a518d653e2741e89a40eecfdf060478e497dc9d8775829d9d4efc1",
+    "Dockerfile": "b5c3fab7f53935afe138e586ac3683505b293e7b5460b22b2eb82721a2526ade",
+    "requirements-demo.txt": "e6df993a0e714bb913e3633e5d8808f83911c62318a906b4175692b356824dfb",
+    "scripts/run_demo.py": "4f16a5de7d8ddf957b7165c914e1ebbb8a5e6d7055b72937780a691b8ad15748",
+    "scripts/verify_freeze.py": "eb9f3183d0e742038f1a172c4ddf4146186f9e5e9517a6e43fc1abcf34602720",
+    "src/demo/__init__.py": "6b49c2e5f38d61dab2231e1ec6618c1157d74a30fd644dbbd9b3b0c49c2bfb5a",
+    "src/demo/app.py": "9dcd073dc0d2d8a6e862aeef752711b05a18fc20b2b9d1c0b076676ef516c9d9",
+    "src/demo/service.py": "139900e7f2a9f2d9c1bbf534415bf4e372d2742b6e492b6ceaf4be1995d6d69c",
+    "src/demo/source_compat.py": "f418d2719f6ba4d7e15c5c90d61ea7ba7e9ab74d8c4183f41f4a320f4a2f2cc5",
+    "start-demo.ps1": "98816c93f835a1cbe447a3dec5764a945420d5d5025e1d68195d6db99476eed5",
+    "web/app.js": "a29536d1f3b61933121589c09788aae22d0c180d491efbf9be28d4b3ab6d0d6d",
+    "web/favicon.svg": "356fd9eeaa71b02acee8c3eb7ac25d7c73c8401129fc117f84a5f21c80286866",
+    "web/index.html": "246eae353ca9abf3945ac053b4f3e2c121c07f74b66dd2f110f9d18045183947",
+    "web/microphone.js": "9eef861ea0d20d37c39731b73aac1899bc3925fee33bd1088ecb8bb72f7a92d0",
+    "web/style.css": "10f96d3830e4a425752e9bf0084eab523cad1949d0f9a34205093501abb179d8"
+  }
+}

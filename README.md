@@ -29,3 +29,17 @@ python -m unittest discover -s tests -q
 云服务凭据从本地`.env`与可选`.env.deepseek`读取，文件已忽略。没有凭据也可运行程序单元测试；真实模型、ASR和TTS必须配置对应服务。冻结清单仅记录直接依赖，不声称完整锁定全部传递依赖或外部模型版本。
 
 相关记录：[当前指标](docs/24-当前指标与验收口径.md)、[后续任务](docs/07-TODO.md)、[最新规划修复](docs/29-当前问项与历史待办隔离.md)。
+
+## 网页演示
+
+演示标签：`v0.1.0-demo-20261014`，在冻结核心之外提供网页服务。默认录制回放无需凭据；实时DeepSeek与Qwen对照模式按服务配置启用。
+
+```powershell
+.\start-demo.ps1
+```
+
+打开`http://127.0.0.1:8080`。已有依赖时可直接运行`python scripts/run_demo.py`；当前Windows TLS异常环境使用`--native-https`。支持场景选择、连续咨询、条件更正、语音识别/朗读、停止、待办与原文查看、会话导出。
+
+可选容器启动：`docker compose up --build -d`。凭据使用`.env.demo.example`对应的本地`.env.demo`，不进入镜像或Git。完整步骤、已测范围及容器未实测说明见[Web服务与冻结版本](docs/30-Web演示服务与冻结版本.md)。
+
+验证冻结核心：`python scripts/verify_freeze.py`。Web包装后136项测试通过，业务准确率和语音指标不因包装自动提升。

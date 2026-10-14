@@ -6,3 +6,8 @@ __pycache__/
 .env.deepseek
 experiments/cache/
 experiments/recordings/
+.env.demo
+demo-runtime/
+.impeccable/
+playwright-report/
+test-results/
