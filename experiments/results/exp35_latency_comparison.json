@@ -1,0 +1,70 @@
+{
+  "control_full_text_s": {
+    "n": 143,
+    "median": 1.4954099000024144,
+    "p90": 2.2683571000015945,
+    "p95": 2.4259880000026897,
+    "max": 3.205436299998837
+  },
+  "candidate_full_text_s": {
+    "n": 143,
+    "median": 2.321845899998152,
+    "p90": 3.0241892999983975,
+    "p95": 3.315769699998782,
+    "max": 4.301270100004331
+  },
+  "paired_delta_s": {
+    "n": 143,
+    "median": 0.8575688000055379,
+    "p90": 1.2597293000071659,
+    "p95": 1.374725199995737,
+    "max": 1.8112439000033191
+  },
+  "candidate_above_3s": 16,
+  "control_chars": {
+    "n": 143,
+    "median": 122,
+    "p90": 246,
+    "p95": 277,
+    "max": 502
+  },
+  "candidate_chars": {
+    "n": 143,
+    "median": 120,
+    "p90": 239,
+    "p95": 283,
+    "max": 437
+  },
+  "candidate_local_after_call_s": {
+    "n": 143,
+    "median": 0.017527799995150417,
+    "p90": 0.029542699994635768,
+    "p95": 0.03785779999452643,
+    "max": 0.10288920000311919
+  },
+  "actions": {
+    "answer": {
+      "n": 118,
+      "median": 2.27514230000088,
+      "p90": 2.891995499994664,
+      "p95": 3.315769699998782,
+      "max": 4.301270100004331
+    },
+    "clarify": {
+      "n": 3,
+      "median": 2.423026699994807,
+      "p90": 3.3905607999986387,
+      "p95": 3.3905607999986387,
+      "max": 3.3905607999986387
+    },
+    "handoff": {
+      "n": 22,
+      "median": 2.7298267500009388,
+      "p90": 3.228245899998001,
+      "p95": 3.2620294999942416,
+      "max": 3.52000229999976
+    }
+  },
+  "candidate_one_call_every_row": true,
+  "method": "Existing exp34 control and exp35 candidate; sequential same-case comparison, not new calls. Complete text, not first token, STT/TTS or customer first audio. Local overhead includes rendering, provenance and decision validation, not just handoff."
+}

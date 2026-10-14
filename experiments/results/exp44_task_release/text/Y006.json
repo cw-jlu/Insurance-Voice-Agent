@@ -1,0 +1,121 @@
+{
+  "case": {
+    "id": "Y006",
+    "question": "门诊加油包多大岁数能买，一次能报多少？",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 712,
+      "seconds": 3.344341600000007,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 493,
+        "total_tokens": 505,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 356,
+      "seconds": 3.5909432000000834,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 248,
+        "total_tokens": 254,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 321,
+      "seconds": 3.5420834999999897,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 188,
+        "total_tokens": 214,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1108,
+      "seconds": 3.766550999999936,
+      "usage": {
+        "completion_tokens": 63,
+        "prompt_tokens": 725,
+        "total_tokens": 788,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 640,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 158371,
+      "known": {
+        "_history": "坐席：您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？\n用户：门诊加油包多大岁数能买，一次能报多少？",
+        "_consultation": {
+          "id": "c2",
+          "initial_question": "门诊加油包多大岁数能买，一次能报多少？",
+          "status": "pending",
+          "revision": 0,
+          "tasks": [
+            {
+              "id": "c2-u1-1",
+              "question": "门诊加油包多大岁数能买",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            },
+            {
+              "id": "c2-u1-2",
+              "question": "一次能报多少",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            }
+          ],
+          "facts": [],
+          "guard_faults": []
+        }
+      },
+      "seconds": 26.617351999999983,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

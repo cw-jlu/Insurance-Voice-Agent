@@ -1,0 +1,101 @@
+{
+  "case": {
+    "id": "Y041",
+    "question": "你这声音是AI生成的吧",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turn": {
+    "user": "你这声音是AI生成的吧",
+    "history_before": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ]
+    ],
+    "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？",
+    "profile": {},
+    "history_after": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ],
+      [
+        "用户",
+        "你这声音是AI生成的吧"
+      ],
+      [
+        "坐席",
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？"
+      ]
+    ],
+    "events": [
+      "承认AI"
+    ],
+    "timings": {
+      "understand": 0.9461945000002743,
+      "total": 0.9492566999979317
+    },
+    "ended": false,
+    "handoff_request": null,
+    "wall_s": 0.9493460999983654
+  },
+  "consultation": {},
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 696,
+      "seconds": 0.9136306000000332,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 480,
+        "total_tokens": 492,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 340,
+      "seconds": 0.9307229000005464,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 235,
+        "total_tokens": 241,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 313,
+      "seconds": 0.9325654000022041,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 181,
+        "total_tokens": 207,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ]
+}

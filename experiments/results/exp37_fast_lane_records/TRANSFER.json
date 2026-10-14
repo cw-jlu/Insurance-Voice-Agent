@@ -1,0 +1,82 @@
+{
+  "id": "TRANSFER",
+  "round": 1,
+  "question": "请帮我转人工客服",
+  "asr_text": "请帮我转人工客服。",
+  "asr_events": [
+    {
+      "t": 0.6066098999999667,
+      "slice_type": 0,
+      "text": "请帮我"
+    },
+    {
+      "t": 0.6645964999988792,
+      "slice_type": 1,
+      "text": "请帮我"
+    },
+    {
+      "t": 1.0854891999988467,
+      "slice_type": 1,
+      "text": "请帮我转人工"
+    },
+    {
+      "t": 1.7164447999984986,
+      "slice_type": 1,
+      "text": "请帮我转人工客服"
+    },
+    {
+      "t": 2.202935299999808,
+      "slice_type": 2,
+      "text": "请帮我转人工客服。"
+    }
+  ],
+  "asr_final_count": 1,
+  "split_intended_turn": false,
+  "session_text": "好的，我为您记录转人工请求。",
+  "events": [
+    "转人工请求:快车道"
+  ],
+  "flags": {
+    "recording": true,
+    "ai": true,
+    "quoted": true,
+    "limits": true,
+    "disclosure": true,
+    "consent": false,
+    "link": false,
+    "handoff": true
+  },
+  "profile": {
+    "relation": "本人"
+  },
+  "timings": {
+    "fast_lane": {
+      "source": "rule",
+      "kind": "handoff",
+      "text": "好的，我为您记录转人工请求。",
+      "emit_s": 0.0006140000004961621
+    },
+    "total": 0.0006661000006715767
+  },
+  "text_ready_s": 0.6440980000006675,
+  "asr_endpoint_s": 0.6429353000003175,
+  "first_response_pcm_s": 0.6441930000000866,
+  "first_response_dac_s": 0.7733391666661191,
+  "actual_dac_playback_end_s": 2.7853778333355876,
+  "business_first_packet_s": null,
+  "audio_duration_s": 2.098708333333333,
+  "sentences": [
+    {
+      "text": "好的，我为您记录转人工请求。",
+      "emit_wall": 0.6440241999989667,
+      "tts_start_wall": 0.6441887999990286,
+      "first_packet_wall": 0.6441930000000866,
+      "tts_first_s": 0.0,
+      "tts_done_s": 0.0,
+      "duration_s": 2.098708333333333
+    }
+  ],
+  "playback_statuses": [],
+  "output_latency_s": 0.04,
+  "recording": "D:\\CW\\Insure-Voice-Agent\\experiments\\recordings\\exp37\\answer_TRANSFER_r1.wav"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "C07",
+  "question": "得了重病要去外省治疗，路费、住宿和护工费能报吗",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

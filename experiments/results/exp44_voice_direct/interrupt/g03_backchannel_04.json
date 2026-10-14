@@ -1,0 +1,56 @@
+{
+  "key": "g03_backchannel_04",
+  "kind": "backchannel",
+  "user": "哦",
+  "gain": 0.03,
+  "agent_record": "T05",
+  "agent_round": 1,
+  "onset_s": 1.28,
+  "decisions": [
+    {
+      "asr": "哦",
+      "received_s": 1.7711561999999503,
+      "decision_s": 1.7812037999999575,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "哦",
+      "received_s": 1.8188213000000815,
+      "decision_s": 1.8192976000000272,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "嗯。",
+      "received_s": 2.184036200000037,
+      "decision_s": 2.1842896000000565,
+      "action": "resume",
+      "reason": "附和（rule）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.7711561999999503,
+      "slice_type": 0,
+      "text": "哦"
+    },
+    {
+      "t": 1.8188213000000815,
+      "slice_type": 1,
+      "text": "哦"
+    },
+    {
+      "t": 2.184036200000037,
+      "slice_type": 2,
+      "text": "嗯。"
+    }
+  ],
+  "stopped": false,
+  "stop_latency_s": null,
+  "wrong_stop_before_user": false,
+  "cancellation": null,
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

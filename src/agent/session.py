@@ -4,7 +4,8 @@ The sales flow is a state machine run by code; the per-turn answer (small chain)
 ``Pipeline.answer``. Gates between stages, and every compliance sentence, are deterministic:
 
     开场 → 需求 → 报价 → 讲限制 → 健康告知 → 投保 → 收尾
-    (any stage) 提问/异议 → answer, then resume the stage; 要人工/投诉 → 转人工; 两次拒绝 → 结束
+    (any stage) 提问/异议 → finish the tracked consultation before resuming sales;
+    要人工/投诉 → 转人工; 两次拒绝 → 结束
 
 Gates:
 - 报价 needs age and has_social (asked one at a time otherwise).
@@ -19,11 +20,15 @@ from __future__ import annotations
 
 import re
 import time
+from copy import deepcopy
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field
 
 from agent import small_model
+from agent.fast_lane import FAST_PHRASES, rule_ack, model_ack, waiting_reply, answer_while_waiting
 from agent.guardrail import IDENTITY_REPLY, is_identity_question
+from agent import consultation as consult
+from agent.dialogue import _BACKCHANNEL
 from agent.pipeline import Pipeline, _quote_text, combine_gaps, gaps_to_check, understand
 
 OPENING = ("您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，"
@@ -35,6 +40,7 @@ LINK_SENT = "好的，投保链接已经发到您手机上了，您按页面提�
 RETAIN = "理解。我只占用您半分钟说个重点：基础版总保额600万，大病医疗没有免赔额。您要是愿意听，我简单说一下？"
 GOODBYE = "好的，不打扰您了，祝您生活愉快，再见。"
 HANDOFF = "好的，我马上为您转接人工专员，刚才的情况我会一并告诉专员，您不用重复说。"
+POST_HANDOFF = "我已记录转人工请求，并附上刚才的问题和已有信息。"
 ASK = {"relation": "请问是给您自己买，还是给家人买？", "age": "请问被保人今年多大年纪？",
        "has_social": "请问有社保吗？有没有社保价格不一样。"}
 
@@ -46,6 +52,7 @@ class TurnResult:
     act: str
     events: list[str] = field(default_factory=list)
     timings: dict = field(default_factory=dict)
+    playback_id: int | None = None
 
 
 @dataclass
@@ -53,6 +60,10 @@ class CallSession:
     pipe: Pipeline
     agent_steps: int = 0
     voice: bool = True
+    fast_lane: bool = True
+    waiting_reply_enabled: bool = True
+    waiting_reply_delay_s: float = 1.5
+    playback_tracking: bool | None = None  # Voice defaults to receipts; text mode commits text.
     stage: str = "开场"
     profile: dict = field(default_factory=dict)
     profile_log: list = field(default_factory=list)
@@ -64,17 +75,78 @@ class CallSession:
     risk: dict = field(default_factory=lambda: {"gap_hits": 0, "fallbacks": 0})
     gap_topics: dict = field(default_factory=dict)
     pending_handoff_offer: bool = False
+    handoff_request: dict | None = None
+    consultation: dict = field(default_factory=dict)
+    _subject_since: int = 0  # User-message index since the latest explicit insured-person replacement.
     ended: bool = False
     _hypothetical: bool = False
     _comparison: bool = False
     _family_mention: bool = False
+    _playback_counter: int = 0
+    _playback_active: int | None = None
+    _playback_records: dict = field(default_factory=dict)
+
+    def __post_init__(self):
+        if self.playback_tracking is None:
+            self.playback_tracking = self.voice
 
     # ------------------------------------------------------------------ helpers
-    def _history_text(self, n: int = 6) -> str:
-        return "\n".join(f"{s}：{t}" for s, t in self.history[-n:])
+    def _history_text(self, n: int | None = None) -> str:
+        # Full confirmed history is the default. Explicit n is only for controls.
+        history = [h for h in self.history if h[1]]
+        if n is not None:
+            history = history[-n:] if n > 0 else []
+        return "\n".join(f"{s}：{t}" for s, t in history)
 
     def _say(self, text: str) -> None:
-        self.history.append(("坐席", text))
+        if self.playback_tracking and self._playback_active is not None:
+            record = self._playback_records[self._playback_active]
+            record['generated'] = text
+            record['generation_done'] = True
+        else:
+            self.history.append(("坐席", text))
+
+    def _begin_playback(self) -> None:
+        if not self.playback_tracking:
+            return
+        if self._playback_active is not None:
+            self.interrupt_playback(self._playback_active)
+        self._playback_counter += 1
+        self._playback_active = self._playback_counter
+        self._playback_records[self._playback_active] = {
+            'index': len(self.history), 'generated': '', 'heard': '', 'closed': False,
+            'generation_done': False, 'flags_before': dict(self.flags)}
+        self.history.append(('坐席', ''))  # Reserve order; empty pending text never enters prompts.
+
+    def confirm_playback(self, playback_id: int, heard: str, complete: bool = False) -> bool:
+        record = self._playback_records.get(playback_id)
+        if record is None or record['closed']:
+            return False  # Late receipts from cancelled turns must not restore stale text.
+        if not record['generated'].startswith(heard) or not heard.startswith(record['heard']):
+            raise ValueError('Playback receipt must be a monotonic prefix of generated speech')
+        if complete and (not record['generation_done'] or heard != record['generated']):
+            raise ValueError('Full playback requires the complete finalized response')
+        record['heard'] = heard
+        self.history[record['index']] = ('坐席', heard)
+        if complete:
+            record['closed'] = True
+            if record.get('consultation_key') == (self.consultation.get('id'),self.consultation.get('revision')):
+                self.consultation['status'] = record['consultation_status_after']
+        return True
+
+    def interrupt_playback(self, playback_id: int) -> dict:
+        record = self._playback_records.get(playback_id)
+        if record is None:
+            return {'heard': '', 'dropped': ''}
+        if not record['closed']:
+            record['closed'] = True
+            # Conservatively repeat newly generated disclosures if playback was incomplete.
+            for flag in ('quoted', 'limits', 'disclosure'):
+                if not record['flags_before'].get(flag, False):
+                    self.flags[flag] = False
+            if record.get('consultation_key') == (self.consultation.get('id'),self.consultation.get('revision')):
+                consult.reopen(self.consultation)
+        return {'heard': record['heard'], 'dropped': record['generated'][len(record['heard']):]}
 
     def _update_profile(self, slots: dict) -> list[str]:
         events = []
@@ -109,6 +181,10 @@ class CallSession:
         if self._next_missing():
             return "", events
         if not self.flags["quoted"]:
+            if getattr(self.pipe,'consultation_tracking',False) is True and not consult.quote_scope_known(
+                    self.profile,[t for s,t in self.history if s=='用户']):
+                self.stage = '需求'
+                return '需要报价的话，您是首次投保必选计划个人单，还是其他投保情况？', ['程序报价:范围待确认']
             qt = _quote_text(self.profile)
             self.stage = "报价"
             if qt is None:
@@ -135,6 +211,7 @@ class CallSession:
 
     # ------------------------------------------------------------------ public
     def opening(self) -> str:
+        self._begin_playback()
         self.flags["recording"] = self.flags["ai"] = True
         self._say(OPENING)
         return OPENING
@@ -148,11 +225,39 @@ class CallSession:
             cancel_check()
         self._spoken, self._emit_cb = [], on_sentence
         self.history.append(("用户", user_text))
+        self._begin_playback()
         hist = self._history_text()
         timings: dict = {}
 
+        fast_kind, ack = rule_ack(user_text) if self.voice and self.fast_lane else (None, '')
+        if ack:
+            if cancel_check is not None:
+                cancel_check()
+            self._emit(ack)
+            timings['fast_lane'] = {'source': 'rule', 'kind': fast_kind,
+                                    'text': ack, 'emit_s': time.perf_counter() - t0}
+        if fast_kind == 'handoff':
+            self.handoff_request = {'status': 'requested', 'origin': 'explicit_user',
+                                    'question': user_text, 'known': dict(self.profile)}
+            if self.consultation:
+                self.handoff_request['consultation'] = deepcopy(self.consultation)
+            self.flags['handoff'], self.ended, self.stage = True, True, '结束'
+            return self._finish(ack, '要人工', ['转人工请求:快车道'], timings, t0)
+
         # Understanding always runs, so facts stated in the same sentence are never lost (第五轮: an identity
         # question that skipped extraction made the agent ask the user's age again and again).
+        tracking = getattr(self.pipe,'consultation_tracking',False) is True
+        subject_change = tracking and bool(re.search(r'(?:换成|改成|改为|换给)(?:给)?(?:母亲|父亲|妈妈|爸爸|孩子|女儿|儿子|妻子|丈夫|爱人|配偶|自己|我)',user_text))
+        if subject_change:
+            self._subject_since = sum(s=='用户' for s,t in self.history)-1
+            for name in ('age','has_social','gender','relation'):
+                self.profile.pop(name,None)
+            self.flags['quoted'] = False
+            self.flags['consent'] = False  # Consent for the previous person cannot authorize the replacement.
+            if self.consultation.get('status')=='complete':
+                self.consultation = {}  # The finished prior-person consultation stays in the trace/history.
+            elif self.consultation:
+                consult.reopen(self.consultation,('age','has_social','gender','insured_with_social','remaining_deductible'))
         known = {**self.profile, "_history": hist}
         self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
         self._comparison = bool(re.search(r"比(有|没有|没)?(社保|医保)|如果|要是|假如|万一", user_text))
@@ -161,9 +266,19 @@ class CallSession:
         with ThreadPoolExecutor(4) as ex:  # all independent of each other: the slowest one sets the time
             fu = ex.submit(self.pipe.understand, user_text, known)
             fa = ex.submit(small_model.classify_act, user_text, hist, self.pipe.client)
-            fg = ex.submit(small_model.detect_gaps, user_text, self.pipe.client)
+            fg = (None if getattr(self.pipe, 'post_answer_routing', False)
+                  else ex.submit(small_model.detect_gaps, user_text, self.pipe.client))
             fr = ex.submit(self.pipe.retrieve, user_text)
-            u, act, gaps_now = fu.result(), fa.result(), fg.result()
+            act = fa.result()
+            if self.voice and self.fast_lane and not ack:
+                ack = model_ack(act)
+                if ack:
+                    if cancel_check is not None:
+                        cancel_check()
+                    self._emit(ack)
+                    timings['fast_lane'] = {'source': 'small_model_act', 'kind': 'query',
+                                            'text': ack, 'emit_s': time.perf_counter() - t0}
+            u, gaps_now = fu.result(), fg.result() if fg is not None else []
             u["_retrieved"] = fr.result()
         if cancel_check is not None:
             cancel_check()  # cancelled partials must not proceed to answer generation
@@ -172,6 +287,10 @@ class CallSession:
         # 48 calls in 第六轮 (exp12: 46/221 false positives alone, 7/221 combined).
         u["_gaps_check"] = gaps_to_check(u.get("gaps", []), gaps_now)
         u["gaps"], u["_gaps_judged"] = combine_gaps(u.get("gaps", []), gaps_now, user_text), True
+        if getattr(self.pipe, 'post_answer_routing', False):
+            # The evidence model decides after reading, so an earlier detector
+            # cannot replace its answer or trigger the old repeated-gap offer.
+            u['gaps'], u['_gaps_check'] = [], []
         if "疾病核保" in u["gaps"] and u.get("intent") not in ("缺口",):
             u["intent"] = "缺口"
         elif u.get("intent") == "缺口" and not u["gaps"]:
@@ -184,6 +303,10 @@ class CallSession:
             act = "提问"
         if act != "身份" and u.get("intent") == "身份":
             u["intent"] = "其他"  # one model alone misreads e.g. "没有，身体挺好的" (第八轮验收)
+        if fast_kind in ('query', 'correction') and act not in ('身份', '拒绝', '要人工', '投诉'):
+            act = '提问'  # Explicit consultation must not be lost to an act-classifier miss.
+        if subject_change and act not in ('要人工','投诉','身份'):
+            act='提问'  # Replacing one insured person is a new consultation, even if the prior person "不买".
         timings["understand"] = time.perf_counter() - t0
         events: list[str] = self._update_profile(u.get("slots") or {})
         # what _update_profile ignored must not reach the answer either (第十轮回归: "要是她70多岁了" was quoted at 70)
@@ -192,6 +315,16 @@ class CallSession:
                               or (k in ("relation", "gender") and self._family_mention))}
         if any(e.startswith(("纠正:age", "纠正:has_social", "纠正:relation")) for e in events) and self.flags["quoted"]:
             self.flags["quoted"] = False  # price depended on the corrected fact: quote again
+        tracking = getattr(self.pipe,'consultation_tracking',False) is True
+        changed = [e.split(':')[1] for e in events if e.startswith('纠正:')]
+        if tracking and self.consultation and (changed or re.search(r'更正|说错|重新报|重算|改成|换成',user_text)):
+            # Reopen BEFORE consent/link gates, including a correction and consent
+            # stated in the same sentence.
+            consult.reopen(self.consultation,changed)
+        explicit_query=tracking and (bool(u.get('obligations')) or (bool(QUESTION_MARKERS.search(user_text)) and bool(re.search(
+            r'投保|保费|费率|保障|责任|加油包|医保|社保|医院|赔|能报|津贴|补贴|免赔|等待|保险|多少钱',user_text))))
+        if explicit_query and act not in ('身份','要人工','投诉','拒绝'):
+            act='提问'
 
         offered_handoff = self.pending_handoff_offer and self._last_agent_text().endswith(OFFER_HANDOFF)
         accepts_handoff = offered_handoff and not self._last_agent_asked_link() and (_yes(user_text) or ACCEPT_HANDOFF.search(user_text))
@@ -207,9 +340,15 @@ class CallSession:
             act = "要人工"  # the classifier missed "能帮我转人工客服吗" once (第十轮回归)
         if act in ("要人工", "投诉") or accepts_handoff:
             self.flags["handoff"], self.ended, self.stage = True, True, "结束"
+            if getattr(self.pipe,'consultation_tracking',False) is True and self.consultation:
+                self.handoff_request = {'status':'requested','origin':'explicit_user',
+                    'question':self.consultation['initial_question'],'latest_user':user_text,
+                    'known':dict(self.profile),'consultation':deepcopy(self.consultation)}
+                self.consultation['status'] = 'handed_off'
+                return self._finish(POST_HANDOFF,act,events+['转人工请求:保留原咨询'],timings,t0)
             return self._finish(HANDOFF, act, events + ["转人工"], timings, t0)
         self.pending_handoff_offer = False
-        if act in ("异议", "提问", "附和") and re.search(r"不需要|不要了|不买了?|没兴趣|用不着", user_text)                 and not QUESTION_MARKERS.search(user_text):
+        if not subject_change and act in ("异议", "提问", "附和") and re.search(r"不需要|不要了|不买了?|没兴趣|用不着", user_text)                 and not QUESTION_MARKERS.search(user_text):
             act = "拒绝"  # "517啊，太贵了，不需要" is a refusal, not only a price objection (第十轮回归)
         if act == "拒绝" and re.search(r"考虑|想想|再说|看看|发.{0,4}(介绍|资料|链接)", user_text):
             act = "异议"  # "let me think about it" is hesitation, not a refusal
@@ -228,7 +367,7 @@ class CallSession:
             events.append("撤回同意")
         if OTHER_CHANNEL.search(user_text) and not re.search(r"手机|短信", user_text):
             return self._finish(OTHER_CHANNEL_REPLY, act, events + ["其他渠道:改为询问链接"], timings, t0)
-        if _consents(user_text, act, self._last_agent_asked_link()):
+        if _consents(user_text, act, self._last_agent_asked_link()) and not consult.pending(self.consultation) and not explicit_query:
             self.flags["consent"] = True
             if self.flags["quoted"] and self.flags["limits"] and self.flags["disclosure"]:
                 self.flags["link"] = True
@@ -242,7 +381,7 @@ class CallSession:
                 ev += e
                 if step:
                     steps.append(step)
-                if not step or step in ASK.values() or step == DISCLOSURE or self.ended:
+                if not step or step in ASK.values() or step == DISCLOSURE or self.ended or '程序报价:范围待确认' in e:
                     break
             return self._finish("好的，" + "".join(steps) if steps else "好的。", "同意投保",
                                 events + ev + ["同意(记住)", "门禁:暂不发链接"], timings, t0)
@@ -259,6 +398,12 @@ class CallSession:
                         or (QUESTION_MARKERS.search(user_text) is not None and u.get("intent") not in ("闲聊", "其他")))
         if HESITATE.search(user_text) and not QUESTION_MARKERS.search(user_text):
             has_question = False  # "那我再考虑考虑吧，先挂了": nothing to answer, only the keep-the-link offer below
+        if tracking and consult.pending(self.consultation) and (act in ('提供信息','提问','异议','同意投保') or changed
+                or (act=='附和' and not _BACKCHANNEL.match(user_text.strip()))):
+            if act=='附和':
+                act='提供信息'
+            has_question = True
+            events.append('继续原咨询')
         answer_text, asked = "", False
         if act == "身份":
             self.flags["ai"] = True
@@ -267,11 +412,48 @@ class CallSession:
             self._emit(answer_text)
             has_question = bool(u.get("gaps")) or u.get("intent") not in ("身份", "闲聊", "其他")
         if has_question and act != "附和" and (act != "身份" or u.get("intent") != "身份"):
+            if tracking and not consult.pending(self.consultation):
+                self.consultation = consult.start(user_text,f'c{len(self.history)}')
+            if tracking:
+                consult.add_questions(self.consultation,u.get('obligations',[]))
             known = {**self.profile, "_history": hist}
+            if tracking:
+                known['_consultation'] = consult.model_context(self.consultation)
+                known['_user_texts'] = [t for s,t in self.history if s=='用户']
+                known['_condition_user_texts'] = known['_user_texts'][self._subject_since:]
             steps = self.agent_steps if self.agent_steps and _is_complex(u, user_text) else 0
-            a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=steps,
-                                 agent_budget_s=self.agent_budget_s, understanding=u,
-                                 on_sentence=self._emit if self._emit_cb is not None else None)
+            if tracking and self.voice and self.fast_lane and self.waiting_reply_enabled:
+                wait_context=consult.model_context(self.consultation)
+                a,bridge = answer_while_waiting(
+                    lambda:self.pipe.answer(user_text,known,voice=self.voice,agent_steps=steps,
+                                            agent_budget_s=self.agent_budget_s,understanding=u,on_sentence=None),
+                    lambda:waiting_reply(user_text,hist,wait_context,self.pipe.client),
+                    self._emit,cancel_check,delay_s=self.waiting_reply_delay_s)
+                timings['waiting_reply']=bridge
+                if bridge['emitted']:
+                    answer_text+=bridge['text']
+                    events.append('等待承接:小模型')
+            else:
+                a = self.pipe.answer(user_text, known, voice=self.voice, agent_steps=steps,
+                                     agent_budget_s=self.agent_budget_s, understanding=u,
+                                     on_sentence=self._emit if self._emit_cb is not None else None)
+            if cancel_check is not None:cancel_check()
+            if tracking:
+                progress = a.timings.get('consultation')
+                if progress:
+                    self.consultation = deepcopy(progress)
+                elif a.outcome.get('action')=='error':
+                    self.consultation['status'] = 'error'
+                if a.outcome.get('action') in ('answer','clarify') and any(t['kind']=='price' and t['status']=='answered'
+                        and type(t.get('quoted_amount')) in (int,float) for t in self.consultation.get('tasks',[])):
+                    self.flags['quoted'] = True
+                if self.playback_tracking and self._playback_active is not None:
+                    record = self._playback_records[self._playback_active]
+                    record['consultation_key'] = (self.consultation.get('id'),self.consultation.get('revision'))
+                    record['consultation_status_after'] = self.consultation['status']
+                    self.consultation['status'] = 'awaiting_playback'
+                self._emit(a.text)
+                timings['consultation'] = deepcopy(self.consultation)
             # a blocked answer with nothing program-made to say instead: say nothing and let the flow continue,
             # rather than an unrelated "转专员确认" line (第十轮回归)
             answer_text += "" if (a.fallback_used and a.text.startswith("这个问题我需要帮您转专员确认")) else a.text
@@ -289,6 +471,23 @@ class CallSession:
                                              "attempts": a.attempts, "violations": a.violations}
             events.append(f"回答:{a.route}" + (f"(Agent {a.timings.get('agent_steps', 0)}步)" if steps else ""))
 
+            if a.handoff_request is not None:
+                # This records a request for the existing transfer integration;
+                # it does not pretend the telephony provider has connected anyone.
+                self.handoff_request = a.handoff_request
+                self.flags['handoff'], self.ended, self.stage = True, True, '结束'
+                timings['handoff_request'] = a.handoff_request
+                timings['handoff_notice'] = POST_HANDOFF
+                return self._finish(answer_text + POST_HANDOFF, act, events + ['后置转人工请求'], timings, t0)
+            if a.outcome.get('action') == 'clarify':
+                return self._finish(answer_text, act, events + ['追问缺少条件'], timings, t0)
+            if a.outcome.get('action') == 'error':
+                return self._finish(answer_text, act, events + ['响应异常:暂停销售流程'], timings, t0)
+            if tracking:
+                # Deliver the finished consultation first; sales may advance on
+                # the next user turn, rather than appending another generic quote.
+                return self._finish(answer_text,act,events+['原咨询完成:本轮不追加销售'],timings,t0)
+
         if any(self.gap_topics[g] >= 2 for g in u.get("gaps", [])) and not new_gaps:
             # the user keeps pressing on something the data cannot answer: offer a specialist, don't force it
             self.pending_handoff_offer = True
@@ -299,6 +498,10 @@ class CallSession:
             return self._finish(text, act, events + ["询问是否转人工"], timings, t0)
 
         from agent.pipeline import FOLLOW_UP
+
+        if tracking and consult.pending(self.consultation):
+            return self._finish(answer_text or '请补充刚才需要确认的信息，我再继续回答原来的问题。',act,
+                                events+['咨询未完成:暂停销售'],timings,t0)
 
         if answer_text.endswith(FOLLOW_UP):  # the flow's own next question replaces the generic follow-up
             answer_text, asked = answer_text[: -len(FOLLOW_UP)], False
@@ -317,7 +520,7 @@ class CallSession:
         return self._finish(_dedupe(text, self._last_agent_text()), act, events + ev, timings, t0)
 
     def _last_agent_text(self) -> str:
-        return next((t for s, t in reversed(self.history) if s == "坐席"), "")
+        return next((t for s, t in reversed(self.history) if s == "坐席" and t), "")
 
     def _last_agent_asked_link(self) -> bool:
         return "投保链接发到您手机" in self._last_agent_text()
@@ -325,10 +528,17 @@ class CallSession:
     def _emit(self, sentence: str) -> None:
         if self._emit_cb is not None:
             self._spoken.append(sentence)
+            if self.playback_tracking and self._playback_active is not None:
+                self._playback_records[self._playback_active]['generated'] += sentence
             self._emit_cb(sentence)
 
     def _finish(self, text: str, act: str, events: list[str], timings: dict, t0: float) -> TurnResult:
-        text, removed = capability_guard(text)
+        # Keep the acknowledgment in returned text/history even without streaming.
+        ack = timings.get('fast_lane', {}).get('text', '')
+        business_text = text[len(ack):] if ack and text.startswith(ack) else text
+        text, removed = capability_guard(business_text)
+        if ack:
+            text = ack + text
         if removed:
             events.append("能力护栏:" + "；".join(removed))
         if self._emit_cb is not None:
@@ -341,14 +551,15 @@ class CallSession:
             self._emit_cb = None
         self._say(text)
         timings["total"] = time.perf_counter() - t0
-        return TurnResult(text=text, stage=self.stage, act=act, events=events, timings=timings)
+        return TurnResult(text=text, stage=self.stage, act=act, events=events, timings=timings,
+                          playback_id=self._playback_active if self.playback_tracking else None)
 
 
 def fixed_phrases() -> list[str]:
     """Sentences the agent says verbatim; their audio can be synthesized once, before the call."""
     from agent.pipeline import FOLLOW_UP, GAP_FALLBACK, WAIT_TEXT
 
-    whole = [OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP, CLAIMS_PROCESS,
+    whole = [*FAST_PHRASES, OPENING, LIMITS, DISCLOSURE, ASK_LINK, LINK_SENT, RETAIN, GOODBYE, HANDOFF, OFFER_HANDOFF, FOLLOW_UP, CLAIMS_PROCESS,
              OTHER_CHANNEL_REPLY,
              IDENTITY_REPLY + "价格和保障我都能帮您讲清楚。", WAIT_TEXT, "这款产品的保险期间是一年。", "好的，您还想了解哪方面？",
              *ASK.values(), *GAP_FALLBACK.values()]

@@ -1,0 +1,18 @@
+{
+  "date": "2026-10-13",
+  "models": {
+    "answer": "deepseek-flash",
+    "flow": "qwen-flash"
+  },
+  "policy": "full heard history; overflow-only summary; no truncation by turn count",
+  "no_audio": true,
+  "operator_rules_not_sent_to_agent": true,
+  "code_sha256": {
+    "src/agent/context.py": "b75e188ca22cd1ee9c6508955571666a947d5e2095092f172f879fc1787ba88d",
+    "src/agent/cloud.py": "969c4e717c9611dfd01862b89434277f0f23cb544350ae3f4f81894028fdfb4c",
+    "src/agent/session.py": "0cf20cd7ae3d3826ce3a452cf0a25d85505dd4a98d85fff7ca621947ffbc8df1",
+    "src/agent/evidence_answer.py": "426def88f9fceb660339ac703e3db36b596308b65cc4598a2217366653efb74b",
+    "src/agent/pipeline.py": "943c8129657001d040bb1d096d46618554d6370d669ae51d2779e19215244823",
+    "src/agent/small_model.py": "0c77792bf7493a3a6848a2af11eb0f4c0c839fa23de4d23d6c3199b20ff45493"
+  }
+}

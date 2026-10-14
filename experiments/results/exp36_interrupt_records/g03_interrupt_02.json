@@ -1,0 +1,79 @@
+{
+  "key": "g03_interrupt_02",
+  "kind": "interrupt",
+  "user": "不是，我是给我妈买的",
+  "gain": 0.03,
+  "agent_record": "C02",
+  "agent_round": 1,
+  "onset_s": 1.78,
+  "decisions": [
+    {
+      "asr": "不是",
+      "received_s": 2.241724499999691,
+      "decision_s": 2.2422201999997924,
+      "action": "stop",
+      "reason": "打断（rule）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.241724499999691,
+      "slice_type": 0,
+      "text": "不是"
+    },
+    {
+      "t": 2.3064727999999377,
+      "slice_type": 1,
+      "text": "不是"
+    },
+    {
+      "t": 2.69076799999948,
+      "slice_type": 1,
+      "text": "不是啊"
+    },
+    {
+      "t": 3.3213388999993185,
+      "slice_type": 1,
+      "text": "不是啊我是给我妈"
+    },
+    {
+      "t": 3.966742799999338,
+      "slice_type": 1,
+      "text": "不是啊，我是给我妈买的"
+    },
+    {
+      "t": 4.013520999999855,
+      "slice_type": 2,
+      "text": "不是啊，我是给我妈买的。"
+    },
+    {
+      "t": 10.354099199999837,
+      "slice_type": 0,
+      "text": "左右五"
+    },
+    {
+      "t": 10.386696399999892,
+      "slice_type": 1,
+      "text": "左右五"
+    },
+    {
+      "t": 10.576568399999815,
+      "slice_type": 2,
+      "text": "责任无免赔。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 0.4918055000013919,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7342.8374082,
+    "last_scheduled_dac_wall": 7342.866990100001,
+    "dropped_frames": 469440,
+    "stream_latency_s": 0.04,
+    "decision_s": 2.2422201999997924,
+    "stop_dac_s": 2.271805500001392
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

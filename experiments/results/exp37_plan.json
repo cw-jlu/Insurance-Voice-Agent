@@ -1,0 +1,33 @@
+{
+  "cases": [
+    {
+      "id": "C02",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "H07",
+      "question": "已确定满足合同16种特定疾病康复责任的全部条件，康复住院有没有免赔额？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H15",
+      "question": "我30岁有社保首次买必选计划年缴多少钱以及原位癌能否按这份合同的100种重疾报销请确认定义",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "TRANSFER",
+      "question": "请帮我转人工客服",
+      "known": {}
+    }
+  ],
+  "code_sha256": {
+    "src/agent/session.py": "cac8676d8f19cb1f89b6486732d58fe4bee27f449b485ba47060faad67a3360c",
+    "src/agent/fast_lane.py": "16c1332683b30dd2b92dfcbbd96707d66b5d006c2f9da21a9b67a84943b97251",
+    "src/agent/evidence_pipeline.py": "6c7d43fa8d271fa96223ca39ba6003cefbb943a9ff5f841ff7c4eaca6ab5092d"
+  },
+  "method": "Four diagnostic turns, cached neutral acknowledgment plus unchanged DS evidence answer; actual ASR/TTS and local DAC. Transfer requests recorded only. Business first packet separately measured, not business DAC."
+}

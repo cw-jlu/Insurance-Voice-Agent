@@ -1,0 +1,8 @@
+{
+  "id": "C15",
+  "question": "我女儿8岁，近视手术和看牙能报吗，住院呢",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

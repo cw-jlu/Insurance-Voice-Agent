@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-13",
+  "models": {
+    "answer": "deepseek-flash",
+    "flow": "qwen-flash"
+  },
+  "variant": "v4 persistent consultation; full heard history; overflow-only compression",
+  "case_ids": [
+    "MT01",
+    "MT02",
+    "MT03",
+    "MT04",
+    "MT05",
+    "MT06",
+    "MT07",
+    "MT08",
+    "MT09",
+    "MT10",
+    "CP01",
+    "CP02",
+    "CP03",
+    "CP04",
+    "CP05",
+    "CP06",
+    "CP07",
+    "CP08",
+    "CP09",
+    "CP10",
+    "MX01",
+    "MX02",
+    "MX03",
+    "MX04",
+    "MX05",
+    "MX06",
+    "MX07",
+    "MX08",
+    "MX09",
+    "MX10"
+  ],
+  "no_audio": true,
+  "operator_rules_not_sent_to_agent": true,
+  "operator": "audible questions only; raw responses retained",
+  "transport": "Windows certificate-checked HTTPS test-only; no production networking change",
+  "code_sha256": {
+    "src/agent/consultation.py": "f19da1dfc57fa2e91ccb7d4607cb5694745f509cc1f72b368908b4f2774301a3",
+    "src/agent/session.py": "775fb3260d4c8b8a36e9ce75e8442dc6e8ad0827675373a3434e36daa8314771",
+    "src/agent/evidence_pipeline.py": "50c6a573a0fe555407280c0f2cfd072b03b023fbc298a0c4b3f053d6adf0eeb8",
+    "src/agent/evidence_answer.py": "37724106ad409bc00284e53f7899c146fa42889b76cba21d464b6aaaeb6f5111"
+  }
+}

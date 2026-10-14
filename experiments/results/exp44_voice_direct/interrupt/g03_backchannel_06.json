@@ -1,0 +1,9 @@
+{
+  "key": "g03_backchannel_06",
+  "kind": "backchannel",
+  "user": "好，你继续",
+  "gain": 0.03,
+  "agent_record": "T01",
+  "agent_round": 1,
+  "error_type": "RuntimeError"
+}

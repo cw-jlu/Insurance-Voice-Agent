@@ -1,0 +1,85 @@
+{
+  "key": "g03_backchannel_02",
+  "kind": "backchannel",
+  "user": "好的",
+  "gain": 0.03,
+  "agent_record": "C02",
+  "agent_round": 1,
+  "onset_s": 1.8199999999999998,
+  "decisions": [
+    {
+      "asr": "好的",
+      "received_s": 2.1890057000000525,
+      "decision_s": 2.189690399999563,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "好的",
+      "received_s": 2.2417057000002387,
+      "decision_s": 2.2418745999993916,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "好的。",
+      "received_s": 2.920099300000402,
+      "decision_s": 2.9203937000002043,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "左右五",
+      "received_s": 10.270245000000614,
+      "decision_s": 10.657750499999565,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.1890057000000525,
+      "slice_type": 0,
+      "text": "好的"
+    },
+    {
+      "t": 2.2417057000002387,
+      "slice_type": 1,
+      "text": "好的"
+    },
+    {
+      "t": 2.920099300000402,
+      "slice_type": 2,
+      "text": "好的。"
+    },
+    {
+      "t": 10.270245000000614,
+      "slice_type": 0,
+      "text": "左右五"
+    },
+    {
+      "t": 10.32488420000027,
+      "slice_type": 1,
+      "text": "左右五"
+    },
+    {
+      "t": 10.520024500000545,
+      "slice_type": 2,
+      "text": "责任无免赔。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 8.862852700001604,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7662.6408658,
+    "last_scheduled_dac_wall": 7662.665963900002,
+    "dropped_frames": 65280,
+    "stream_latency_s": 0.04,
+    "decision_s": 10.657750499999565,
+    "stop_dac_s": 10.682852700001604
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

@@ -1,0 +1,8 @@
+{
+  "date": "2026-10-12",
+  "stage": "playback_stream_start",
+  "error_type": "PortAudioError",
+  "reason": "Concurrent voice and two interruption playback streams could not start on the configured Windows device.",
+  "valid_trials_saved": 0,
+  "handling": "Preserve setup failure. Serialize playback on the device and run frozen interruption cases after voice trials finish. Do not count unexecuted jobs as ASR decisions."
+}

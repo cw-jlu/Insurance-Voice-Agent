@@ -1,0 +1,10 @@
+{
+  "model": "deepseek-flash",
+  "prompt_sha256": "e0d8fbe95bb31a2bdc77e4ffbc71a1c99657802b032601796bca35399cdc7fbe",
+  "cases": [
+    "02",
+    "03",
+    "06"
+  ],
+  "method": "Fresh DS v3 short spoken summaries in original exp38 ASR/history/profile context. Baseline is saved prior sequential run, not randomized contemporaneous control. Real TTS audio duration, no new ASR/DAC test or automated semantic judge."
+}

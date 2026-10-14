@@ -1,0 +1,876 @@
+{
+  "date": "2026-10-13",
+  "variant": "current v4 + full heard history + bounded waiting topic reply",
+  "mode": "text",
+  "frozen_cases": [
+    {
+      "id": "C01",
+      "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C02",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C03",
+      "question": "住院花了一万五，自己出多少，没走医保会怎样",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C04",
+      "question": "我有社保，门诊加油包和基础版的门急诊有什么区别",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C05",
+      "question": "中风以后住院、康复、请护工分别能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C06",
+      "question": "孩子5岁有社保，能买门急诊加油包和药省保吗，网上买药怎么报",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C07",
+      "question": "得了重病要去外省治疗，路费、住宿和护工费能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C08",
+      "question": "一家三口一起买，免赔额能一起算吗，有优惠吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C09",
+      "question": "我有高血压，买了以后高血压住院和意外住院能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C10",
+      "question": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C11",
+      "question": "住私立医院的VIP病房能报吗，公立医院的特需部呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C12",
+      "question": "住院补偿加油包和基础版一起买，一万以内的住院费怎么报，看结节呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C13",
+      "question": "确诊重疾除了报医药费，还能拿到一笔钱吗，要另外买什么",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C14",
+      "question": "住院10天能拿多少津贴，进了3天ICU呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C15",
+      "question": "我女儿8岁，近视手术和看牙能报吗，住院呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C16",
+      "question": "怀孕期间生病住院能报吗，生孩子的费用呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C17",
+      "question": "医保报完以后剩下的部分怎么赔，特药里社保目录内的药呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C18",
+      "question": "我58岁，能买哪些加油包，门急诊加油包可以吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C19",
+      "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C20",
+      "question": "我有甲状腺结节，买了以后结节手术能报吗，加了住院补偿加油包呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C21",
+      "question": "住院前后看门诊的钱能报吗，出院后拿药呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C22",
+      "question": "康复住院救护车能报吗，转院的救护车呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C23",
+      "question": "在日本做光免疫治疗能报吗，床位费有限制吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C24",
+      "question": "罕见病买药和癌症买药要求一样吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C25",
+      "question": "我是货车司机，45岁有社保，能买吗，多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C26",
+      "question": "一年交和每月交差多少，30岁有社保",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C27",
+      "question": "家里4口人，有的有社保有的没有，免赔额共享和家庭优惠都能用吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C28",
+      "question": "得了抑郁症住院和吃药能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C29",
+      "question": "体检查出肿瘤，住院手术和后续化疗能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C30",
+      "question": "急诊抢救花了五千，后来住院花了两万，一共能报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y001",
+      "question": "门诊能报吗？住ICU有没有额外补贴？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y002",
+      "question": "住院有免赔额吗，等待期多久？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y003",
+      "question": "重疾医疗最多报多少，护工费给不给？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y004",
+      "question": "癌症特效药能报吗，质子重离子呢？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y005",
+      "question": "药省保要等几天，一个月最多报多少？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y006",
+      "question": "门诊加油包多大岁数能买，一次能报多少？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y007",
+      "question": "意外住院要等吗？生病住院呢？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y008",
+      "question": "住院津贴一天多少，ICU一天多少？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y009",
+      "question": "康复住院有免赔额吗，按多少比例报？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y010",
+      "question": "家庭单怎么优惠，全家的免赔额能一起算吗？",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y011",
+      "question": "住院津贴一天能拿多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y012",
+      "question": "ICU一天能补多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y013",
+      "question": "大病住院请护工，一天能给多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y014",
+      "question": "转院到外地看大病，住宿一天最多报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y015",
+      "question": "特需病房的床位费一天最多报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y016",
+      "question": "门诊加油包一年最多能报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y017",
+      "question": "我和我老公都39岁，都没社保，两个人一起买每人多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y018",
+      "question": "孩子6岁有社保，基础版加药省保一年一共多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y019",
+      "question": "我30岁有社保，基础版加上住院津贴加油包，一年总共多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y020",
+      "question": "我们一家四口一起买能便宜多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y021",
+      "question": "一般住院有社保的话怎么报",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y022",
+      "question": "特药里社保目录内的药怎么报",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y023",
+      "question": "没走社保看病，住院报多少比例",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y024",
+      "question": "ICU住院的医疗费基础版报不报",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y025",
+      "question": "门急诊有免赔额吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y026",
+      "question": "基础版最多能保到多少岁",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y027",
+      "question": "住院津贴是基础版自带的吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y028",
+      "question": "重疾确诊一次性给的5万，买基础版就有吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y029",
+      "question": "我姐今年34岁，单位交着社保，按月缴要多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y030",
+      "question": "我今年49岁，没参加医保，按月缴要多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y031",
+      "question": "我今年49岁，参加了医保，年缴多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y032",
+      "question": "我姐今年64岁，社保没交了，按月缴要多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y033",
+      "question": "我哥今年69岁，单位交着社保，年缴多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y034",
+      "question": "我姐今年69岁，参加了医保，年缴多少钱",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y035",
+      "question": "做激光祛斑能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y036",
+      "question": "整牙矫正能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y037",
+      "question": "因为醉酒摔伤住院能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y038",
+      "question": "我有慢性胃炎，能投保吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y039",
+      "question": "我老婆做过乳腺手术，能给她买吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y040",
+      "question": "这个保险到期以后还能接着买吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "Y041",
+      "question": "你这声音是AI生成的吧",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "N01",
+      "question": "我30岁有医保，基础保障按月交一年比按年交贵多少？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N02",
+      "question": "我31岁有医保，基础保障按月交一年比按年交贵多少？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N03",
+      "question": "我投保时选的是无社保身份，住院也没走医保，是不是只能报60%？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N04",
+      "question": "投保选了有医保，住院没有用医保结算，符合范围的费用15000元，没有其他补偿，年免赔还没用，赔多少？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N05",
+      "question": "我怀孕了，因摔断手臂住院的费用能报吗？生孩子的住院费也一起报吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N06",
+      "question": "三个人买了家庭共享免赔额包，我看普通门诊自己花的钱，能计入家人的共享免赔吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N07",
+      "question": "买保险之前已经查出甲状腺结节，加上住院补偿包，之后结节手术能按20%报吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N08",
+      "question": "我开营运货车，总质量4吨，42岁有医保，可以买吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N09",
+      "question": "我56岁，去年买了门急诊加油包，到期按保险公司指定期限重新投保，今年还能按这个包的费率买吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N10",
+      "question": "基因检测主条款写一万元，服务备注写不限额，是不是所有检测都不限额？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N11",
+      "question": "普通住院10天，其中ICU3天，已买住院津贴包，两项可以加起来拿2200元吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N12",
+      "question": "今天生效的住院津贴包，明天车祸住ICU两天，是否要等30天才有津贴？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N13",
+      "question": "确诊的癌症满足合同重疾定义，住院和化疗都走一般医疗扣一万元吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N14",
+      "question": "请我自己找的护工照顾重疾住院，一天500元，拿发票就能报吗？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N15",
+      "question": "64岁无社保，基础保障月缴881元，是不是保证我可以一直续到105岁？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "N16",
+      "question": "孩子正好6岁，药省保能开处方药吗？网上普通购药怎么赔？",
+      "known": {},
+      "group": "prior_boundary16"
+    },
+    {
+      "id": "E01",
+      "question": "孩子4岁有医保，只买基础版，按当前标准费率年缴多少钱？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E02",
+      "question": "孩子正好5岁，有医保，只买基础版年缴多少钱？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E03",
+      "question": "55岁没有社保，基础版每月标准保费是多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E04",
+      "question": "56岁有社保，基础版年缴标准保费是多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E05",
+      "question": "31岁女性，重疾关爱加油包每5万元保额年缴多少钱？不要算基础版。",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E06",
+      "question": "31岁男性，重疾关爱加油包每5万元保额年缴多少钱？不要算基础版。",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E07",
+      "question": "普通住院合规费用8000元，已用医保结算，没其他补偿，一般医疗年免赔还没用，能赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E08",
+      "question": "普通住院合规费用20000元，其中医保报了10000元，一般医疗年免赔还没用，没有其他补偿，商业险赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E09",
+      "question": "一般医疗年度免赔已抵扣6000元，这次普通住院合规费用9000元，医保身份投保且已医保结算，没有其他补偿，赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E10",
+      "question": "我按无社保身份投保，普通住院合规费用15000元，年免赔没用，也没其他补偿，赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E11",
+      "question": "已买住院津贴包，普通住院2天，符合责任条件，这次一般住院津贴能领多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E12",
+      "question": "已买津贴包，符合责任条件，总共住院2天，两天都在ICU，普通和ICU津贴加起来多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E13",
+      "question": "已买津贴包，责任条件全符合，普通住院40天，今年没有领过津贴，一次最多领多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E14",
+      "question": "已买津贴包，同一病因住院两次，每次10天，出院后20天又入院，其他责任条件都满足，一般住院津贴免赔扣几次、领多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E15",
+      "question": "已购门急诊包，有医保身份投保且医保结算，单次合规门诊费200元，无其他补偿，今年限额没用过，赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E16",
+      "question": "已购门急诊包，以有医保身份投保却没按医保结算，单次合规门诊费200元，其他条件满足，赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E17",
+      "question": "已购药省保，指定互联网药店买100元合规药品，当月已赔90元、年度限额还充足，本次还能赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E18",
+      "question": "药省保今年已赔900元，本月未赔，指定平台这次合规药费400元，其他条件满足，本次能赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E19",
+      "question": "基础一般医疗年免赔已抵扣7000元，这次普通门急诊合规费用5000元，已医保结算且无其他补偿，基础门急诊赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E20",
+      "question": "普通疾病住院，在保单约定的指定民营医院普通部，是不是因为私立就一概不赔？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E21",
+      "question": "我买了重疾特需加油包，符合合同重疾定义，去不在保单约定名单内的私立医院VIP部，这样也能报吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E22",
+      "question": "我投保前有甲状腺结节，投保后因车祸骨折住院，和结节无关，保险会不会因为有结节把骨折费用也排除？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E23",
+      "question": "乳腺疾病投保前已确诊，投保成功后为这个同一病做手术，过了30天等待期是不是就能报？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E24",
+      "question": "投保后过等待期才首次确诊结节，不属于既往症，已购住院补偿包且按医保身份结算，合规住院费10000元，其他条件满足，这个包赔多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E25",
+      "question": "住院补偿包同时写结节20%、有医保身份未结算60%，如果两条同时满足，到底取20%、60%还是乘成12%？资料明确写组合方式了吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E26",
+      "question": "投保60天后才首次出现腰椎间盘突出，不是既往症，住院补偿包不赔脊椎病，是不是基础一般医疗也就一定不赔？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E27",
+      "question": "已经确认符合合同16种特定疾病的康复条件，但还没确认是否符合100种重疾，能不能直接说重大疾病医疗也无免赔？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E28",
+      "question": "只是普通疾病，没满足合同重大疾病定义，跨省住院能领重大疾病异地转诊住宿补贴吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E29",
+      "question": "符合合同重疾跨省转诊，转院证明等条件都满足，我带两名亲属一起去，两人的交通住宿费能都报吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E30",
+      "question": "合同重疾跨省转诊条件满足，坐飞机商务舱，能按商务舱价格全额报交通费吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E31",
+      "question": "基础一般医疗普通部住院的床位费，是不是也统一每天最多1500元？原文有这个限制吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E32",
+      "question": "把特药保障的完整药品清单给我，资料里有没有完整清单？别猜药名。",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E33",
+      "question": "原位癌是否一定在这个合同100种重大疾病定义里？你手里的资料能确认这个定义吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E34",
+      "question": "能不能把所有约定民营医院的完整名单列出来？资料给全了吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E35",
+      "question": "基础版写外购药械费用，是不是只要有医院处方，任何院外药都能报？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E36",
+      "question": "费率表有到105岁的年龄档，是不是证明我70岁首次买后就保证续保到105岁？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E37",
+      "question": "我开的货车总质量3吨，而且非营运，特殊职业表里营运4吨及以上那一条能直接套在我身上拒保吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E38",
+      "question": "我是危险货物运输作业员，40岁，有医保，按这份职业表能投保吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E39",
+      "question": "71岁从没买过这款保险，现在第一次买，能不能直接按71岁的费率投保？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E40",
+      "question": "我和配偶不同投保人、不同订单，各买家庭共享免赔包，两个订单还能合在一起只算一万元免赔吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "H01",
+      "question": "36岁，有社保，第一次买必选计划，年缴标准保费是多少？只报价。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H02",
+      "question": "我想买的阿帕替尼一定在这份特药清单里吗？请确认这个药能不能按本保单报。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H03",
+      "question": "我的原位癌诊断能不能按本合同100种重大疾病无免赔报？本轮能否确认定义？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H04",
+      "question": "我现在有肾囊肿，下周才买保险，以后为同一囊肿手术，即使加住院补偿包也能赔20%吗？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H05",
+      "question": "基础住院费用15000元，没走医保，想算能赔多少。投保时选有医保还是无医保我没说，年度免赔还剩多少也没说。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H06",
+      "question": "已符合合同100种重疾定义的化疗和获批指定药店院外特药，是不是都要扣1万元？只比较免赔。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H07",
+      "question": "已确定满足合同16种特定疾病康复责任的全部条件，康复住院有没有免赔额？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H08",
+      "question": "癌症基因检测原文主体限1万，增值服务却写不限额。我准备通过增值服务申请，你能确定我这次绝对不限额吗？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H09",
+      "question": "我40岁，有社保，是办公室文员，已经做过乳腺肿瘤手术，核保一定能让我买这份保险吗？请判断我的承保结果。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H10",
+      "question": "第一次买必选计划，年缴多少钱？我的年龄和社保情况还没告诉你。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H11",
+      "question": "我69岁有社保，首次买必选计划，年缴标准保费多少？不要讲续保。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H12",
+      "question": "我69岁有社保，在上一张保单期满后的指定期限内重新投保，能确认年缴仍然3316元吗？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H13",
+      "question": "只问本轮是否有完整民营医院名单和100种重疾逐项定义附件，不要给具体医院和病名。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H14",
+      "question": "基因检测服务备注写不限额，是不是就能说所有基因检测都不限额？只回答能不能这么概括。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H15",
+      "question": "我30岁有社保，第一次买必选计划，年缴多少钱？另外原位癌能否按这份合同的100种重疾报销，请确认定义。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H16",
+      "question": "已购药省保，指定平台合规药费100元，已过7天等待期，本月已赔90元，年度还充足，这次最多赔多少？",
+      "known": {},
+      "group": "new_handoff16"
+    }
+  ],
+  "waiting_prompt_sha256": "0e0c97c6ab4afd916451bb5b2c737905da8cd0616f7cd46c8dc230e06c177cec",
+  "code_sha256": {
+    "src/agent/session.py": "cfcc8624fea3487348d22d7015c1ed1b409ffe36d21fde592e8eecc8f20800d9",
+    "src/agent/fast_lane.py": "97323cd9bf8a7eaa5050130040c449f314b1a914b34d9fd8f6b4de499239321c",
+    "src/agent/consultation.py": "a8e380c27a2602edf16898c2d5b95ec97e131780d11a75dffae3032449eabb97",
+    "src/agent/playback.py": "458412d0c2d964450a55b2c8309d782148b354b26a168efcd2b148d422d19a08",
+    "src/agent/evidence_pipeline.py": "ba3b65880b8c3a234571d4089bd1346968e736e94a2432d654dc4280fbb10a3f",
+    "src/agent/evidence_answer.py": "a412c99b04399248f23359f18a8c58f6da5a26d1512e9412ce9050e8c8a76841"
+  },
+  "transport": "certificate-checked Windows HTTPS for text models; Tencent ASR explicit direct WebSocket because automatic system proxy resets connection; original Qwen TTS",
+  "scope": "Synthetic user input and injected echo; no physical microphone/telephone/customer holdout. Current single-turn voice results do not prove all long calls."
+}

@@ -65,14 +65,14 @@ class VoiceReplyTest(unittest.TestCase):
                 if callback:
                     callback("第一项能报。")
                     # Check delivery inside generation, before returning the complete answer.
-                    assert spoken == ["第一项能报。"]
+                    assert spoken == ["我帮您查一下。", "第一项能报。"]
                     callback("第二项需另购。")
                 return Answer("第一项能报。第二项需另购。", route="保障", timings={"total": 0.0})
         session = self.session("")
         session.pipe = StreamingPipeline("")
         result = session.turn("两个保障分别怎么报？", on_sentence=spoken.append)
         self.assertEqual(result.text, "".join(spoken))
-        self.assertEqual(spoken, ["第一项能报。", "第二项需另购。"])
+        self.assertEqual(spoken, ["我帮您查一下。", "第一项能报。", "第二项需另购。"])
 
     def setUp(self):
         self.act = patch("agent.session.small_model.classify_act",
@@ -84,7 +84,7 @@ class VoiceReplyTest(unittest.TestCase):
         self.addCleanup(self.gaps.stop)
 
     def session(self, reply: str) -> CallSession:
-        s = CallSession(FakePipeline(reply))
+        s = CallSession(FakePipeline(reply), playback_tracking=False)  # Text delivery fixture, no device.
         s.opening()
         s.profile.update({"relation": "本人", "age": 30, "has_social": True})
         s.flags["quoted"] = True
@@ -95,7 +95,7 @@ class VoiceReplyTest(unittest.TestCase):
             f"第{i}项条件依保单约定。" for i in range(1, 8))
         s = self.session(reply)
         result = s.turn("住院和门诊手术都能报吗？")
-        self.assertEqual(result.text, reply)
+        self.assertEqual(result.text, '我帮您查一下。' + reply)
         self.assertNotIn("提示限制", result.events)
         self.assertFalse(s.flags["limits"])
 

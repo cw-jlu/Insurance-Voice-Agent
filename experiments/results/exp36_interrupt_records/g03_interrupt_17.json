@@ -1,0 +1,85 @@
+{
+  "key": "g03_interrupt_17",
+  "kind": "interrupt",
+  "user": "我有甲状腺结节能买吗",
+  "gain": 0.03,
+  "agent_record": "C01",
+  "agent_round": 2,
+  "onset_s": 1.53,
+  "decisions": [
+    {
+      "asr": "我有",
+      "received_s": 1.964193100000557,
+      "decision_s": 2.2564382999998998,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "我有",
+      "received_s": 2.0245699000006425,
+      "decision_s": 2.433791599999495,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "我有甲状腺",
+      "received_s": 2.3690857000001415,
+      "decision_s": 2.5956260999992082,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "我有甲状腺结节no",
+      "received_s": 3.0038008999999875,
+      "decision_s": 3.2760841999997865,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.964193100000557,
+      "slice_type": 0,
+      "text": "我有"
+    },
+    {
+      "t": 2.0245699000006425,
+      "slice_type": 1,
+      "text": "我有"
+    },
+    {
+      "t": 2.3690857000001415,
+      "slice_type": 1,
+      "text": "我有甲状腺"
+    },
+    {
+      "t": 3.0038008999999875,
+      "slice_type": 1,
+      "text": "我有甲状腺结节no"
+    },
+    {
+      "t": 3.648798300000635,
+      "slice_type": 1,
+      "text": "我有甲状腺结节能买吗"
+    },
+    {
+      "t": 4.256844600000477,
+      "slice_type": 2,
+      "text": "我有甲状腺结节，能买吗？"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 1.7718024000002697,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7577.346223,
+    "last_scheduled_dac_wall": 7577.371936500001,
+    "dropped_frames": 419520,
+    "stream_latency_s": 0.04,
+    "decision_s": 3.2760841999997865,
+    "stop_dac_s": 3.3018024000002697
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

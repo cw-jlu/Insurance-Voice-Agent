@@ -1,0 +1,119 @@
+{
+  "case": {
+    "id": "Y041",
+    "question": "你这声音是AI生成的吧",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turn": {
+    "user": "你这声音是AI生成的吧",
+    "history_before": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ]
+    ],
+    "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？",
+    "profile": {},
+    "history_after": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ],
+      [
+        "用户",
+        "你这声音是AI生成的吧"
+      ],
+      [
+        "坐席",
+        "我是众安保险的AI助理。价格和保障我都能帮您讲清楚。请问是给您自己买，还是给家人买？"
+      ]
+    ],
+    "events": [
+      "承认AI"
+    ],
+    "timings": {
+      "understand": 1.2899563999999373,
+      "total": 1.2944052000000283
+    },
+    "ended": false,
+    "handoff_request": null,
+    "wall_s": 1.294638900000109
+  },
+  "consultation": {},
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1092,
+      "seconds": 1.0542734000000564,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 712,
+        "total_tokens": 727,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 640,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 313,
+      "seconds": 1.145007699999951,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 181,
+        "total_tokens": 207,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 340,
+      "seconds": 1.237152100000003,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 235,
+        "total_tokens": 241,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 696,
+      "seconds": 1.2687424000000647,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 480,
+        "total_tokens": 492,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "method": "Real cloud DS/TTS, WASAPI sentence-end receipts, live ASR with synthetic correction and 3% echo. Actual next DS input context captured. No physical microphone/telephone test. Default voice history now awaits playback receipts; no word alignment, so unconfirmed partial sentence excluded.",
+  "n": 2,
+  "actual_early_stops": 2,
+  "heard_only_history": 2,
+  "unheard_full_reply_in_next_model_context": 0,
+  "corrected_prices": 2,
+  "service_errors": 0,
+  "unit_tests_passed": 55,
+  "records": [
+    {
+      "id": "age",
+      "heard": "我帮您查一下。",
+      "price": 517,
+      "stop_latency_s": 0.5134886999973969
+    },
+    {
+      "id": "social",
+      "heard": "我帮您查一下。",
+      "price": 679,
+      "stop_latency_s": 0.831132500001986
+    }
+  ]
+}

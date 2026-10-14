@@ -20,6 +20,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 from dotenv import load_dotenv
+from agent.context import create_with_context_retry
 
 ROOT = Path(__file__).resolve().parents[2]
 load_dotenv(ROOT / ".env")
@@ -70,7 +71,7 @@ def chat_stream(messages: list[dict], model: str, client=None, **kw) -> StreamRe
     parts, deltas = [], []
     extra = kw.pop("extra_body", {}) or {}
     extra.setdefault("enable_thinking", False)
-    stream = client.chat.completions.create(model=model, messages=messages, stream=True, extra_body=extra, **kw)
+    stream = create_with_context_retry(client, messages, model, stream=True, extra_body=extra, **kw)
     for chunk in stream:
         if not chunk.choices:
             continue
@@ -89,7 +90,7 @@ def chat(messages: list[dict], model: str, client=None, **kw) -> str:
     client = client or llm_client()
     extra = kw.pop("extra_body", {}) or {}
     extra.setdefault("enable_thinking", False)
-    r = client.chat.completions.create(model=model, messages=messages, extra_body=extra, **kw)
+    r = create_with_context_retry(client, messages, model, extra_body=extra, **kw)
     return r.choices[0].message.content or ""
 
 
@@ -160,6 +161,7 @@ class RealtimeTTS:
         self._first_audio_t: float | None = None
         self._done = threading.Event()
         self._error: dict | None = None
+        self._audio_consumer = None
         self.client = QwenTtsRealtime(model=model, callback=_CB(), url=ws_base)
         t0 = time.perf_counter()
         self.client.connect()
@@ -170,27 +172,34 @@ class RealtimeTTS:
     def _on_event(self, ev: dict) -> None:
         typ = ev.get("type")
         if typ == "response.audio.delta":
+            audio = base64.b64decode(ev["delta"])
             with self._events_lock:
                 if self._first_audio_t is None:
                     self._first_audio_t = time.perf_counter()
-                self._audio += base64.b64decode(ev["delta"])
+                self._audio += audio
+                consumer = self._audio_consumer
+            if consumer is not None:
+                consumer(audio)
         elif typ == "response.done":
             self._done.set()
         elif typ == "error":
             self._error = ev
             self._done.set()
 
-    def synth(self, text: str, timeout: float = 30) -> tuple[float, float, bytes]:
+    def synth(self, text: str, timeout: float = 30, on_audio=None) -> tuple[float, float, bytes]:
         """Returns (first audio s, total s, pcm 24 kHz 16-bit mono)."""
         with self._events_lock:
             self._audio = bytearray()
             self._first_audio_t = None
+            self._audio_consumer = on_audio
         self._done.clear()
         t0 = time.perf_counter()
         self.client.append_text(text)
         self.client.commit()
         if not self._done.wait(timeout):
+            self._audio_consumer = None
             raise TimeoutError("tts timeout")
+        self._audio_consumer = None
         if self._error:
             raise RuntimeError(self._error)
         first = (self._first_audio_t - t0) if self._first_audio_t else float("nan")
@@ -308,7 +317,7 @@ class AsrEvent:
 
 
 async def tencent_asr_stream(pcm16k: bytes, vad_silence_ms: int = 500, chunk_ms: int = 40,
-                             trailing_silence_ms: int = 1500, on_event=None, on_audio=None) -> tuple[list[AsrEvent], float]:
+                             trailing_silence_ms: int = 1500, on_event=None, on_audio=None, proxy=True) -> tuple[list[AsrEvent], float]:
     """Stream PCM at real-time pace; returns (events, audio_duration_s). Trailing silence is appended
     so the server's VAD can close the sentence, as it would in a live call."""
     import asyncio
@@ -320,7 +329,7 @@ async def tencent_asr_stream(pcm16k: bytes, vad_silence_ms: int = 500, chunk_ms:
     speech_s = len(pcm16k) / 2 / 16000
     step = 16000 * 2 * chunk_ms // 1000
     events: list[AsrEvent] = []
-    async with websockets.connect(tencent_asr_url(vad_silence_ms), max_size=None) as ws:
+    async with websockets.connect(tencent_asr_url(vad_silence_ms), max_size=None,proxy=proxy) as ws:
         hello = json.loads(await ws.recv())
         if hello.get("code") != 0:
             raise RuntimeError(hello)

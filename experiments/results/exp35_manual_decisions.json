@@ -1,0 +1,1436 @@
+{
+  "control": {
+    "C01": [
+      false,
+      false,
+      "门急60%条件漏投保医保身份"
+    ],
+    "C02": [
+      false,
+      true,
+      "肿瘤住院遗漏符合重疾定义的0免赔分支"
+    ],
+    "C03": [
+      true,
+      true,
+      ""
+    ],
+    "C04": [
+      true,
+      true,
+      ""
+    ],
+    "C05": [
+      true,
+      true,
+      ""
+    ],
+    "C06": [
+      true,
+      true,
+      ""
+    ],
+    "C07": [
+      true,
+      true,
+      ""
+    ],
+    "C08": [
+      true,
+      true,
+      ""
+    ],
+    "C09": [
+      false,
+      false,
+      "既往症免责被概括为意外整体不受限制"
+    ],
+    "C10": [
+      true,
+      true,
+      ""
+    ],
+    "C11": [
+      true,
+      true,
+      ""
+    ],
+    "C12": [
+      true,
+      true,
+      ""
+    ],
+    "C13": [
+      true,
+      true,
+      "问题是给付形式与另购项，未作无条件个案承诺"
+    ],
+    "C14": [
+      true,
+      true,
+      ""
+    ],
+    "C15": [
+      true,
+      true,
+      ""
+    ],
+    "C16": [
+      true,
+      true,
+      ""
+    ],
+    "C17": [
+      true,
+      false,
+      "自付必需合理条件的引文只有免责补偿条而缺R01"
+    ],
+    "C18": [
+      false,
+      true,
+      "58岁门急一律不能购，漏及时重投56岁以上分支"
+    ],
+    "C19": [
+      true,
+      true,
+      ""
+    ],
+    "C20": [
+      true,
+      true,
+      ""
+    ],
+    "C21": [
+      true,
+      true,
+      ""
+    ],
+    "C22": [
+      true,
+      true,
+      ""
+    ],
+    "C23": [
+      true,
+      true,
+      ""
+    ],
+    "C24": [
+      true,
+      true,
+      ""
+    ],
+    "C26": [
+      false,
+      false,
+      "372-318误算60，应54"
+    ],
+    "C28": [
+      true,
+      true,
+      ""
+    ],
+    "C29": [
+      true,
+      true,
+      ""
+    ],
+    "C30": [
+      true,
+      true,
+      ""
+    ],
+    "Y001": [
+      true,
+      true,
+      ""
+    ],
+    "Y002": [
+      true,
+      true,
+      ""
+    ],
+    "Y003": [
+      true,
+      true,
+      ""
+    ],
+    "Y004": [
+      true,
+      true,
+      ""
+    ],
+    "Y005": [
+      true,
+      true,
+      ""
+    ],
+    "Y006": [
+      true,
+      true,
+      ""
+    ],
+    "Y007": [
+      true,
+      true,
+      ""
+    ],
+    "Y008": [
+      true,
+      true,
+      ""
+    ],
+    "Y009": [
+      true,
+      true,
+      ""
+    ],
+    "Y010": [
+      true,
+      true,
+      ""
+    ],
+    "C25": [
+      false,
+      false,
+      "货车职业表已在材料中，未说明4吨及危险品分界却称需另核表"
+    ],
+    "C27": [
+      true,
+      false,
+      "医保混合无排除条件引用费率行无法覆盖共享规则范围"
+    ],
+    "Y011": [
+      true,
+      true,
+      ""
+    ],
+    "Y012": [
+      true,
+      true,
+      ""
+    ],
+    "Y013": [
+      true,
+      true,
+      ""
+    ],
+    "Y014": [
+      true,
+      true,
+      ""
+    ],
+    "Y015": [
+      true,
+      true,
+      ""
+    ],
+    "Y016": [
+      true,
+      true,
+      ""
+    ],
+    "Y017": [
+      true,
+      true,
+      ""
+    ],
+    "Y018": [
+      true,
+      true,
+      ""
+    ],
+    "Y019": [
+      true,
+      true,
+      ""
+    ],
+    "Y020": [
+      true,
+      true,
+      ""
+    ],
+    "Y021": [
+      true,
+      true,
+      ""
+    ],
+    "Y022": [
+      false,
+      false,
+      "把100%赔付新增为必须有医保身份，排除了无医保身份默认比例"
+    ],
+    "Y023": [
+      false,
+      true,
+      "只给医保身份60%，无医保身份的100%分支未答"
+    ],
+    "Y024": [
+      true,
+      true,
+      ""
+    ],
+    "Y025": [
+      true,
+      true,
+      ""
+    ],
+    "Y026": [
+      true,
+      true,
+      "不能由费率档承诺最高持续承保年龄"
+    ],
+    "Y027": [
+      true,
+      true,
+      ""
+    ],
+    "Y028": [
+      true,
+      true,
+      ""
+    ],
+    "Y029": [
+      true,
+      true,
+      ""
+    ],
+    "Y030": [
+      true,
+      true,
+      ""
+    ],
+    "Y031": [
+      true,
+      true,
+      ""
+    ],
+    "Y032": [
+      false,
+      false,
+      "61–65岁及时重投金额套用首次标准"
+    ],
+    "Y033": [
+      true,
+      true,
+      ""
+    ],
+    "Y034": [
+      false,
+      false,
+      "69岁3316首次标准与及时重投口径反转"
+    ],
+    "Y035": [
+      true,
+      true,
+      ""
+    ],
+    "Y036": [
+      false,
+      true,
+      "牙科免责一律化，漏意外例外"
+    ],
+    "Y037": [
+      true,
+      true,
+      ""
+    ],
+    "Y038": [
+      true,
+      true,
+      ""
+    ],
+    "Y039": [
+      true,
+      true,
+      ""
+    ],
+    "Y040": [
+      true,
+      true,
+      ""
+    ],
+    "Y041": [
+      true,
+      true,
+      ""
+    ],
+    "N01": [
+      true,
+      false,
+      "第二段差额同时用年缴318，引用只有月缴"
+    ],
+    "N02": [
+      true,
+      true,
+      ""
+    ],
+    "N03": [
+      true,
+      true,
+      ""
+    ],
+    "N04": [
+      true,
+      true,
+      ""
+    ],
+    "N05": [
+      true,
+      true,
+      ""
+    ],
+    "N06": [
+      true,
+      true,
+      ""
+    ],
+    "N07": [
+      true,
+      true,
+      ""
+    ],
+    "N08": [
+      true,
+      true,
+      ""
+    ],
+    "N09": [
+      true,
+      true,
+      ""
+    ],
+    "N10": [
+      true,
+      true,
+      ""
+    ],
+    "N11": [
+      true,
+      true,
+      ""
+    ],
+    "N12": [
+      true,
+      true,
+      ""
+    ],
+    "N13": [
+      true,
+      true,
+      ""
+    ],
+    "N14": [
+      false,
+      false,
+      "自主寻找直接等同非认可机构，材料不足支持此身份断言"
+    ],
+    "N15": [
+      true,
+      true,
+      ""
+    ],
+    "N16": [
+      true,
+      true,
+      ""
+    ],
+    "E01": [
+      true,
+      true,
+      ""
+    ],
+    "E02": [
+      true,
+      true,
+      ""
+    ],
+    "E03": [
+      true,
+      true,
+      ""
+    ],
+    "E04": [
+      true,
+      true,
+      ""
+    ],
+    "E05": [
+      true,
+      true,
+      ""
+    ],
+    "E06": [
+      true,
+      true,
+      ""
+    ],
+    "E07": [
+      true,
+      true,
+      ""
+    ],
+    "E08": [
+      true,
+      true,
+      ""
+    ],
+    "E09": [
+      true,
+      true,
+      ""
+    ],
+    "E10": [
+      true,
+      true,
+      ""
+    ],
+    "E11": [
+      true,
+      true,
+      ""
+    ],
+    "E12": [
+      true,
+      false,
+      "合计1000元段仅引用叠加，不含一般日额和免赔所用R14"
+    ],
+    "E13": [
+      false,
+      false,
+      "先限30天再扣3天错误，给付上限30天故应3000"
+    ],
+    "E14": [
+      true,
+      true,
+      ""
+    ],
+    "E15": [
+      true,
+      true,
+      ""
+    ],
+    "E16": [
+      true,
+      true,
+      ""
+    ],
+    "E17": [
+      true,
+      true,
+      ""
+    ],
+    "E18": [
+      true,
+      true,
+      ""
+    ],
+    "E19": [
+      true,
+      true,
+      ""
+    ],
+    "E20": [
+      true,
+      true,
+      ""
+    ],
+    "E21": [
+      true,
+      true,
+      ""
+    ],
+    "E22": [
+      true,
+      true,
+      ""
+    ],
+    "E23": [
+      true,
+      true,
+      ""
+    ],
+    "E24": [
+      true,
+      true,
+      ""
+    ],
+    "E25": [
+      true,
+      true,
+      ""
+    ],
+    "E26": [
+      true,
+      true,
+      ""
+    ],
+    "E27": [
+      true,
+      true,
+      ""
+    ],
+    "E28": [
+      true,
+      true,
+      ""
+    ],
+    "E29": [
+      true,
+      true,
+      ""
+    ],
+    "E30": [
+      true,
+      true,
+      ""
+    ],
+    "E31": [
+      true,
+      true,
+      ""
+    ],
+    "E32": [
+      true,
+      true,
+      ""
+    ],
+    "E33": [
+      true,
+      true,
+      ""
+    ],
+    "E34": [
+      true,
+      true,
+      ""
+    ],
+    "E35": [
+      false,
+      false,
+      "把医院范围扩成院外药购买渠道限定，原文不支持该解释"
+    ],
+    "E36": [
+      true,
+      true,
+      ""
+    ],
+    "E37": [
+      true,
+      true,
+      ""
+    ],
+    "E38": [
+      true,
+      true,
+      ""
+    ],
+    "E39": [
+      true,
+      true,
+      ""
+    ],
+    "E40": [
+      true,
+      true,
+      ""
+    ],
+    "H01": [
+      true,
+      true,
+      ""
+    ],
+    "H02": [
+      true,
+      true,
+      ""
+    ],
+    "H03": [
+      true,
+      true,
+      ""
+    ],
+    "H04": [
+      true,
+      false,
+      "加油包既往免责段只引用一般责任免责3及R12，缺补偿包免责46"
+    ],
+    "H05": [
+      true,
+      true,
+      ""
+    ],
+    "H06": [
+      true,
+      true,
+      ""
+    ],
+    "H07": [
+      true,
+      true,
+      ""
+    ],
+    "H08": [
+      true,
+      true,
+      "主体基因检测审核在同责任且明确对应增值服务；未承诺绝对不限额"
+    ],
+    "H09": [
+      true,
+      true,
+      ""
+    ],
+    "H10": [
+      true,
+      true,
+      "费率行字段支持报价需年龄社保，未编造金额"
+    ],
+    "H11": [
+      true,
+      true,
+      ""
+    ],
+    "H12": [
+      true,
+      true,
+      "71+表口径不构成69岁无法重投，已明确不能确认69岁价格，未拒投"
+    ],
+    "H13": [
+      true,
+      true,
+      ""
+    ],
+    "H14": [
+      true,
+      true,
+      ""
+    ],
+    "H15": [
+      true,
+      true,
+      ""
+    ],
+    "H16": [
+      true,
+      true,
+      ""
+    ]
+  },
+  "post_handoff_v2": {
+    "C01": [
+      true,
+      true,
+      ""
+    ],
+    "C02": [
+      false,
+      true,
+      "肿瘤住院漏100重疾0免赔分支"
+    ],
+    "C03": [
+      true,
+      true,
+      ""
+    ],
+    "C04": [
+      true,
+      true,
+      ""
+    ],
+    "C05": [
+      true,
+      true,
+      ""
+    ],
+    "C06": [
+      true,
+      true,
+      ""
+    ],
+    "C07": [
+      false,
+      false,
+      "自行找护工直接等同非认可机构"
+    ],
+    "C08": [
+      true,
+      true,
+      ""
+    ],
+    "C09": [
+      false,
+      false,
+      "意外一概不受既往症免责，未限定因果无关"
+    ],
+    "C10": [
+      true,
+      true,
+      ""
+    ],
+    "C11": [
+      false,
+      true,
+      "只说明公立特需加油包，漏指定民营VIP也可扩展"
+    ],
+    "C12": [
+      true,
+      true,
+      ""
+    ],
+    "C13": [
+      true,
+      true,
+      ""
+    ],
+    "C14": [
+      true,
+      true,
+      ""
+    ],
+    "C15": [
+      true,
+      true,
+      ""
+    ],
+    "C16": [
+      true,
+      true,
+      ""
+    ],
+    "C17": [
+      true,
+      true,
+      ""
+    ],
+    "C18": [
+      false,
+      true,
+      "门急58岁一律不能购，漏指定期限重投分支"
+    ],
+    "C19": [
+      false,
+      false,
+      "漏主体基因检测1万冲突，并将未医保结算60%泛化至目录外药"
+    ],
+    "C20": [
+      true,
+      true,
+      ""
+    ],
+    "C21": [
+      true,
+      true,
+      ""
+    ],
+    "C22": [
+      true,
+      true,
+      ""
+    ],
+    "C23": [
+      true,
+      true,
+      ""
+    ],
+    "C24": [
+      true,
+      true,
+      ""
+    ],
+    "C25": [
+      true,
+      true,
+      ""
+    ],
+    "C26": [
+      true,
+      true,
+      ""
+    ],
+    "C27": [
+      true,
+      true,
+      ""
+    ],
+    "C28": [
+      true,
+      true,
+      ""
+    ],
+    "C29": [
+      true,
+      true,
+      "个人自付原文支持不重复赔付的限定"
+    ],
+    "C30": [
+      true,
+      true,
+      ""
+    ],
+    "Y001": [
+      true,
+      true,
+      ""
+    ],
+    "Y002": [
+      true,
+      true,
+      ""
+    ],
+    "Y003": [
+      true,
+      true,
+      ""
+    ],
+    "Y004": [
+      true,
+      true,
+      ""
+    ],
+    "Y005": [
+      true,
+      true,
+      ""
+    ],
+    "Y006": [
+      true,
+      true,
+      ""
+    ],
+    "Y007": [
+      true,
+      true,
+      ""
+    ],
+    "Y008": [
+      true,
+      true,
+      ""
+    ],
+    "Y009": [
+      true,
+      true,
+      ""
+    ],
+    "Y010": [
+      true,
+      true,
+      ""
+    ],
+    "Y011": [
+      true,
+      true,
+      ""
+    ],
+    "Y012": [
+      true,
+      true,
+      ""
+    ],
+    "Y013": [
+      true,
+      true,
+      ""
+    ],
+    "Y014": [
+      true,
+      true,
+      ""
+    ],
+    "Y015": [
+      true,
+      true,
+      ""
+    ],
+    "Y016": [
+      true,
+      true,
+      ""
+    ],
+    "Y017": [
+      true,
+      true,
+      ""
+    ],
+    "Y018": [
+      true,
+      true,
+      ""
+    ],
+    "Y019": [
+      true,
+      true,
+      ""
+    ],
+    "Y020": [
+      true,
+      true,
+      ""
+    ],
+    "Y021": [
+      true,
+      true,
+      ""
+    ],
+    "Y022": [
+      false,
+      false,
+      "100%额外要求有医保身份，漏无医保身份默认规则"
+    ],
+    "Y023": [
+      false,
+      true,
+      "没医保身份的100%分支未回答"
+    ],
+    "Y024": [
+      true,
+      true,
+      ""
+    ],
+    "Y025": [
+      true,
+      true,
+      ""
+    ],
+    "Y026": [
+      true,
+      true,
+      ""
+    ],
+    "Y027": [
+      true,
+      true,
+      ""
+    ],
+    "Y028": [
+      true,
+      true,
+      ""
+    ],
+    "Y029": [
+      true,
+      true,
+      ""
+    ],
+    "Y030": [
+      true,
+      true,
+      ""
+    ],
+    "Y031": [
+      true,
+      true,
+      ""
+    ],
+    "Y032": [
+      true,
+      true,
+      ""
+    ],
+    "Y033": [
+      true,
+      true,
+      ""
+    ],
+    "Y034": [
+      false,
+      false,
+      "69岁及时重投仍套首次标准"
+    ],
+    "Y035": [
+      true,
+      true,
+      ""
+    ],
+    "Y036": [
+      false,
+      true,
+      "牙科免责漏意外例外"
+    ],
+    "Y037": [
+      true,
+      true,
+      ""
+    ],
+    "Y038": [
+      true,
+      true,
+      ""
+    ],
+    "Y039": [
+      true,
+      true,
+      ""
+    ],
+    "Y040": [
+      true,
+      true,
+      ""
+    ],
+    "Y041": [
+      true,
+      true,
+      ""
+    ],
+    "N01": [
+      true,
+      true,
+      ""
+    ],
+    "N02": [
+      true,
+      false,
+      "第二段差额用423年费却只引月费和月说明"
+    ],
+    "N03": [
+      true,
+      true,
+      ""
+    ],
+    "N04": [
+      true,
+      true,
+      ""
+    ],
+    "N05": [
+      true,
+      true,
+      ""
+    ],
+    "N06": [
+      true,
+      true,
+      ""
+    ],
+    "N07": [
+      true,
+      true,
+      ""
+    ],
+    "N08": [
+      true,
+      true,
+      ""
+    ],
+    "N09": [
+      true,
+      true,
+      ""
+    ],
+    "N10": [
+      true,
+      true,
+      ""
+    ],
+    "N11": [
+      true,
+      true,
+      ""
+    ],
+    "N12": [
+      true,
+      true,
+      ""
+    ],
+    "N13": [
+      true,
+      true,
+      ""
+    ],
+    "N14": [
+      false,
+      false,
+      "自行寻找直接断为非认可机构"
+    ],
+    "N15": [
+      true,
+      true,
+      ""
+    ],
+    "N16": [
+      true,
+      true,
+      ""
+    ],
+    "E01": [
+      true,
+      true,
+      ""
+    ],
+    "E02": [
+      true,
+      true,
+      ""
+    ],
+    "E03": [
+      true,
+      true,
+      ""
+    ],
+    "E04": [
+      true,
+      true,
+      ""
+    ],
+    "E05": [
+      true,
+      true,
+      ""
+    ],
+    "E06": [
+      true,
+      true,
+      ""
+    ],
+    "E07": [
+      true,
+      true,
+      ""
+    ],
+    "E08": [
+      true,
+      true,
+      ""
+    ],
+    "E09": [
+      true,
+      true,
+      ""
+    ],
+    "E10": [
+      true,
+      true,
+      ""
+    ],
+    "E11": [
+      true,
+      true,
+      ""
+    ],
+    "E12": [
+      true,
+      true,
+      ""
+    ],
+    "E13": [
+      false,
+      false,
+      "把累计给付30天先扣免赔，2700应3000"
+    ],
+    "E14": [
+      true,
+      true,
+      ""
+    ],
+    "E15": [
+      true,
+      true,
+      ""
+    ],
+    "E16": [
+      true,
+      true,
+      ""
+    ],
+    "E17": [
+      true,
+      true,
+      ""
+    ],
+    "E18": [
+      true,
+      true,
+      ""
+    ],
+    "E19": [
+      true,
+      true,
+      ""
+    ],
+    "E20": [
+      true,
+      true,
+      ""
+    ],
+    "E21": [
+      true,
+      true,
+      ""
+    ],
+    "E22": [
+      true,
+      true,
+      ""
+    ],
+    "E23": [
+      true,
+      true,
+      ""
+    ],
+    "E24": [
+      true,
+      true,
+      ""
+    ],
+    "E25": [
+      true,
+      true,
+      ""
+    ],
+    "E26": [
+      true,
+      true,
+      ""
+    ],
+    "E27": [
+      true,
+      true,
+      ""
+    ],
+    "E28": [
+      true,
+      true,
+      ""
+    ],
+    "E29": [
+      true,
+      true,
+      ""
+    ],
+    "E30": [
+      true,
+      true,
+      ""
+    ],
+    "E31": [
+      true,
+      true,
+      ""
+    ],
+    "E32": [
+      true,
+      true,
+      ""
+    ],
+    "E33": [
+      true,
+      true,
+      ""
+    ],
+    "E34": [
+      true,
+      true,
+      ""
+    ],
+    "E35": [
+      true,
+      true,
+      ""
+    ],
+    "E36": [
+      true,
+      true,
+      ""
+    ],
+    "E37": [
+      true,
+      true,
+      ""
+    ],
+    "E38": [
+      true,
+      true,
+      ""
+    ],
+    "E39": [
+      true,
+      true,
+      ""
+    ],
+    "E40": [
+      true,
+      true,
+      ""
+    ],
+    "H01": [
+      true,
+      true,
+      ""
+    ],
+    "H02": [
+      true,
+      true,
+      ""
+    ],
+    "H03": [
+      true,
+      true,
+      ""
+    ],
+    "H04": [
+      true,
+      true,
+      ""
+    ],
+    "H05": [
+      true,
+      true,
+      ""
+    ],
+    "H06": [
+      true,
+      true,
+      ""
+    ],
+    "H07": [
+      true,
+      true,
+      ""
+    ],
+    "H08": [
+      true,
+      true,
+      ""
+    ],
+    "H09": [
+      true,
+      true,
+      ""
+    ],
+    "H10": [
+      true,
+      true,
+      "费率行的年龄与社保字段支持报价需两项用户条件"
+    ],
+    "H11": [
+      true,
+      true,
+      ""
+    ],
+    "H12": [
+      true,
+      true,
+      ""
+    ],
+    "H13": [
+      true,
+      true,
+      ""
+    ],
+    "H14": [
+      true,
+      true,
+      ""
+    ],
+    "H15": [
+      true,
+      true,
+      ""
+    ],
+    "H16": [
+      true,
+      true,
+      ""
+    ]
+  }
+}

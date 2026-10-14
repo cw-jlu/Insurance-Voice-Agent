@@ -1,0 +1,59 @@
+{
+  "key": "g03_interrupt_14",
+  "kind": "interrupt",
+  "user": "意外也要等30天吗",
+  "gain": 0.03,
+  "agent_record": "C19",
+  "agent_round": 1,
+  "onset_s": 1.78,
+  "decisions": [
+    {
+      "asr": "一万",
+      "received_s": 2.1613287999998647,
+      "decision_s": 2.4819196999997075,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.1613287999998647,
+      "slice_type": 0,
+      "text": "一万"
+    },
+    {
+      "t": 2.2251483000000007,
+      "slice_type": 1,
+      "text": "一万"
+    },
+    {
+      "t": 2.6013763000000836,
+      "slice_type": 1,
+      "text": "意外也要等"
+    },
+    {
+      "t": 3.269711699999789,
+      "slice_type": 1,
+      "text": "意外也要等三十天吗"
+    },
+    {
+      "t": 3.784216000000015,
+      "slice_type": 2,
+      "text": "意外也要等30天吗？"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 0.7349160000000847,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7529.8323644,
+    "last_scheduled_dac_wall": 7529.8653359,
+    "dropped_frames": 457920,
+    "stream_latency_s": 0.04,
+    "decision_s": 2.4819196999997075,
+    "stop_dac_s": 2.5149160000000848
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

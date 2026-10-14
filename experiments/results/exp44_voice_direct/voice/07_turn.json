@@ -1,0 +1,204 @@
+{
+  "id": "T07",
+  "round": 1,
+  "question": "请确认原位癌是否属于合同约定的一百种重大疾病资料缺少定义的话就转人工不要猜",
+  "history_before": [
+    [
+      "坐席",
+      "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+    ],
+    [
+      "用户",
+      "我是给自己了解的，我30岁，有社保，首次投保必选计划，一年多少钱？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的保费和投保条件，我一起核对。您30岁、有社保、首次投保必选计划、年缴，标准保费是318元。"
+    ],
+    [
+      "用户",
+      "如果以后得了癌症住院治疗，靶向药和质子、重离子这3项分别怎么赔？各有没有免赔额？医院有要求吗？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和免赔，我一起核对。癌症住院治疗中，靶向药属于特定药品费用医疗保险金，需在保险人指定药店购药、购药前按指定流程提交材料并通过处方审核，且仅赔付责任内约定药品清单中列明的药品；社保目录内药品社保报销后剩余部分按100%赔付，社保目录外药品100%赔付，本责任无免赔额。质子、重离子治疗属于恶性肿瘤先进疗法医疗责任，需在等待期30天后初次确诊恶性肿瘤——重度，并在经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构（限中国大陆境内）接受治疗；该责任按100%赔付，年累计以600万元为限，床位费限1500元/天，无免赔额。医院要求方面，靶向药购药须在保险人指定的药店进行；质子、重离子治疗须在经卫生部门审核认定的、可开展质子治疗或重离子治疗的医疗机构（限中国大陆境内，不包括境外及港澳台）进行。"
+    ],
+    [
+      "用户",
+      "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和保障范围，我一起核对。要回答您刚才的问题，请先确认：本年度还剩多少免赔额？"
+    ],
+    [
+      "用户",
+      "我更正一下啊，我实际是40岁，没有社保，首次投保必选计划，年缴和月缴分别多少钱？"
+    ],
+    [
+      "坐席",
+      "好的，我按您刚才更正的信息核对。您关心的保费和投保条件，我一起核对。要回答您刚才的问题，请先确认：本年度还剩多少免赔额？"
+    ],
+    [
+      "用户",
+      "按月交12个月比年缴多多少钱？另外，生病住院和意外住院都要等30天吗？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的保费和等待期，我一起核对。要回答您刚才的问题，请先确认：本年度还剩多少免赔额？"
+    ],
+    [
+      "用户",
+      "如果投保前就有高血压，以后发生与高血压无关的交通意外，住院是不是一定都不赔？请说明适用条件。"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和投保条件，我一起核对。本次咨询暂未完成，请稍后再试。"
+    ]
+  ],
+  "profile_before": {
+    "age": 40,
+    "has_social": false,
+    "pay": "年缴",
+    "relation": "本人"
+  },
+  "error_type": "ValueError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1329,
+      "seconds": 0.6190458999999464,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 923,
+        "total_tokens": 929,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1685,
+      "seconds": 0.6594947999999476,
+      "usage": {
+        "completion_tokens": 14,
+        "prompt_tokens": 1168,
+        "total_tokens": 1182,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 343,
+      "seconds": 0.8162793000000192,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 201,
+        "total_tokens": 227,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ],
+  "consultation": {
+    "id": "c7",
+    "initial_question": "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？",
+    "status": "handed_off",
+    "revision": 3,
+    "tasks": [
+      {
+        "id": "c7",
+        "question": "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？",
+        "kind": "claim_calculation",
+        "status": "needs_user",
+        "requires": [
+          "remaining_deductible",
+          "social_settled"
+        ],
+        "is_example": false,
+        "missing_conditions": [
+          "remaining_deductible"
+        ]
+      },
+      {
+        "id": "c7-price",
+        "question": "40岁、无社保、首次投保必选计划，年缴和月缴分别多少钱？",
+        "kind": "price",
+        "status": "needs_answer",
+        "requires": [
+          "age",
+          "has_social",
+          "first_insurance",
+          "plan",
+          "payment"
+        ],
+        "is_example": false,
+        "missing_conditions": []
+      }
+    ],
+    "facts": [
+      {
+        "name": "age",
+        "value": 40,
+        "state": "confirmed",
+        "user_quote": "我实际是40岁"
+      },
+      {
+        "name": "has_social",
+        "value": false,
+        "state": "confirmed",
+        "user_quote": "没有社保"
+      },
+      {
+        "name": "first_insurance",
+        "value": true,
+        "state": "confirmed",
+        "user_quote": "首次投保必选计划"
+      },
+      {
+        "name": "plan",
+        "value": "必选计划",
+        "state": "confirmed",
+        "user_quote": "首次投保必选计划"
+      },
+      {
+        "name": "payment",
+        "value": "年缴和月缴",
+        "state": "confirmed",
+        "user_quote": "年缴和月缴分别多少钱"
+      },
+      {
+        "name": "social_settled",
+        "value": true,
+        "state": "confirmed",
+        "user_quote": "医保先报了8000元"
+      },
+      {
+        "name": "remaining_deductible",
+        "value": null,
+        "state": "missing",
+        "user_quote": ""
+      }
+    ],
+    "guard_faults": []
+  }
+}

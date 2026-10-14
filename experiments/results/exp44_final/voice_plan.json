@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-13",
+  "variant": "current v4 + full heard history + bounded waiting topic reply",
+  "mode": "voice",
+  "frozen_cases": null,
+  "waiting_prompt_sha256": "0e0c97c6ab4afd916451bb5b2c737905da8cd0616f7cd46c8dc230e06c177cec",
+  "code_sha256": {
+    "src/agent/session.py": "693f69875c61dc3f77b23d4f483970dbb2d57b3795af520e474d865ff2a87e36",
+    "src/agent/fast_lane.py": "97323cd9bf8a7eaa5050130040c449f314b1a914b34d9fd8f6b4de499239321c",
+    "src/agent/consultation.py": "1285bf2a0a82b382bb3d1038353d532070cb8a71956dbaf95d853ce37bb59780",
+    "src/agent/playback.py": "075fd40b8494c5a3cb7f92228a990720c2c33144ba7e85e4006dff5da1470f13",
+    "src/agent/evidence_pipeline.py": "b2f65690fecf5f4e2a839652da021acfb8c648da60944971b790597232f72293",
+    "src/agent/evidence_answer.py": "c4d6c18e3c91022227f2eb7c3233aead8ebc32ac533933c3184df2cde34bf0e7"
+  },
+  "transport": "certificate-checked Windows HTTPS for text models only; original cloud ASR/TTS",
+  "scope": "Synthetic user input and injected echo; no physical microphone/telephone/customer holdout. Current single-turn voice results do not prove all long calls."
+}

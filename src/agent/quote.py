@@ -1,4 +1,7 @@
-"""Deterministic premium quoting. The LLM never computes prices; it only reads this output.
+"""Deterministic premium lookup used by the explicitly scoped legacy sales step.
+
+The evidence consultation path separately reasons from cited rate rows; this
+engine does not implement all underwriting, renewal or household-order rules.
 
 Eligibility comes from 投保须知 (被保人 30天–70周岁; 门急诊加油包 ≤55周岁), not from whether
 the rate table happens to have a price: the tables also list renewal prices up to 105.

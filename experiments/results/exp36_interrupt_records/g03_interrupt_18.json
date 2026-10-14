@@ -1,0 +1,88 @@
+{
+  "key": "g03_interrupt_18",
+  "kind": "interrupt",
+  "user": "别给我打电话了",
+  "gain": 0.03,
+  "agent_record": "C02",
+  "agent_round": 1,
+  "onset_s": 1.78,
+  "decisions": [
+    {
+      "asr": "别",
+      "received_s": 2.2094584000005852,
+      "decision_s": 2.2101729000005435,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "别",
+      "received_s": 2.266070900000159,
+      "decision_s": 2.2662301999998817,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "别给我打电",
+      "received_s": 2.6081020999999964,
+      "decision_s": 2.865218300000379,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.2094584000005852,
+      "slice_type": 0,
+      "text": "别"
+    },
+    {
+      "t": 2.266070900000159,
+      "slice_type": 1,
+      "text": "别"
+    },
+    {
+      "t": 2.6081020999999964,
+      "slice_type": 1,
+      "text": "别给我打电"
+    },
+    {
+      "t": 3.2333604000004925,
+      "slice_type": 1,
+      "text": "别给我打电话了"
+    },
+    {
+      "t": 3.4480584000002636,
+      "slice_type": 2,
+      "text": "别给我打电话了。"
+    },
+    {
+      "t": 10.285165500000403,
+      "slice_type": 0,
+      "text": "左右五"
+    },
+    {
+      "t": 10.349821499999962,
+      "slice_type": 1,
+      "text": "左右五"
+    },
+    {
+      "t": 10.531688700000814,
+      "slice_type": 2,
+      "text": "责任无免赔。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 1.1181608000003689,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7592.5131448,
+    "last_scheduled_dac_wall": 7592.5460831,
+    "dropped_frames": 439680,
+    "stream_latency_s": 0.04,
+    "decision_s": 2.865218300000379,
+    "stop_dac_s": 2.898160800000369
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

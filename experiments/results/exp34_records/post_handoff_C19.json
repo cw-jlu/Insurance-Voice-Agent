@@ -1,0 +1,8 @@
+{
+  "id": "C19",
+  "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

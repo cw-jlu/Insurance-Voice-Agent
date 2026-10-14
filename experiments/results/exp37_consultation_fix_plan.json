@@ -1,0 +1,18 @@
+{
+  "cases": [
+    {
+      "id": "CONSULTATION_FIX",
+      "question": "想了解癌症相关保障",
+      "known": {
+        "age": 30,
+        "has_social": true
+      }
+    }
+  ],
+  "code_sha256": {
+    "src/agent/session.py": "cb6f418e6677001c0c0bb94fcff42607571f761fc59ea4fa2543f46d577fec06",
+    "src/agent/fast_lane.py": "783e65acde3d61d23d04c2d83b67b054baee8635f6f97afcb548725e7a765de8",
+    "src/agent/evidence_pipeline.py": "6c7d43fa8d271fa96223ca39ba6003cefbb943a9ff5f841ff7c4eaca6ab5092d"
+  },
+  "method": "Cached neutral acknowledgment plus unchanged DS evidence answer; actual ASR/TTS and local DAC. Transfer requests recorded only. Business first packet separately measured, not business DAC."
+}

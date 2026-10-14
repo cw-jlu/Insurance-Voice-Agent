@@ -1,0 +1,2256 @@
+{
+  "schema_version": "1.0",
+  "created_at": "2026-10-13",
+  "status": "not_run",
+  "purpose": "复杂问题定义对应的完整对话材料；非官方测试集，非实测成绩",
+  "execution": {
+    "session": "每个用例新建同一持续会话，空画像、空历史；可标准开场，不注入隐藏信息",
+    "agent_input_allowlist": [
+      "initial_user",
+      "执行中实际披露的user_reply_rules.utterance"
+    ],
+    "operator_only": [
+      "hidden_user_facts",
+      "user_reply_rules",
+      "obligations",
+      "conversation_checks",
+      "numeric_oracles",
+      "source_registry"
+    ],
+    "reply_policy": "操作者或隔离用户模拟器按坐席真实追问提供相关回复；合并问多个字段时可合并对应回复。无关字段继续隐藏。after_answer更正在正式答复后主动发送，不能因第一轮已答而漏掉。if_requested分支允许安全提前转交。",
+    "all_replies_meaning": "仅指该数字所需条件均已披露，不要求发送无关或可跳过的回复",
+    "no_question": "缺信息又不追问时记录失败，不擅自喂齐条件；允许条件分支先答，但需取得用户条件后落地或明确待处理",
+    "early_end": "必答事项未解决且未完整转交就结束，记失败，不另开会话强行续测",
+    "medical_limits": "不要求无核保规则下收集特定医学指标，不设置血压阈值或自行推断可保；允许有依据的安全转人工",
+    "diagnostic_round_cap": 12,
+    "round_cap_note": "仅执行防死循环上限，非赛题指标；到上限仍未完成记未解决",
+    "runner": "人工执行或隔离用户模拟器按本协议适配CallSession；旧exp21单轮runner不能直接读取本文件"
+  },
+  "grading": {
+    "per_obligation_states": [
+      "answered_correctly",
+      "clarification_pending",
+      "safely_handed_off",
+      "wrong",
+      "omitted"
+    ],
+    "pass": "所有问项正确回答或已完整安全转交，逐轮检查点通过，实际结论有原文依据且无编造；追问本身不算原问题完成",
+    "numeric_policy": "金额必须绑定被保人、医保、计划、年/月、投保口径和披露阶段，不以数字出现即通过；金额须与oracle一致，可接受等价中文表述",
+    "handoff": "按既有用户认可口径另记安全处理；请求必须保存问项和已知条件，未报价部分若转交须明列，不能声称人工已接通",
+    "reports": [
+      "按三类及dev/evaluation_candidate分别统计",
+      "多轮最终解决率与逐轮追问/记忆/更正正确性",
+      "复合问项完整率与整例正确率",
+      "自动解决、转人工、未解决分别报告",
+      "数字/来源/动作错误分别记录"
+    ],
+    "timing": "文字用例只记逐轮文字就绪耗时；语音适配另录用户句尾、首声、正式首声、实播结束。沿用现有≤3秒/≤10秒口径，不用整通电话时长替代单轮时延，不把追问当完整回答",
+    "voice_limit": "材料本身未验证ASR长句拆分、真人打断、回声或电话远端；需另走语音验收"
+  },
+  "split_policy": "每类前6例dev，后4例evaluation_candidate，共18/12；均在2026-10-13编写。涉及已知失败模式，不能称盲测。评估后若用于调优，标记为dev并另建未使用留出集。",
+  "material_baseline": "source_registry为当前本地资料快照；资料补齐核保规则、健康告知或完整附件后，重审对应转人工预期再升级版本",
+  "source_registry": {
+    "age": {
+      "path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+      "line": 101,
+      "excerpt": "被保险人年龄：投保时年龄为出生满30天至70周岁（含）",
+      "sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617"
+    },
+    "occupation": {
+      "path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+      "line": 103,
+      "excerpt": "被保险人不属于《众安保险特殊职业类别表》中的职业类别",
+      "sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617"
+    },
+    "underwriting": {
+      "path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+      "line": 117,
+      "excerpt": "若核保通过",
+      "sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617"
+    },
+    "disclosure": {
+      "path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+      "line": 128,
+      "excerpt": "未如实告知",
+      "sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617"
+    },
+    "first_age": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 5,
+      "excerpt": "*首次投保年龄为出生满30天-70周岁",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "family2": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 8,
+      "excerpt": "如累计为2人，当前订单每人价格优享5%",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "family3": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 11,
+      "excerpt": "当前订单每人价格优享10%",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "family4": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 11,
+      "excerpt": "如累计为4人，当前订单每人价格优享15%",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "family5": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 11,
+      "excerpt": "如累计为5人及以上，当前订单每人价格优享20%",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "family_scope": {
+      "path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+      "line": 8,
+      "excerpt": "同一投保人名下尊享医疗险系列+众民保医疗险系列产品保单家庭成员",
+      "sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1"
+    },
+    "deductible": {
+      "path": "data/clean/保险责任.md",
+      "line": 22,
+      "excerpt": "`D8`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "no_social_settlement": {
+      "path": "data/clean/保险责任.md",
+      "line": 23,
+      "excerpt": "`D9`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "shared_basic": {
+      "path": "data/clean/保险责任.md",
+      "line": 24,
+      "excerpt": "`D10`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "waiting": {
+      "path": "data/clean/保险责任.md",
+      "line": 19,
+      "excerpt": "`D5`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "compensation": {
+      "path": "data/clean/text/尊享E生百万医疗2026责任免除.md",
+      "line": 7,
+      "excerpt": "已从医保等其他任何途径获得医疗费报销或补偿的部分，不予理赔",
+      "sha256": "81fe91301f8775876d985c9d25ced1358f606142d73a98653c6f5d95fb28a625"
+    },
+    "preexisting": {
+      "path": "data/clean/text/尊享E生百万医疗2026责任免除.md",
+      "line": 9,
+      "excerpt": "除另有约定外，因既往症",
+      "sha256": "81fe91301f8775876d985c9d25ced1358f606142d73a98653c6f5d95fb28a625"
+    },
+    "family_deductible": {
+      "path": "data/clean/保险责任.md",
+      "line": 218,
+      "excerpt": "`D98`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "general_allowance": {
+      "path": "data/clean/保险责任.md",
+      "line": 311,
+      "excerpt": "`D116`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "icu_allowance": {
+      "path": "data/clean/保险责任.md",
+      "line": 326,
+      "excerpt": "`D118`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "drug_waiting": {
+      "path": "data/clean/保险责任.md",
+      "line": 343,
+      "excerpt": "`D120`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "drug_ratio": {
+      "path": "data/clean/保险责任.md",
+      "line": 344,
+      "excerpt": "`D121`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "drug_limit": {
+      "path": "data/clean/保险责任.md",
+      "line": 345,
+      "excerpt": "`D122`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "drug_prescription": {
+      "path": "data/clean/保险责任.md",
+      "line": 346,
+      "excerpt": "`D123`",
+      "sha256": "64e6e06c36c80e9c4b0ba784774c799b68bb33966f3b44b386883e3bff1146f3"
+    },
+    "manifest": {
+      "path": "data/README.md",
+      "line": 45,
+      "excerpt": "健康告知",
+      "sha256": "f83fbfe084e5e79a6fac949e57651df22fecf92608fad27f06f556975d01730f"
+    },
+    "missing_attachments": {
+      "path": "data/README.md",
+      "line": 47,
+      "excerpt": "100 种重大疾病清单、特药清单",
+      "sha256": "f83fbfe084e5e79a6fac949e57651df22fecf92608fad27f06f556975d01730f"
+    },
+    "rate_year_31_35_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 9,
+      "excerpt": "423.0,971.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_year_36_40_no_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 10,
+      "excerpt": "517.0,1330.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_month_5_10_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 3,
+      "excerpt": "27.0,56.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    },
+    "rate_year_36_40_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 10,
+      "excerpt": "517.0,1330.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_year_26_30_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 8,
+      "excerpt": "318.0,679.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_month_26_30_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 8,
+      "excerpt": "31.0,67.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    },
+    "rate_month_36_40_no_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 10,
+      "excerpt": "51.0,131.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    },
+    "rate_year_31_35_no_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 9,
+      "excerpt": "423.0,971.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_year_61_65_social": {
+      "path": "data/clean/premium/年缴_必选.csv",
+      "line": 15,
+      "excerpt": "2563.0,8898.0",
+      "sha256": "04a94fa42193d92a33b01724698239b1cb34de3b65abaea1a58b1725b2188b71"
+    },
+    "rate_month_61_65_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 15,
+      "excerpt": "253.0,881.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    },
+    "rate_month_31_35_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 9,
+      "excerpt": "42.0,96.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    },
+    "rate_month_31_35_no_social": {
+      "path": "data/clean/premium/月缴_必选.csv",
+      "line": 9,
+      "excerpt": "42.0,96.0",
+      "sha256": "7c699b955d14a07392bd8b2862f6b99ecc4d791bbfbeb0f7f91c9c52ec69d06e"
+    }
+  },
+  "cases": [
+    {
+      "id": "MT01",
+      "title": "分两次补年龄和医保",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "我给自己第一次买必选计划，个人单年缴多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "age": 35,
+        "has_social": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "age"
+          ],
+          "utterance": "35岁。",
+          "reveals": {
+            "age": 35
+          },
+          "checkpoint": "仍缺医保，继续确认，不能猜价格"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "有职工医保。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "找回年缴原问项，给423元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "缺年龄或医保时先追问；可说明条件分支，但不能替用户选一档",
+        "答复短句35岁时不得误当新问题，不能重复问已确认年龄"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT02",
+      "title": "只缺医保",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "我40岁，给自己首次买必选计划，个人单年缴多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": false
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "没有社保。",
+          "reveals": {
+            "has_social": false
+          },
+          "checkpoint": "按40岁无社保报价1330元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不重复问40岁，不默认有社保"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 40,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 1330.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_36_40_no_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT03",
+      "title": "孩子月缴补条件",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "我想给女儿首次买必选计划，个人单按月交多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "age": 6,
+        "has_social": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "age"
+          ],
+          "utterance": "她6周岁。",
+          "reveals": {
+            "age": 6
+          },
+          "checkpoint": "仍保留月缴意图"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "她有居民医保。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "报价27元/月，不能报成年人的费率"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "父母身份不替代孩子年龄；合并问年龄和医保时可合并两个回复"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 6,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 27.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_5_10_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT04",
+      "title": "家庭优惠先确认统计范围",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "家庭一起买能优惠多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "family_count": 3,
+        "qualified_family": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "family_count",
+            "qualified_family"
+          ],
+          "utterance": "我是同一个投保人，自己、配偶和女儿共3人，都是首次买你说的适用系列，这次同一订单，没有其他旧保单人数。",
+          "reveals": {
+            "family_count": 3,
+            "qualified_family": true
+          },
+          "checkpoint": "给10%并说明统计口径"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计3人对应优惠10%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family3",
+            "family_scope"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "信息不足时可以先介绍2/3/4/5人档位，不能擅自按三人给实际折扣"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "MT05",
+      "title": "理赔测算补身份和剩余免赔",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "我一般住院合规费用15000元，没走医保，等待期、医院、费用范围和其他责任条件均满足，无其他补偿，额度充足，非既往症，不加任何加油包。能测算赔多少吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": true,
+        "remaining_deductible": 4000
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "投保选的是有医保身份。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "不能将没结算医保等同无医保投保"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "remaining_deductible"
+          ],
+          "utterance": "年度免赔只剩4000元。",
+          "reveals": {
+            "remaining_deductible": 4000
+          },
+          "checkpoint": "(15000-4000)*60%=6600元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "calculation",
+          "expected": "在给定假设下测算6600元，明确60%适用前提及测算性质",
+          "source_ids": [
+            "deductible",
+            "no_social_settlement"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能默认免赔仍剩10000元；已给合规费用不要求重说",
+        "允许先列完整条件分支，最终必须落到实际补充条件"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "illustrative_claim",
+          "after": "all_replies",
+          "inputs": {
+            "eligible_net_expense": 15000,
+            "remaining_deductible": 4000,
+            "ratio": "0.6",
+            "all_other_contract_conditions_met": true,
+            "no_other_compensation": true
+          },
+          "expected": 6600.0,
+          "unit": "元",
+          "formula": "max(eligible_net_expense - remaining_deductible, 0) * ratio",
+          "source_ids": [
+            "deductible",
+            "no_social_settlement",
+            "compensation"
+          ],
+          "note": "仅为用户明确假设下的测算，不代表真实理赔审核结果。"
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT06",
+      "title": "免赔已用完的续问",
+      "type": "multi_turn",
+      "split": "dev",
+      "initial_user": "一般住院总费用20000元，医保报8000元，剩下12000元全是合规费用，按有医保身份投保并结算，等待期、医院、费用范围和其他责任条件均满足，无其他补偿，额度充足，非既往症，不加任何加油包。还能赔多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "remaining_deductible": 0
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "remaining_deductible"
+          ],
+          "utterance": "今年的免赔已经全部用完了。",
+          "reveals": {
+            "remaining_deductible": 0
+          },
+          "checkpoint": "回答12000元，不再扣一万"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "calculation",
+          "expected": "剩余免赔为0时测算12000元，不重复计算医保已补偿部分",
+          "source_ids": [
+            "deductible",
+            "compensation"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能把用户说的医保8000元直接算成免赔使用额",
+        "补条件后仍记得20000/8000/12000"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "illustrative_claim",
+          "after": "all_replies",
+          "inputs": {
+            "eligible_net_expense": 12000,
+            "remaining_deductible": 0,
+            "ratio": "1",
+            "all_other_contract_conditions_met": true,
+            "no_other_compensation": true
+          },
+          "expected": 12000.0,
+          "unit": "元",
+          "formula": "max(eligible_net_expense - remaining_deductible, 0) * ratio",
+          "source_ids": [
+            "deductible",
+            "no_social_settlement",
+            "compensation"
+          ],
+          "note": "仅为用户明确假设下的测算，不代表真实理赔审核结果。"
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT07",
+      "title": "跨费率档更正年龄",
+      "type": "multi_turn",
+      "split": "evaluation_candidate",
+      "initial_user": "我35岁有社保，给自己首次买必选计划，个人单年缴多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "corrected_age": 36
+      },
+      "user_reply_rules": [
+        {
+          "mode": "after_answer",
+          "trigger": "在上一轮正式回答之后主动更正",
+          "requested_fields": [],
+          "utterance": "我刚说错了，是36岁，其他条件不变，重新报一下。",
+          "reveals": {
+            "age": 36
+          },
+          "checkpoint": "按36岁更新517元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "两轮都检查；更正后不得沿用423元或只确认年龄不重新报价"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "initial_answer",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 36,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 517.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_36_40_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT08",
+      "title": "医保更正重算",
+      "type": "multi_turn",
+      "split": "evaluation_candidate",
+      "initial_user": "我40岁有社保，首次买必选计划，个人单年缴多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "corrected_has_social": false
+      },
+      "user_reply_rules": [
+        {
+          "mode": "after_answer",
+          "trigger": "在上一轮正式回答之后主动更正",
+          "requested_fields": [],
+          "utterance": "更正一下，我没有社保，重新报多少钱？",
+          "reveals": {
+            "has_social": false
+          },
+          "checkpoint": "保留40岁，重算1330元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "更正后517元失效；不得重复追问年龄或被保人"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "initial_answer",
+          "inputs": {
+            "age": 40,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 517.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_36_40_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 40,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 1330.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_36_40_no_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MT09",
+      "title": "高血压含糊保字",
+      "type": "multi_turn",
+      "split": "evaluation_candidate",
+      "initial_user": "我有高血压，可以保吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "goal": "能否投保",
+        "disease": "高血压"
+      },
+      "user_reply_rules": [
+        {
+          "mode": "if_requested",
+          "trigger": "仅当坐席确实追问相关事项时提供；有依据的提前安全转人工也可结束该分支",
+          "requested_fields": [
+            "goal"
+          ],
+          "utterance": "我问的是能不能买，不是已经买了能不能赔。",
+          "reveals": {
+            "goal": "能否投保"
+          },
+          "checkpoint": "区分购买与理赔，不能用既往症免责代替核保结论"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "underwriting",
+          "expected": "现有材料没有疾病核保规则/健康告知问卷，不能确认个体承保；如实告知，并明确转人工核实事项和已有条件",
+          "source_ids": [
+            "manifest",
+            "disclosure",
+            "underwriting"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "允许澄清保字，也允许直接说明承保需人工核实；不能为凑轮数强制索取血压/用药等医学字段",
+        "有依据的提前安全转人工视为有效处理，此例不算完成多轮能力证明"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "MT10",
+      "title": "缺年龄后确认父亲超龄",
+      "type": "multi_turn",
+      "split": "evaluation_candidate",
+      "initial_user": "我给父亲第一次买这个必选计划，年龄合适吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "age": 72
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "age"
+          ],
+          "utterance": "父亲72周岁。",
+          "reveals": {
+            "age": 72
+          },
+          "checkpoint": "首次投保超70岁，不把续期费率当新客资格"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "eligibility",
+          "expected": "72岁不在首次投保年龄范围；不能因费率表有72岁档就说能首次购买",
+          "source_ids": [
+            "age",
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "只补判断当前问项所需年龄，不必收集无关报价条件"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP01",
+      "title": "35岁资格价格优惠全部条件齐",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "eligibility",
+          "expected": "说明年龄是否符合首次投保范围；实际承保还须符合职业、健康告知和核保等条件，不保证通过",
+          "source_ids": [
+            "age",
+            "occupation",
+            "underwriting"
+          ]
+        },
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计3人对应优惠10%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family3",
+            "family_scope"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "必须分别回应三项；已有条件不重复追问；标准保费与家庭折扣口径分开说明"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "CP02",
+      "title": "年缴月缴及全年差额",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "我30岁有社保，自己首次买必选计划个人单，年缴和月缴各多少钱？月缴12个月比年缴多多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "报318元/年、31元/月，全年372元，差额54元",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "difference",
+          "expected": "31*12-318=54元，不把31元乘12说成318元",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能只报年缴或月缴，必须交代比较结果"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 30,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 318.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_26_30_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 30,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 31.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_26_30_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "annual_payment_difference",
+          "after": "all_replies",
+          "inputs": {
+            "annual": 318.0,
+            "monthly": 31.0,
+            "months": 12
+          },
+          "expected": 54.0,
+          "unit": "元",
+          "formula": "monthly * 12 - annual",
+          "source_ids": [
+            "rate_year_26_30_social",
+            "first_age",
+            "rate_month_26_30_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "CP03",
+      "title": "一般住院和ICU津贴",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "我首次买基础必选计划，一般住院免赔是多少？进ICU每天给多少津贴？要另外买什么吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "deductible",
+          "expected": "一般医疗年免赔1万元",
+          "source_ids": [
+            "deductible"
+          ]
+        },
+        {
+          "id": "icu",
+          "expected": "ICU津贴500元/天，需选购相应住院津贴加油包，不是基础必选自带",
+          "source_ids": [
+            "icu_allowance"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "同时覆盖免赔、ICU金额、加油包归属，不能只提其中两项"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP04",
+      "title": "普通门诊与住院免赔关系",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "基础版普通门急诊和一般住院各是多少免赔？两个各扣一万，还是共享？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "shared",
+          "expected": "一般门急诊与一般医疗共享年免赔1万元，不是各扣一万；按各自责任条件适用",
+          "source_ids": [
+            "shared_basic"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "普通门诊不得混成门急诊加油包规则"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP05",
+      "title": "家庭优惠和共享免赔不是一回事",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "我同一投保人和配偶、女儿3人首次买适用系列，同一订单无旧人数。家庭优惠多少？免赔自动共享吗？普通门急诊也算家庭共享吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计3人对应优惠10%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family3",
+            "family_scope"
+          ]
+        },
+        {
+          "id": "family_deductible",
+          "expected": "家庭共享免赔需相应加油包；同一投保人同一订单一般医疗共享1万元，普通门急诊不在该家庭累计范围",
+          "source_ids": [
+            "family_deductible"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "家庭优惠不等于自动买了共享免赔加油包；不混淆基础版两责任共享与家庭跨人共享"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP06",
+      "title": "药省保多个限制",
+      "type": "compound",
+      "split": "dev",
+      "initial_user": "给孩子买药省保，等待多久？报多少比例，每月每年限额是多少？孩子6周岁能开处方药吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "drug_waiting",
+          "expected": "等待期7天",
+          "source_ids": [
+            "drug_waiting"
+          ]
+        },
+        {
+          "id": "drug_limit",
+          "expected": "保险人认可的互联网药店合规药品费用50%，月100元、年1000元",
+          "source_ids": [
+            "drug_ratio",
+            "drug_limit"
+          ]
+        },
+        {
+          "id": "prescription",
+          "expected": "6周岁含以下无法开处方药；不能说满6岁就可开",
+          "source_ids": [
+            "drug_prescription"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "四个问项及年龄含边界都检查，不能因提到药就泛化为全部药能赔"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP07",
+      "title": "56岁不同计划年龄边界",
+      "type": "compound",
+      "split": "evaluation_candidate",
+      "initial_user": "我56岁第一次买，基础必选计划年龄能买到吗？门急诊加油包能一起首次买吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "basic_age",
+          "expected": "56岁在基础计划首次投保年龄范围，其他条件仍须满足",
+          "source_ids": [
+            "age"
+          ]
+        },
+        {
+          "id": "addon_age",
+          "expected": "门急诊加油包首次年龄上限55岁，56岁不能首次买；不得拿续期档位解释新客资格",
+          "source_ids": [
+            "age",
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "两种计划分开判断，不能一概拒绝或一概接受"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP08",
+      "title": "72岁首次投保资格和费用",
+      "type": "compound",
+      "split": "evaluation_candidate",
+      "initial_user": "父亲72岁有社保，第一次买必选计划，能投保吗？年缴多少钱？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "eligibility",
+          "expected": "明确首次投保超过70岁上限",
+          "source_ids": [
+            "age"
+          ]
+        },
+        {
+          "id": "price",
+          "expected": "说明不能按首次投保报价；若解释费率表71岁以上档，必须指出指定期限重新投保口径，不能作为父亲可购报价",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能直接用表中3928元作为72岁首次报价，价格问项不能被静默忽略"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP09",
+      "title": "病史购买与理赔分开",
+      "type": "compound",
+      "split": "evaluation_candidate",
+      "initial_user": "我已经有高血压，现在第一次买能通过吗？以后因为高血压住院能报吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "underwriting",
+          "expected": "现有材料没有疾病核保规则/健康告知问卷，不能确认个体承保；如实告知，并明确转人工核实事项和已有条件",
+          "source_ids": [
+            "manifest",
+            "disclosure",
+            "underwriting"
+          ]
+        },
+        {
+          "id": "claim_scope",
+          "expected": "说明既往症相关费用的免责规定及保单特别约定，不能承诺买了即可赔高血压住院",
+          "source_ids": [
+            "preexisting"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "核保和理赔两个问项分别交代，不能把不能确认核保变成任何费用都不赔"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "CP10",
+      "title": "已知报价与缺附件混合",
+      "type": "compound",
+      "split": "evaluation_candidate",
+      "initial_user": "我30岁有社保，首次买必选计划，个人单年缴多少钱？原位癌一定属于合同100种重疾吗？某个特效药一定在清单里吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {},
+      "user_reply_rules": [],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "disease_definition",
+          "expected": "没有逐项重疾定义附件，不能确认原位癌，需人工核实",
+          "source_ids": [
+            "missing_attachments"
+          ]
+        },
+        {
+          "id": "drug_list",
+          "expected": "没有完整药品附件，不能确认某药，需人工核实并保留这项问题",
+          "source_ids": [
+            "missing_attachments"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "有依据的318元报价应答；两个待核实事项均进入人工请求，不能只存一个"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 30,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 318.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_26_30_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX01",
+      "title": "用户原例35岁三问",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "我现在35岁能投保吗？投保需要多少钱，有优惠吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": true,
+        "plan": "必选计划",
+        "payment": "year",
+        "family_count": 3,
+        "qualified_family": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "relation",
+            "has_social",
+            "plan",
+            "payment"
+          ],
+          "utterance": "给自己第一次买必选计划，按年交，有职工医保，先报个人单标准价。",
+          "reveals": {
+            "relation": "本人",
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "has_social": true
+          },
+          "checkpoint": "记得还有资格与优惠两问"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "family_count",
+            "qualified_family"
+          ],
+          "utterance": "同一投保人名下自己、配偶、孩子共3人首次买适用系列，同一订单，没有旧人数。",
+          "reveals": {
+            "family_count": 3,
+            "qualified_family": true
+          },
+          "checkpoint": "资格条件、423元标准年费、10%家庭优惠都覆盖"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "eligibility",
+          "expected": "说明年龄是否符合首次投保范围；实际承保还须符合职业、健康告知和核保等条件，不保证通过",
+          "source_ids": [
+            "age",
+            "occupation",
+            "underwriting"
+          ]
+        },
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计3人对应优惠10%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family3",
+            "family_scope"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "条件齐前可以给完整条件分支，不能擅自按有医保单人报价",
+        "回答补充信息后必须回到原始三个问项"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX02",
+      "title": "缺年龄医保的报价与等待期",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "自己第一次买必选计划，年缴和月缴各多少钱？生病住院和意外住院都要等30天吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "age": 40,
+        "has_social": false
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "age"
+          ],
+          "utterance": "40周岁。",
+          "reveals": {
+            "age": 40
+          },
+          "checkpoint": "已知等待期先答，不把整题转人工"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "没有社保。",
+          "reveals": {
+            "has_social": false
+          },
+          "checkpoint": "年1330/月131，同时完成等待期区分"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "waiting",
+          "expected": "区分疾病30天等待期与意外伤害不受该疾病等待期限制，不能把生效等同全部责任立即可赔",
+          "source_ids": [
+            "waiting"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "价格条件缺失不影响已有等待期依据；后续不能丢月缴或意外问项"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 40,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 1330.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_36_40_no_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 40,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 131.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_36_40_no_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX03",
+      "title": "高血压核保和价格缺医保",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "我35岁有高血压，第一次给自己买必选计划，个人单年缴多少钱？病史能让我投保吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": false
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "没有医保。",
+          "reveals": {
+            "has_social": false
+          },
+          "checkpoint": "报价971元，核保转人工并携带病史"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "underwriting",
+          "expected": "现有材料没有疾病核保规则/健康告知问卷，不能确认个体承保；如实告知，并明确转人工核实事项和已有条件",
+          "source_ids": [
+            "manifest",
+            "disclosure",
+            "underwriting"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能因核保待核实直接终止并丢失报价；若直接转交完整原问及缺医保事项，记安全转交但不算自动完成报价",
+        "明确价格只是标准费率，不等于高血压已被承保"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 971.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_no_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX04",
+      "title": "母亲年缴月缴与差额",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "我给母亲第一次买必选计划，个人单一年多少钱、每月多少钱？一年总共差多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "age": 62,
+        "has_social": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "age"
+          ],
+          "utterance": "母亲62岁。",
+          "reveals": {
+            "age": 62
+          },
+          "checkpoint": "保留三个价格问项"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "她有居民医保。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "2563元年缴，253元月缴，全年3036元，多473元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "difference",
+          "expected": "253*12-2563=473元",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能用投保人的年龄；补医保后不只回答月缴"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 62,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 2563.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_61_65_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 62,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 253.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_61_65_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "annual_payment_difference",
+          "after": "all_replies",
+          "inputs": {
+            "annual": 2563.0,
+            "monthly": 253.0,
+            "months": 12
+          },
+          "expected": 473.0,
+          "unit": "元",
+          "formula": "monthly * 12 - annual",
+          "source_ids": [
+            "rate_year_61_65_social",
+            "first_age",
+            "rate_month_61_65_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX05",
+      "title": "测算缺条件加等待期",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "一般住院合规费用15000元，没走医保，等待期、医院、费用范围和其他责任条件均满足，无其他补偿，额度充足，非既往症，不加任何加油包。能测算赔多少？另问首次投保生病和意外都等30天吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": true,
+        "remaining_deductible": 10000
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "按有医保身份投保。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "保留没走医保，适用60%"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "remaining_deductible"
+          ],
+          "utterance": "免赔一万元还完全没用。",
+          "reveals": {
+            "remaining_deductible": 10000
+          },
+          "checkpoint": "测算3000元并区分疾病意外等待期"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "calculation",
+          "expected": "假设下(15000-10000)*60%=3000元，不能按100%测算",
+          "source_ids": [
+            "deductible",
+            "no_social_settlement"
+          ]
+        },
+        {
+          "id": "waiting",
+          "expected": "区分疾病30天等待期与意外伤害不受该疾病等待期限制，不能把生效等同全部责任立即可赔",
+          "source_ids": [
+            "waiting"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "测算与等待期两项都完成，允许先答等待期再补计算条件"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "illustrative_claim",
+          "after": "all_replies",
+          "inputs": {
+            "eligible_net_expense": 15000,
+            "remaining_deductible": 10000,
+            "ratio": "0.6",
+            "all_other_contract_conditions_met": true,
+            "no_other_compensation": true
+          },
+          "expected": 3000.0,
+          "unit": "元",
+          "formula": "max(eligible_net_expense - remaining_deductible, 0) * ratio",
+          "source_ids": [
+            "deductible",
+            "no_social_settlement",
+            "compensation"
+          ],
+          "note": "仅为用户明确假设下的测算，不代表真实理赔审核结果。"
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX06",
+      "title": "家庭人数不明与共享范围",
+      "type": "mixed",
+      "split": "dev",
+      "initial_user": "家庭买有多少优惠？一般住院免赔能共享吗，门急诊也能一起算吗？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "family_count": 4,
+        "qualified_family": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "family_count",
+            "qualified_family"
+          ],
+          "utterance": "同一投保人名下自己、配偶和两个孩子共4人，首次买适用系列，同一订单，没有旧人数。",
+          "reveals": {
+            "family_count": 4,
+            "qualified_family": true
+          },
+          "checkpoint": "优惠15%，共享需加油包，普通门急诊不累计"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计4人对应优惠15%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family4",
+            "family_scope"
+          ]
+        },
+        {
+          "id": "family_deductible",
+          "expected": "共享须相应加油包，同一订单一般医疗年免赔1万元；普通门急诊不计入家庭累计",
+          "source_ids": [
+            "family_deductible"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "不能把家庭优惠人数当免赔额，也不能要求医保后才回答共享规则"
+      ],
+      "numeric_oracles": [],
+      "status": "not_run"
+    },
+    {
+      "id": "MX07",
+      "title": "复合报价后更正医保",
+      "type": "mixed",
+      "split": "evaluation_candidate",
+      "initial_user": "我35岁有医保，首次买必选计划个人单，年缴和月缴各多少钱？全年差多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "corrected_has_social": false
+      },
+      "user_reply_rules": [
+        {
+          "mode": "after_answer",
+          "trigger": "在上一轮正式回答之后主动更正",
+          "requested_fields": [],
+          "utterance": "我刚说错了，没有医保，刚才三个价格都按无医保重算一下。",
+          "reveals": {
+            "has_social": false
+          },
+          "checkpoint": "年971/月96/差181元，旧423/42/81元失效"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "difference",
+          "expected": "更正前42*12-423=81元；更正后96*12-971=181元",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "前后两轮分别核对三个问项，不能只改年缴"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "initial_answer",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "initial_answer",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 42.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_31_35_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "annual_payment_difference",
+          "after": "initial_answer",
+          "inputs": {
+            "annual": 423.0,
+            "monthly": 42.0,
+            "months": 12
+          },
+          "expected": 81.0,
+          "unit": "元",
+          "formula": "monthly * 12 - annual",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age",
+            "rate_month_31_35_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 971.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_no_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": false,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "month",
+            "policy_count": 1
+          },
+          "expected": 96.0,
+          "unit": "元/月",
+          "source_ids": [
+            "rate_month_31_35_no_social",
+            "first_age"
+          ]
+        },
+        {
+          "kind": "annual_payment_difference",
+          "after": "all_replies",
+          "inputs": {
+            "annual": 971.0,
+            "monthly": 96.0,
+            "months": 12
+          },
+          "expected": 181.0,
+          "unit": "元",
+          "formula": "monthly * 12 - annual",
+          "source_ids": [
+            "rate_year_31_35_no_social",
+            "first_age",
+            "rate_month_31_35_no_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX08",
+      "title": "已有家庭成员累计和本人价格",
+      "type": "mixed",
+      "split": "evaluation_candidate",
+      "initial_user": "我首次买必选计划，自己30岁，个人单年缴多少钱？同一个投保人名下已有配偶一张适用系列保单，我这次新增自己，家庭优惠是多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "有职工医保，这次只新增我，没有其他家人。",
+          "reveals": {
+            "has_social": true,
+            "family_count": 2,
+            "qualified_family": true
+          },
+          "checkpoint": "318元标准年费，累计2人5%，不能只看本次1人"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计2人对应优惠5%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family2",
+            "family_scope"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "现有配偶与本次本人累计；不重复问已经明确的年龄/家庭关系"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 30,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 318.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_26_30_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX09",
+      "title": "超龄父亲换母亲后补医保",
+      "type": "mixed",
+      "split": "evaluation_candidate",
+      "initial_user": "父亲72岁第一次买，能买吗，年缴多少？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "new_relation": "母亲",
+        "age": 65,
+        "has_social": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "after_answer",
+          "trigger": "在上一轮正式回答之后主动更正",
+          "requested_fields": [],
+          "utterance": "那改成母亲65岁第一次买必选计划，给她报个人单年缴，父亲不买。",
+          "reveals": {
+            "relation": "母亲",
+            "age": 65
+          },
+          "checkpoint": "换人后不能继承父亲年龄和医保"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "母亲有居民医保。",
+          "reveals": {
+            "has_social": true
+          },
+          "checkpoint": "母亲年龄符合范围，标准年缴2563元"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "father_eligibility",
+          "expected": "先说明72岁父亲超首次上限，不给可购报价",
+          "source_ids": [
+            "age",
+            "first_age"
+          ]
+        },
+        {
+          "id": "mother_eligibility",
+          "expected": "更换为65岁母亲后重新按其条件判断，年龄在范围，仍以核保等为准",
+          "source_ids": [
+            "age",
+            "underwriting"
+          ]
+        },
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "因父亲超龄不应直接挂断阻止用户换人；不能把父亲问项算母亲已答",
+        "这一例初始没有披露任何人的医保"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 65,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 2563.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_61_65_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    },
+    {
+      "id": "MX10",
+      "title": "长口语背景和五人优惠",
+      "type": "mixed",
+      "split": "evaluation_candidate",
+      "initial_user": "我之前刷到广告，家里一直商量，平时工作忙没来得及看。我35岁，想给自己第一次买必选计划，一年要多少钱？年龄能不能买？家里好几个人还想一起买，优惠怎么算？",
+      "initial_profile": {},
+      "initial_history": [],
+      "hidden_user_facts": {
+        "has_social": true,
+        "family_count": 5,
+        "qualified_family": true
+      },
+      "user_reply_rules": [
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "has_social"
+          ],
+          "utterance": "我有职工医保，先报个人单年缴标准价。",
+          "reveals": {
+            "has_social": true,
+            "payment": "year"
+          },
+          "checkpoint": "不丢年龄资格和优惠问项"
+        },
+        {
+          "mode": "when_requested",
+          "trigger": "追问下列任一未披露条件时提供；可合并回答，但不提前透露其他条件",
+          "requested_fields": [
+            "family_count",
+            "qualified_family"
+          ],
+          "utterance": "我是同一个投保人，这次自己、配偶、孩子和父母共5人，首次买适用系列，同一订单，没有旧人数。",
+          "reveals": {
+            "family_count": 5,
+            "qualified_family": true
+          },
+          "checkpoint": "给423元年费、年龄条件、累计5人20%优惠"
+        }
+      ],
+      "obligations": [
+        {
+          "id": "eligibility",
+          "expected": "说明年龄是否符合首次投保范围；实际承保还须符合职业、健康告知和核保等条件，不保证通过",
+          "source_ids": [
+            "age",
+            "occupation",
+            "underwriting"
+          ]
+        },
+        {
+          "id": "price",
+          "expected": "在已披露条件下给必选计划个人单标准保费，标明年/月口径，不将报价当作核保通过",
+          "source_ids": [
+            "first_age"
+          ]
+        },
+        {
+          "id": "discount",
+          "expected": "符合家庭单统计条件时，累计5人对应优惠20%；说明同一投保人和适用产品/家庭成员口径，不无条件承诺个人单打折",
+          "source_ids": [
+            "family5",
+            "family_scope"
+          ]
+        }
+      ],
+      "conversation_checks": [
+        "长背景不能掩盖三个问题；不因用户说商量就触发挽留而跳过问答"
+      ],
+      "numeric_oracles": [
+        {
+          "kind": "standard_premium",
+          "after": "all_replies",
+          "inputs": {
+            "age": 35,
+            "has_social": true,
+            "first_insurance": true,
+            "plan": "必选计划",
+            "payment": "year",
+            "policy_count": 1
+          },
+          "expected": 423.0,
+          "unit": "元/年",
+          "source_ids": [
+            "rate_year_31_35_social",
+            "first_age"
+          ]
+        }
+      ],
+      "status": "not_run"
+    }
+  ]
+}

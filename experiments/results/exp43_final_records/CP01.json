@@ -1,0 +1,1202 @@
+{
+  "id": "CP01",
+  "type": "compound",
+  "split": "dev",
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turns": [
+    {
+      "user": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+      "history_before": [
+        [
+          "坐席",
+          "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+        ]
+      ],
+      "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+      "profile": {
+        "age": 35,
+        "has_social": true,
+        "pay": "年缴",
+        "relation": "本人"
+      },
+      "history_after": [
+        [
+          "坐席",
+          "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+        ],
+        [
+          "用户",
+          "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？"
+        ],
+        [
+          "坐席",
+          "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。"
+        ]
+      ],
+      "events": [
+        "回答:证据-answer",
+        "原咨询完成:本轮不追加销售"
+      ],
+      "timings": {
+        "understand": 0.6730325999997149,
+        "consultation": {
+          "id": "c2",
+          "initial_question": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+          "status": "complete",
+          "revision": 1,
+          "tasks": [
+            {
+              "id": "q1",
+              "question": "35岁有职工医保、首次投保必选计划、年缴个人单标准价多少钱",
+              "kind": "price",
+              "status": "answered",
+              "requires": [
+                "age",
+                "has_social",
+                "payment",
+                "plan",
+                "first_insurance"
+              ],
+              "is_example": false,
+              "quoted_amount": 423,
+              "missing_conditions": []
+            },
+            {
+              "id": "q2",
+              "question": "35岁年龄能否投保",
+              "kind": "eligibility",
+              "status": "answered",
+              "requires": [
+                "age"
+              ],
+              "is_example": false,
+              "missing_conditions": []
+            },
+            {
+              "id": "q3",
+              "question": "同一投保人和配偶、女儿共3人首次买适用系列、同一订单且没有旧人数，有什么家庭优惠",
+              "kind": "discount",
+              "status": "answered",
+              "requires": [
+                "family_size"
+              ],
+              "is_example": false,
+              "missing_conditions": []
+            }
+          ],
+          "facts": [
+            {
+              "name": "age",
+              "value": 35,
+              "state": "confirmed",
+              "user_quote": "我35岁有职工医保"
+            },
+            {
+              "name": "has_social",
+              "value": true,
+              "state": "confirmed",
+              "user_quote": "我35岁有职工医保"
+            },
+            {
+              "name": "payment",
+              "value": "年缴",
+              "state": "confirmed",
+              "user_quote": "年缴个人单标准价多少钱"
+            },
+            {
+              "name": "plan",
+              "value": "必选计划",
+              "state": "confirmed",
+              "user_quote": "给自己第一次买必选计划"
+            },
+            {
+              "name": "first_insurance",
+              "value": true,
+              "state": "confirmed",
+              "user_quote": "给自己第一次买必选计划"
+            },
+            {
+              "name": "family_size",
+              "value": 3,
+              "state": "confirmed",
+              "user_quote": "和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数"
+            }
+          ],
+          "guard_faults": []
+        },
+        "answer": 4.216088900000614,
+        "answer_detail": {
+          "total": 4.216088900000614,
+          "trace": [
+            {
+              "stage": "generate",
+              "calls": 1
+            },
+            {
+              "stage": "decision",
+              "outcome": {
+                "action": "answer",
+                "reason_kind": "none",
+                "reason": "保费、年龄资格和家庭优惠均已依据材料回答",
+                "pending_questions": [],
+                "source_ids": []
+              }
+            },
+            {
+              "stage": "release",
+              "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。"
+            }
+          ],
+          "evidence_result": {
+            "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+            "structured": {
+              "segments": [
+                {
+                  "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。",
+                  "source_ids": [
+                    "rate:年缴_必选:9",
+                    "rate-notice:尊享E生百万医疗2026年缴费率:5"
+                  ],
+                  "derivation": ""
+                },
+                {
+                  "text": "年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。",
+                  "source_ids": [
+                    "投保须知#86",
+                    "投保须知#100"
+                  ],
+                  "derivation": ""
+                },
+                {
+                  "text": "家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+                  "source_ids": [
+                    "rate-notice:尊享E生百万医疗2026年缴费率:8",
+                    "rate-notice:尊享E生百万医疗2026年缴费率:11"
+                  ],
+                  "derivation": ""
+                }
+              ],
+              "unknowns": [],
+              "outcome": {
+                "action": "answer",
+                "reason_kind": "none",
+                "reason": "保费、年龄资格和家庭优惠均已依据材料回答",
+                "pending_questions": [],
+                "source_ids": []
+              },
+              "consultation": {
+                "facts": [
+                  {
+                    "name": "age",
+                    "value": 35,
+                    "state": "confirmed",
+                    "user_quote": "我35岁有职工医保"
+                  },
+                  {
+                    "name": "has_social",
+                    "value": true,
+                    "state": "confirmed",
+                    "user_quote": "我35岁有职工医保"
+                  },
+                  {
+                    "name": "payment",
+                    "value": "年缴",
+                    "state": "confirmed",
+                    "user_quote": "年缴个人单标准价多少钱"
+                  },
+                  {
+                    "name": "plan",
+                    "value": "必选计划",
+                    "state": "confirmed",
+                    "user_quote": "给自己第一次买必选计划"
+                  },
+                  {
+                    "name": "first_insurance",
+                    "value": true,
+                    "state": "confirmed",
+                    "user_quote": "给自己第一次买必选计划"
+                  },
+                  {
+                    "name": "family_size",
+                    "value": 3,
+                    "state": "confirmed",
+                    "user_quote": "和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数"
+                  }
+                ],
+                "tasks": [
+                  {
+                    "id": "q1",
+                    "question": "35岁有职工医保、首次投保必选计划、年缴个人单标准价多少钱",
+                    "kind": "price",
+                    "status": "answered",
+                    "requires": [
+                      "age",
+                      "has_social",
+                      "payment",
+                      "plan",
+                      "first_insurance"
+                    ],
+                    "is_example": false,
+                    "quoted_amount": 423
+                  },
+                  {
+                    "id": "q2",
+                    "question": "35岁年龄能否投保",
+                    "kind": "eligibility",
+                    "status": "answered",
+                    "requires": [
+                      "age"
+                    ],
+                    "is_example": false
+                  },
+                  {
+                    "id": "q3",
+                    "question": "同一投保人和配偶、女儿共3人首次买适用系列、同一订单且没有旧人数，有什么家庭优惠",
+                    "kind": "discount",
+                    "status": "answered",
+                    "requires": [
+                      "family_size"
+                    ],
+                    "is_example": false
+                  }
+                ]
+              },
+              "claims": [
+                {
+                  "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。",
+                  "source_ids": [
+                    "rate:年缴_必选:9",
+                    "rate-notice:尊享E生百万医疗2026年缴费率:5"
+                  ],
+                  "derivation": "",
+                  "citations": [
+                    {
+                      "id": "rate:年缴_必选:9",
+                      "quote": "年缴_必选；年龄=[31,35]；必选计划_有社保=423.0；必选计划_无社保=971.0",
+                      "location": {}
+                    },
+                    {
+                      "id": "rate-notice:尊享E生百万医疗2026年缴费率:5",
+                      "quote": "尊享e生·百万医疗保险2026版（年缴版）单位：元*首次投保年龄为出生满30天-70周岁（门急诊加油包为出生满30天-55周岁），且首次投保或未在上一张保单期满后指定期限内重新投保，投保保单数量=1，个人单标准保费；*71周岁及以上为在上一张保单期满后指定期限内重新投保（门急诊加油包为56周岁及以上），投保保单数量=1，个人单标准保费。注：",
+                      "location": {
+                        "raw_path": "data/raw/尊享百万/尊享E生百万医疗2026年缴费率.pdf",
+                        "raw_sha256": "dfcb899ce6bcc9247f334c16ad10b8054c000d9c451824af2b09af58c300c253",
+                        "clean_path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+                        "clean_sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1",
+                        "extracted_path": "data/extracted/pdf_text/尊享E生百万医疗2026年缴费率.pdfplumber.txt",
+                        "extracted_sha256": "e61219d7b344b343e2505dd2b666e0224a9204ff68c14c15539b78515e5d0575",
+                        "id": "尊享E生百万医疗2026年缴费率:p1:md5",
+                        "page": 1,
+                        "md_line": 5,
+                        "page_text_line_start": 1,
+                        "page_text_line_end": 5,
+                        "extracted_file_line_start": 2,
+                        "extracted_file_line_end": 6,
+                        "non_whitespace_char_start": 0,
+                        "non_whitespace_char_end_exclusive": 171
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。",
+                  "source_ids": [
+                    "投保须知#86",
+                    "投保须知#100"
+                  ],
+                  "derivation": "",
+                  "citations": [
+                    {
+                      "id": "投保须知#86",
+                      "quote": "2.被保险人年龄：投保时年龄为出生满30天至70周岁（含）。加油包中，尊享门急诊医疗加油包投保时年龄为出生满30天至55周岁（含），其余加油包的首次投保年龄为出生满30天至70周岁（含）。",
+                      "location": {
+                        "raw_path": "data/raw/尊享百万/尊享E生百万医疗2026投保须知.pdf",
+                        "raw_sha256": "061c46bf3d697f12f2e07d8cbe191cd270be6b2ca944640d28ed6fe8648f4ce4",
+                        "clean_path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+                        "clean_sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617",
+                        "extracted_path": "data/extracted/pdf_text/尊享E生百万医疗2026投保须知.pdfplumber.txt",
+                        "extracted_sha256": "e3d869124aeed406f13f1338f8a8c3c52f45dca273a1f4a869edaa2d9a303504",
+                        "id": "尊享E生百万医疗2026投保须知:p6:md101",
+                        "page": 6,
+                        "md_line": 101,
+                        "page_text_line_start": 17,
+                        "page_text_line_end": 19,
+                        "extracted_file_line_start": 243,
+                        "extracted_file_line_end": 245,
+                        "non_whitespace_char_start": 587,
+                        "non_whitespace_char_end_exclusive": 681
+                      }
+                    },
+                    {
+                      "id": "投保须知#100",
+                      "quote": "四、保单服务1.投保：您填写个人投保信息并勾选需要的保险计划，若核保通过，您可通过支付宝、银行卡等支付方式交纳保费至众安保险指定账户（如为赠险无须交费），保险合同成立；若核保不通过，则投保人无需支付保险费，保险合同不成立。",
+                      "location": {
+                        "raw_path": "data/raw/尊享百万/尊享E生百万医疗2026投保须知.pdf",
+                        "raw_sha256": "061c46bf3d697f12f2e07d8cbe191cd270be6b2ca944640d28ed6fe8648f4ce4",
+                        "clean_path": "data/clean/text/尊享E生百万医疗2026投保须知.md",
+                        "clean_sha256": "0c77ab8ffacbad81713855de0bdffd6a964b1bfeb792d31f83f4b47b67565617",
+                        "extracted_path": "data/extracted/pdf_text/尊享E生百万医疗2026投保须知.pdfplumber.txt",
+                        "extracted_sha256": "e3d869124aeed406f13f1338f8a8c3c52f45dca273a1f4a869edaa2d9a303504",
+                        "id": "尊享E生百万医疗2026投保须知:p7:md117",
+                        "page": 7,
+                        "md_line": 117,
+                        "page_text_line_start": 18,
+                        "page_text_line_end": 21,
+                        "extracted_file_line_start": 289,
+                        "extracted_file_line_end": 292,
+                        "non_whitespace_char_start": 618,
+                        "non_whitespace_char_end_exclusive": 729
+                      }
+                    }
+                  ]
+                },
+                {
+                  "text": "家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+                  "source_ids": [
+                    "rate-notice:尊享E生百万医疗2026年缴费率:8",
+                    "rate-notice:尊享E生百万医疗2026年缴费率:11"
+                  ],
+                  "derivation": "",
+                  "citations": [
+                    {
+                      "id": "rate-notice:尊享E生百万医疗2026年缴费率:8",
+                      "quote": "1）同一投保人名下尊享医疗险系列+众民保医疗险系列产品保单家庭成员（限本人/配偶/子女/父母/配偶父母（经配偶父母本人同意））及当前产品订单新增的家庭成员人数之和优享价格，如累计为2人，当前订单每人价格优享5%；如累计为3人，",
+                      "location": {
+                        "raw_path": "data/raw/尊享百万/尊享E生百万医疗2026年缴费率.pdf",
+                        "raw_sha256": "dfcb899ce6bcc9247f334c16ad10b8054c000d9c451824af2b09af58c300c253",
+                        "clean_path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+                        "clean_sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1",
+                        "extracted_path": "data/extracted/pdf_text/尊享E生百万医疗2026年缴费率.pdfplumber.txt",
+                        "extracted_sha256": "e61219d7b344b343e2505dd2b666e0224a9204ff68c14c15539b78515e5d0575",
+                        "id": "尊享E生百万医疗2026年缴费率:p1:md8",
+                        "page": 1,
+                        "md_line": 8,
+                        "page_text_line_start": 8,
+                        "page_text_line_end": 11,
+                        "extracted_file_line_start": 9,
+                        "extracted_file_line_end": 12,
+                        "non_whitespace_char_start": 272,
+                        "non_whitespace_char_end_exclusive": 385
+                      }
+                    },
+                    {
+                      "id": "rate-notice:尊享E生百万医疗2026年缴费率:11",
+                      "quote": "当前订单每人价格优享10%；如累计为4人，当前订单每人价格优享15%，如累计为5人及以上，当前订单每人价格优享20%；",
+                      "location": {
+                        "raw_path": "data/raw/尊享百万/尊享E生百万医疗2026年缴费率.pdf",
+                        "raw_sha256": "dfcb899ce6bcc9247f334c16ad10b8054c000d9c451824af2b09af58c300c253",
+                        "clean_path": "data/clean/text/尊享E生百万医疗2026年缴费率.md",
+                        "clean_sha256": "f44b90372f4379c668e9d895cd314697005b321b9973cff22f4a3abc55dd69f1",
+                        "extracted_path": "data/extracted/pdf_text/尊享E生百万医疗2026年缴费率.pdfplumber.txt",
+                        "extracted_sha256": "e61219d7b344b343e2505dd2b666e0224a9204ff68c14c15539b78515e5d0575",
+                        "id": "尊享E生百万医疗2026年缴费率:p2:md11",
+                        "page": 2,
+                        "md_line": 11,
+                        "page_text_line_start": 1,
+                        "page_text_line_end": 2,
+                        "extracted_file_line_start": 14,
+                        "extracted_file_line_end": 15,
+                        "non_whitespace_char_start": 0,
+                        "non_whitespace_char_end_exclusive": 59
+                      }
+                    }
+                  ]
+                }
+              ],
+              "answer": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+              "answer_source_ids": [
+                "rate:年缴_必选:9",
+                "rate-notice:尊享E生百万医疗2026年缴费率:5",
+                "投保须知#86",
+                "投保须知#100",
+                "rate-notice:尊享E生百万医疗2026年缴费率:8",
+                "rate-notice:尊享E生百万医疗2026年缴费率:11"
+              ]
+            },
+            "provenance": {
+              "valid": true,
+              "faults": [],
+              "references": 6,
+              "scope": "segment",
+              "semantic_entailment_checked": false
+            },
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "output": {
+                  "segments": [
+                    {
+                      "text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。",
+                      "source_ids": [
+                        "rate:年缴_必选:9",
+                        "rate-notice:尊享E生百万医疗2026年缴费率:5"
+                      ],
+                      "derivation": ""
+                    },
+                    {
+                      "text": "年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。",
+                      "source_ids": [
+                        "投保须知#86",
+                        "投保须知#100"
+                      ],
+                      "derivation": ""
+                    },
+                    {
+                      "text": "家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。",
+                      "source_ids": [
+                        "rate-notice:尊享E生百万医疗2026年缴费率:8",
+                        "rate-notice:尊享E生百万医疗2026年缴费率:11"
+                      ],
+                      "derivation": ""
+                    }
+                  ],
+                  "unknowns": [],
+                  "outcome": {
+                    "action": "answer",
+                    "reason_kind": "none",
+                    "reason": "保费、年龄资格和家庭优惠均已依据材料回答",
+                    "pending_questions": [],
+                    "source_ids": []
+                  },
+                  "consultation": {
+                    "facts": [
+                      {
+                        "name": "age",
+                        "value": 35,
+                        "state": "confirmed",
+                        "user_quote": "我35岁有职工医保"
+                      },
+                      {
+                        "name": "has_social",
+                        "value": true,
+                        "state": "confirmed",
+                        "user_quote": "我35岁有职工医保"
+                      },
+                      {
+                        "name": "payment",
+                        "value": "年缴",
+                        "state": "confirmed",
+                        "user_quote": "年缴个人单标准价多少钱"
+                      },
+                      {
+                        "name": "plan",
+                        "value": "必选计划",
+                        "state": "confirmed",
+                        "user_quote": "给自己第一次买必选计划"
+                      },
+                      {
+                        "name": "first_insurance",
+                        "value": true,
+                        "state": "confirmed",
+                        "user_quote": "给自己第一次买必选计划"
+                      },
+                      {
+                        "name": "family_size",
+                        "value": 3,
+                        "state": "confirmed",
+                        "user_quote": "和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数"
+                      }
+                    ],
+                    "tasks": [
+                      {
+                        "id": "q1",
+                        "question": "35岁有职工医保、首次投保必选计划、年缴个人单标准价多少钱",
+                        "kind": "price",
+                        "status": "answered",
+                        "requires": [
+                          "age",
+                          "has_social",
+                          "payment",
+                          "plan",
+                          "first_insurance"
+                        ],
+                        "is_example": false,
+                        "quoted_amount": 423
+                      },
+                      {
+                        "id": "q2",
+                        "question": "35岁年龄能否投保",
+                        "kind": "eligibility",
+                        "status": "answered",
+                        "requires": [
+                          "age"
+                        ],
+                        "is_example": false
+                      },
+                      {
+                        "id": "q3",
+                        "question": "同一投保人和配偶、女儿共3人首次买适用系列、同一订单且没有旧人数，有什么家庭优惠",
+                        "kind": "discount",
+                        "status": "answered",
+                        "requires": [
+                          "family_size"
+                        ],
+                        "is_example": false
+                      }
+                    ]
+                  }
+                },
+                "seconds": 4.207164100000227,
+                "context_events": []
+              }
+            ],
+            "total_s": 4.216088900000614,
+            "evidence_ids": [
+              "R01:bundle",
+              "R02:bundle",
+              "R03:bundle",
+              "R04:bundle",
+              "R05:bundle",
+              "R06:bundle",
+              "R07:bundle",
+              "R08:bundle",
+              "R09:bundle",
+              "R10:bundle",
+              "R11:bundle",
+              "R12:bundle",
+              "R13:bundle",
+              "R14:bundle",
+              "R15:bundle",
+              "R16:bundle",
+              "投保须知#0",
+              "投保须知#1",
+              "投保须知#2",
+              "投保须知#3",
+              "投保须知#4",
+              "投保须知#5",
+              "投保须知#6",
+              "投保须知#7",
+              "投保须知#8",
+              "投保须知#9",
+              "投保须知#10",
+              "投保须知#11",
+              "投保须知#12",
+              "投保须知#13",
+              "投保须知#14",
+              "投保须知#15",
+              "投保须知#16",
+              "投保须知#17",
+              "投保须知#18",
+              "投保须知#19",
+              "投保须知#20",
+              "投保须知#21",
+              "投保须知#22",
+              "投保须知#23",
+              "投保须知#24",
+              "投保须知#25",
+              "投保须知#26",
+              "投保须知#27",
+              "投保须知#28",
+              "投保须知#29",
+              "投保须知#30",
+              "投保须知#31",
+              "投保须知#32",
+              "投保须知#33",
+              "投保须知#34",
+              "投保须知#35",
+              "投保须知#36",
+              "投保须知#37",
+              "投保须知#38",
+              "投保须知#39",
+              "投保须知#40",
+              "投保须知#41",
+              "投保须知#42",
+              "投保须知#43",
+              "投保须知#44",
+              "投保须知#45",
+              "投保须知#46",
+              "投保须知#47",
+              "投保须知#48",
+              "投保须知#49",
+              "投保须知#50",
+              "投保须知#51",
+              "投保须知#52",
+              "投保须知#53",
+              "投保须知#54",
+              "投保须知#55",
+              "投保须知#56",
+              "投保须知#57",
+              "投保须知#58",
+              "投保须知#59",
+              "投保须知#60",
+              "投保须知#61",
+              "投保须知#62",
+              "投保须知#63",
+              "投保须知#64",
+              "投保须知#65",
+              "投保须知#66",
+              "投保须知#67",
+              "投保须知#68",
+              "投保须知#69",
+              "投保须知#70",
+              "投保须知#71",
+              "投保须知#72",
+              "投保须知#73",
+              "投保须知#74",
+              "投保须知#75",
+              "投保须知#76",
+              "投保须知#77",
+              "投保须知#78",
+              "投保须知#79",
+              "投保须知#80",
+              "投保须知#81",
+              "投保须知#82",
+              "投保须知#83",
+              "投保须知#84",
+              "投保须知#85",
+              "投保须知#86",
+              "投保须知#87",
+              "投保须知#88",
+              "投保须知#89",
+              "投保须知#90",
+              "投保须知#91",
+              "投保须知#92",
+              "投保须知#93",
+              "投保须知#94",
+              "投保须知#95",
+              "投保须知#96",
+              "投保须知#97",
+              "投保须知#98",
+              "投保须知#99",
+              "投保须知#100",
+              "投保须知#101",
+              "投保须知#102",
+              "投保须知#103",
+              "投保须知#104",
+              "投保须知#105",
+              "投保须知#106",
+              "投保须知#107",
+              "投保须知#108",
+              "投保须知#109",
+              "投保须知#110",
+              "投保须知#111",
+              "投保须知#112",
+              "责任免除#0",
+              "责任免除#1",
+              "责任免除#2",
+              "责任免除#3",
+              "责任免除#4",
+              "责任免除#5",
+              "责任免除#6",
+              "责任免除#7",
+              "责任免除#8",
+              "责任免除#9",
+              "责任免除#10",
+              "责任免除#11",
+              "责任免除#12",
+              "责任免除#13",
+              "责任免除#14",
+              "责任免除#15",
+              "责任免除#16",
+              "责任免除#17",
+              "责任免除#18",
+              "责任免除#19",
+              "责任免除#20",
+              "责任免除#21",
+              "责任免除#22",
+              "责任免除#23",
+              "责任免除#24",
+              "责任免除#25",
+              "责任免除#26",
+              "责任免除#27",
+              "责任免除#28",
+              "责任免除#29",
+              "责任免除#30",
+              "责任免除#31",
+              "责任免除#32",
+              "责任免除#33",
+              "责任免除#34",
+              "责任免除#35",
+              "责任免除#36",
+              "责任免除#37",
+              "责任免除#38",
+              "责任免除#39",
+              "责任免除#40",
+              "责任免除#41",
+              "责任免除#42",
+              "责任免除#43",
+              "责任免除#44",
+              "责任免除#45",
+              "责任免除#46",
+              "责任免除#47",
+              "责任免除#48",
+              "责任免除#49",
+              "责任免除#50",
+              "责任免除#51",
+              "责任免除#52",
+              "责任免除#53",
+              "责任免除#54",
+              "责任免除#55",
+              "责任免除#56",
+              "责任免除#57",
+              "责任免除#58",
+              "责任免除#59",
+              "责任免除#60",
+              "责任免除#61",
+              "责任免除#62",
+              "责任免除#63",
+              "责任免除#64",
+              "责任免除#65",
+              "责任免除#66",
+              "责任免除#67",
+              "责任免除#68",
+              "责任免除#69",
+              "责任免除#70",
+              "责任免除#71",
+              "责任免除#72",
+              "责任免除#73",
+              "责任免除#74",
+              "责任免除#75",
+              "责任免除#76",
+              "责任免除#77",
+              "责任免除#78",
+              "责任免除#79",
+              "责任免除#80",
+              "责任免除#81",
+              "责任免除#82",
+              "责任免除#83",
+              "责任免除#84",
+              "责任免除#85",
+              "责任免除#86",
+              "责任免除#87",
+              "责任免除#88",
+              "责任免除#89",
+              "责任免除#90",
+              "责任免除#91",
+              "责任免除#92",
+              "责任免除#93",
+              "责任免除#94",
+              "责任免除#95",
+              "责任免除#96",
+              "责任免除#97",
+              "责任免除#98",
+              "责任免除#99",
+              "责任免除#100",
+              "责任免除#101",
+              "责任免除#102",
+              "责任免除#103",
+              "责任免除#104",
+              "责任免除#105",
+              "责任免除#106",
+              "责任免除#107",
+              "责任免除#108",
+              "责任免除#109",
+              "责任免除#110",
+              "责任免除#111",
+              "责任免除#112",
+              "责任免除#113",
+              "责任免除#114",
+              "责任免除#115",
+              "责任免除#116",
+              "责任免除#117",
+              "责任免除#118",
+              "rate:年缴_加油包:2",
+              "rate:年缴_加油包:3",
+              "rate:年缴_加油包:4",
+              "rate:年缴_加油包:5",
+              "rate:年缴_加油包:6",
+              "rate:年缴_加油包:7",
+              "rate:年缴_加油包:8",
+              "rate:年缴_加油包:9",
+              "rate:年缴_加油包:10",
+              "rate:年缴_加油包:11",
+              "rate:年缴_加油包:12",
+              "rate:年缴_加油包:13",
+              "rate:年缴_加油包:14",
+              "rate:年缴_加油包:15",
+              "rate:年缴_加油包:16",
+              "rate:年缴_加油包:17",
+              "rate:年缴_加油包:18",
+              "rate:年缴_加油包:19",
+              "rate:年缴_加油包:20",
+              "rate:年缴_加油包:21",
+              "rate:年缴_加油包:22",
+              "rate:年缴_加油包:23",
+              "rate:年缴_必选:2",
+              "rate:年缴_必选:3",
+              "rate:年缴_必选:4",
+              "rate:年缴_必选:5",
+              "rate:年缴_必选:6",
+              "rate:年缴_必选:7",
+              "rate:年缴_必选:8",
+              "rate:年缴_必选:9",
+              "rate:年缴_必选:10",
+              "rate:年缴_必选:11",
+              "rate:年缴_必选:12",
+              "rate:年缴_必选:13",
+              "rate:年缴_必选:14",
+              "rate:年缴_必选:15",
+              "rate:年缴_必选:16",
+              "rate:年缴_必选:17",
+              "rate:年缴_必选:18",
+              "rate:年缴_必选:19",
+              "rate:年缴_必选:20",
+              "rate:年缴_必选:21",
+              "rate:年缴_必选:22",
+              "rate:年缴_必选:23",
+              "rate:月缴_加油包:2",
+              "rate:月缴_加油包:3",
+              "rate:月缴_加油包:4",
+              "rate:月缴_加油包:5",
+              "rate:月缴_加油包:6",
+              "rate:月缴_加油包:7",
+              "rate:月缴_加油包:8",
+              "rate:月缴_加油包:9",
+              "rate:月缴_加油包:10",
+              "rate:月缴_加油包:11",
+              "rate:月缴_加油包:12",
+              "rate:月缴_加油包:13",
+              "rate:月缴_加油包:14",
+              "rate:月缴_加油包:15",
+              "rate:月缴_加油包:16",
+              "rate:月缴_加油包:17",
+              "rate:月缴_加油包:18",
+              "rate:月缴_加油包:19",
+              "rate:月缴_加油包:20",
+              "rate:月缴_加油包:21",
+              "rate:月缴_加油包:22",
+              "rate:月缴_加油包:23",
+              "rate:月缴_必选:2",
+              "rate:月缴_必选:3",
+              "rate:月缴_必选:4",
+              "rate:月缴_必选:5",
+              "rate:月缴_必选:6",
+              "rate:月缴_必选:7",
+              "rate:月缴_必选:8",
+              "rate:月缴_必选:9",
+              "rate:月缴_必选:10",
+              "rate:月缴_必选:11",
+              "rate:月缴_必选:12",
+              "rate:月缴_必选:13",
+              "rate:月缴_必选:14",
+              "rate:月缴_必选:15",
+              "rate:月缴_必选:16",
+              "rate:月缴_必选:17",
+              "rate:月缴_必选:18",
+              "rate:月缴_必选:19",
+              "rate:月缴_必选:20",
+              "rate:月缴_必选:21",
+              "rate:月缴_必选:22",
+              "rate:月缴_必选:23",
+              "rate-notice:尊享E生百万医疗2026年缴费率:5",
+              "rate-notice:尊享E生百万医疗2026年缴费率:6",
+              "rate-notice:尊享E生百万医疗2026年缴费率:7",
+              "rate-notice:尊享E生百万医疗2026年缴费率:8",
+              "rate-notice:尊享E生百万医疗2026年缴费率:11",
+              "rate-notice:尊享E生百万医疗2026年缴费率:12",
+              "rate-notice:尊享E生百万医疗2026年缴费率:13",
+              "rate-notice:尊享E生百万医疗2026年缴费率:14",
+              "rate-notice:尊享E生百万医疗2026月缴费率:5",
+              "rate-notice:尊享E生百万医疗2026月缴费率:6",
+              "rate-notice:尊享E生百万医疗2026月缴费率:7",
+              "rate-notice:尊享E生百万医疗2026月缴费率:8",
+              "rate-notice:尊享E生百万医疗2026月缴费率:11",
+              "rate-notice:尊享E生百万医疗2026月缴费率:12",
+              "rate-notice:尊享E生百万医疗2026月缴费率:13",
+              "rate-notice:尊享E生百万医疗2026月缴费率:14",
+              "runtime:identity",
+              "materials:manifest",
+              "rate-scope:尊享E生百万医疗2026年缴费率",
+              "rate-scope:尊享E生百万医疗2026月缴费率"
+            ],
+            "outcome": {
+              "action": "answer",
+              "reason_kind": "none",
+              "reason": "保费、年龄资格和家庭优惠均已依据材料回答",
+              "pending_questions": [],
+              "source_ids": []
+            },
+            "handoff_request": null,
+            "outcome_validation": {
+              "valid": true,
+              "fault": null
+            },
+            "effective_outcome": {
+              "action": "answer",
+              "reason_kind": "none",
+              "reason": "保费、年龄资格和家庭优惠均已依据材料回答",
+              "pending_questions": [],
+              "source_ids": []
+            },
+            "effective_text": "您35岁、有职工医保、首次投保必选计划、年缴个人单，标准保费是423元。年龄方面，本产品首次投保年龄为出生满30天至70周岁，您35岁在范围内，但能否承保还须核保通过。家庭优惠方面，同一投保人名下尊享医疗险系列加众民保医疗险系列保单家庭成员及当前订单新增家庭成员人数合计为3人的，当前订单每人价格优享10%。"
+          },
+          "consultation": {
+            "id": "c2",
+            "initial_question": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+            "status": "complete",
+            "revision": 1,
+            "tasks": [
+              {
+                "id": "q1",
+                "question": "35岁有职工医保、首次投保必选计划、年缴个人单标准价多少钱",
+                "kind": "price",
+                "status": "answered",
+                "requires": [
+                  "age",
+                  "has_social",
+                  "payment",
+                  "plan",
+                  "first_insurance"
+                ],
+                "is_example": false,
+                "quoted_amount": 423,
+                "missing_conditions": []
+              },
+              {
+                "id": "q2",
+                "question": "35岁年龄能否投保",
+                "kind": "eligibility",
+                "status": "answered",
+                "requires": [
+                  "age"
+                ],
+                "is_example": false,
+                "missing_conditions": []
+              },
+              {
+                "id": "q3",
+                "question": "同一投保人和配偶、女儿共3人首次买适用系列、同一订单且没有旧人数，有什么家庭优惠",
+                "kind": "discount",
+                "status": "answered",
+                "requires": [
+                  "family_size"
+                ],
+                "is_example": false,
+                "missing_conditions": []
+              }
+            ],
+            "facts": [
+              {
+                "name": "age",
+                "value": 35,
+                "state": "confirmed",
+                "user_quote": "我35岁有职工医保"
+              },
+              {
+                "name": "has_social",
+                "value": true,
+                "state": "confirmed",
+                "user_quote": "我35岁有职工医保"
+              },
+              {
+                "name": "payment",
+                "value": "年缴",
+                "state": "confirmed",
+                "user_quote": "年缴个人单标准价多少钱"
+              },
+              {
+                "name": "plan",
+                "value": "必选计划",
+                "state": "confirmed",
+                "user_quote": "给自己第一次买必选计划"
+              },
+              {
+                "name": "first_insurance",
+                "value": true,
+                "state": "confirmed",
+                "user_quote": "给自己第一次买必选计划"
+              },
+              {
+                "name": "family_size",
+                "value": 3,
+                "state": "confirmed",
+                "user_quote": "和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数"
+              }
+            ],
+            "guard_faults": []
+          }
+        },
+        "answer_validation": {
+          "route": "证据-answer",
+          "fallback_used": false,
+          "attempts": 0,
+          "violations": []
+        },
+        "total": 4.89164879999953
+      },
+      "ended": false,
+      "handoff_request": null,
+      "wall_s": 4.891689800002496,
+      "consultation": {
+        "id": "c2",
+        "initial_question": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+        "status": "complete",
+        "revision": 1,
+        "tasks": [
+          {
+            "id": "q1",
+            "question": "35岁有职工医保、首次投保必选计划、年缴个人单标准价多少钱",
+            "kind": "price",
+            "status": "answered",
+            "requires": [
+              "age",
+              "has_social",
+              "payment",
+              "plan",
+              "first_insurance"
+            ],
+            "is_example": false,
+            "quoted_amount": 423,
+            "missing_conditions": []
+          },
+          {
+            "id": "q2",
+            "question": "35岁年龄能否投保",
+            "kind": "eligibility",
+            "status": "answered",
+            "requires": [
+              "age"
+            ],
+            "is_example": false,
+            "missing_conditions": []
+          },
+          {
+            "id": "q3",
+            "question": "同一投保人和配偶、女儿共3人首次买适用系列、同一订单且没有旧人数，有什么家庭优惠",
+            "kind": "discount",
+            "status": "answered",
+            "requires": [
+              "family_size"
+            ],
+            "is_example": false,
+            "missing_conditions": []
+          }
+        ],
+        "facts": [
+          {
+            "name": "age",
+            "value": 35,
+            "state": "confirmed",
+            "user_quote": "我35岁有职工医保"
+          },
+          {
+            "name": "has_social",
+            "value": true,
+            "state": "confirmed",
+            "user_quote": "我35岁有职工医保"
+          },
+          {
+            "name": "payment",
+            "value": "年缴",
+            "state": "confirmed",
+            "user_quote": "年缴个人单标准价多少钱"
+          },
+          {
+            "name": "plan",
+            "value": "必选计划",
+            "state": "confirmed",
+            "user_quote": "给自己第一次买必选计划"
+          },
+          {
+            "name": "first_insurance",
+            "value": true,
+            "state": "confirmed",
+            "user_quote": "给自己第一次买必选计划"
+          },
+          {
+            "name": "family_size",
+            "value": 3,
+            "state": "confirmed",
+            "user_quote": "和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数"
+          }
+        ],
+        "guard_faults": []
+      }
+    }
+  ],
+  "operator_actions": [],
+  "stop_reason": "no_relevant_audible_question_or_all_conditions_disclosed",
+  "undisclosed_reply_indices": [],
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 490,
+      "seconds": 0.49884000000020023,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 332,
+        "total_tokens": 338,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 846,
+      "seconds": 0.6617151999998896,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 577,
+        "total_tokens": 589,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 388,
+      "seconds": 0.6666392000006454,
+      "usage": {
+        "completion_tokens": 31,
+        "prompt_tokens": 230,
+        "total_tokens": 261,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 157356,
+      "known": {
+        "age": 35,
+        "has_social": true,
+        "pay": "年缴",
+        "relation": "本人",
+        "_history": "坐席：您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？\n用户：我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+        "_consultation": {
+          "id": "c2",
+          "initial_question": "我35岁有职工医保，给自己第一次买必选计划，年缴个人单标准价多少钱？年龄能投保吗？我作为同一投保人，和配偶、女儿共3人首次买适用系列，同一订单且没有旧人数，有什么家庭优惠？",
+          "status": "pending",
+          "revision": 0,
+          "tasks": [],
+          "facts": [],
+          "guard_faults": []
+        }
+      },
+      "seconds": 4.20695010000054,
+      "usage": {
+        "completion_tokens": 590,
+        "prompt_tokens": 81277,
+        "total_tokens": 81867,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 5248,
+          "image_tokens": null,
+          "text_tokens": null
+        },
+        "prompt_cache_hit_tokens": 5248,
+        "prompt_cache_miss_tokens": 76029
+      }
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "key": "g03_echo_07",
+  "kind": "echo",
+  "user": null,
+  "gain": 0.03,
+  "agent_record": "C19",
+  "agent_round": 2,
+  "onset_s": null,
+  "decisions": [],
+  "asr_events": [],
+  "stopped": false,
+  "stop_latency_s": null,
+  "wrong_stop_before_user": false,
+  "cancellation": null,
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

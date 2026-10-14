@@ -1,0 +1,8 @@
+{
+  "id": "E31",
+  "question": "基础一般医疗普通部住院的床位费，是不是也统一每天最多1500元？原文有这个限制吗？",
+  "known": {},
+  "group": "new40",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

@@ -1,0 +1,102 @@
+{
+  "key": "g03_backchannel_05",
+  "kind": "backchannel",
+  "user": "嗯嗯，你说",
+  "gain": 0.03,
+  "agent_record": "C09",
+  "agent_round": 2,
+  "onset_s": 1.55,
+  "decisions": [
+    {
+      "asr": "嗯",
+      "received_s": 1.9739109000001918,
+      "decision_s": 1.9745283000002019,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "嗯",
+      "received_s": 2.0268678000002183,
+      "decision_s": 2.02714560000004,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "mhm嗯",
+      "received_s": 2.374866099999963,
+      "decision_s": 2.637277499999982,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "嗯嗯。",
+      "received_s": 2.768035700000837,
+      "decision_s": 2.768173299999944,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "你是",
+      "received_s": 3.407598300000245,
+      "decision_s": 3.6738554000003205,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.9739109000001918,
+      "slice_type": 0,
+      "text": "嗯"
+    },
+    {
+      "t": 2.0268678000002183,
+      "slice_type": 1,
+      "text": "嗯"
+    },
+    {
+      "t": 2.374866099999963,
+      "slice_type": 1,
+      "text": "mhm嗯"
+    },
+    {
+      "t": 2.768035700000837,
+      "slice_type": 2,
+      "text": "嗯嗯。"
+    },
+    {
+      "t": 3.407598300000245,
+      "slice_type": 0,
+      "text": "你是"
+    },
+    {
+      "t": 3.4765770000003613,
+      "slice_type": 1,
+      "text": "你是"
+    },
+    {
+      "t": 3.806698000000324,
+      "slice_type": 1,
+      "text": "你说"
+    },
+    {
+      "t": 4.153082700000596,
+      "slice_type": 2,
+      "text": "你说。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 2.1534278000000997,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7702.5488378,
+    "last_scheduled_dac_wall": 7702.5784052,
+    "dropped_frames": 401280,
+    "stream_latency_s": 0.04,
+    "decision_s": 3.6738554000003205,
+    "stop_dac_s": 3.7034278000000995
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

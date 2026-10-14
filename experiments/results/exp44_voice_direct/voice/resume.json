@@ -1,0 +1,5 @@
+{
+  "after_id": "T01",
+  "restored_complete_heard_history": true,
+  "reason": "Executor turn interrupted after a saved complete trial; completed samples are not rerun or overwritten."
+}

@@ -1,0 +1,54 @@
+{
+  "key": "g03_interrupt_16",
+  "kind": "interrupt",
+  "user": "免赔额是多少",
+  "gain": 0.03,
+  "agent_record": "C01",
+  "agent_round": 1,
+  "onset_s": 1.3,
+  "decisions": [
+    {
+      "asr": "你",
+      "received_s": 1.7184383000003436,
+      "decision_s": 1.9811752999994496,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.7184383000003436,
+      "slice_type": 0,
+      "text": "你"
+    },
+    {
+      "t": 1.7813629000002038,
+      "slice_type": 1,
+      "text": "你"
+    },
+    {
+      "t": 2.1236227999997936,
+      "slice_type": 1,
+      "text": "免赔额式的"
+    },
+    {
+      "t": 2.7866939000005004,
+      "slice_type": 2,
+      "text": "免赔额是多少？"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 0.7034094000002369,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7560.4839514,
+    "last_scheduled_dac_wall": 7560.5061694000005,
+    "dropped_frames": 481920,
+    "stream_latency_s": 0.04,
+    "decision_s": 1.9811752999994496,
+    "stop_dac_s": 2.003409400000237
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

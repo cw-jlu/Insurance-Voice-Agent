@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-13",
+  "variant": "current v4 + full heard history + bounded waiting topic reply",
+  "mode": "voice",
+  "frozen_cases": null,
+  "waiting_prompt_sha256": "0e0c97c6ab4afd916451bb5b2c737905da8cd0616f7cd46c8dc230e06c177cec",
+  "code_sha256": {
+    "src/agent/session.py": "4daf6231803f218e20e1f05a9d74f5d57a9be976752cebeb64d2968ee14a57fe",
+    "src/agent/fast_lane.py": "97323cd9bf8a7eaa5050130040c449f314b1a914b34d9fd8f6b4de499239321c",
+    "src/agent/consultation.py": "b1bd0dcd6f165361ff9ddb40ec5f866defd70c6bb6178646fe6519e3519693f2",
+    "src/agent/playback.py": "2ce1bbe81207e2c4684bc856b3aa576ccf6ef0b330d29943970377abcd681db7",
+    "src/agent/evidence_pipeline.py": "ba3b65880b8c3a234571d4089bd1346968e736e94a2432d654dc4280fbb10a3f",
+    "src/agent/evidence_answer.py": "a412c99b04399248f23359f18a8c58f6da5a26d1512e9412ce9050e8c8a76841"
+  },
+  "transport": "certificate-checked Windows HTTPS for text models; Tencent ASR explicit direct WebSocket because automatic system proxy resets connection; original Qwen TTS",
+  "scope": "Synthetic user input and injected echo; no physical microphone/telephone/customer holdout. Current single-turn voice results do not prove all long calls."
+}

@@ -1,0 +1,8 @@
+{
+  "id": "C30",
+  "question": "急诊抢救花了五千，后来住院花了两万，一共能报多少",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

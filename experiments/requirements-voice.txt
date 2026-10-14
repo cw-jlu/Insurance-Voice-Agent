@@ -5,3 +5,4 @@ python-dotenv
 numpy
 scipy
 websockets
+sounddevice==0.5.6

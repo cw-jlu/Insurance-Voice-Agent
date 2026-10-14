@@ -1,0 +1,17 @@
+{
+  "text": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "audio_s": 9.62975,
+  "playback_s": 10.361224642634625,
+  "device": {
+    "name": "耳机 (EDIFIER W820NB经典版)",
+    "index": 12,
+    "hostapi": 2,
+    "max_input_channels": 0,
+    "max_output_channels": 2,
+    "default_low_input_latency": 0.0,
+    "default_low_output_latency": 0.003,
+    "default_high_input_latency": 0.0,
+    "default_high_output_latency": 0.01,
+    "default_samplerate": 44100.0
+  }
+}

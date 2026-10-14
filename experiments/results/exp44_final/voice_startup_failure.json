@@ -1,0 +1,9 @@
+{
+  "stage": "opening_output_stream_before_any_user_voice_trial",
+  "error_type": "PortAudioError",
+  "message": "Error opening RawOutputStream: Invalid sample rate [PaErrorCode -9997]",
+  "selected_device": 12,
+  "requested_output_rate": 48000,
+  "audible_user_trials_completed": 0,
+  "resolution": "Check supported output rates; this current headset supports 44100 Hz. Retry voice in a new exp44_voice directory, preserving this startup failure."
+}

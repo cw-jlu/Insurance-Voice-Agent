@@ -21,6 +21,7 @@ class SentState(str, Enum):
 class Sentence:
     text: str
     state: SentState = SentState.QUEUED
+    heard_prefix: str = ''
 
 
 @dataclass
@@ -35,13 +36,19 @@ class PlaybackLedger:
         return s
 
     def interrupt(self) -> tuple[list[str], list[str]]:
-        """Returns (heard, dropped). The sentence being played counts as heard: the user
-        heard at least part of it, and treating it as unsaid would make the agent repeat it."""
+        """A playing sentence is NOT fully heard; keep only a confirmed aligned prefix."""
         heard, dropped = [], []
         for s in self.sentences:
-            if s.state in (SentState.PLAYED, SentState.PLAYING):
-                s.state = SentState.PLAYED
+            if s.state == SentState.PLAYED:
                 heard.append(s.text)
+            elif s.state == SentState.PLAYING:
+                if s.heard_prefix:
+                    if not s.text.startswith(s.heard_prefix):
+                        raise ValueError('Heard text must be a prefix of the sentence')
+                    heard.append(s.heard_prefix)
+                if len(s.heard_prefix) < len(s.text):
+                    dropped.append(s.text[len(s.heard_prefix):])
+                s.state = SentState.DROPPED
             elif s.state == SentState.QUEUED:
                 s.state = SentState.DROPPED
                 dropped.append(s.text)

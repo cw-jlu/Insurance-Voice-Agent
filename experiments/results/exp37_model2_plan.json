@@ -1,0 +1,18 @@
+{
+  "cases": [
+    {
+      "id": "MODEL_ACK2",
+      "question": "癌症能报不",
+      "known": {
+        "age": 30,
+        "has_social": true
+      }
+    }
+  ],
+  "code_sha256": {
+    "src/agent/session.py": "34b9357511330d88164c6c3096ae14dc25a2cb99f5d9a18a4f57b5878a487c13",
+    "src/agent/fast_lane.py": "9970c2f8d66bdd3a97cdbc75f4fd43d1cca384e9d95ec094aff39f46c445ed9b",
+    "src/agent/evidence_pipeline.py": "6c7d43fa8d271fa96223ca39ba6003cefbb943a9ff5f841ff7c4eaca6ab5092d"
+  },
+  "method": "Cached neutral acknowledgment plus unchanged DS evidence answer; actual ASR/TTS and local DAC. Transfer requests recorded only. Business first packet separately measured, not business DAC."
+}

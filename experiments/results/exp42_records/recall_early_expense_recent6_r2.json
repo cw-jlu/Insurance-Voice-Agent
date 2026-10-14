@@ -1,0 +1,27 @@
+{
+  "id": "early_expense",
+  "variant": "recent6",
+  "repeat": 2,
+  "scope": "real text continuation on identical saved 13-message history",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 391,
+      "seconds": 0.39523709999957646,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1567,
+      "seconds": 0.44505800000115414,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1211,
+      "seconds": 1.3112003000005643,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

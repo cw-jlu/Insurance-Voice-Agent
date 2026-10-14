@@ -1,0 +1,55 @@
+{
+  "method": "Primary agent manual source audit, whole answer support rather than exact spoken wording or per-sentence citation repetition. Prior exp38 outputs versus three new v3 outputs, not randomized control; TTS body audio duration only, no new full voice acceptance. No global accuracy estimate.",
+  "implementation": "v3 candidate prompt separates spoken paraphrase from backend original quotations; v3 mechanical citation gate uses whole-answer scope and pooled answer_source_ids. Original metadata quotation integrity checks remain. v2 default unchanged.",
+  "rows": [
+    {
+      "id": "T02",
+      "old_body_chars": 431,
+      "new_body_chars": 303,
+      "old_body_audio_s": 83.16308333333333,
+      "new_body_audio_s": 54.296416666666666,
+      "new_text": "癌症住院治疗、靶向药和质子重离子这三项，分别走不同责任，赔付规则不一样。住院治疗按重大疾病医疗责任赔，需符合合同约定的100种重大疾病定义，无免赔额，按100%赔付；医院限二级及二级以上公立医院及本保单约定的指定民营医疗机构普通部。靶向药按特定药品费用责任赔，无免赔额，但仅赔责任内约定药品清单中列明的药品，须在保险人指定药店购买并提前申请审核通过；社保目录内药品社保报销后剩余部分按100%赔付，社保目录外药品100%赔付。质子重离子按恶性肿瘤先进疗法责任赔，无免赔额，按100%赔付，但限经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构，且限中国大陆境内；该责任不包含肿瘤靶向疗法产生的药品费。"
+    },
+    {
+      "id": "T03",
+      "old_body_chars": 144,
+      "new_body_chars": 113,
+      "old_body_audio_s": 24.963,
+      "new_body_audio_s": 20.163083333333333,
+      "new_text": "按一般医疗责任，总费用2万元先扣掉医保已报的8000元，剩余12000元再扣1万元年免赔额，可赔2000元。这个试算的前提是剩余12000元全部属于合同范围内费用、1万元年免赔额此前没有抵扣过，且您是以有医保身份就诊并结算的。"
+    },
+    {
+      "id": "T06",
+      "old_body_chars": 372,
+      "new_body_chars": 173,
+      "old_body_audio_s": 62.56308333333333,
+      "new_body_audio_s": 29.363083333333332,
+      "new_text": "不是一定都不赔。投保前已有的高血压属于既往症，只有因这个既往症引起的相关费用才不赔；与高血压无关的交通意外住院，走的是意外伤害事故这条路径，不受30天疾病等待期限制，按一般医疗责任审核。适用条件是：该次住院费用属于合同范围内必需且合理的医疗费用，在二级及二级以上公立医院或本保单约定的指定民营医院普通部就诊，并扣除1万元年免赔额后按约定比例给付。"
+    }
+  ],
+  "audit": {
+    "T02": {
+      "accepted": false,
+      "issues": [
+        "仍将癌症住院只作为重大疾病责任，漏一般医疗分支。",
+        "住院100%赔付未保留有社保身份投保但不以该身份结算降至60%的例外。",
+        "质子重离子遗漏等待期后初次确诊恶性肿瘤——重度的条件。",
+        "特药虽补清单要求，仍遗漏等待期后初次确诊等适用前提。"
+      ],
+      "improvement": "药品清单前提恢复，正文减少但不能上线。"
+    },
+    "T03": {
+      "accepted": true,
+      "notes": "2000元试算正确并明示假设；可以不主动展开免赔已抵扣分支，留给追问。"
+    },
+    "T06": {
+      "accepted": true,
+      "notes": "在用户明确假设事故与高血压无关的语境下，按既往症相关费用与意外责任回答有出处；按整轮引用不要求每个短句重复贴免责来源。措辞“只有...才不赔”宜明确限定为既往症免责，避免理解成所有免责只有这一项。"
+    }
+  },
+  "exp38_audit_policy_correction": {
+    "T06": "第一段没有单独引用免责不再判为整条溯源错误：整轮第三段已列免责出处。流程追加告知未绑定本轮证据仍是记录缺口。",
+    "T02": "引用原文比口播长不算错误；省去药品清单等影响能否报的条件仍是内容准确性缺口，不是要求逐字引用。"
+  },
+  "unit_tests_passed": 49
+}

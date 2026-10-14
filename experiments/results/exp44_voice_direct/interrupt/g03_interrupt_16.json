@@ -1,0 +1,80 @@
+{
+  "key": "g03_interrupt_16",
+  "kind": "interrupt",
+  "user": "免赔额是多少",
+  "gain": 0.03,
+  "agent_record": "T05",
+  "agent_round": 1,
+  "onset_s": 1.28,
+  "decisions": [
+    {
+      "asr": "免赔",
+      "received_s": 1.7105945000000702,
+      "decision_s": 1.7147127999999157,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "免赔",
+      "received_s": 1.7933431000001292,
+      "decision_s": 1.7936670999999933,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "免赔额是多",
+      "received_s": 2.154820299999983,
+      "decision_s": 2.1559583000000657,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "免赔额是多少",
+      "received_s": 2.763947299999927,
+      "decision_s": 3.3911990999999944,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.7105945000000702,
+      "slice_type": 0,
+      "text": "免赔"
+    },
+    {
+      "t": 1.7933431000001292,
+      "slice_type": 1,
+      "text": "免赔"
+    },
+    {
+      "t": 2.154820299999983,
+      "slice_type": 1,
+      "text": "免赔额是多"
+    },
+    {
+      "t": 2.763947299999927,
+      "slice_type": 1,
+      "text": "免赔额是多少"
+    },
+    {
+      "t": 2.813977799999975,
+      "slice_type": 2,
+      "text": "免赔额是多少？"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 2.1406900000001494,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 1647.0157338,
+    "last_scheduled_dac_wall": 1647.0452159000001,
+    "dropped_frames": 415680,
+    "stream_latency_s": 0.04,
+    "decision_s": 3.3911990999999944,
+    "stop_dac_s": 3.4206900000001497
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

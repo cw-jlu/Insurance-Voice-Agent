@@ -1,0 +1,21 @@
+{
+  "cases": [
+    [
+      "social",
+      "等一下我没有社保我30岁首次年缴多少钱",
+      679
+    ],
+    [
+      "age",
+      "不对我不是30岁我是40岁有社保首次年缴多少钱",
+      517
+    ]
+  ],
+  "model": "deepseek-flash",
+  "method": "Consultation-stage two fresh DS answers per case, actual TTS/WASAPI receipt markers and live Tencent ASR with synthetic correction and 3% echo. Not telephone or physical microphone. Completed sentences only: unaligned interrupted sentence conservatively omitted. Initial price question is text input, correction uses actual ASR. Next actual model input context is captured, no model grader or insurance rule repair.",
+  "code_sha256": {
+    "src/agent/session.py": "cb6a3378c25f67489b6ad6f662e037956659d0ffb19a0d0967ac8a1b290c8734",
+    "src/agent/playback.py": "a9714314cd621d0a24a2ffd7a5e99faaf2a5095dbfa9b3e8d8035da7b0ccdab0",
+    "src/agent/dialogue.py": "55c9f91ef1af7933aaa1d895e3571ce8d9518fb92bd7a8ac876b7f1d0c6dcc7a"
+  }
+}

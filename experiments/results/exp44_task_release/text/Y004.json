@@ -1,0 +1,121 @@
+{
+  "case": {
+    "id": "Y004",
+    "question": "癌症特效药能报吗，质子重离子呢？",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 350,
+      "seconds": 1.9303846999998768,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 244,
+        "total_tokens": 250,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 706,
+      "seconds": 2.222632599999997,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 489,
+        "total_tokens": 501,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1102,
+      "seconds": 2.679298999999901,
+      "usage": {
+        "completion_tokens": 66,
+        "prompt_tokens": 721,
+        "total_tokens": 787,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 640,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 318,
+      "seconds": 3.1762180000000626,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 186,
+        "total_tokens": 212,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 158369,
+      "known": {
+        "_history": "坐席：您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？\n用户：癌症特效药能报吗，质子重离子呢？",
+        "_consultation": {
+          "id": "c2",
+          "initial_question": "癌症特效药能报吗，质子重离子呢？",
+          "status": "pending",
+          "revision": 0,
+          "tasks": [
+            {
+              "id": "c2-u1-1",
+              "question": "癌症特效药能否报销",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            },
+            {
+              "id": "c2-u1-2",
+              "question": "质子重离子治疗是否在保障范围内",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            }
+          ],
+          "facts": [],
+          "guard_faults": []
+        }
+      },
+      "seconds": 22.196549000000005,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

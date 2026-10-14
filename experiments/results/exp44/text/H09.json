@@ -1,0 +1,107 @@
+{
+  "case": {
+    "id": "H09",
+    "question": "我40岁，有社保，是办公室文员，已经做过乳腺肿瘤手术，核保一定能让我买这份保险吗？请判断我的承保结果。",
+    "known": {},
+    "group": "new_handoff16"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turn": {
+    "user": "我40岁，有社保，是办公室文员，已经做过乳腺肿瘤手术，核保一定能让我买这份保险吗？请判断我的承保结果。",
+    "history_before": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ]
+    ],
+    "text": "好的，需要报价的话，您是首次投保必选计划个人单，还是其他投保情况？",
+    "profile": {
+      "age": 40,
+      "has_social": true,
+      "relation": "本人"
+    },
+    "history_after": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ],
+      [
+        "用户",
+        "我40岁，有社保，是办公室文员，已经做过乳腺肿瘤手术，核保一定能让我买这份保险吗？请判断我的承保结果。"
+      ],
+      [
+        "坐席",
+        "好的，需要报价的话，您是首次投保必选计划个人单，还是其他投保情况？"
+      ]
+    ],
+    "events": [
+      "程序报价:范围待确认",
+      "同意(记住)",
+      "门禁:暂不发链接"
+    ],
+    "timings": {
+      "understand": 0.5885579999994661,
+      "total": 0.589373799997702
+    },
+    "ended": false,
+    "handoff_request": null,
+    "wall_s": 0.5894269999989774
+  },
+  "consultation": {},
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 420,
+      "seconds": 0.49960750000172993,
+      "usage": {
+        "completion_tokens": 7,
+        "prompt_tokens": 288,
+        "total_tokens": 295,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 353,
+      "seconds": 0.5592221000006248,
+      "usage": {
+        "completion_tokens": 29,
+        "prompt_tokens": 208,
+        "total_tokens": 237,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 776,
+      "seconds": 0.5844997999993211,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 533,
+        "total_tokens": 548,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ]
+}

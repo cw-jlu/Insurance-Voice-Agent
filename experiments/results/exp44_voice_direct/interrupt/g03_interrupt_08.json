@@ -1,0 +1,74 @@
+{
+  "key": "g03_interrupt_08",
+  "kind": "interrupt",
+  "user": "你是机器人吗",
+  "gain": 0.03,
+  "agent_record": "T03",
+  "agent_round": 1,
+  "onset_s": 1.28,
+  "decisions": [
+    {
+      "asr": "你是",
+      "received_s": 1.7290822999998454,
+      "decision_s": 2.209779199999957,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 1.7290822999998454,
+      "slice_type": 0,
+      "text": "你是"
+    },
+    {
+      "t": 1.787619199999881,
+      "slice_type": 1,
+      "text": "你是"
+    },
+    {
+      "t": 2.136415799999895,
+      "slice_type": 1,
+      "text": "你是机器人"
+    },
+    {
+      "t": 2.7581093999999666,
+      "slice_type": 1,
+      "text": "你是机器人吗"
+    },
+    {
+      "t": 3.1728719999998702,
+      "slice_type": 2,
+      "text": "你是机器人吗？"
+    },
+    {
+      "t": 10.289403399999856,
+      "slice_type": 0,
+      "text": "挑战范围"
+    },
+    {
+      "t": 10.34878569999978,
+      "slice_type": 1,
+      "text": "挑战范围"
+    },
+    {
+      "t": 10.666122499999801,
+      "slice_type": 2,
+      "text": "保障范围。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 0.9485974000003534,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 1507.5511205,
+    "last_scheduled_dac_wall": 1507.5699328000003,
+    "dropped_frames": 471360,
+    "stream_latency_s": 0.04,
+    "decision_s": 2.209779199999957,
+    "stop_dac_s": 2.2285974000003534
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

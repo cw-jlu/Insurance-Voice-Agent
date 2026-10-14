@@ -1,0 +1,735 @@
+{
+  "scope": "Iterative development validation: 29 records from verified cohort plus the separately rerun insured-person replacement fix. No best-answer selection; all earlier cohorts preserved.",
+  "counts": {
+    "cases": 30,
+    "turns": 50,
+    "complete": 26,
+    "numeric_checks": 31,
+    "numeric_present": 31,
+    "schema_faults": 0,
+    "network_errors": 0,
+    "recorded_api_calls": 200,
+    "handed_off": 4
+  },
+  "unit_tests": 90,
+  "official_143_question_metrics_unchanged": true,
+  "not_measured": [
+    "real voice first response/completion",
+    "live interruption",
+    "natural provider context overflow",
+    "new blind business accuracy"
+  ],
+  "checks_limitation": "Final TODO state is a model/controller state. Numeric presence is only a diagnostic; neither proves semantic correctness or complete spoken coverage.",
+  "cases": [
+    {
+      "id": "MT01",
+      "record": "experiments/results/exp43_verified_records/MT01.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT02",
+      "record": "experiments/results/exp43_verified_records/MT02.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 1330.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT03",
+      "record": "experiments/results/exp43_verified_records/MT03.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 27.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT04",
+      "record": "experiments/results/exp43_verified_records/MT04.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "c2-q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT05",
+      "record": "experiments/results/exp43_verified_records/MT05.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 6600.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "6600 and missing-condition collection correct; speech also says deduct annual 10000 before explaining remaining 4000; phrasing ambiguous."
+    },
+    {
+      "id": "MT06",
+      "record": "experiments/results/exp43_verified_records/MT06.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 12000.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "12000 and missing-condition collection correct; speech says remaining 12000 after deducting 8000, which ambiguously repeats the already-deducted settlement."
+    },
+    {
+      "id": "MT07",
+      "record": "experiments/results/exp43_verified_records/MT07.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "initial_answer",
+          "present_in_speech": true
+        },
+        {
+          "expected": 517.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT08",
+      "record": "experiments/results/exp43_verified_records/MT08.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 517.0,
+          "checkpoint": "initial_answer",
+          "present_in_speech": true
+        },
+        {
+          "expected": 1330.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT09",
+      "record": "experiments/results/exp43_verified_records/MT09.json",
+      "final_state": "handed_off",
+      "task_states": [
+        [
+          "c2-q1",
+          "needs_review"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": true,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MT10",
+      "record": "experiments/results/exp43_verified_records/MT10.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "c2-q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP01",
+      "record": "experiments/results/exp43_verified_records/CP01.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP02",
+      "record": "experiments/results/exp43_verified_records/CP02.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 318.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 31.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 54.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP03",
+      "record": "experiments/results/exp43_verified_records/CP03.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP04",
+      "record": "experiments/results/exp43_verified_records/CP04.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "c2-q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP05",
+      "record": "experiments/results/exp43_verified_records/CP05.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP06",
+      "record": "experiments/results/exp43_verified_records/CP06.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "c2-t1",
+          "answered"
+        ],
+        [
+          "c2-t2",
+          "answered"
+        ],
+        [
+          "c2-t3",
+          "answered"
+        ],
+        [
+          "c2-t4",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP07",
+      "record": "experiments/results/exp43_verified_records/CP07.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP08",
+      "record": "experiments/results/exp43_verified_records/CP08.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP09",
+      "record": "experiments/results/exp43_verified_records/CP09.json",
+      "final_state": "handed_off",
+      "task_states": [
+        [
+          "q1",
+          "needs_review"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": true,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "CP10",
+      "record": "experiments/results/exp43_verified_records/CP10.json",
+      "final_state": "handed_off",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "needs_review"
+        ],
+        [
+          "q3",
+          "needs_review"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 318.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": true,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX01",
+      "record": "experiments/results/exp43_verified_records/MX01.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX02",
+      "record": "experiments/results/exp43_verified_records/MX02.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 1330.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 131.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX03",
+      "record": "experiments/results/exp43_verified_records/MX03.json",
+      "final_state": "handed_off",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "needs_review"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 971.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": true,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX04",
+      "record": "experiments/results/exp43_verified_records/MX04.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 2563.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 253.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 473.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX05",
+      "record": "experiments/results/exp43_verified_records/MX05.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 3000.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX06",
+      "record": "experiments/results/exp43_verified_records/MX06.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "c2-q1",
+          "answered"
+        ],
+        [
+          "c2-q2",
+          "answered"
+        ],
+        [
+          "c2-q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX07",
+      "record": "experiments/results/exp43_verified_records/MX07.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "initial_answer",
+          "present_in_speech": true
+        },
+        {
+          "expected": 42.0,
+          "checkpoint": "initial_answer",
+          "present_in_speech": true
+        },
+        {
+          "expected": 81.0,
+          "checkpoint": "initial_answer",
+          "present_in_speech": true
+        },
+        {
+          "expected": 971.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 96.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        },
+        {
+          "expected": 181.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX08",
+      "record": "experiments/results/exp43_verified_records/MX08.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 318.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    },
+    {
+      "id": "MX09",
+      "record": "experiments/results/exp43_subject_fix_records/MX09.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 2563.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Latest explicit replacement fix separately rerun; prior-person history stays, personal facts reset; current-person standard premium correct. Mother eligibility not explicitly restated."
+    },
+    {
+      "id": "MX10",
+      "record": "experiments/results/exp43_verified_records/MX10.json",
+      "final_state": "complete",
+      "task_states": [
+        [
+          "q1",
+          "answered"
+        ],
+        [
+          "q2",
+          "answered"
+        ],
+        [
+          "q3",
+          "answered"
+        ]
+      ],
+      "numeric_presence_checks": [
+        {
+          "expected": 423.0,
+          "checkpoint": "all_replies",
+          "present_in_speech": true
+        }
+      ],
+      "handoff_saved": false,
+      "manual_scope_note": "Core requested topics/conditions reviewed; not a full per-sentence source-entailment audit."
+    }
+  ]
+}

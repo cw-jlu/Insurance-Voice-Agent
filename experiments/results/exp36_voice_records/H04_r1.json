@@ -1,0 +1,129 @@
+{
+  "id": "H04",
+  "round": 1,
+  "question": "我现在有肾囊肿，下周才买保险，以后为同一囊肿手术，即使加住院补偿包也能赔20%吗？",
+  "asr_text": "我现在有肾囊肿，下周才买保险。",
+  "asr_events": [
+    {
+      "t": 0.62482910000017,
+      "slice_type": 0,
+      "text": "我现在"
+    },
+    {
+      "t": 0.6811296000005314,
+      "slice_type": 1,
+      "text": "我现在"
+    },
+    {
+      "t": 1.109541800000443,
+      "slice_type": 1,
+      "text": "我现在有肾囊肿"
+    },
+    {
+      "t": 1.8128389000003153,
+      "slice_type": 1,
+      "text": "我现在有肾囊肿像"
+    },
+    {
+      "t": 2.422596500000509,
+      "slice_type": 1,
+      "text": "我现在有肾囊肿下周才买保险"
+    },
+    {
+      "t": 3.047696800000267,
+      "slice_type": 2,
+      "text": "我现在有肾囊肿，下周才买保险。"
+    },
+    {
+      "t": 3.4944148000004134,
+      "slice_type": 0,
+      "text": "以后为"
+    },
+    {
+      "t": 3.5756939000002603,
+      "slice_type": 1,
+      "text": "以后为"
+    },
+    {
+      "t": 4.020394099999976,
+      "slice_type": 1,
+      "text": "以后为同一囊中"
+    },
+    {
+      "t": 4.609845699999823,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术"
+    },
+    {
+      "t": 5.273625300000276,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术及时加"
+    },
+    {
+      "t": 5.832058599999982,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术及是加住院补偿"
+    },
+    {
+      "t": 6.454328599999826,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术即使加住院补偿包也能"
+    },
+    {
+      "t": 7.027954600000157,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术，即使加住院补偿包也能赔百分之二"
+    },
+    {
+      "t": 7.663204000000405,
+      "slice_type": 1,
+      "text": "以后未同一囊肿手术，即使加住院补偿包也能赔百分之二十吗"
+    },
+    {
+      "t": 7.831928100000368,
+      "slice_type": 2,
+      "text": "以后未同一囊肿手术，即使加住院补偿包也能赔20%吗？"
+    }
+  ],
+  "asr_final_count": 2,
+  "split_intended_turn": true,
+  "session_text": "请问被保人今年多大年纪？",
+  "events": [],
+  "flags": {
+    "recording": true,
+    "ai": true,
+    "quoted": true,
+    "limits": true,
+    "disclosure": true,
+    "consent": false,
+    "link": false,
+    "handoff": false
+  },
+  "profile": {
+    "relation": "本人"
+  },
+  "timings": {
+    "understand": 0.4292525000000751,
+    "total": 0.4293758000003436
+  },
+  "text_ready_s": -3.662334799999371,
+  "asr_endpoint_s": -4.09230320000006,
+  "first_business_pcm_s": -3.394000100000085,
+  "first_business_dac_s": -3.298785800000587,
+  "actual_dac_playback_end_s": -1.539988233332224,
+  "audio_duration_s": 1.8320416666666666,
+  "sentences": [
+    {
+      "text": "请问被保人今年多大年纪？",
+      "emit_wall": -3.6623835999998846,
+      "tts_start_wall": -3.662296699999388,
+      "first_packet_wall": -3.394000100000085,
+      "tts_first_s": 0.2682785999995758,
+      "tts_done_s": 0.6476235000000088,
+      "duration_s": 1.8320416666666666
+    }
+  ],
+  "playback_statuses": [],
+  "output_latency_s": 0.04,
+  "recording": "D:\\CW\\Insure-Voice-Agent\\experiments\\recordings\\exp36\\answer_H04_r1.wav"
+}

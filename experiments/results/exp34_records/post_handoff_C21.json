@@ -1,0 +1,8 @@
+{
+  "id": "C21",
+  "question": "住院前后看门诊的钱能报吗，出院后拿药呢",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

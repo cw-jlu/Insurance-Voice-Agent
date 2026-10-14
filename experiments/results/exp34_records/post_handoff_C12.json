@@ -1,0 +1,8 @@
+{
+  "id": "C12",
+  "question": "住院补偿加油包和基础版一起买，一万以内的住院费怎么报，看结节呢",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

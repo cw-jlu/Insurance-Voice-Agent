@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-13",
+  "models": {
+    "answer": "deepseek-flash",
+    "flow": "qwen-flash"
+  },
+  "policy": "full heard history; overflow-only summary; no truncation by turn count",
+  "no_audio": true,
+  "operator_rules_not_sent_to_agent": true,
+  "transport": "Windows HTTPS test-only; Python TLS failed on this host",
+  "code_sha256": {
+    "src/agent/context.py": "bed8279b882a7a9aca808ae8a62e77efa1677f0e339ce4f63fce9f7e0f84a6cc",
+    "src/agent/cloud.py": "969c4e717c9611dfd01862b89434277f0f23cb544350ae3f4f81894028fdfb4c",
+    "src/agent/session.py": "0cf20cd7ae3d3826ce3a452cf0a25d85505dd4a98d85fff7ca621947ffbc8df1",
+    "src/agent/evidence_answer.py": "e9f5feba773fc5e4c94f4f67a292d80916009de9333d14f0fcbadf3c9c3f5907",
+    "src/agent/pipeline.py": "943c8129657001d040bb1d096d46618554d6370d669ae51d2779e19215244823",
+    "src/agent/small_model.py": "0c77792bf7493a3a6848a2af11eb0f4c0c839fa23de4d23d6c3199b20ff45493"
+  }
+}

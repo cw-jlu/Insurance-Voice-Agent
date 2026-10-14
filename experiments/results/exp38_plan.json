@@ -1,0 +1,23 @@
+{
+  "questions": [
+    "我是给自己了解的我30岁有社保首次投保必选计划一年多少钱",
+    "如果以后得了癌症住院治疗靶向药和质子重离子这三项分别怎么赔各有没有免赔额医院有要求吗",
+    "假设符合一般住院责任医院总费用两万元医保先报了八千元剩余一万二千元都是合同范围内费用那么这个保险还能报多少钱",
+    "我更正一下我实际是40岁没有社保首次投保必选计划年缴和月缴分别多少钱",
+    "按月交十二个月比年缴多多少钱另外生病住院和意外住院都要等三十天吗",
+    "如果投保前就有高血压以后发生与高血压无关的交通意外住院是不是一定都不赔请说明适用条件",
+    "请确认原位癌是否属于合同约定的一百种重大疾病资料缺少定义的话就转人工不要猜"
+  ],
+  "model": "deepseek-flash",
+  "date": "2026-10-12",
+  "profile_start": {},
+  "flags_manually_set": false,
+  "method": "One persistent CallSession from audible opening to natural end/handoff. Synthetic user audio, real cloud ASR/flow/DS/TTS and actual WASAPI playback. No telephone, human connection or concurrent user interruption. First DAC and business first TTS packet are distinct metrics. Stops immediately if session ends; no prompted recovery or selected reruns.",
+  "code_sha256": {
+    "src/agent/session.py": "f03deeba086c90186212daae687cbd62354a41837fe8c0d6e2e83127cce20a95",
+    "src/agent/fast_lane.py": "f76f4efca0c7c3e48231cdbcd6507019244ef84598a7279bf7e95774c6b4f14f",
+    "src/agent/evidence_pipeline.py": "6c7d43fa8d271fa96223ca39ba6003cefbb943a9ff5f841ff7c4eaca6ab5092d",
+    "src/agent/evidence_answer.py": "f35fc1b87fb2b95f242d3760c591593fb7489f5c31a12936279939ccf1ed1722"
+  },
+  "evidence_sha256": "96297ad78662ff39adaebbd8b42c7783cbf6a86bcd0ffcfb8598b8c22f85e375"
+}

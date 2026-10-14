@@ -1,0 +1,27 @@
+{
+  "id": "recent_price",
+  "variant": "full",
+  "repeat": 1,
+  "scope": "real text continuation on identical saved 13-message history",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 329,
+      "seconds": 0.4383157000011124,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 2374,
+      "seconds": 0.5174104000016087,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 2018,
+      "seconds": 1.3876378999993904,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

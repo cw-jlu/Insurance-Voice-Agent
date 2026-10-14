@@ -15,6 +15,7 @@ from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from agent import cloud
+from agent.context import HistoryPrompt, with_history
 from agent.knowledge import CLEAN, Chunk, clause_chunks, coverage_items
 from agent.pipeline import item_chunks
 from agent.source_locations import pdf_locations, excel_location
@@ -122,6 +123,78 @@ def fewshot_system(version='v1') -> str:
 用户现在已有某病、问未来购买后的该病费用，时间顺序已经给出；直接应用投保前病史规则。只有用户未说明的因果联系才需区分。
 计算保留用户费用口径：总费用扣已补偿，医保后个人余额不重复扣医保，年度免赔仅扣尚未抵扣部分。计算句引用每个原始参数的证据。
 费率行和费率适用说明共同决定报价；首次、未在指定期限重投、在指定期限重投是不同口径。不能把高年龄费率适用说明写成只有高年龄才能重投，也不能用未及时重投价格承诺及时重投价格。
+'''
+    return result
+
+
+def handoff_system(version='v1') -> str:
+    """One generation decides answer/clarify/handoff after reading the evidence."""
+    if version not in ('v1','v2','v3','v4'):
+        raise ValueError('Unsupported handoff prompt version')
+    result = fewshot_system('v3') + '''
+【后置转人工决策：本段补充实际输出格式】
+读完证据后，在同一次生成中输出outcome字段，不进行另一轮自我反思。JSON结构增加：
+"outcome":{"action":"answer或clarify或handoff","reason_kind":"none或missing_user_condition或missing_material或source_conflict或individual_review","reason":"简短说明","pending_questions":["需要追问或人工核实的本轮问项"],"source_ids":["支持缺失、冲突或个案审核边界的本轮证据ID"]}。
+answer：本轮问项均能依据材料给正确结论或完整条件分支。已知既往症费用不赔、无关事故不因病史整体排除、意外无疾病等待期等有依据的问题，应直接回答，不能因提到疾病就转人工。
+clarify：决定答案所缺的是用户可以补充的信息，例如年龄、医保投保身份、年度免赔已抵扣、实际职业或是否已购某包；只追问影响本题的未知条件。能用简短条件分支完整回答时可直接answer，不必追问。
+handoff：用户所问结论依赖本轮未提供的关键附件、适用条款，或材料冲突无法统一，或需要个案核保/理赔裁定。不可用“可能”“核保为准”掩盖缺失后仍给确定承诺。合理转人工不算回答错误，但不能把所有问题都转交。
+handoff必须指出具体待核实问项及原因，并引用支持边界的材料：缺附件引用materials:manifest，冲突引用双方原文，个案核保引用核保/告知条款。不能只用自评低置信度作为转交理由。缺用户条件优先clarify，不能冒充缺资料。
+复合问题先答已被证据明确支持的部分，仅把无法确定的部分列为pending_questions。转交并不能免除已说事实的准确性：不得先给无依据金额/承诺再转人工。
+segments仍为实际口播，必须与outcome一致。handoff用一句说明“需要转人工核实”，禁止说已接通、人工一定批准或可以获取本系统没有的材料。程序会记录转人工请求，不代表真实电话已接通。转交前保留问题、已知条件和原文出处给人工，不让用户重复描述。
+资料缺失或冲突只在影响本轮结论时转人工。只问特药免赔时已有0免赔，不因药品完整清单缺失转交；只问能否承诺续保105岁可直接回答不能承诺，但问本人能否获准明年续保需转交核实。用户仅问本轮是否有附件时，可直接说明目录范围，不必转人工。
+只输出JSON，source_ids均用本轮真实ID；不要输出审核评分、思维过程或多轮草稿。
+'''
+    if version in ('v2','v3','v4'):
+        result += '''
+【决策格式示例，全部虚构，只迁移格式】
+示例A：用户问虚构责任免赔；证据DEMO/免赔写“无免赔额”。
+{"segments":[{"text":"这项责任无免赔额。","source_ids":["DEMO/免赔"],"derivation":""}],"unknowns":[],"outcome":{"action":"answer","reason_kind":"none","reason":"本题已能回答","pending_questions":[],"source_ids":[]}}
+示例B：用户询价但未提供年龄；缺的是用户条件。
+{"segments":[{"text":"请问被保人几岁？","source_ids":["DEMO/年龄费率"],"derivation":""}],"unknowns":[{"question":"保费多少","reason":"缺年龄"}],"outcome":{"action":"clarify","reason_kind":"missing_user_condition","reason":"报价缺用户年龄","pending_questions":["被保人年龄"],"source_ids":[]}}
+示例C：用户要求确认虚构药名能否报，资料目录DEMO/目录明确未提供完整药品附件。
+{"segments":[{"text":"本轮没有完整药品附件，无法确认这个药名，需要转人工核实。","source_ids":["DEMO/目录"],"derivation":""}],"unknowns":[{"question":"指定药能否报","reason":"缺药品清单"}],"outcome":{"action":"handoff","reason_kind":"missing_material","reason":"缺本题必要的药品清单附件","pending_questions":["该药是否在约定清单内"],"source_ids":["DEMO/目录"]}}
+实际任务只用本轮证据ID。outcome.action只选answer、clarify、handoff三者之一，不能写中文标签、多个动作或其他字符串。
+answer的reason_kind固定none且pending_questions固定空列表：给了完整条件分支或明确否定不当承诺，就已回答，不把无关未知项列为本题待处理。
+clarify的reason_kind固定missing_user_condition。handoff的reason_kind只选missing_material、source_conflict、individual_review；其reason、pending_questions、source_ids都不可为空。材料矛盾的source_ids必须列两处原始证据。
+outcome.pending_questions只记录本题真正未完成的问项；不会因为某个未问附件缺失而新增待核实事项。unknowns与outcome不能相互矛盾。问句直接放在segments里，不能只写在元数据让用户听不到。
+'''
+    if version == 'v4':
+        result += '''
+【持续咨询待办：本段优先于前述单轮完成口径】
+已知用户条件中的_consultation是程序保存的原咨询和待办。本轮用户可能只补年龄、医保或更正条件，必须继续原咨询的全部未完成问项；不能只回答最新短句或转去销售。更正后，原问中的旧年龄/医保不能覆盖最新条件，年/月价和差额等所有受影响问项都须更新。
+原咨询尚未完成又插入新问题时保留旧待办并追加新项。用同一task id继续同一问项，不得删除旧id；用户明确取消才标cancelled并附cancel_user_quote。已经正确答完且未受更正影响的问项不必重复口播。
+输入里seeded=true的任务由独立小模型拆出的当前问项形成，每一个都必须保留原id并实际处理；不可把三项合并成两项后丢掉第三个id。多个任务可共用答句，但不能以共用为由删任务。
+每个segments增加task_ids数组，列这个口播段实际回答或追问的待办id。保险结论必须能对应任务，不把未确认的金额计算与已确认的报价/保障答句混在同一段。
+原咨询仍缺条件时，也要先回答新加入的、条件齐全的问项；只追问真正依赖缺项的任务，不能让旧例子的未知免赔堵住无关的报价、差额、等待期或免责问题。outcome用clarify保留旧任务，并在segments实际说完已能回答的部分。不要重复追问用户已经明确说明的结算行为。
+输入待办的needs_answer表示上次内容没有向用户发布，不是已经答完；即使条件都已齐全也必须实际口播该问项的结论，再标answered。程序可能为避免先说错误金额而暂缓其他答句，不能凭上次原始输出宣布这些问项完成。
+额外输出consultation：{"facts":[{"name":"age","value":62,"state":"confirmed或missing或assumed","user_quote":"用户实际说过的连续原话"}],"tasks":[{"id":"q1","question":"用户原本问的年缴保费","kind":"price或price_difference或discount或eligibility或claim_calculation或coverage或other","status":"answered或needs_user或needs_review或cancelled","requires":["age","has_social"],"is_example":false}]}。
+facts是各待办依赖的用户条件，不是保险条款：confirmed须用户明确提供，quote逐字来自用户原话，不能引用坐席旧回答、销售默认值或常识。missing的value用null；assumed只用于用户明确要求的假设示例，不能写回用户画像。同名条件保留最新值，不能把旧报价当新条件。
+更换被保人后不得继承上一人的医保、免赔等个人条件；按最新对象判断年龄资格和报价。原对象已不买且咨询已完成时不重复原对象结论，只处理当前_consultation的新对象问项。
+常用条件name：age、has_social（报价医保身份）、insured_with_social（理赔时保单医保投保身份）、social_settled（本次医保结算）、remaining_deductible、family_size、first_insurance、plan、payment；其它条件可按原问自定义。没走医保只描述就诊结算，不能证明insured_with_social；医保报销金额不能证明年度免赔用了多少。各计算任务的依赖按实际责任确定。
+【按责任确定依赖】
+一般医疗/基础门急诊的实际费用测算才需要医保投保身份、剩余年免赔；住院津贴/ICU按天给付、药省保月/年限额、重疾定额给付不依赖医保身份或一般医疗年免赔，不能追问这些无关条件。门急诊加油包、住院补偿包等0免赔责任也不能套用一般医疗的1万元免赔，只问改变该责任金额的条件。
+每个任务的source_ids列对应口播已经引用的证据ID，不能借其它问项的来源判断本项。facts必须列出每个requires的条件，不能在口播已使用而后台漏记。用户说“年免赔没用/未使用”已能结合责任原文确认剩余额；已抵扣金额要换算剩额，不得重复追问已经说明的条件。一家三口等明确人数要保留为条件，不能因为没写阿拉伯数字就忽略。
+用户已明确按医保结算或医保已报销时，记录social_settled=true，原文的“有医保身份参保但未按医保结算”例外已被排除，不再为这个比例追问保单身份。用户未走医保结算时才需确认医保投保身份。原问给了金额、剩余免赔等条件，必须在facts记录，不得明明用其计算却省略后台条件。
+费率按实际列决定依赖：重疾关爱取年龄和性别；其它加油包表中“有无社保”的同一价格列不依赖医保身份；基础必选及家庭共享免赔费率才区分医保。用户仅问加油包价格时不要追加基础版或问无关医保。
+confirmed原话须包含该条件的实际依据，不能拿没有提医保的整句就宣称有医保。依赖缺条件时给中文自然问句，不能把occupation等字段名读给用户。
+实际报价的price和price_difference必须列age、has_social依赖，不能因为给了两种医保价格就把用户实际询价记为完成。已有依据明确不能投保时，价格任务quoted_amount用null，直接说明无法按该口径报价，不再收集无关医保、缴费条件。首次/重投、计划等费率口径未明时也须澄清，不能擅设为首次必选个人单。只问规则的任务使用other或coverage，不要误标为实际价格任务。discount代表具体适用优惠，必须确认family_size；只介绍完整优惠档位不能替代用户具体优惠。
+只问年龄是否符合时，只核对年龄范围；年龄已经不符合，无须继续追问职业/医保。用户问整体承保时，年龄符合不代表核保通过。原问有能否投保问项时，口播必须明确回答年龄条件是否符合及必要审核边界，不能只报价或在任务字段标answered。
+用户问自身能赔多少、实际价格多少时，缺少改变金额的条件须needs_user/clarify并问出来，不能只选一个假设后宣布解决；“测算”不等于授权猜条件。用户问公式/一般规则/明确假设时，可给完整分支或示例，is_example须匹配用户原话。问有无优惠可先说规则，但要给用户具体优惠须确认适用人数与口径。
+金额条件缺失时直接追问缺项，不先用默认免赔额/医保身份给数值示例。已经明确的用户条件不得重复问。具体保费已报价的price任务增加quoted_amount数值字段；不能投保或无法给具体价格时用null，不可拿年龄、额度或免赔额填这个字段。
+requires所需事实未确认的任务不能标answered。needs_user任务的缺项放进outcome.pending_questions，实际问句必须在segments中。需要审核/缺资料的任务保留needs_review；如果其它问项还缺用户条件，先clarify补齐可以自动回答的部分，再转交待核项。资料缺口和用户缺条件不能混为一谈。
+只有所有问项确实已答或已按用户明确要求取消，才能outcome=answer。转交须包含全部待核问项和尚未完成的原问。kind=price代表具体保费已答，不能用于只有年龄资格或含糊价格介绍的任务。不要追加投保链接、重复报价或通用销售话术。
+'''
+    if version == 'v3':
+        result += '''
+【口语短答与后台溯源分离】
+segments.text是给用户听的口语概括，可以改写、合并、省略与本题无关的原文细节，不要求复述引用原话。source_ids是后台出处索引；程序另存原文和定位，不把这些原文读给用户。
+以本轮整条回答为溯源单位：每个实际说出的保险事实都要能由本轮所列原文及已知条件支持，不要求每个短句重复贴同一出处。引用中有额外内容，不意味着口播必须把那些内容都说出来。
+先用一句回答用户最关心的结论，再用短分句回答用户明确问到的各项。单问尽量30至60字，复合问题尽量80至150字；这是表达目标，不能为了字数删掉会改变结论的前提。
+每个责任只说本题需要的结论和边界；不主动列保额、床位限额、其它治疗项目、服务流程或法条解释。用户问医院时直接说该责任的医院/药店门槛，不绕成完整条款介绍。
+用通俗词概括责任名，保留准确指代；避免反复说“按某某费用医疗保险金”“在保险期间内”“按合同约定”。共性条件只有在每项证据都支持同样条件时才合并说明。
+不重复结论和同一条件，不用解释原文如何写来代替回答。需要个案核实就一句说明边界，不再重复整段免责分析。
+条件的重要性由本题决定：删除后会让不符合条件的人误以为可赔、无免赔或拿到某个价格的条件必须保留；不会改变本题结论的细节留给追问。
+例如院外特药能否报，药品必须在约定清单内是必要前提；只问该责任免赔额是多少时可以只答免赔额，不列完整购药手续。仅引用清单条文不能使缺失的清单前提自动成为用户听到的条件。
 '''
     return result
 
@@ -237,14 +310,14 @@ def source_registry(evidence: list[Evidence]) -> dict[str, Evidence]:
     return registry
 
 
-def citation_check(answer: dict, evidence: list[Evidence]) -> dict:
+def citation_check(answer: dict, evidence: list[Evidence], scope: str = 'segment') -> dict:
     """Mechanical provenance integrity, NEVER semantic entailment or correctness."""
     by_id = source_registry(evidence)
     faults, refs = [], 0
     for i, claim in enumerate(answer.get('claims', [])):
         if not claim.get('text') or claim['text'] not in answer.get('answer', ''):
             faults.append(f'claim[{i}] not an answer span')
-        if not claim.get('citations'):
+        if scope == 'segment' and not claim.get('citations'):
             faults.append(f'claim[{i}] has no citations')
         for ref in claim.get('citations', []):
             refs += 1
@@ -253,8 +326,10 @@ def citation_check(answer: dict, evidence: list[Evidence]) -> dict:
                 faults.append(f'claim[{i}] invalid reference or nonliteral quote')
     if not answer.get('claims'):
         faults.append('no claims')
+    if scope == 'answer' and refs == 0:
+        faults.append('answer has no citations')
     return {'valid': not faults, 'faults': faults, 'references': refs,
-            'semantic_entailment_checked': False}
+            'scope': scope, 'semantic_entailment_checked': False}
 
 
 class EvidenceAnswerer:
@@ -263,18 +338,29 @@ class EvidenceAnswerer:
 
     def call(self, system: str, user: str, model: str) -> dict:
         t0 = time.perf_counter()
-        raw = cloud.chat([{'role':'system','content':system}, {'role':'user','content':user}],
+        # The history's JSON string is the only replaceable span in this prompt.
+        history = getattr(user, 'history', '')
+        messages = with_history([{'role':'system','content':system}, {'role':'user','content':user}],
+                                history, encoded=True, start=getattr(user, 'history_start', None))
+        raw = cloud.chat(messages,
                          model=model, client=self.client, temperature=0,
                          response_format={'type':'json_object'}, max_tokens=2800)
         parsed = json.loads(raw)
-        return {'model':model,'output':parsed,'seconds':time.perf_counter()-t0}
+        return {'model':model,'output':parsed,'seconds':time.perf_counter()-t0,
+                'context_events':getattr(messages, 'context_events', [])}
 
-    def answer(self, question: str, known: dict, evidence: list[Evidence], debate=False, minimal=False, bound=False, scoped=False, fewshot=False, fewshot_version='v1') -> dict:
+    def answer(self, question: str, known: dict, evidence: list[Evidence], debate=False, minimal=False, bound=False, scoped=False, fewshot=False, fewshot_version='v1', allow_handoff=False, handoff_version='v1') -> dict:
         t0 = time.perf_counter()
-        user = f'原问题：{question}\n已知用户条件：{json.dumps(known,ensure_ascii=False)}\n【全部本轮证据】\n{evidence_text(evidence)}'
+        prefix = f'原问题：{question}\n已知用户条件：'
+        known_json = json.dumps(known,ensure_ascii=False)
+        history = known.get('_history', '')
+        start = len(prefix)+known_json.index('"_history": ')+len('"_history": ') if history else None
+        user = HistoryPrompt(prefix+known_json+'\n【全部本轮证据】\n'+evidence_text(evidence),history,start)
         calls = []
+        if allow_handoff and debate:
+            raise ValueError('Post-answer handoff uses one generation, not debate')
         if not debate:
-            final = self.call(fewshot_system(fewshot_version) if fewshot else SCOPED_SYSTEM if scoped else BOUND_SYSTEM if bound else MINIMAL_SYSTEM if minimal else SYSTEM, user, cloud.SLOW_MODEL)
+            final = self.call(handoff_system(handoff_version) if allow_handoff else fewshot_system(fewshot_version) if fewshot else SCOPED_SYSTEM if scoped else BOUND_SYSTEM if bound else MINIMAL_SYSTEM if minimal else SYSTEM, user, cloud.SLOW_MODEL)
             calls.append(final)
         else:
             models = [cloud.SLOW_MODEL,cloud.QWEN_ANSWER_MODEL]
@@ -295,13 +381,29 @@ class EvidenceAnswerer:
             calls.extend(originals+challenges+[final])
         # Rendering only: the spoken facts and their cited segments are identical by construction.
         structured = {**final['output'], 'claims':final['output'].get('segments', [])}
-        if minimal or bound or scoped or fewshot:
+        if minimal or bound or scoped or fewshot or allow_handoff:
             registry = source_registry(evidence)
             structured['claims'] = [{**s, 'citations':[
                 {'id':sid,'quote':registry[sid].text if sid in registry else '',
                  'location':registry[sid].location if sid in registry else {}}
                 for sid in s.get('source_ids', [])]} for s in structured['claims']]
         structured['answer'] = ''.join(s['text'] for s in structured['claims'])
-        return {'text':structured['answer'], 'structured':structured,
-                'provenance':citation_check(structured,evidence), 'calls':calls,
+        scope = 'answer' if allow_handoff and handoff_version == 'v3' else 'segment'
+        structured['answer_source_ids'] = list(dict.fromkeys(
+            ref['id'] for claim in structured['claims'] for ref in claim.get('citations', [])))
+        result = {'text':structured['answer'], 'structured':structured,
+                'provenance':citation_check(structured,evidence,scope=scope), 'calls':calls,
                 'total_s':time.perf_counter()-t0, 'evidence_ids':[e.id for e in evidence]}
+        if allow_handoff:
+            from agent.handoff import validate_outcome, handoff_request
+            result['outcome'] = final['output'].get('outcome')
+            result['handoff_request'] = None
+            try:
+                result['outcome'] = validate_outcome(result['outcome'], evidence)
+                result['outcome_validation'] = {'valid':True,'fault':None}
+                result['handoff_request'] = handoff_request(question, known, result)
+            except ValueError as exc:
+                # Preserve the raw answer/decision for audit, never repair it or
+                # silently count an invalid declaration as a human transfer.
+                result['outcome_validation'] = {'valid':False,'fault':str(exc)}
+        return result

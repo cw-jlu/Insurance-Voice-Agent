@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-12",
+  "model": "deepseek-flash",
+  "fast_model": "qwen-flash",
+  "evidence_sha256": "96297ad78662ff39adaebbd8b42c7783cbf6a86bcd0ffcfb8598b8c22f85e375",
+  "prompt_sha256": "3f4903fb6b4a272724bfcb500d6dfb1712b6e3bebf93bbad0ded48a2484fa806",
+  "code_sha256": {
+    "src/agent/evidence_answer.py": "f35fc1b87fb2b95f242d3760c591593fb7489f5c31a12936279939ccf1ed1722",
+    "src/agent/evidence_pipeline.py": "6c7d43fa8d271fa96223ca39ba6003cefbb943a9ff5f841ff7c4eaca6ab5092d",
+    "src/agent/session.py": "a6804376fcdb29d932c2b4898ac9d5af6fd2825a984eec632058235e96cea8e2",
+    "src/agent/cloud.py": "22a5675ea274813f553c85fa573724758bc0b55806a433bb934e16371b45282e",
+    "src/agent/dialogue.py": "7ae072a16b1ba3cf1cb21d170da9ca54ed2b4d21456dc31872ef4df0506b7396",
+    "src/agent/small_model.py": "14f03a57061f286d88bb2de5da91662933dd57db693564234813b32d56c0faa8",
+    "src/agent/pipeline.py": "c8064d0be34bf006d879f62a461c41f4d57fc793c17a9be6769221572ba7be73"
+  },
+  "voice_cases": [
+    {
+      "id": "C01",
+      "question": "我妈62岁有医保，住院和看门诊分别怎么报，进ICU有没有补贴",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C02",
+      "question": "得了癌症，住院、靶向药和质子重离子都能报吗，有免赔额吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C09",
+      "question": "我有高血压，买了以后高血压住院和意外住院能报吗",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C10",
+      "question": "刚买三天出车祸住院能赔吗，要是生病住院呢",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C19",
+      "question": "癌症做基因检测和吃特效药，怎么申请，能报多少",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "C26",
+      "question": "一年交和每月交差多少，30岁有社保",
+      "known": {},
+      "group": "development71"
+    },
+    {
+      "id": "E13",
+      "question": "已买津贴包，责任条件全符合，普通住院40天，今年没有领过津贴，一次最多领多少？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "E25",
+      "question": "住院补偿包同时写结节20%、有医保身份未结算60%，如果两条同时满足，到底取20%、60%还是乘成12%？资料明确写组合方式了吗？",
+      "known": {},
+      "group": "new40"
+    },
+    {
+      "id": "H04",
+      "question": "我现在有肾囊肿，下周才买保险，以后为同一囊肿手术，即使加住院补偿包也能赔20%吗？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H07",
+      "question": "已确定满足合同16种特定疾病康复责任的全部条件，康复住院有没有免赔额？",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H10",
+      "question": "第一次买必选计划，年缴多少钱？我的年龄和社保情况还没告诉你。",
+      "known": {},
+      "group": "new_handoff16"
+    },
+    {
+      "id": "H15",
+      "question": "我30岁有社保首次买必选计划年缴多少钱以及原位癌能否按这份合同的100种重疾报销请确认定义",
+      "known": {},
+      "group": "new_handoff16"
+    }
+  ],
+  "rounds": 2,
+  "vad_ms": 700,
+  "tts_model": "qwen3-tts-flash-realtime",
+  "speech_rate": 1.2,
+  "playback_device": {
+    "name": "扬声器 (Realtek(R) Audio)",
+    "index": 8,
+    "hostapi": 2,
+    "max_input_channels": 0,
+    "max_output_channels": 2,
+    "default_low_input_latency": 0.0,
+    "default_low_output_latency": 0.003,
+    "default_high_input_latency": 0.0,
+    "default_high_output_latency": 0.01,
+    "default_samplerate": 48000.0
+  },
+  "output_sample_rate": 48000,
+  "interrupts": [
+    "等一下，我没有社保",
+    "不对，我今年40岁",
+    "不是，我是给我妈买的",
+    "先停一下",
+    "门诊能报吗",
+    "等待期多久",
+    "那按月交多少",
+    "我不需要了",
+    "你是机器人吗",
+    "转人工",
+    "我没有医保，是30岁，年缴多少钱",
+    "我今年40岁有社保，一年多少钱",
+    "不是，我女儿是5岁",
+    "我想按月交",
+    "意外也要等30天吗",
+    "我已经有保险了",
+    "免赔额是多少",
+    "我有甲状腺结节能买吗",
+    "别给我打电话了",
+    "你先听我说"
+  ],
+  "backchannels": [
+    "嗯",
+    "对",
+    "好的",
+    "明白",
+    "哦",
+    "嗯嗯，你说",
+    "好，你继续",
+    "了解",
+    "收到",
+    "对的"
+  ],
+  "echo_gains": [
+    0.03,
+    0.1,
+    0.3
+  ],
+  "echo_only_per_gain": 8,
+  "method": "24 fresh live voice turns with unchanged evidence handoff v2; no model grader. Real streamed input ASR, real flow understanding/classification, fresh DS output, real TTS packets and WASAPI DAC timestamps. Injected synthetic echo tests decisions during live ASR, not offline replay. No microphone/acoustic/telephone validation."
+}

@@ -1,0 +1,80 @@
+{
+  "key": "g03_backchannel_06",
+  "kind": "backchannel",
+  "user": "好，你继续",
+  "gain": 0.03,
+  "agent_record": "C19",
+  "agent_round": 1,
+  "onset_s": 1.8,
+  "decisions": [
+    {
+      "asr": "好",
+      "received_s": 2.130127200000061,
+      "decision_s": 2.131023699999787,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "好",
+      "received_s": 2.1904006999993726,
+      "decision_s": 2.190792800000054,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "好啊",
+      "received_s": 2.536480400000073,
+      "decision_s": 2.536659399999735,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "好你继续啊",
+      "received_s": 3.2798585000000458,
+      "decision_s": 3.6316687999997157,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "好，你继续吧。",
+      "received_s": 3.4522852000000057,
+      "decision_s": 3.834990899999866,
+      "action": "resume",
+      "reason": "附和（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.130127200000061,
+      "slice_type": 0,
+      "text": "好"
+    },
+    {
+      "t": 2.1904006999993726,
+      "slice_type": 1,
+      "text": "好"
+    },
+    {
+      "t": 2.536480400000073,
+      "slice_type": 1,
+      "text": "好啊"
+    },
+    {
+      "t": 3.2798585000000458,
+      "slice_type": 1,
+      "text": "好你继续啊"
+    },
+    {
+      "t": 3.4522852000000057,
+      "slice_type": 2,
+      "text": "好，你继续吧。"
+    }
+  ],
+  "stopped": false,
+  "stop_latency_s": null,
+  "wrong_stop_before_user": false,
+  "cancellation": null,
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

@@ -1,0 +1,8 @@
+{
+  "id": "Y012",
+  "question": "ICU一天能补多少",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

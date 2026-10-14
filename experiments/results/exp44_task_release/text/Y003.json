@@ -1,0 +1,121 @@
+{
+  "case": {
+    "id": "Y003",
+    "question": "重疾医疗最多报多少，护工费给不给？",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 708,
+      "seconds": 2.4407669999998234,
+      "usage": {
+        "completion_tokens": 15,
+        "prompt_tokens": 491,
+        "total_tokens": 506,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 319,
+      "seconds": 2.4003565999998955,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 187,
+        "total_tokens": 213,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 352,
+      "seconds": 2.8523493000000144,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 246,
+        "total_tokens": 252,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1104,
+      "seconds": 3.2467898999998397,
+      "usage": {
+        "completion_tokens": 55,
+        "prompt_tokens": 723,
+        "total_tokens": 778,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 640,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 158363,
+      "known": {
+        "_history": "坐席：您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？\n用户：重疾医疗最多报多少，护工费给不给？",
+        "_consultation": {
+          "id": "c2",
+          "initial_question": "重疾医疗最多报多少，护工费给不给？",
+          "status": "pending",
+          "revision": 0,
+          "tasks": [
+            {
+              "id": "c2-u1-1",
+              "question": "重疾医疗最多报多少",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            },
+            {
+              "id": "c2-u1-2",
+              "question": "护工费给不给",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            }
+          ],
+          "facts": [],
+          "guard_faults": []
+        }
+      },
+      "seconds": 24.8871979999999,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

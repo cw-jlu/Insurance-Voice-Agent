@@ -34,6 +34,41 @@ python experiments/exp6_slots.py       # 实验 6（部分）：条件抽取
 
 结果写入 `experiments/results/*.json`。`exp3_guardrail_v1.json` 是 v1 护栏的结果，用于对比。
 
+## 复杂问题完整对话用例（2026-10-13）
+
+新增 [complex_dialogue_v1.json](data/complex_dialogue_v1.json) 和
+[完整用例与判分说明](../docs/25-复杂问题测试集与用例.md)：30例，
+多轮交互、单轮多问题、两类混合各10例；初始18例开发、12例评估候选。
+每例包含用户初始原话、操作者隐藏条件、按实际追问触发的回复、逐轮检查点、
+全部必答问项、数值答案及原文来源。候选涉及已知失败模式，不称盲测。
+
+需要人工或隔离用户模拟器在同一当前 `CallSession` 中完成整例，不能直接使用
+旧单轮题库脚本，也不能把隐藏条件、判分答案提前发送给坐席。
+安全转人工、自动解决、未解决分别记录；材料当前尚未跑业务测试。
+
+```powershell
+python experiments/build_complex_dialogue_v1.py --check
+```
+
+以上仅离线核验编号、分布、JSON/文档同步、费率计算和来源快照，不调用云模型。
+`build_complex_dialogue_v1.py` 保留用例生成过程，默认拒绝覆盖已存在的材料。
+
+## 完整历史与超限恢复（exp42）
+
+当前`CallSession`默认保留全部已播历史，只有服务端明确返回上下文超限时才压缩请求中的早期历史，原始记录不改写。
+12次历史回指对照、30例/49轮新对话、超限注入探针及68项回归结果见
+[默认接入与验证](../docs/26-完整历史默认接入与超限压缩.md)。
+新增用例暴露的漏问、漏答和免赔假设问题没有由本次历史切换解决。
+
+```powershell
+.venv/Scripts/python.exe -m unittest discover -s tests -q
+.venv/Scripts/python.exe experiments/exp42_full_history.py --mode all --windows-https
+.venv/Scripts/python.exe experiments/audit_exp42_history.py
+```
+
+`--windows-https`仅用于本机Python TLS异常时的实验传输，保留证书校验，不改变生产网络配置。
+已有结果不会重跑覆盖。汇总脚本只读取保存结果；未测试真实百万token超限或重验语音指标。
+
 ## 提前准备、流式播报与句尾实验（exp20）
 
 安装语音实验依赖：`pip install -r experiments/requirements-voice.txt`。
@@ -82,6 +117,12 @@ DeepSeek 对照仅替换主回答模型，理解、分类、检索向量和 TTS 
 质量必须逐题检查，不能据有首句交付就认定整个回答合格。
 
 ## 文件
+
+### 持续咨询待办（exp43）
+
+`exp43_consultation.py --out experiments/results/exp43_new_run`从原30条复杂问题材料运行真实Qwen/DS文字对话。只按可听问句披露预定义用户条件，不把隐藏答案送给坐席；先执行换人脚本再披露新对象条件。当前证据入口默认v4，完整历史、超限才压缩不变。使用证书校验的Windows HTTPS测试传输，未修改生产网络配置。不同代码版本必须用新目录，不能覆盖已有计划。
+
+`audit_exp43_consultation.py`汇总29条验证批次与MX09换人修复专门复测，共30例50轮。待办完成26例、人工请求4例；31项金额出现不等于整句准确或完整业务通过。所有冒烟与修复前批次保存，包括失败。详见[持续咨询实现与验证](../docs/27-持续咨询待办与条件追问验证.md)。exp42脚本显式关闭咨询跟踪，固定为原v2历史对照，避免复现时混入v4路由变化。
 
 ## 全量模型对照（exp21）
 

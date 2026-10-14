@@ -1,0 +1,8 @@
+{
+  "id": "E37",
+  "question": "我开的货车总质量3吨，而且非营运，特殊职业表里营运4吨及以上那一条能直接套在我身上拒保吗？",
+  "known": {},
+  "group": "new40",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

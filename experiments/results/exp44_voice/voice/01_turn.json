@@ -1,0 +1,15 @@
+{
+  "id": "T01",
+  "round": 1,
+  "question": "我是给自己了解的我30岁有社保首次投保必选计划一年多少钱",
+  "history_before": [
+    [
+      "坐席",
+      "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+    ]
+  ],
+  "profile_before": {},
+  "error_type": "ConnectionResetError",
+  "api_calls": [],
+  "consultation": {}
+}

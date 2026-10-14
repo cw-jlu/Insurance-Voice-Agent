@@ -1,0 +1,27 @@
+{
+  "id": "early_topics",
+  "variant": "recent6",
+  "repeat": 1,
+  "scope": "real text continuation on identical saved 13-message history",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 361,
+      "seconds": 0.4697551999997813,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1507,
+      "seconds": 0.49971240000013495,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1151,
+      "seconds": 1.3295903999987786,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

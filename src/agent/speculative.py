@@ -111,9 +111,23 @@ class SpeculativeTurn:
                 self.stats["invalidations"] += 1
             candidate = PreparedTurn(self.session, text, self.final_executor, self.streaming)
         try:
+            playback_bound = False
             while not candidate.future.done() or not candidate.sentences.empty():
                 try:
-                    on_sentence(candidate.sentences.get(timeout=0.02))
+                    sentence = candidate.sentences.get(timeout=0.02)
+                    if getattr(self.session, 'playback_tracking', False) and not playback_bound:
+                        # Only a confirmed candidate may share live playback receipts.
+                        # Preserve progress since the speculative snapshot was taken.
+                        for index, line in enumerate(self.session.history):
+                            candidate.session.history[index] = line
+                        for token, record in self.session._playback_records.items():
+                            candidate.session._playback_records[token] = record
+                        self.session.history = candidate.session.history
+                        self.session._playback_records = candidate.session._playback_records
+                        self.session._playback_active = candidate.session._playback_active
+                        self.session._playback_counter = candidate.session._playback_counter
+                        playback_bound = True
+                    on_sentence(sentence)
                 except queue.Empty:
                     continue
             result = candidate.future.result()

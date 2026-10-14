@@ -1,0 +1,68 @@
+{
+  "key": "g03_backchannel_03",
+  "kind": "backchannel",
+  "user": "明白",
+  "gain": 0.03,
+  "agent_record": "T04",
+  "agent_round": 1,
+  "onset_s": 2.03,
+  "decisions": [
+    {
+      "asr": "明",
+      "received_s": 2.4865153999999166,
+      "decision_s": 2.8787922999999864,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "明",
+      "received_s": 2.548348699999906,
+      "decision_s": 3.2922668000001067,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "明白",
+      "received_s": 2.9356279999999515,
+      "decision_s": 3.2923181000001023,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "明白。",
+      "received_s": 3.367559999999912,
+      "decision_s": 3.367642200000091,
+      "action": "resume",
+      "reason": "附和（rule）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.4865153999999166,
+      "slice_type": 0,
+      "text": "明"
+    },
+    {
+      "t": 2.548348699999906,
+      "slice_type": 1,
+      "text": "明"
+    },
+    {
+      "t": 2.9356279999999515,
+      "slice_type": 1,
+      "text": "明白"
+    },
+    {
+      "t": 3.367559999999912,
+      "slice_type": 2,
+      "text": "明白。"
+    }
+  ],
+  "stopped": false,
+  "stop_latency_s": null,
+  "wrong_stop_before_user": false,
+  "cancellation": null,
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

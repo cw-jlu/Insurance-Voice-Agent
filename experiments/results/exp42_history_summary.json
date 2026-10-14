@@ -1,0 +1,439 @@
+{
+  "date": "2026-10-13",
+  "method": "Primary agent read saved transcripts and target recall. No model grader or independent reviewer. No new generation in aggregation.",
+  "transport": "Windows certificate-checked HTTPS for real Qwen/DS requests; default Python TLS connections failed and were retained separately.",
+  "recall": {
+    "recent6": {
+      "n": 6,
+      "target_recall_correct": 2,
+      "ds_request_median_s": 4.1463623499994355,
+      "ds_prompt_tokens_median": 80586.0,
+      "text_turn_median_s": 4.852831750000405
+    },
+    "full": {
+      "n": 6,
+      "target_recall_correct": 6,
+      "ds_request_median_s": 3.3492182999998477,
+      "ds_prompt_tokens_median": 81184.0,
+      "text_turn_median_s": 4.185584099999687
+    }
+  },
+  "recall_rows": [
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_expense_full_r1.json",
+      "id": "early_expense",
+      "variant": "full",
+      "repeat": 1,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_expense_full_r2.json",
+      "id": "early_expense",
+      "variant": "full",
+      "repeat": 2,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_expense_recent6_r1.json",
+      "id": "early_expense",
+      "variant": "recent6",
+      "repeat": 1,
+      "target_recall_correct": false,
+      "other_business_issues": [
+        "未找回已给的8000元医保补偿和12000元余额，未给2000元结果；r2误称此前未提供医保金额。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_expense_recent6_r2.json",
+      "id": "early_expense",
+      "variant": "recent6",
+      "repeat": 2,
+      "target_recall_correct": false,
+      "other_business_issues": [
+        "未找回已给的8000元医保补偿和12000元余额，未给2000元结果；r2误称此前未提供医保金额。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_topics_full_r1.json",
+      "id": "early_topics",
+      "variant": "full",
+      "repeat": 1,
+      "target_recall_correct": true,
+      "other_business_issues": [
+        "问项回指正确，但把靶向药直接归为特定药品渠道仍有过度概括风险，且追加了未明确要求的具体名单转交。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_topics_full_r2.json",
+      "id": "early_topics",
+      "variant": "full",
+      "repeat": 2,
+      "target_recall_correct": true,
+      "other_business_issues": [
+        "问项回指正确，但把靶向药直接归为特定药品渠道仍有过度概括风险，且追加了未明确要求的具体名单转交。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_topics_recent6_r1.json",
+      "id": "early_topics",
+      "variant": "recent6",
+      "repeat": 1,
+      "target_recall_correct": false,
+      "other_business_issues": [
+        "扩展猜测为责任大类及其他先进疗法，未准确限定原来的住院、靶向药、质子重离子三问。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_early_topics_recent6_r2.json",
+      "id": "early_topics",
+      "variant": "recent6",
+      "repeat": 2,
+      "target_recall_correct": false,
+      "other_business_issues": [
+        "扩展猜测为责任大类及其他先进疗法，未准确限定原来的住院、靶向药、质子重离子三问。"
+      ]
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_recent_price_full_r1.json",
+      "id": "recent_price",
+      "variant": "full",
+      "repeat": 1,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_recent_price_full_r2.json",
+      "id": "recent_price",
+      "variant": "full",
+      "repeat": 2,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_recent_price_recent6_r1.json",
+      "id": "recent_price",
+      "variant": "recent6",
+      "repeat": 1,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    },
+    {
+      "record": "experiments/results/exp42_windows_https_records/recall_recent_price_recent6_r2.json",
+      "id": "recent_price",
+      "variant": "recent6",
+      "repeat": 2,
+      "target_recall_correct": true,
+      "other_business_issues": []
+    }
+  ],
+  "dialogue": {
+    "cases": 30,
+    "user_turns": 49,
+    "service_errors": 0,
+    "max_visible_messages_at_model_call": 6,
+    "limit": "All these new conversations fit within 6 visible messages, so their historical input is also identical to the recent6 control. They reveal existing dialogue-flow defects, not a demonstrated full-history regression. Operator trigger matching in 3 cases needs manual retest; no official accuracy reported.",
+    "rows": [
+      {
+        "id": "CP01",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP01.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP02",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP02.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP03",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP03.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP04",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP04.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP05",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP05.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP06",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP06.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP07",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP07.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP08",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP08.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP09",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP09.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "CP10",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_CP10.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT01",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT01.json",
+        "turns": 3,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT02",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT02.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT03",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT03.json",
+        "turns": 3,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT04",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT04.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "回复3人家庭条件后，销售流程改问年龄，没有针对已补条件落到10%优惠；回复触发还包含宽泛家人匹配，需人工复测。",
+        "operator_trigger_needs_manual_retest": true
+      },
+      {
+        "id": "MT05",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT05.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "未确认投保医保身份和剩余免赔，将没走医保当成有医保身份投保，并假设尚剩一万元免赔。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT06",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT06.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "剩余免赔未知时直接扣一万元，未追问；未到用例的免赔已用完分支。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT07",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT07.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT08",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT08.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT09",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT09.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MT10",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MT10.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "模型声明clarify但口播未实际追问年龄；操作者依元数据回复72岁后，流程转去问医保，未处理首次投保超龄。",
+        "operator_trigger_needs_manual_retest": true
+      },
+      {
+        "id": "MX01",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX01.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "补医保后只报价，未继续确认家庭统计条件并完成个人化优惠问项。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX02",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX02.json",
+        "turns": 3,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX03",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX03.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "核保安全转交，但pending_questions仅有核保，没有记录尚缺医保的个人报价待处理项。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX04",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX04.json",
+        "turns": 3,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "补医保后年/月费率正确，但遗漏用户问的全年差额473元。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX05",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX05.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "未确认投保医保身份和剩余免赔就按60%与一万元免赔测算；结果碰巧等于用例最终值，不算条件判断通过。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX06",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX06.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "补4人家庭条件后改问年龄，没有落到15%家庭优惠；宽泛家人触发需人工复测。",
+        "operator_trigger_needs_manual_retest": true
+      },
+      {
+        "id": "MX07",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX07.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "更正为无医保后重报971/96元，漏掉被要求一起重算的全年差额181元。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX08",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX08.json",
+        "turns": 2,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX09",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX09.json",
+        "turns": 3,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "met_in_this_run",
+        "finding": "已回应本例核心问项/安全转交；不代表完整口播逐句来源已全部复核。",
+        "operator_trigger_needs_manual_retest": false
+      },
+      {
+        "id": "MX10",
+        "record": "experiments/results/exp42_windows_https_records/dialogue_MX10.json",
+        "turns": 1,
+        "scope": "primary review of core obligations; not full per-claim source audit",
+        "core_obligations": "incomplete_or_wrong",
+        "finding": "给条件分支和优惠档位，但没有追问真实医保、家庭条件，未执行个体落地分支。",
+        "operator_trigger_needs_manual_retest": false
+      }
+    ]
+  },
+  "overflow_probe": {
+    "injected": true,
+    "real_summary_and_answer": true,
+    "original_transcript_unchanged": true,
+    "early_amounts_retained": true,
+    "claim_result": 2000,
+    "context_events": [
+      {
+        "reason": "provider_context_overflow",
+        "model": "deepseek-flash",
+        "attempt": 1,
+        "original_history_bytes": 1783,
+        "compacted_history_bytes": 747,
+        "raw_transcript_modified": false
+      }
+    ],
+    "initial_probe": "First short-history injected probe failed safely because summary was not smaller; record preserved. v2 consolidates repetitions and succeeded.",
+    "limit": "No natural 1M-token overflow, audio, live interruption or telephone test in this run."
+  },
+  "unit_tests_passed": 68,
+  "deployed_policy": "Full confirmed history by default; only provider context-overflow error can invoke summary; raw history not changed",
+  "release_code_sha256": {
+    "src/agent/context.py": "bed8279b882a7a9aca808ae8a62e77efa1677f0e339ce4f63fce9f7e0f84a6cc",
+    "src/agent/cloud.py": "969c4e717c9611dfd01862b89434277f0f23cb544350ae3f4f81894028fdfb4c",
+    "src/agent/session.py": "0cf20cd7ae3d3826ce3a452cf0a25d85505dd4a98d85fff7ca621947ffbc8df1",
+    "src/agent/evidence_answer.py": "e9f5feba773fc5e4c94f4f67a292d80916009de9333d14f0fcbadf3c9c3f5907",
+    "src/agent/pipeline.py": "943c8129657001d040bb1d096d46618554d6370d669ae51d2779e19215244823",
+    "src/agent/small_model.py": "0c77792bf7493a3a6848a2af11eb0f4c0c839fa23de4d23d6c3199b20ff45493"
+  }
+}

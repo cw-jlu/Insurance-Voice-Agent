@@ -9,6 +9,16 @@ from agent.evidence_answer import Evidence, EvidenceAnswerer, citation_check, gr
 
 
 class EvidenceAnswerTest(unittest.TestCase):
+    def test_answer_scope_allows_paraphrase_and_shared_sources_but_rejects_fabrication(self):
+        evidence=[Evidence('d','扣除1万元年免赔额后，按100%赔付','D8','source','hash')]
+        answer={'answer':'一般医疗有一万免赔。剩余合规费用按比例赔。', 'claims':[
+            {'text':'一般医疗有一万免赔。', 'citations':[{'id':'d','quote':evidence[0].text}]},
+            {'text':'剩余合规费用按比例赔。', 'citations':[]}]}
+        self.assertTrue(citation_check(answer,evidence,scope='answer')['valid'])
+        self.assertFalse(citation_check(answer,evidence)['valid'])
+        answer['claims'][0]['citations'][0]['id']='invented'
+        self.assertFalse(citation_check(answer,evidence,scope='answer')['valid'])
+
     def test_original_cell_reference_keeps_parent_responsibility_context(self):
         evidence = grouped_evidence()
         registry = source_registry(evidence)

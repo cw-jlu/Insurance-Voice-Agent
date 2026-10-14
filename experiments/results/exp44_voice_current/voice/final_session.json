@@ -1,0 +1,624 @@
+{
+  "history": [
+    [
+      "坐席",
+      "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+    ],
+    [
+      "用户",
+      "我是给自己了解的，我30岁，有社保，首次投保必选计划，一年多少钱？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的保费和投保条件，我一起核对。您30岁、有社保、首次投保必选计划、年缴，标准保费是318元。"
+    ],
+    [
+      "用户",
+      "如果以后得了癌症住院治疗，靶向药和质子、重离子这3项分别怎么赔？各有没有免赔额？医院有要求吗？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和免赔，我一起核对。靶向药如果属于合同约定的特定药品，走特定药品费用医疗保险金，按100%赔付，年累计以600万元为限，本责任无免赔额；但须在保险人指定药店购药、购药前按指定流程提交材料并通过处方审核，且仅赔付责任内约定药品清单中列明的药品。质子、重离子治疗走恶性肿瘤先进疗法医疗责任，按100%赔付，年累计以600万元为限，本责任无免赔额；医院限经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构，且限中国大陆境内，不包括境外及港澳台。"
+    ],
+    [
+      "用户",
+      "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和保障范围，我一起核对。靶向药如果属于合同约定的特定药品，走特定药品费用医疗保险金，按100%赔付，年累计以600万元为限，本责任无免赔额；但须在保险人指定药店购药、购药前按指定流程提交材料并通过处方审核，且仅赔付责任内约定药品清单中列明的药品。质子、重离子治疗走恶性肿瘤先进疗法医疗责任，按100%赔付，年累计以600万元为限，本责任无免赔额；医院限经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构，且限中国大陆境内，不包括境外及港澳台。要回答尚未完成的部分，请先确认：本年度还剩多少免赔额；投保时选择的是有医保身份还是无医保身份？"
+    ],
+    [
+      "用户",
+      "我更正一下，我实际是40岁，没有社保，首次投保必选计划，年缴和月缴分别多少钱？"
+    ],
+    [
+      "坐席",
+      "好的，我按您刚才更正的信息核对。您关心的保费和投保条件，我一起核对。按您更正后的条件，40岁、无社保、首次投保必选计划，年缴标准保费是1330元。同样条件下月缴标准保费是131元。另外，您之前问的靶向药和质子、重离子治疗：靶向药若属于合同约定的特定药品，走特定药品费用医疗保险金，按100%赔付，年累计以600万元为限，本责任无免赔额，但须在保险人指定药店购药、购药前按指定流程提交材料并通过处方审核，且仅赔付责任内约定药品清单中列明的药品。质子、重离子治疗走恶性肿瘤先进疗法医疗责任，按100%赔付，年累计以600万元为限，本责任无免赔额；医院限经卫生部门审核认定、可开展质子治疗或重离子治疗的医疗机构，且限中国大陆境内，不包括境外及港澳台。您之前问的一般住院责任下能报多少钱，还需要您确认本年度还剩多少免赔额，以及投保时选择的是有医保身份还是无医保身份，才能测算。请问：本年度还剩多少免赔额；投保时选择的是有医保身份还是无医保身份？"
+    ],
+    [
+      "用户",
+      "按月交12个月比年缴多多少钱？另外，生病住院和意外住院都要等30天吗？"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的保费和等待期，我一起核对。按您40岁、无社保、首次投保必选计划，月缴标准保费是131元，交12个月共1572元，比年缴1330元多242元。一般医疗及外购药械费用医疗责任的等待期是30天，但原文写的是“因遭受意外伤害事故或在等待期30天后因罹患疾病”，所以疾病住院要等30天，意外住院不受这30天疾病等待期限制。要回答尚未完成的部分，请先确认：本年度还剩多少免赔额；投保时选择的是有医保身份还是无医保身份？"
+    ],
+    [
+      "用户",
+      "如果投保前就有高血压，以后发生与高血压无关的交通意外，住院是不是一定都不赔？请说明适用条件。"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。您关心的赔付和投保条件，我一起核对。本次咨询暂未完成，请稍后再试。"
+    ],
+    [
+      "用户",
+      "请确认原位癌是否属于合同约定的100种重大疾病。资料缺少定义的话就转人工，不要菜。"
+    ],
+    [
+      "坐席",
+      "我帮您查一下。我已记录转人工请求，并附上刚才的问题和已有信息。"
+    ]
+  ],
+  "profile": {
+    "age": 40,
+    "has_social": false,
+    "pay": "年缴",
+    "relation": "本人"
+  },
+  "consultation": {
+    "id": "c7",
+    "initial_question": "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？",
+    "status": "handed_off",
+    "revision": 3,
+    "tasks": [
+      {
+        "id": "c7-u1-1",
+        "question": "靶向药怎么赔",
+        "kind": "coverage",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u1-2",
+        "question": "靶向药有没有免赔额",
+        "kind": "coverage",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u1-3",
+        "question": "质子、重离子治疗怎么赔",
+        "kind": "coverage",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u1-4",
+        "question": "质子、重离子治疗有没有免赔额",
+        "kind": "coverage",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u1-5",
+        "question": "质子、重离子治疗的医院要求",
+        "kind": "coverage",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u1-6",
+        "question": "一般住院责任下保险能报多少钱",
+        "kind": "claim_calculation",
+        "status": "needs_user",
+        "requires": [
+          "remaining_deductible",
+          "insured_with_social"
+        ],
+        "is_example": true,
+        "missing_conditions": [
+          "remaining_deductible",
+          "insured_with_social"
+        ]
+      },
+      {
+        "id": "c7-u2-5",
+        "question": "医院有要求吗",
+        "kind": "other",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u2-6",
+        "question": "一般住院责任下，医保报销后剩余费用能报多少钱",
+        "kind": "other",
+        "status": "needs_user",
+        "requires": [
+          "remaining_deductible",
+          "insured_with_social"
+        ],
+        "is_example": false,
+        "missing_conditions": [
+          "remaining_deductible",
+          "insured_with_social"
+        ]
+      },
+      {
+        "id": "c7-u2-7",
+        "question": "本年度还剩多少免赔额",
+        "kind": "other",
+        "status": "needs_user",
+        "requires": [
+          "remaining_deductible"
+        ],
+        "is_example": false,
+        "missing_conditions": [
+          "remaining_deductible"
+        ]
+      },
+      {
+        "id": "c7-u2-8",
+        "question": "投保时选择的是有医保身份还是无医保身份",
+        "kind": "other",
+        "status": "needs_user",
+        "requires": [
+          "insured_with_social"
+        ],
+        "is_example": false,
+        "missing_conditions": [
+          "insured_with_social"
+        ]
+      },
+      {
+        "id": "c7-price-1",
+        "question": "40岁无社保首次投保必选计划年缴多少钱",
+        "kind": "price",
+        "status": "answered",
+        "requires": [
+          "age",
+          "has_social"
+        ],
+        "is_example": false,
+        "quoted_amount": 1330,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-price-2",
+        "question": "40岁无社保首次投保必选计划月缴多少钱",
+        "kind": "price",
+        "status": "answered",
+        "requires": [
+          "age",
+          "has_social"
+        ],
+        "is_example": false,
+        "quoted_amount": 131,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u3-1",
+        "question": "按月交12个月比年缴多多少钱",
+        "kind": "price_difference",
+        "status": "answered",
+        "requires": [
+          "age",
+          "has_social"
+        ],
+        "is_example": false,
+        "quoted_amount": 242,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u3-2",
+        "question": "生病住院是否要等30天",
+        "kind": "other",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u3-3",
+        "question": "意外住院是否要等30天",
+        "kind": "other",
+        "status": "answered",
+        "requires": [],
+        "is_example": false,
+        "missing_conditions": []
+      },
+      {
+        "id": "c7-u4-1",
+        "question": "靶向药是否赔付",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-2",
+        "question": "靶向药是否有免赔额",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-3",
+        "question": "靶向药是否要求在指定药店购药",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-4",
+        "question": "质子、重离子治疗是否赔付",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-5",
+        "question": "质子、重离子治疗是否有免赔额",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-6",
+        "question": "质子、重离子治疗的医院范围要求",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      },
+      {
+        "id": "c7-u4-7",
+        "question": "一般住院责任下能报多少钱",
+        "kind": "other",
+        "status": "needs_answer",
+        "requires": [],
+        "is_example": false,
+        "seeded": true
+      }
+    ],
+    "facts": [
+      {
+        "name": "age",
+        "value": 40,
+        "state": "confirmed",
+        "user_quote": "我更正一下，我实际是40岁"
+      },
+      {
+        "name": "has_social",
+        "value": false,
+        "state": "confirmed",
+        "user_quote": "没有社保"
+      },
+      {
+        "name": "first_insurance",
+        "value": true,
+        "state": "confirmed",
+        "user_quote": "首次投保必选计划"
+      },
+      {
+        "name": "remaining_deductible",
+        "value": null,
+        "state": "missing",
+        "user_quote": ""
+      },
+      {
+        "name": "insured_with_social",
+        "value": null,
+        "state": "missing",
+        "user_quote": ""
+      }
+    ],
+    "guard_faults": []
+  },
+  "handoff_request": {
+    "status": "requested",
+    "origin": "explicit_user",
+    "question": "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？",
+    "latest_user": "请确认原位癌是否属于合同约定的100种重大疾病。资料缺少定义的话就转人工，不要菜。",
+    "known": {
+      "age": 40,
+      "has_social": false,
+      "pay": "年缴",
+      "relation": "本人"
+    },
+    "consultation": {
+      "id": "c7",
+      "initial_question": "假设符合一般住院责任，医院总费用两万元，医保先报了8000元，剩余12000元都是合同范围内费用，那么这个保险还能报多少钱？",
+      "status": "error",
+      "revision": 3,
+      "tasks": [
+        {
+          "id": "c7-u1-1",
+          "question": "靶向药怎么赔",
+          "kind": "coverage",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u1-2",
+          "question": "靶向药有没有免赔额",
+          "kind": "coverage",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u1-3",
+          "question": "质子、重离子治疗怎么赔",
+          "kind": "coverage",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u1-4",
+          "question": "质子、重离子治疗有没有免赔额",
+          "kind": "coverage",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u1-5",
+          "question": "质子、重离子治疗的医院要求",
+          "kind": "coverage",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u1-6",
+          "question": "一般住院责任下保险能报多少钱",
+          "kind": "claim_calculation",
+          "status": "needs_user",
+          "requires": [
+            "remaining_deductible",
+            "insured_with_social"
+          ],
+          "is_example": true,
+          "missing_conditions": [
+            "remaining_deductible",
+            "insured_with_social"
+          ]
+        },
+        {
+          "id": "c7-u2-5",
+          "question": "医院有要求吗",
+          "kind": "other",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u2-6",
+          "question": "一般住院责任下，医保报销后剩余费用能报多少钱",
+          "kind": "other",
+          "status": "needs_user",
+          "requires": [
+            "remaining_deductible",
+            "insured_with_social"
+          ],
+          "is_example": false,
+          "missing_conditions": [
+            "remaining_deductible",
+            "insured_with_social"
+          ]
+        },
+        {
+          "id": "c7-u2-7",
+          "question": "本年度还剩多少免赔额",
+          "kind": "other",
+          "status": "needs_user",
+          "requires": [
+            "remaining_deductible"
+          ],
+          "is_example": false,
+          "missing_conditions": [
+            "remaining_deductible"
+          ]
+        },
+        {
+          "id": "c7-u2-8",
+          "question": "投保时选择的是有医保身份还是无医保身份",
+          "kind": "other",
+          "status": "needs_user",
+          "requires": [
+            "insured_with_social"
+          ],
+          "is_example": false,
+          "missing_conditions": [
+            "insured_with_social"
+          ]
+        },
+        {
+          "id": "c7-price-1",
+          "question": "40岁无社保首次投保必选计划年缴多少钱",
+          "kind": "price",
+          "status": "answered",
+          "requires": [
+            "age",
+            "has_social"
+          ],
+          "is_example": false,
+          "quoted_amount": 1330,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-price-2",
+          "question": "40岁无社保首次投保必选计划月缴多少钱",
+          "kind": "price",
+          "status": "answered",
+          "requires": [
+            "age",
+            "has_social"
+          ],
+          "is_example": false,
+          "quoted_amount": 131,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u3-1",
+          "question": "按月交12个月比年缴多多少钱",
+          "kind": "price_difference",
+          "status": "answered",
+          "requires": [
+            "age",
+            "has_social"
+          ],
+          "is_example": false,
+          "quoted_amount": 242,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u3-2",
+          "question": "生病住院是否要等30天",
+          "kind": "other",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u3-3",
+          "question": "意外住院是否要等30天",
+          "kind": "other",
+          "status": "answered",
+          "requires": [],
+          "is_example": false,
+          "missing_conditions": []
+        },
+        {
+          "id": "c7-u4-1",
+          "question": "靶向药是否赔付",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-2",
+          "question": "靶向药是否有免赔额",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-3",
+          "question": "靶向药是否要求在指定药店购药",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-4",
+          "question": "质子、重离子治疗是否赔付",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-5",
+          "question": "质子、重离子治疗是否有免赔额",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-6",
+          "question": "质子、重离子治疗的医院范围要求",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        },
+        {
+          "id": "c7-u4-7",
+          "question": "一般住院责任下能报多少钱",
+          "kind": "other",
+          "status": "needs_answer",
+          "requires": [],
+          "is_example": false,
+          "seeded": true
+        }
+      ],
+      "facts": [
+        {
+          "name": "age",
+          "value": 40,
+          "state": "confirmed",
+          "user_quote": "我更正一下，我实际是40岁"
+        },
+        {
+          "name": "has_social",
+          "value": false,
+          "state": "confirmed",
+          "user_quote": "没有社保"
+        },
+        {
+          "name": "first_insurance",
+          "value": true,
+          "state": "confirmed",
+          "user_quote": "首次投保必选计划"
+        },
+        {
+          "name": "remaining_deductible",
+          "value": null,
+          "state": "missing",
+          "user_quote": ""
+        },
+        {
+          "name": "insured_with_social",
+          "value": null,
+          "state": "missing",
+          "user_quote": ""
+        }
+      ],
+      "guard_faults": []
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "id": "C24",
+  "question": "罕见病买药和癌症买药要求一样吗",
+  "known": {},
+  "group": "development71",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

@@ -1,0 +1,8 @@
+{
+  "id": "E20",
+  "question": "普通疾病住院，在保单约定的指定民营医院普通部，是不是因为私立就一概不赔？",
+  "known": {},
+  "group": "new40",
+  "variant": "post_handoff",
+  "error_type": "ValueError"
+}

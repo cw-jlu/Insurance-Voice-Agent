@@ -1,0 +1,25 @@
+{
+  "id": "overflow_injected_real_summary",
+  "scope": "Injected 400 context overflow before first DS request; actual Qwen summary and actual DS retry. No natural provider overflow or production latency claimed.",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 334,
+      "seconds": 0.39902259999871603,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1263,
+      "seconds": 0.4197578000002977,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 907,
+      "seconds": 1.4338305000001128,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

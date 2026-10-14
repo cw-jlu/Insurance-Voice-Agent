@@ -1,0 +1,17 @@
+{
+  "cases": [
+    {
+      "id": "social",
+      "correction": "等一下我没有社保我30岁首次年缴多少钱",
+      "expected_price_not_sent": 679
+    },
+    {
+      "id": "age",
+      "correction": "不对我不是30岁我是40岁有社保首次年缴多少钱",
+      "expected_price_not_sent": 517
+    }
+  ],
+  "initial": "我30岁有社保第一次买基础版年缴多少钱",
+  "echo_gain": 0.03,
+  "method": "Fresh base answer on real session; real TTS playback and live mixed-ASR interruption; same session receives confirmed correction and generates fresh reply. Session history is inspected for falsely retained unheard full text. No history repair or model judge."
+}

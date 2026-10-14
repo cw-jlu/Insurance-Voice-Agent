@@ -23,6 +23,7 @@ from dataclasses import dataclass, field
 import numpy as np
 
 from agent import cloud
+from agent.context import with_history
 from agent.guardrail import (
     GAPS, IDENTITY_REPLY, compliance_guard, extract_numbers, gap_guard, gap_of, is_identity_question, number_guard,
     other_conclusions, renewal_conclusion, social_deduction_conclusion,
@@ -192,7 +193,8 @@ def understand(question: str, known: dict, client=None, model: str | None = None
             + (f"【最近对话】\n{history}\n" if history else "")
             + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev and not history else "")
             + f"用户：{question}")
-    raw = cloud.chat([{"role": "system", "content": sys}, {"role": "user", "content": user}],
+    raw = cloud.chat(with_history([{"role": "system", "content": sys}, {"role": "user", "content": user}],
+                                 history, marker="【最近对话】\n"),
                      model=model or cloud.FAST_MODEL, client=client, temperature=0,
                      response_format={"type": "json_object"})
     try:
@@ -236,7 +238,8 @@ def understand_merged(question: str, known: dict, client=None, model: str | None
     user = (f"已知条件：{json.dumps(shown, ensure_ascii=False)}\n"
             + (f"【最近对话】\n{history}\n" if history else "")
             + f"用户：{question}")
-    raw = cloud.chat([{"role": "system", "content": sys}, {"role": "user", "content": user}],
+    raw = cloud.chat(with_history([{"role": "system", "content": sys}, {"role": "user", "content": user}],
+                                 history, marker="【最近对话】\n"),
                      model=model or cloud.FAST_MODEL, client=client, temperature=0,
                      response_format={"type": "json_object"})
     try:
@@ -285,6 +288,8 @@ class Answer:
     attempts: int = 0
     fallback_used: bool = False
     timings: dict = field(default_factory=dict)
+    outcome: dict = field(default_factory=dict)
+    handoff_request: dict | None = None
 
 
 def grouped_context(evidence: list[Chunk]) -> str:
@@ -705,8 +710,8 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
            + (f"【上一句】用户：{prev}（上一句意图：{known.get('_prev_intent')}）\n" if prev and not history else ""))
 
     def intent():
-        raw = cloud.chat([{"role": "system", "content": _SPLIT_INTENT_SYS % {"gaps": GAP_NAMES}},
-                          {"role": "user", "content": ctx + f"用户：{question}"}],
+        raw = cloud.chat(with_history([{"role": "system", "content": _SPLIT_INTENT_SYS % {"gaps": GAP_NAMES}},
+                          {"role": "user", "content": ctx + f"用户：{question}"}], history, marker="【最近对话】\n"),
                          model=model, client=fast, temperature=0, response_format={"type": "json_object"})
         try:
             d = json.loads(raw)
@@ -716,8 +721,8 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
                 "gaps": [g for g in d.get("gaps", []) if g in GAP_NAMES]}
 
     def items():
-        raw = cloud.chat([{"role": "system", "content": _SPLIT_ITEMS_SYS % {"topics": TOPIC_NAMES, "catalog": _catalog()}},
-                          {"role": "user", "content": f"用户：{question}"}],
+        raw = cloud.chat(with_history([{"role": "system", "content": _SPLIT_ITEMS_SYS % {"topics": TOPIC_NAMES, "catalog": _catalog()}},
+                          {"role": "user", "content": ctx+f"用户：{question}"}],history,marker="【最近对话】\n"),
                          model=model, client=fast, temperature=0, response_format={"type": "json_object"})
         try:
             d = json.loads(raw)
@@ -842,7 +847,8 @@ class Pipeline:
         self._responsibility_retriever = Retriever([item_chunks(iid)[0] for iid in COVERAGE]) if direct_answer else None
 
     def understand(self, question: str, known: dict) -> dict:
-        u = (understand_split(question, known, self.client, self.fast_model, answer_planning=not self.direct_answer) if self.direct_answer or "C" in self.features
+        u = (understand_split(question, known, self.client, self.fast_model,
+             answer_planning=not self.direct_answer or getattr(self,'consultation_tracking',False) is True) if self.direct_answer or "C" in self.features
              else understand(question, known, self.client, self.fast_model))
         slots = u.get("slots") or {}
         if slots.get("age") is not None and not age_stated(question, slots["age"]):
@@ -1108,6 +1114,7 @@ class Pipeline:
                      "总回答争取70字，必要事实可超出，不截断；已知既往症免责必须明确说投保前已有病及相关费用不赔。")
         msgs = [{"role": "system", "content": (_DIRECT_SYS if self.direct_answer else _ANSWER_SYS + (VOICE_RULES if voice else "")) + (FACTS_RULE if facts else "")},
                 {"role": "user", "content": user}]
+        msgs = with_history(msgs, history, marker="【最近对话】\n")
 
         text, violations, attempts = "", [], 0
         # The experimental stream path cannot safely handle JSON fact/slot answers or checks that
@@ -1196,7 +1203,7 @@ class Pipeline:
             return True
 
         t1 = time.perf_counter()
-        stream = self.client.chat.completions.create(model=self.slow_model, messages=msgs, stream=True, temperature=0.3,
+        stream = cloud.create_with_context_retry(self.client, msgs, self.slow_model, stream=True, temperature=0.3,
                                                      extra_body={"enable_thinking": False})
         go = True
         try:

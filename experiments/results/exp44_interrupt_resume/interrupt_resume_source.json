@@ -1,0 +1,4 @@
+{
+  "prefix": "experiments\\results\\exp44_voice_direct",
+  "method": "Continue absent frozen trial IDs only, including earlier failures in final denominator. Never overwrite or select successful reruns."
+}

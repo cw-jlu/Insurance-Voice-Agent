@@ -1,0 +1,116 @@
+{
+  "key": "g03_backchannel_07",
+  "kind": "backchannel",
+  "user": "了解",
+  "gain": 0.03,
+  "agent_record": "C19",
+  "agent_round": 2,
+  "onset_s": 2.03,
+  "decisions": [
+    {
+      "asr": "了解",
+      "received_s": 2.4524561999996877,
+      "decision_s": 2.4530886000002283,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "了解",
+      "received_s": 2.528177500000311,
+      "decision_s": 2.5283259000007092,
+      "action": "resume",
+      "reason": "附和（rule）"
+    },
+    {
+      "asr": "了解内障",
+      "received_s": 2.8956498999996256,
+      "decision_s": 3.3208614000004673,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "了解内障。",
+      "received_s": 3.3368375000000015,
+      "decision_s": 3.6257578000004287,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "好啦微",
+      "received_s": 3.7310311000001093,
+      "decision_s": 3.8843120000001363,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "好啦微",
+      "received_s": 3.807631599999695,
+      "decision_s": 4.180790300000808,
+      "action": "resume",
+      "reason": "附和（model）"
+    },
+    {
+      "asr": "好拉维手纸",
+      "received_s": 4.300759499999913,
+      "decision_s": 4.828641600000083,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.4524561999996877,
+      "slice_type": 0,
+      "text": "了解"
+    },
+    {
+      "t": 2.528177500000311,
+      "slice_type": 1,
+      "text": "了解"
+    },
+    {
+      "t": 2.8956498999996256,
+      "slice_type": 1,
+      "text": "了解内障"
+    },
+    {
+      "t": 3.3368375000000015,
+      "slice_type": 2,
+      "text": "了解内障。"
+    },
+    {
+      "t": 3.7310311000001093,
+      "slice_type": 0,
+      "text": "好啦微"
+    },
+    {
+      "t": 3.807631599999695,
+      "slice_type": 1,
+      "text": "好啦微"
+    },
+    {
+      "t": 4.300759499999913,
+      "slice_type": 1,
+      "text": "好拉维手纸"
+    },
+    {
+      "t": 4.81598589999976,
+      "slice_type": 2,
+      "text": "好拉维手纸。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 2.833292900000488,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 7735.1386536,
+    "last_scheduled_dac_wall": 7735.173299,
+    "dropped_frames": 345600,
+    "stream_latency_s": 0.04,
+    "decision_s": 4.828641600000083,
+    "stop_dac_s": 4.863292900000488
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

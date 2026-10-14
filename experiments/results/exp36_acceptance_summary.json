@@ -1,0 +1,487 @@
+{
+  "date": "2026-10-12",
+  "plan_sha256": "951aeba5c00602ebdad123bc8612f65423e086a9a7125a6ae3f7da369c5e5cbf",
+  "status": {
+    "voice_complete": true,
+    "lowest_echo_gate_complete": true,
+    "generation_cancel_complete": true,
+    "live_correction_complete": true
+  },
+  "method": "24 fresh live voice turns with unchanged evidence handoff v2; no model grader. Real streamed input ASR, real flow understanding/classification, fresh DS output, real TTS packets and WASAPI DAC timestamps. Injected synthetic echo tests decisions during live ASR, not offline replay. No microphone/acoustic/telephone validation.",
+  "voice": {
+    "planned": 24,
+    "completed": 24,
+    "service_errors": [],
+    "split_failures": [
+      "H04_r1",
+      "H10_r1"
+    ],
+    "valid_complete_turns": 22,
+    "first_business_dac_s": {
+      "n": 22,
+      "p50": 4.254006833334643,
+      "p90": 5.096815333333325,
+      "p95": 5.114776033332419,
+      "max": 5.342184500001167
+    },
+    "complete_dac_playback_s": {
+      "n": 22,
+      "p50": 29.242210500000965,
+      "p90": 66.27730936666558,
+      "p95": 66.4571366333339,
+      "max": 68.69380576666663
+    },
+    "first_within_3s_all_planned": {
+      "passed": 1,
+      "n": 24,
+      "percent": 4.17
+    },
+    "complete_within_10s_all_planned": {
+      "passed": 2,
+      "n": 24,
+      "percent": 8.33
+    },
+    "asr_endpoint_s": {
+      "n": 22,
+      "p50": 0.6629828500003896,
+      "p90": 0.707030799999302,
+      "p95": 0.7364026999994167,
+      "max": 0.7498631000007663
+    },
+    "flow_understand_s": {
+      "n": 22,
+      "p50": 0.5734320000001389,
+      "p90": 0.6554368999995859,
+      "p95": 0.6762373000001389,
+      "max": 0.7893689000002269
+    },
+    "ds_generate_s": {
+      "n": 22,
+      "p50": 2.607410500000242,
+      "p90": 3.1851401000003534,
+      "p95": 3.193854199999805,
+      "max": 3.517688499999167
+    },
+    "spoken_chars": {
+      "n": 22,
+      "p50": 146.0,
+      "p90": 339,
+      "p95": 356,
+      "max": 377
+    },
+    "audio_duration_s": {
+      "n": 22,
+      "p50": 24.9273125,
+      "p90": 61.19283333333333,
+      "p95": 61.26179166666667,
+      "max": 63.661791666666666
+    },
+    "content_correct": {
+      "passed": 18,
+      "n": 24,
+      "percent": 75.0
+    },
+    "ds_source_semantics": {
+      "passed": 20,
+      "n": 23,
+      "percent": 86.96
+    },
+    "all_spoken_facts_mapped_and_supported": {
+      "passed": 16,
+      "n": 24,
+      "percent": 66.67
+    },
+    "handled_correctly_and_traceable": {
+      "passed": 12,
+      "n": 24,
+      "percent": 50.0
+    },
+    "required_handoffs": {
+      "passed": 4,
+      "n": 6,
+      "percent": 66.67
+    },
+    "missed_handoffs": [
+      "C19_r1",
+      "C19_r2"
+    ],
+    "speaker_statuses": []
+  },
+  "interrupt": {
+    "scope": "Lowest injected echo gain 3% acceptance gate; 20 actual interruptions, 10 backchannels, 8 echo-only. Runtime decisions during ASR and real DAC-buffer cancellation. Other two echo gains planned but not required once this gate fails.",
+    "completed": 38,
+    "errors": [],
+    "planned_interrupts": 20,
+    "correct_stop_or_continue_actions": {
+      "passed": 32,
+      "n": 38,
+      "percent": 84.21
+    },
+    "interrupted_before_natural_end": {
+      "passed": 20,
+      "n": 20,
+      "percent": 100.0
+    },
+    "stopped_within_500ms": {
+      "passed": 3,
+      "n": 20,
+      "percent": 15.0
+    },
+    "stop_latency_s": {
+      "n": 20,
+      "p50": 0.8182464500011704,
+      "p90": 1.2071662000009382,
+      "p95": 1.3117784000007306,
+      "max": 1.7718024000002697
+    },
+    "backchannel_false_stops": {
+      "passed": 5,
+      "n": 10,
+      "percent": 50.0
+    },
+    "echo_only_false_stops": {
+      "passed": 1,
+      "n": 8,
+      "percent": 12.5
+    },
+    "late_stop_decisions_after_queue_drained": [],
+    "premature_stops": [],
+    "unexecuted_higher_echo_trials": 76
+  },
+  "generation_cancel": {
+    "n": 4,
+    "in_flight_confirmed": 4,
+    "old_reply_released": [],
+    "error_ids": []
+  },
+  "live_correction": {
+    "n": 2,
+    "unheard_full_answer_in_history": [
+      "age",
+      "social"
+    ],
+    "error_ids": []
+  },
+  "limits": [
+    "Diagnostic fixed 12 questions repeated with two TTS voices; not random customer holdout. Do not compare accuracy with all143.",
+    "DS semantic citations and complete spoken trace coverage are different: flow-added insurance facts are absent from model claims.",
+    "Two ASR split failures retained; invalid negative timings are not counted as fast successful turns.",
+    "Output timestamps are real WASAPI scheduled DAC times, not acoustic loopback or telephone measurements. Input and echo are synthetic.",
+    "Input/answer WAVs preserve source PCM, not room microphone recordings.",
+    "Four speculative in-flight cancellation tests and two same-session playback corrections do not certify full production interruption success."
+  ],
+  "voice_audit_rows": [
+    {
+      "key": "C01_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "模型回答正确；流程追加2563元年缴/253元月缴报价未进入逐段引用记录",
+      "record_sha256": "0ae31fbf78bd6a8a1e7ed94068704fbf790d48c49c9d43a04ef9b9629c51d5fa"
+    },
+    {
+      "key": "C01_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "模型回答正确；流程追加2563/253报价未加入逐段引用记录",
+      "record_sha256": "0db1e2ecde4404f40f3a439076f37107aa81805a1988bef8ed1def59cbd9ab3f"
+    },
+    {
+      "key": "C02_r1",
+      "content_correct": false,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "漏答独立的住院责任及重疾/一般免赔分支，只回答靶向药和质子重离子",
+      "record_sha256": "53bdb48aa3de45c8a41746325d091fc3023e51a3da53d2e4623e847c1df5c05e"
+    },
+    {
+      "key": "C02_r2",
+      "content_correct": false,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "ASR后的问题仍包含住院、靶向药、质子三项，模型只答后两项，住院免赔漏答",
+      "record_sha256": "7ae62c7382b018aa68386512e87da4d9e74a77b1024d40d2028c5b9be096957d"
+    },
+    {
+      "key": "C09_r1",
+      "content_correct": false,
+      "model_source_supported": false,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "意外一概不受既往免责，且笼统加等待期条件，未保留因果边界",
+      "record_sha256": "7f8c1b8b22359e413b45f68e957cb1fff25de3009b2b6e629eaf699d7c6d505e"
+    },
+    {
+      "key": "C09_r2",
+      "content_correct": true,
+      "model_source_supported": false,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "已改为否定有高血压就整体排除，事实可接受；该段只引一般医疗R01，未引用支持既往症因果边界的免责原文",
+      "record_sha256": "0a11392a8aa3d3456a854b7f73e6ba420658ac5d5c6ebdd857f7f3bcc0c5fb3a"
+    },
+    {
+      "key": "C10_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "意外与疾病等待期分开，必要条件正确",
+      "record_sha256": "a28ba0cdfb3262360352b2984ea9060441c999b7728b0bfa8799773d47432f85"
+    },
+    {
+      "key": "C10_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "意外与疾病等待期分别处理",
+      "record_sha256": "ee1e847b179792a6b7ad0dbf79f9a5991482b06854780e6c4e8142a5d49b0ae3"
+    },
+    {
+      "key": "C19_r1",
+      "content_correct": false,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "漏主体检测1万元及适用关系核实，特药清单/医保身份比例条件不完整，未转交",
+      "record_sha256": "804a69cee8ef352cabb909504adeed36bb9a26f563b873464a5364e4d6901127"
+    },
+    {
+      "key": "C19_r2",
+      "content_correct": false,
+      "model_source_supported": false,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "漏主体检测1万元/限额适用核实；把特药申请短信入口扩成基因检测流程，且把医保未结60%泛化至目录外",
+      "record_sha256": "c7a9ce73fa791facfa452669c346261151e29f39b819fe2db4b6f37257e2b202"
+    },
+    {
+      "key": "C26_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "价差54元正确；流程追加次日零时生效未加入逐段引用记录",
+      "record_sha256": "fdb072ffb68c4be2ee7156d5c241e1df2547a792030a2eede35f6593d0a77e86"
+    },
+    {
+      "key": "C26_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "价差54元正确；流程追加生效说明没有逐段来源绑定",
+      "record_sha256": "68cb0cad18c828efefe245b44f6e7a1d90092e919a4bf8842c89aae80bbc0a57"
+    },
+    {
+      "key": "E13_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "先扣3天再限给付30天，3000元正确",
+      "record_sha256": "e4128fcba149f1a70d7b4ffe98086a86586b923936b04b0b007378eba3a48201"
+    },
+    {
+      "key": "E13_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "ASR津贴文字误识但模型按津贴条件正确算3000",
+      "record_sha256": "76df0b3ec39a619cd42f402f5b09bb38d052e0bab4e1f7cb9a70cbfe26f32792"
+    },
+    {
+      "key": "E25_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": true,
+      "handled_correctly_and_traceable": true,
+      "reason": "不自选20/60/12，转交并保存双方引用",
+      "record_sha256": "92268f92a4a52d871ea760ab7693aa7ee5b2f526c713a2949ce2f9a57c67a65a"
+    },
+    {
+      "key": "E25_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": true,
+      "handled_correctly_and_traceable": true,
+      "reason": "20/60比例适用不猜测，转交且附两处原文",
+      "record_sha256": "f7128d468b0d491ce88e3660f7073d53b4ef9dcfb06597a3fb7a8dbda9b2f373"
+    },
+    {
+      "key": "H04_r1",
+      "content_correct": false,
+      "model_source_supported": false,
+      "all_spoken_facts_mapped": false,
+      "voice_turn_valid": false,
+      "ds_invoked": false,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "ASR拆成两句，入口只确认病史前半句，未回答后半句赔付问题",
+      "record_sha256": "1527685e7dab85b18b1ff81d181a9ddad7c499c9515b16192537884cb9398515"
+    },
+    {
+      "key": "H04_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "完整ASR后正确应用投保前既往症及附加包免责",
+      "record_sha256": "dd1fc9b87c879066255a857cda758b84e16f62e712c0dd17bbd04e61b6d94bff"
+    },
+    {
+      "key": "H07_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "无免赔答复正确",
+      "record_sha256": "0c4b254dc3302f1768ae689c28b8ef22dedbc9aa87e4aa9c4b35b2660596e1ab"
+    },
+    {
+      "key": "H07_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "无免赔答复正确",
+      "record_sha256": "92a9ea6a32ed5ecc6b9b37ddcf1c50363ca246de792540a5447347d1b29074a8"
+    },
+    {
+      "key": "H10_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": false,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": false,
+      "reason": "询问年龄医保合理；ASR两次final，抢在用户完整话结束前启动，语音协议仍失败",
+      "record_sha256": "2e74b37b22ebd6be8a7c51ca1858aaf372f3d07f5ad02461a6fabb54f4cc8f20"
+    },
+    {
+      "key": "H10_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": false,
+      "handoff_requested": false,
+      "handled_correctly_and_traceable": true,
+      "reason": "完整ASR后询问年龄和医保，未编造价格",
+      "record_sha256": "173c0038e2a5547fa5630217277a6b5f2ed612ca5595caeb251e82753710207f"
+    },
+    {
+      "key": "H15_r1",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": true,
+      "handled_correctly_and_traceable": true,
+      "reason": "318元先答，定义缺失转交正确",
+      "record_sha256": "a92af6ce9fc7787f6b58ff47b988dbdc7cc7f85f541188752ea1ae7b583aaa9e"
+    },
+    {
+      "key": "H15_r2",
+      "content_correct": true,
+      "model_source_supported": true,
+      "all_spoken_facts_mapped": true,
+      "voice_turn_valid": true,
+      "ds_invoked": true,
+      "required_external": true,
+      "handoff_requested": true,
+      "handled_correctly_and_traceable": true,
+      "reason": "ASR把“以及原位癌”识别为“一及原位癌”；模型未臆测疾病定义，318元先答并转交核实",
+      "record_sha256": "6337c14dcb781c4cc8e704c125187a0fd0fc8270a8010f57d18fba459c058f9d"
+    }
+  ]
+}

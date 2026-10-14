@@ -1,0 +1,149 @@
+{
+  "method": "Primary agent read all 24 actual spoken replies and source references. No model grader or independent second reviewer. Columns: whole spoken content correct, DS claim source semantics supported, all spoken insurance facts mapped to attached claims, reason. Pure execution notice or non-factual question does not need insurance citation. Missing DS output is not traceable. Timing/ASR split checked separately.",
+  "decisions": {
+    "C01_r1": [
+      true,
+      true,
+      false,
+      "模型回答正确；流程追加2563元年缴/253元月缴报价未进入逐段引用记录"
+    ],
+    "C02_r1": [
+      false,
+      true,
+      true,
+      "漏答独立的住院责任及重疾/一般免赔分支，只回答靶向药和质子重离子"
+    ],
+    "C09_r1": [
+      false,
+      false,
+      false,
+      "意外一概不受既往免责，且笼统加等待期条件，未保留因果边界"
+    ],
+    "C10_r1": [
+      true,
+      true,
+      true,
+      "意外与疾病等待期分开，必要条件正确"
+    ],
+    "C19_r1": [
+      false,
+      true,
+      true,
+      "漏主体检测1万元及适用关系核实，特药清单/医保身份比例条件不完整，未转交"
+    ],
+    "C26_r1": [
+      true,
+      true,
+      false,
+      "价差54元正确；流程追加次日零时生效未加入逐段引用记录"
+    ],
+    "E13_r1": [
+      true,
+      true,
+      true,
+      "先扣3天再限给付30天，3000元正确"
+    ],
+    "E25_r1": [
+      true,
+      true,
+      true,
+      "不自选20/60/12，转交并保存双方引用"
+    ],
+    "H04_r1": [
+      false,
+      false,
+      false,
+      "ASR拆成两句，入口只确认病史前半句，未回答后半句赔付问题"
+    ],
+    "H07_r1": [
+      true,
+      true,
+      true,
+      "无免赔答复正确"
+    ],
+    "H10_r1": [
+      true,
+      true,
+      true,
+      "询问年龄医保合理；ASR两次final，抢在用户完整话结束前启动，语音协议仍失败"
+    ],
+    "H15_r1": [
+      true,
+      true,
+      true,
+      "318元先答，定义缺失转交正确"
+    ],
+    "C01_r2": [
+      true,
+      true,
+      false,
+      "模型回答正确；流程追加2563/253报价未加入逐段引用记录"
+    ],
+    "C02_r2": [
+      false,
+      true,
+      true,
+      "ASR后的问题仍包含住院、靶向药、质子三项，模型只答后两项，住院免赔漏答"
+    ],
+    "C09_r2": [
+      true,
+      false,
+      false,
+      "已改为否定有高血压就整体排除，事实可接受；该段只引一般医疗R01，未引用支持既往症因果边界的免责原文"
+    ],
+    "C10_r2": [
+      true,
+      true,
+      true,
+      "意外与疾病等待期分别处理"
+    ],
+    "C19_r2": [
+      false,
+      false,
+      false,
+      "漏主体检测1万元/限额适用核实；把特药申请短信入口扩成基因检测流程，且把医保未结60%泛化至目录外"
+    ],
+    "C26_r2": [
+      true,
+      true,
+      false,
+      "价差54元正确；流程追加生效说明没有逐段来源绑定"
+    ],
+    "E13_r2": [
+      true,
+      true,
+      true,
+      "ASR津贴文字误识但模型按津贴条件正确算3000"
+    ],
+    "E25_r2": [
+      true,
+      true,
+      true,
+      "20/60比例适用不猜测，转交且附两处原文"
+    ],
+    "H04_r2": [
+      true,
+      true,
+      true,
+      "完整ASR后正确应用投保前既往症及附加包免责"
+    ],
+    "H07_r2": [
+      true,
+      true,
+      true,
+      "无免赔答复正确"
+    ],
+    "H10_r2": [
+      true,
+      true,
+      true,
+      "完整ASR后询问年龄和医保，未编造价格"
+    ],
+    "H15_r2": [
+      true,
+      true,
+      true,
+      "ASR把“以及原位癌”识别为“一及原位癌”；模型未臆测疾病定义，318元先答并转交核实"
+    ]
+  }
+}

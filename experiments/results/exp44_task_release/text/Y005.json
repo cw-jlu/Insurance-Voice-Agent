@@ -1,0 +1,121 @@
+{
+  "case": {
+    "id": "Y005",
+    "question": "药省保要等几天，一个月最多报多少？",
+    "known": {},
+    "group": "development71"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "error_type": "APIConnectionError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 708,
+      "seconds": 3.7143782999999075,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 487,
+        "total_tokens": 499,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 352,
+      "seconds": 3.624154299999873,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 242,
+        "total_tokens": 248,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1104,
+      "seconds": 3.8237208000000464,
+      "usage": {
+        "completion_tokens": 45,
+        "prompt_tokens": 719,
+        "total_tokens": 764,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 640,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 319,
+      "seconds": 3.909594900000002,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 185,
+        "total_tokens": 211,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 158376,
+      "known": {
+        "_history": "坐席：您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？\n用户：药省保要等几天，一个月最多报多少？",
+        "_consultation": {
+          "id": "c2",
+          "initial_question": "药省保要等几天，一个月最多报多少？",
+          "status": "pending",
+          "revision": 0,
+          "tasks": [
+            {
+              "id": "c2-u1-1",
+              "question": "药省保需要等待几天才能生效",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            },
+            {
+              "id": "c2-u1-2",
+              "question": "药省保一个月最多报销金额是多少",
+              "kind": "other",
+              "status": "needs_answer",
+              "requires": [],
+              "is_example": false,
+              "seeded": true
+            }
+          ],
+          "facts": [],
+          "guard_faults": []
+        }
+      },
+      "seconds": 19.756067499999972,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

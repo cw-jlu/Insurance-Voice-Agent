@@ -20,6 +20,7 @@ import threading
 import time
 
 from agent import cloud
+from agent.context import with_history
 from agent.dialogue import _BACKCHANNEL, _STOP
 from agent.guardrail import cn_to_int
 
@@ -175,8 +176,9 @@ _ACT_SYS = """判断电话里用户这句话在销售对话中的作用，只输
 def classify_act(text: str, history: str = "", client=None) -> str:
     if (a := _try_jev("act", jev_act, text, history)) is not None:
         return a["choice"]
-    raw = cloud.chat([{"role": "system", "content": _ACT_SYS},
-                      {"role": "user", "content": (f"最近对话：\n{history}\n" if history else "") + f"用户：{text}"}],
+    messages = with_history([{"role": "system", "content": _ACT_SYS},
+                      {"role": "user", "content": (f"最近对话：\n{history}\n" if history else "") + f"用户：{text}"}], history, marker="最近对话：\n")
+    raw = cloud.chat(messages,
                      model=cloud.FAST_MODEL, client=client, temperature=0, response_format={"type": "json_object"})
     try:
         act = json.loads(raw).get("act", "提问")

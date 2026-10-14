@@ -1,0 +1,31 @@
+{
+  "id": "CP03",
+  "type": "compound",
+  "split": "dev",
+  "scope": "real current text CallSession from opening; rule-based external operator response matching; requires primary audit",
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turns": [],
+  "operator_actions": [],
+  "error_type": "APIConnectionError",
+  "undisclosed_reply_indices": [],
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 756,
+      "seconds": 0.44000530000084837,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 343,
+      "seconds": 0.5097602999994706,
+      "error_type": "APIConnectionError"
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 400,
+      "seconds": 1.3321775999993406,
+      "error_type": "APIConnectionError"
+    }
+  ]
+}

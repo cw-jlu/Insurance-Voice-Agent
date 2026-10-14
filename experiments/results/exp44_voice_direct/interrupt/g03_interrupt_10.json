@@ -1,0 +1,83 @@
+{
+  "key": "g03_interrupt_10",
+  "kind": "interrupt",
+  "user": "我没有医保，是30岁，年缴多少钱",
+  "gain": 0.03,
+  "agent_record": "T05",
+  "agent_round": 1,
+  "onset_s": 1.78,
+  "decisions": [
+    {
+      "asr": "我",
+      "received_s": 2.1227126999999655,
+      "decision_s": 2.123595499999965,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "我",
+      "received_s": 2.174090299999989,
+      "decision_s": 2.1742851999999857,
+      "action": "ignore_echo",
+      "reason": "与刚播报内容高度重合"
+    },
+    {
+      "asr": "我没有医保",
+      "received_s": 2.511150399999906,
+      "decision_s": 2.511314799999809,
+      "action": "stop",
+      "reason": "打断（rule）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 2.1227126999999655,
+      "slice_type": 0,
+      "text": "我"
+    },
+    {
+      "t": 2.174090299999989,
+      "slice_type": 1,
+      "text": "我"
+    },
+    {
+      "t": 2.511150399999906,
+      "slice_type": 1,
+      "text": "我没有医保"
+    },
+    {
+      "t": 3.258307099999911,
+      "slice_type": 1,
+      "text": "我没有医宝是三"
+    },
+    {
+      "t": 3.7898437999999715,
+      "slice_type": 1,
+      "text": "我没有医保是三十岁"
+    },
+    {
+      "t": 4.429317699999956,
+      "slice_type": 1,
+      "text": "我没有医保，是三十岁年缴多少钱翱"
+    },
+    {
+      "t": 4.950322599999936,
+      "slice_type": 2,
+      "text": "我没有医保，是30岁年，缴多少钱？"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": 0.7525629999999819,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 1541.2256574,
+    "last_scheduled_dac_wall": 1541.2468994,
+    "dropped_frames": 456960,
+    "stream_latency_s": 0.04,
+    "decision_s": 2.511314799999809,
+    "stop_dac_s": 2.532562999999982
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

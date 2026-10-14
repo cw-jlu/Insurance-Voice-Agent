@@ -1,0 +1,102 @@
+{
+  "case": {
+    "id": "E21",
+    "question": "我买了重疾特需加油包，符合合同重疾定义，去不在保单约定名单内的私立医院VIP部，这样也能报吗？",
+    "known": {},
+    "group": "new40"
+  },
+  "opening": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "turn": {
+    "user": "我买了重疾特需加油包，符合合同重疾定义，去不在保单约定名单内的私立医院VIP部，这样也能报吗？",
+    "history_before": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ]
+    ],
+    "text": "好的，请问是给您自己买，还是给家人买？",
+    "profile": {},
+    "history_after": [
+      [
+        "坐席",
+        "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？"
+      ],
+      [
+        "用户",
+        "我买了重疾特需加油包，符合合同重疾定义，去不在保单约定名单内的私立医院VIP部，这样也能报吗？"
+      ],
+      [
+        "坐席",
+        "好的，请问是给您自己买，还是给家人买？"
+      ]
+    ],
+    "events": [
+      "同意(记住)",
+      "门禁:暂不发链接"
+    ],
+    "timings": {
+      "understand": 0.7194758000005095,
+      "total": 0.7195901000013691
+    },
+    "ended": false,
+    "handoff_request": null,
+    "wall_s": 0.7196426999980758
+  },
+  "consultation": {},
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 412,
+      "seconds": 0.4951388000008592,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 282,
+        "total_tokens": 288,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 768,
+      "seconds": 0.5514046000025701,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 527,
+        "total_tokens": 539,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 349,
+      "seconds": 0.7128329999977723,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 205,
+        "total_tokens": 231,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ]
+}

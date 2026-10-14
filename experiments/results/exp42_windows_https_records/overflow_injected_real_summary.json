@@ -1,0 +1,90 @@
+{
+  "id": "overflow_injected_real_summary",
+  "scope": "Injected 400 context overflow before first DS request; actual Qwen summary and actual DS retry. No natural provider overflow or production latency claimed.",
+  "error_type": "ValueError",
+  "api_calls": [
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 1263,
+      "seconds": 0.5372318999998242,
+      "usage": {
+        "completion_tokens": 12,
+        "prompt_tokens": 846,
+        "total_tokens": 858,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 384,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 907,
+      "seconds": 0.5612514000004012,
+      "usage": {
+        "completion_tokens": 6,
+        "prompt_tokens": 601,
+        "total_tokens": 607,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 334,
+      "seconds": 0.5758349999996426,
+      "usage": {
+        "completion_tokens": 26,
+        "prompt_tokens": 193,
+        "total_tokens": 219,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    },
+    {
+      "model": "deepseek-flash",
+      "prompt_chars": 155475,
+      "known": {
+        "relation": "本人",
+        "age": 35,
+        "has_social": true,
+        "_history": "用户：早期一般住院总费用20000元，医保报8000元，剩余12000元合规；年度免赔还剩10000元；无其他补偿，其他责任条件满足。\n坐席：按这些明确假设，测算2000元。\n用户：第1次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第2次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第3次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第4次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第5次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第6次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第7次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：第8次确认：这个费用例子是之前已经说明的假设，暂时没有新增费用，不修改任何金额。\n坐席：明白，保留原有费用及免赔前提。\n用户：回到最早的住院费用例子，按已明确的免赔和其他假设，测算能赔多少？"
+      },
+      "injected_context_overflow_before_network": true
+    },
+    {
+      "model": "qwen-flash",
+      "prompt_chars": 836,
+      "seconds": 3.746165500000643,
+      "usage": {
+        "completion_tokens": 496,
+        "prompt_tokens": 559,
+        "total_tokens": 1055,
+        "completion_tokens_details": null,
+        "prompt_tokens_details": {
+          "audio_tokens": null,
+          "cache_write_tokens": null,
+          "cached_tokens": 0,
+          "image_tokens": null,
+          "text_tokens": null
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "id": "MODEL_ACK",
+  "round": 1,
+  "question": "想了解癌症相关保障",
+  "asr_text": "展，了解癌症相关保障。",
+  "asr_events": [
+    {
+      "t": 0.6347120999998879,
+      "slice_type": 0,
+      "text": "展了解"
+    },
+    {
+      "t": 0.7002396000007138,
+      "slice_type": 1,
+      "text": "展了解"
+    },
+    {
+      "t": 1.121586400000524,
+      "slice_type": 1,
+      "text": "展了解癌症"
+    },
+    {
+      "t": 1.8039225000011356,
+      "slice_type": 1,
+      "text": "展了解癌症相关保障"
+    },
+    {
+      "t": 2.3570760000002338,
+      "slice_type": 2,
+      "text": "展，了解癌症相关保障。"
+    }
+  ],
+  "asr_final_count": 1,
+  "split_intended_turn": false,
+  "session_text": "需要我把投保链接发到您手机上吗？投保成功后次日零时生效。",
+  "events": [],
+  "flags": {
+    "recording": true,
+    "ai": true,
+    "quoted": true,
+    "limits": true,
+    "disclosure": true,
+    "consent": false,
+    "link": false,
+    "handoff": false
+  },
+  "profile": {
+    "relation": "本人",
+    "age": 30,
+    "has_social": true
+  },
+  "timings": {
+    "understand": 0.6417918999995891,
+    "total": 0.643509699999413
+  },
+  "text_ready_s": 1.401172799998676,
+  "asr_endpoint_s": 0.75707599999987,
+  "first_response_pcm_s": 1.6851989999995567,
+  "first_response_dac_s": 1.8073768333342741,
+  "actual_dac_playback_end_s": 6.389790333330893,
+  "business_first_packet_s": 1.6851989999995567,
+  "audio_duration_s": 4.664083333333333,
+  "sentences": [
+    {
+      "text": "需要我把投保链接发到您手机上吗？",
+      "emit_wall": 1.4011035000003176,
+      "tts_start_wall": 1.4014501000001474,
+      "first_packet_wall": 1.6851989999995567,
+      "tts_first_s": 0.28373240000109945,
+      "tts_done_s": 0.8286812000005739,
+      "duration_s": 2.365375
+    },
+    {
+      "text": "投保成功后次日零时生效。",
+      "emit_wall": 1.4011279999995168,
+      "tts_start_wall": 2.230180599999585,
+      "first_packet_wall": 2.4521562999998423,
+      "tts_first_s": 0.22195900000042457,
+      "tts_done_s": 0.7700179000003118,
+      "duration_s": 2.2987083333333334
+    }
+  ],
+  "playback_statuses": [],
+  "output_latency_s": 0.04,
+  "recording": "D:\\CW\\Insure-Voice-Agent\\experiments\\recordings\\exp37\\answer_MODEL_ACK_r1.wav"
+}

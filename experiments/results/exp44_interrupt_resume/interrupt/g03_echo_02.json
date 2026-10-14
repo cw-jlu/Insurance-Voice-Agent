@@ -1,0 +1,49 @@
+{
+  "key": "g03_echo_02",
+  "kind": "echo",
+  "user": null,
+  "gain": 0.03,
+  "agent_record": "T03",
+  "agent_round": 1,
+  "onset_s": null,
+  "decisions": [
+    {
+      "asr": "挑战范围",
+      "received_s": 10.291848899999877,
+      "decision_s": 13.767016799999965,
+      "action": "stop",
+      "reason": "打断（model）"
+    }
+  ],
+  "asr_events": [
+    {
+      "t": 10.291848899999877,
+      "slice_type": 0,
+      "text": "挑战范围"
+    },
+    {
+      "t": 10.354203700000198,
+      "slice_type": 1,
+      "text": "挑战范围"
+    },
+    {
+      "t": 10.608629599999858,
+      "slice_type": 2,
+      "text": "保障范围。"
+    }
+  ],
+  "stopped": true,
+  "stop_latency_s": null,
+  "wrong_stop_before_user": false,
+  "cancellation": {
+    "request_wall": 3039.4360296,
+    "last_scheduled_dac_wall": 3039.4360296,
+    "dropped_frames": 0,
+    "stream_latency_s": 0.04,
+    "decision_s": 13.767016799999965,
+    "stop_dac_s": 13.767032899999776
+  },
+  "playback_statuses": [],
+  "stale_generation_tested": false,
+  "limitation": "Live controller and actual output-buffer stop; injected synthetic echo, not physical microphone/AEC. Playback audio is a real new-chain reply repeated to 12 seconds. No in-flight generation or corrected-condition response in this subtest."
+}

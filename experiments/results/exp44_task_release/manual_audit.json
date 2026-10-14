@@ -1,0 +1,1050 @@
+{
+  "date": "2026-10-14",
+  "method": "One-person manual review of all 143 generated responses, with frozen evidence and questions; citation structure is separately read from the saved automatic provenance validator. No second reviewer or blind holdout.",
+  "input": "results/exp44_task_release/text",
+  "counts": {
+    "answers": 108,
+    "clarifications": 9,
+    "handoffs": 21,
+    "api_errors": 4,
+    "citation_valid": 138,
+    "citation_missing": 0
+  },
+  "overall_correct_handling": {
+    "correct": 133,
+    "n": 143,
+    "percent": 93.0
+  },
+  "automatic_answer_accuracy": {
+    "correct": 102,
+    "n": 108,
+    "percent": 94.4
+  },
+  "semantic_source_support": {
+    "correct": 132,
+    "n": 138,
+    "percent": 95.7
+  },
+  "required_handoff": {
+    "correct": 12,
+    "n": 13,
+    "missed": [
+      "C19"
+    ]
+  },
+  "handoff_requests_saved": {
+    "correct": 21,
+    "n": 21
+  },
+  "failures": {
+    "C12": "Assumes the base-plan annual deductible remains unused when that fact was not provided.",
+    "C18": "Applies only the first-enrollment age cap and omits the specified-window re-enrollment rule for age 56+.",
+    "C19": "Gives only part of the genetic-testing/drug pathway and misses a required handoff for unresolved material.",
+    "C28": "Adds that depression is outside the 100 critical illnesses without the enumerated definitions in this turn's material.",
+    "Y033": "Quotes age-69 standard premium without qualifying the first-enrollment versus specified-window re-enrollment rate scope.",
+    "Y034": "Quotes age-69 standard premium without qualifying the first-enrollment versus specified-window re-enrollment rate scope."
+  },
+  "decisions": {
+    "C01": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C02": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C03": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C04": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C05": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "C06": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C07": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C08": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C09": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C10": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C11": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C12": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Assumes the base-plan annual deductible remains unused when that fact was not provided."
+    },
+    "C13": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C14": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C15": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C16": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C17": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C18": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Applies only the first-enrollment age cap and omits the specified-window re-enrollment rule for age 56+."
+    },
+    "C19": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Gives only part of the genetic-testing/drug pathway and misses a required handoff for unresolved material."
+    },
+    "C20": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C21": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C22": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C23": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C24": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C25": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C26": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C27": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C28": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Adds that depression is outside the 100 critical illnesses without the enumerated definitions in this turn's material."
+    },
+    "C29": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "C30": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y001": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y002": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y003": {
+      "disposition": "service_error",
+      "handling_correct": false,
+      "citation_structure_valid": null,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y004": {
+      "disposition": "service_error",
+      "handling_correct": false,
+      "citation_structure_valid": null,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y005": {
+      "disposition": "service_error",
+      "handling_correct": false,
+      "citation_structure_valid": null,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y006": {
+      "disposition": "service_error",
+      "handling_correct": false,
+      "citation_structure_valid": null,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y007": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y008": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y009": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y010": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y011": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y012": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y013": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y014": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y015": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y016": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y017": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y018": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y019": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y020": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y021": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y022": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y023": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y024": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y025": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y026": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "Y027": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y028": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y029": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y030": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y031": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y032": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y033": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Quotes age-69 standard premium without qualifying the first-enrollment versus specified-window re-enrollment rate scope."
+    },
+    "Y034": {
+      "disposition": "answer",
+      "handling_correct": false,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": "Quotes age-69 standard premium without qualifying the first-enrollment versus specified-window re-enrollment rate scope."
+    },
+    "Y035": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y036": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y037": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "Y038": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "Y039": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "Y040": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "Y041": {
+      "disposition": "identity_template",
+      "handling_correct": true,
+      "citation_structure_valid": null,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N01": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N02": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N03": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N04": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N05": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N06": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N07": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N08": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N09": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N10": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N11": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N12": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N13": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N14": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "N15": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "N16": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E01": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E02": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E03": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E04": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E05": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E06": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E07": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E08": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E09": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E10": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E11": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E12": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E13": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E14": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E15": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E16": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E17": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E18": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E19": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E20": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E21": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E22": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E23": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E24": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E25": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E26": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E27": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E28": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E29": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E30": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E31": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E32": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E33": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E34": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E35": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E36": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E37": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "E38": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E39": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "E40": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H01": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H02": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H03": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H04": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H05": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H06": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H07": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H08": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H09": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H10": {
+      "disposition": "clarify",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H11": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H12": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H13": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H14": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    },
+    "H15": {
+      "disposition": "safe_handoff",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": true,
+      "reason": ""
+    },
+    "H16": {
+      "disposition": "answer",
+      "handling_correct": true,
+      "citation_structure_valid": true,
+      "handoff_request_saved": false,
+      "reason": ""
+    }
+  }
+}

@@ -1,0 +1,86 @@
+{
+  "id": "CONSULTATION_FIX",
+  "round": 1,
+  "question": "想了解癌症相关保障",
+  "asr_text": "展，了解癌症相关保障。",
+  "asr_events": [
+    {
+      "t": 0.5658708000009938,
+      "slice_type": 0,
+      "text": "展了解"
+    },
+    {
+      "t": 0.6583177000011347,
+      "slice_type": 1,
+      "text": "展了解"
+    },
+    {
+      "t": 1.0530245000009018,
+      "slice_type": 1,
+      "text": "展了解癌症"
+    },
+    {
+      "t": 1.6813070000007428,
+      "slice_type": 1,
+      "text": "展了解癌症相关保障"
+    },
+    {
+      "t": 2.251930000000357,
+      "slice_type": 2,
+      "text": "展，了解癌症相关保障。"
+    }
+  ],
+  "asr_final_count": 1,
+  "split_intended_turn": false,
+  "session_text": "需要我把投保链接发到您手机上吗？投保成功后次日零时生效。",
+  "events": [],
+  "flags": {
+    "recording": true,
+    "ai": true,
+    "quoted": true,
+    "limits": true,
+    "disclosure": true,
+    "consent": false,
+    "link": false,
+    "handoff": false
+  },
+  "profile": {
+    "relation": "本人",
+    "age": 30,
+    "has_social": true
+  },
+  "timings": {
+    "understand": 0.7674633000005997,
+    "total": 0.7691295000004175
+  },
+  "text_ready_s": 1.4216551999998046,
+  "asr_endpoint_s": 0.651929999999993,
+  "first_response_pcm_s": 1.6959306000007928,
+  "first_response_dac_s": 1.815100366668048,
+  "actual_dac_playback_end_s": 6.466391799998746,
+  "business_first_packet_s": 1.6959306000007928,
+  "audio_duration_s": 4.7307500000000005,
+  "sentences": [
+    {
+      "text": "需要我把投保链接发到您手机上吗？",
+      "emit_wall": 1.421594900000855,
+      "tts_start_wall": 1.421731100001125,
+      "first_packet_wall": 1.6959306000007928,
+      "tts_first_s": 0.2741878999986511,
+      "tts_done_s": 0.8129606999991665,
+      "duration_s": 2.4320416666666667
+    },
+    {
+      "text": "投保成功后次日零时生效。",
+      "emit_wall": 1.421615400000519,
+      "tts_start_wall": 2.2347272999995766,
+      "first_packet_wall": 2.4560075999997935,
+      "tts_first_s": 0.22126639999987674,
+      "tts_done_s": 0.8298348000007536,
+      "duration_s": 2.2987083333333334
+    }
+  ],
+  "playback_statuses": [],
+  "output_latency_s": 0.04,
+  "recording": "D:\\CW\\Insure-Voice-Agent\\experiments\\recordings\\exp37\\answer_CONSULTATION_FIX_r1.wav"
+}

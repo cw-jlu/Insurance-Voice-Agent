@@ -1,0 +1,8 @@
+{
+  "speaker": "agent",
+  "text": "您好，我是众安保险的AI助理，本次通话会录音。看到您之前了解过尊享e生百万医疗，想花一分钟跟您介绍一下，请问是给您自己了解吗？",
+  "first_dac_s": 0.3622841333362885,
+  "playback_done_s": 10.44593683333369,
+  "audio_s": 10.163083333333333,
+  "recording": "D:\\CW\\Insure-Voice-Agent\\experiments\\recordings\\exp38\\opening.wav"
+}
