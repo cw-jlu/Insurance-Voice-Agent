@@ -1,0 +1,234 @@
+{
+  "version": "第八轮新方案（限时小模型首句 + 单次生成 + 同意门禁）",
+  "tts_speech_rate": 1.5,
+  "turns_ok": 4,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.899,
+      "p90": 1.123,
+      "max": 1.123,
+      "n": 4
+    },
+    "answer_text_ready_s": {
+      "p50": 4.674,
+      "p90": 4.883,
+      "max": 4.883,
+      "n": 4
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.937,
+      "p90": 5.151,
+      "max": 5.151,
+      "n": 4
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 7.468,
+      "p90": 7.694,
+      "max": 7.694,
+      "n": 4
+    },
+    "answer_playback_end_s": {
+      "p50": 13.654,
+      "p90": 14.614,
+      "max": 14.614,
+      "n": 4
+    }
+  },
+  "simple": {
+    "first_response_s": null,
+    "answer_text_ready_s": null,
+    "first_substantive_audio_s": null,
+    "answer_audio_all_ready_s": null,
+    "answer_playback_end_s": null
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.899,
+      "p90": 1.123,
+      "max": 1.123,
+      "n": 4
+    },
+    "answer_text_ready_s": {
+      "p50": 4.674,
+      "p90": 4.883,
+      "max": 4.883,
+      "n": 4
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.937,
+      "p90": 5.151,
+      "max": 5.151,
+      "n": 4
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 7.468,
+      "p90": 7.694,
+      "max": 7.694,
+      "n": 4
+    },
+    "answer_playback_end_s": {
+      "p50": 13.654,
+      "p90": 14.614,
+      "max": 14.614,
+      "n": 4
+    }
+  },
+  "over_10s_all_ready": 0,
+  "turns": [
+    {
+      "name": "复合1",
+      "asr_text": "住院和看门诊分别怎么报进ICU有没有补贴？",
+      "events": [
+        "回答:保障(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.501,
+      "first_response_s": 1.123,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.622,
+      "answer_text_ready_s": 4.883,
+      "first_substantive_audio_s": 5.151,
+      "answer_audio_all_ready_s": 7.694,
+      "answer_playback_end_s": 13.654,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 1.3310890999855474,
+        "answer": 2.4283642999944277,
+        "answer_breakdown": {
+          "understand": 4.599976819008589e-06,
+          "retrieve": 0.1260376000427641,
+          "agent": 1.1710416999994777,
+          "agent_steps": 1,
+          "generate_ttft": 0.42260970000643283,
+          "generate_1": 1.1224736000294797,
+          "total": 2.4283642999944277,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 3.7603186999913305
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 57,
+      "text": "住院和门诊费用都得先扣1万免赔额，再按100%报销；ICU没有直接补贴，但可加购尊享住院津贴加油包，日领500元。",
+      "recording": "experiments\\recordings\\v4_new_breakdown_r1_复合1.wav"
+    },
+    {
+      "name": "复合2",
+      "asr_text": "得了癌症住院，靶向药和质子重离子都能报吗？有免赔额吗？",
+      "events": [
+        "回答:免责(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.453,
+      "first_response_s": 0.899,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.447,
+      "answer_text_ready_s": 4.186,
+      "first_substantive_audio_s": 4.388,
+      "answer_audio_all_ready_s": 6.511,
+      "answer_playback_end_s": 12.038,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 1.023036000027787,
+        "answer": 2.2636420999770053,
+        "answer_breakdown": {
+          "understand": 4.599976819008589e-06,
+          "retrieve": 0.1493997999932617,
+          "agent": 1.108985600003507,
+          "agent_steps": 1,
+          "generate_ttft": 0.3769398999866098,
+          "generate_1": 1.0026836000033654,
+          "total": 2.2636420999770053,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 3.286820000037551
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 53,
+      "text": "靶向药能报，但需在指定药店购药并提前申请；质子重离子治疗能报，限中国大陆境内合规机构；两项责任均无免赔额。",
+      "recording": "experiments\\recordings\\v4_new_breakdown_r1_复合2.wav"
+    },
+    {
+      "name": "复合3",
+      "asr_text": "我女儿8岁，近视手术和看牙能报吗？住院呢啊？",
+      "events": [
+        "回答:免责(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.476,
+      "first_response_s": 0.888,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.412,
+      "answer_text_ready_s": 4.674,
+      "first_substantive_audio_s": 4.937,
+      "answer_audio_all_ready_s": 7.468,
+      "answer_playback_end_s": 14.614,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 0.8471457999548875,
+        "answer": 2.9392398999771103,
+        "answer_breakdown": {
+          "understand": 4.499976057559252e-06,
+          "retrieve": 0.10520900000119582,
+          "agent": 1.7688958999933675,
+          "agent_steps": 1,
+          "generate_ttft": 0.3464772999868728,
+          "generate_1": 1.0635450000409037,
+          "total": 2.9392398999771103,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 3.7865707999444567
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 69,
+      "text": "近视手术和看牙不能报，责任免除里明确写了视力矫正手术、牙科疾病及相关治疗不赔；住院能报，属于一般医疗费用，扣除1万免赔额后按100%赔付。",
+      "recording": "experiments\\recordings\\v4_new_breakdown_r1_复合3.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000，后来住院花了两万，一共能报多少？",
+      "events": [
+        "回答:合并费用条件(规则)(Agent 0步)"
+      ],
+      "asr_endpoint_s": 0.422,
+      "first_response_s": 0.843,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.421,
+      "answer_text_ready_s": 1.796,
+      "first_substantive_audio_s": 2.359,
+      "answer_audio_all_ready_s": 4.744,
+      "answer_playback_end_s": 10.352,
+      "agent_steps": 0,
+      "turn_timings": {
+        "understand": 0.9527211000095122,
+        "answer": 0.0002809999859891832,
+        "answer_breakdown": {
+          "understand": 5.099980626255274e-06,
+          "total": 0.0002809999859891832
+        },
+        "streamed_sentences": 0,
+        "total": 0.9531300000380725
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 63,
+      "text": "两笔费用不能直接相加算赔款。一般医疗有共享的1万元年免赔额，最终还要看急诊和住院费用是否属于约定责任、社保结算及实际合规费用。",
+      "recording": "experiments\\recordings\\v4_new_breakdown_r1_复合4.wav"
+    }
+  ]
+}

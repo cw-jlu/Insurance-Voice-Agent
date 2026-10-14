@@ -1,0 +1,413 @@
+{
+  "version": "第八轮新方案（限时小模型首句 + 单次生成 + 同意门禁）",
+  "tts_speech_rate": 1.5,
+  "voice_style": "concise_v2",
+  "turns_ok": 8,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.891,
+      "p90": 0.938,
+      "max": 1.179,
+      "n": 8
+    },
+    "answer_text_ready_s": {
+      "p50": 4.474,
+      "p90": 5.546,
+      "max": 5.847,
+      "n": 8
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.757,
+      "p90": 5.809,
+      "max": 6.085,
+      "n": 8
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 7.233,
+      "p90": 8.321,
+      "max": 9.26,
+      "n": 8
+    },
+    "answer_playback_end_s": {
+      "p50": 11.803,
+      "p90": 15.645,
+      "max": 17.217,
+      "n": 8
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 0.927,
+      "p90": 1.179,
+      "max": 1.179,
+      "n": 4
+    },
+    "answer_text_ready_s": {
+      "p50": 4.329,
+      "p90": 5.847,
+      "max": 5.847,
+      "n": 4
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.543,
+      "p90": 6.085,
+      "max": 6.085,
+      "n": 4
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 5.669,
+      "p90": 7.233,
+      "max": 7.233,
+      "n": 4
+    },
+    "answer_playback_end_s": {
+      "p50": 10.588,
+      "p90": 11.803,
+      "max": 11.803,
+      "n": 4
+    }
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.874,
+      "p90": 0.938,
+      "max": 0.938,
+      "n": 4
+    },
+    "answer_text_ready_s": {
+      "p50": 5.266,
+      "p90": 5.546,
+      "max": 5.546,
+      "n": 4
+    },
+    "first_substantive_audio_s": {
+      "p50": 5.544,
+      "p90": 5.809,
+      "max": 5.809,
+      "n": 4
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 8.321,
+      "p90": 9.26,
+      "max": 9.26,
+      "n": 4
+    },
+    "answer_playback_end_s": {
+      "p50": 15.645,
+      "p90": 17.217,
+      "max": 17.217,
+      "n": 4
+    }
+  },
+  "over_10s_all_ready": 0,
+  "turns": [
+    {
+      "name": "病史",
+      "asr_text": "我有高血压好几年了，一直在吃降压药。买这个以后住院能报吗？",
+      "events": [
+        "回答:缺口"
+      ],
+      "asr_endpoint_s": 0.536,
+      "first_response_s": 1.179,
+      "first_phrase": "这个要结合您的情况，我查一下依据。",
+      "first_path": "model",
+      "first_select_s": 0.644,
+      "answer_text_ready_s": 4.329,
+      "first_substantive_audio_s": 4.543,
+      "answer_audio_all_ready_s": 5.632,
+      "answer_playback_end_s": 8.726,
+      "agent_steps": 0,
+      "turn_timings": {
+        "understand": 1.6760581000125967,
+        "answer": 1.4730608999961987,
+        "answer_breakdown": {
+          "understand": 6.999995093792677e-06,
+          "generate_ttft": 0.32664420001674443,
+          "generate_1": 0.8544046999886632,
+          "total": 1.4730608999961987,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 3.149822300008964
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 33,
+      "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_病史.wav"
+    },
+    {
+      "name": "保障范围",
+      "asr_text": "刷到广告说几百万保额具体都能报什么啊？",
+      "events": [
+        "回答:保障(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.452,
+      "first_response_s": 0.891,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.439,
+      "answer_text_ready_s": 5.847,
+      "first_substantive_audio_s": 6.085,
+      "answer_audio_all_ready_s": 7.233,
+      "answer_playback_end_s": 10.588,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 0.5911770999664441,
+        "answer": 4.364407300017774,
+        "answer_breakdown": {
+          "understand": 4.300032742321491e-06,
+          "retrieve": 0.23855990002630278,
+          "agent": 2.506032800010871,
+          "agent_steps": 1,
+          "generate_ttft": 0.5430832999991253,
+          "generate_1": 1.6170108000515029,
+          "total": 4.364407300017774,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 4.955913199984934
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 38,
+      "text": "广告说的几百万保额，是指一般医疗和重疾各300万、恶性肿瘤先进疗法600万。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_保障范围.wav"
+    },
+    {
+      "name": "等待期",
+      "asr_text": "等待期是多久啊？",
+      "events": [
+        "回答:保障"
+      ],
+      "asr_endpoint_s": 0.525,
+      "first_response_s": 0.927,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.402,
+      "answer_text_ready_s": 2.975,
+      "first_substantive_audio_s": 3.224,
+      "answer_audio_all_ready_s": 5.669,
+      "answer_playback_end_s": 11.803,
+      "agent_steps": 0,
+      "turn_timings": {
+        "understand": 0.8082356000086293,
+        "answer": 1.2389451999915764,
+        "answer_breakdown": {
+          "understand": 2.300017513334751e-06,
+          "retrieve": 0.15644039999460801,
+          "generate_ttft": 0.4592422000132501,
+          "generate_1": 1.081869000045117,
+          "total": 1.2389451999915764,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 2.047269399976358
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 50,
+      "text": "尊享e生·百万医疗2026版基础版等待期是30天。尊享药省保加油包等待期7天，其他加油包也是30天。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_等待期.wav"
+    },
+    {
+      "name": "加油包",
+      "asr_text": "门急诊加油包多大年纪能买？",
+      "events": [
+        "回答:投保条件"
+      ],
+      "asr_endpoint_s": 0.496,
+      "first_response_s": 0.817,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.321,
+      "answer_text_ready_s": 2.56,
+      "first_substantive_audio_s": 2.775,
+      "answer_audio_all_ready_s": 3.67,
+      "answer_playback_end_s": 6.265,
+      "agent_steps": 0,
+      "turn_timings": {
+        "understand": 0.9856496999855153,
+        "answer": 0.7568384999758564,
+        "answer_breakdown": {
+          "understand": 2.8999638743698597e-06,
+          "retrieve": 0.16987580002751201,
+          "generate_ttft": 0.3147374000400305,
+          "generate_1": 0.585554699995555,
+          "total": 0.7568384999758564,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 1.7425559000112116
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 27,
+      "text": "门急诊加油包能买到55周岁，您30岁完全符合投保年龄。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_加油包.wav"
+    },
+    {
+      "name": "复合1",
+      "asr_text": "住院和看门诊分别怎么报进ICU有没有补贴？",
+      "events": [
+        "回答:保障(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.453,
+      "first_response_s": 0.866,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.414,
+      "answer_text_ready_s": 5.266,
+      "first_substantive_audio_s": 5.544,
+      "answer_audio_all_ready_s": 9.26,
+      "answer_playback_end_s": 17.217,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 1.3879541999776848,
+        "answer": 3.011581800004933,
+        "answer_breakdown": {
+          "understand": 6.500049494206905e-06,
+          "retrieve": 0.1343942999956198,
+          "agent": 1.4895063000149094,
+          "agent_steps": 1,
+          "generate_ttft": 0.4071885999874212,
+          "generate_1": 1.385455500043463,
+          "total": 3.011581800004933,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 4.399774599994998
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 87,
+      "text": "住院和门诊费用都得先扣1万免赔额，再按100%报销；ICU补贴要另外买“尊享住院津贴加油包”，500元/天，不扣免赔天数。所有费用都限二级及以上公立医院或指定民营医院普通部。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_复合1.wav"
+    },
+    {
+      "name": "复合2",
+      "asr_text": "得了癌症住院，靶向药和质子重离子都能报吗？有免赔额吗？",
+      "events": [
+        "回答:免责(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.443,
+      "first_response_s": 0.856,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.413,
+      "answer_text_ready_s": 4.474,
+      "first_substantive_audio_s": 4.757,
+      "answer_audio_all_ready_s": 7.366,
+      "answer_playback_end_s": 13.207,
+      "agent_steps": 1,
+      "turn_timings": {
+        "understand": 1.1382599999778904,
+        "answer": 2.479954699985683,
+        "answer_breakdown": {
+          "understand": 4.299974534660578e-06,
+          "retrieve": 0.1078929000068456,
+          "agent": 1.2814330999972299,
+          "agent_steps": 1,
+          "generate_ttft": 0.40114179998636246,
+          "generate_1": 1.0885312000173144,
+          "total": 2.479954699985683,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 3.6183516000164673
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 60,
+      "text": "靶向药能报，但需在指定药店购药并提前申请；质子重离子能报，限中国大陆境内指定机构，不包含靶向药费用；两项责任都无免赔额。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_复合2.wav"
+    },
+    {
+      "name": "复合3",
+      "asr_text": "我女儿8岁，近视手术和看牙能报吗？住院呢？",
+      "events": [
+        "回答:免责(Agent 2步)"
+      ],
+      "asr_endpoint_s": 0.466,
+      "first_response_s": 0.874,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.408,
+      "answer_text_ready_s": 5.546,
+      "first_substantive_audio_s": 5.809,
+      "answer_audio_all_ready_s": 8.321,
+      "answer_playback_end_s": 15.645,
+      "agent_steps": 2,
+      "turn_timings": {
+        "understand": 1.0776649999897927,
+        "answer": 3.5942888000281528,
+        "answer_breakdown": {
+          "understand": 4.400033503770828e-06,
+          "retrieve": 0.11385089997202158,
+          "agent": 2.308092300023418,
+          "agent_steps": 2,
+          "generate_ttft": 0.5601098000188358,
+          "generate_1": 1.1701738000265323,
+          "total": 3.5942888000281528,
+          "streamed_sentences": 0
+        },
+        "streamed_sentences": 0,
+        "total": 4.672108700033277
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 66,
+      "text": "近视手术和看牙不能报，属于责任免除里的视力矫正手术和牙科疾病；住院能报，符合二级及以上公立医院条件、扣除1万免赔额后按100%赔付。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_复合3.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000啊。后来住院花了两万。一共能报多少？",
+      "events": [
+        "回答:合并费用条件(规则)(Agent 0步)"
+      ],
+      "asr_endpoint_s": 0.511,
+      "first_response_s": 0.938,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.428,
+      "answer_text_ready_s": 2.188,
+      "first_substantive_audio_s": 2.401,
+      "answer_audio_all_ready_s": 5.092,
+      "answer_playback_end_s": 11.247,
+      "agent_steps": 0,
+      "turn_timings": {
+        "understand": 1.2486606999882497,
+        "answer": 0.00031759997364133596,
+        "answer_breakdown": {
+          "understand": 4.299974534660578e-06,
+          "total": 0.00031759997364133596
+        },
+        "streamed_sentences": 0,
+        "total": 1.2491475000279024
+      },
+      "stream_sentences_before_text_ready": 0,
+      "streaming": false,
+      "same_text_serial_playback_end_s": null,
+      "same_text_streaming_gain_s": null,
+      "answer_chars": 63,
+      "text": "两笔费用不能直接相加算赔款。一般医疗有共享的1万元年免赔额，最终还要看急诊和住院费用是否属于约定责任、社保结算及实际合规费用。",
+      "recording": "experiments\\recordings\\v4_new_concise_v2_r1_复合4.wav"
+    }
+  ]
+}

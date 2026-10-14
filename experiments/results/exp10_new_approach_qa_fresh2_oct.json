@@ -1,0 +1,189 @@
+{
+  "qa": {
+    "summary": {
+      "n": 12,
+      "regex": 0.8333333333333334,
+      "judge": 1.0,
+      "both": 0.8333333333333334,
+      "fallback": 1,
+      "p50_s": 2.158,
+      "p90_s": 2.704
+    },
+    "rows": [
+      {
+        "id": "J01",
+        "question": "我爸61岁有医保，买基础版一年交多少？",
+        "text": "您家老人61岁有社保，基础版一年2563元，按月交每月253元。",
+        "route": "报价",
+        "regex": true,
+        "judge": true,
+        "reason": "核心结论2563元与标准要点一致，额外提供的按月交金额253元计算正确，未出现错误信息。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 1.936
+      },
+      {
+        "id": "J02",
+        "question": "同一个人给一家四口买，每个人能便宜百分之几？",
+        "text": "一家四口一起买，每人能优惠15%。这是家庭单优惠规则里明确写的。",
+        "route": "优惠",
+        "regex": true,
+        "judge": true,
+        "reason": "核心结论与标准要点一致，均为每人优惠15%，无错误信息。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.222
+      },
+      {
+        "id": "J03",
+        "question": "我两年前做过胃切除手术，这份保险现在能让我买吗？",
+        "text": "能不能投保要先做健康告知，以核保结果为准，我这边没法替核保下结论。胃切除手术属于既往症，初次投保前的既往症不予理赔，具体能否承保需以核保审核为准。",
+        "route": "缺口",
+        "regex": true,
+        "judge": true,
+        "reason": "回答核心结论与标准要点一致，强调需健康告知并以核保结果为准，未给出错误承诺或数字。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 3.524
+      },
+      {
+        "id": "J04",
+        "question": "我本来就是按无社保身份投保，住院结算没走医保，也只赔60%吗？",
+        "text": "一般医疗及外购药械费用医疗保险金保额300万（与一般门急诊医疗保险金共享300万保险金额），赔付比例100%，免赔额1万（与一般门急诊医疗保险金共享），等待期30天。一般门急诊医疗及外购药械费用医疗保险金保额300万（与一般医疗保险金共享300万保险金额），赔付比例100%，免赔额1万（与一般医疗保险金共享），等待期30天。",
+        "route": "免责",
+        "regex": true,
+        "judge": true,
+        "reason": "AI回答正确说明了无社保身份投保的一般医疗赔付比例为100%，与标准要点一致，未提及60%特例。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": true,
+        "violations": [
+          "无依据数字：60%"
+        ],
+        "seconds": 3.319
+      },
+      {
+        "id": "J05",
+        "question": "ICU里住一天给五百，这是基础版自动带的吗？",
+        "text": "不是基础版自带的，这是尊享住院津贴加油包，需要另外选购。",
+        "route": "保障",
+        "regex": false,
+        "judge": true,
+        "reason": "AI回答的核心结论与标准要点一致，正确指出ICU津贴500元/天属于尊享住院津贴加油包、需另外选购，未出现错误信息。",
+        "missing": [
+          "500|五百"
+        ],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.436
+      },
+      {
+        "id": "J06",
+        "question": "质子重离子治疗这项最多能报六百万吗？",
+        "text": "是的，质子重离子治疗费用最多能报600万元，这是恶性肿瘤先进疗法医疗责任的年累计给付限额。",
+        "route": "保障",
+        "regex": true,
+        "judge": true,
+        "reason": "AI回答的核心结论与标准要点一致，正确指出质子重离子治疗费用最多能报600万元，且提及属于恶性肿瘤先进疗法医疗责任的年累计给付限额，未出现错误信息。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.019
+      },
+      {
+        "id": "J07",
+        "question": "重疾住院请护工，每天的给付标准是多少？",
+        "text": "重疾住院请护工每天给付500元，单次最多30天，一年累计最多30天。",
+        "route": "保障",
+        "regex": false,
+        "judge": true,
+        "reason": "AI回答的核心结论与标准要点一致，给付标准500元/天，单次和年度累计天数均正确，未出现错误信息或额外承诺。",
+        "missing": [
+          "500\\s*元/天|每天500|一天500"
+        ],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.094
+      },
+      {
+        "id": "J08",
+        "question": "今年这个保费，明年是不是照旧不变？",
+        "text": "不会一直是这个价格。保费会随投保时的年龄变化，下一年的价格以届时费率为准。",
+        "route": "价格变化(规则)",
+        "regex": true,
+        "judge": true,
+        "reason": "回答核心结论与标准要点一致，正确说明保费会随年龄变化，未给出不变承诺。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 0.852
+      },
+      {
+        "id": "J09",
+        "question": "你直接微信把保险条款发给我吧。",
+        "text": "保险条款我没法直接微信发您，具体清单以保险条款为准，需要的话我可以帮您转专员确认。",
+        "route": "其他",
+        "regex": true,
+        "judge": true,
+        "reason": "回答核心结论与标准要点一致，未承诺微信发条款，提示以条款为准并建议转专员。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.452
+      },
+      {
+        "id": "J10",
+        "question": "我爸去年买过，今年已经67岁，能保证继续买吗？",
+        "text": "67岁符合投保年龄上限，但续保以保险条款约定为准，我可以帮您转专员确认。",
+        "route": "缺口",
+        "regex": true,
+        "judge": true,
+        "reason": "回答核心结论与标准要点一致，未承诺保证续保，并建议转专员确认。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 2.704
+      },
+      {
+        "id": "J11",
+        "question": "新生儿才25天，还没满月能买这份吗？",
+        "text": "被保人须出生满30天才能投保，目前还未达到投保年龄。",
+        "route": "未满月龄(规则)",
+        "regex": true,
+        "judge": true,
+        "reason": "核心结论与标准要点一致，正确指出需出生满30天才能投保，25天尚不能投保。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 1.187
+      },
+      {
+        "id": "J12",
+        "question": "这是录好的话吗，还是你是AI？",
+        "text": "我是众安保险的AI助理。价格和保障我都能帮您讲清楚，您想先了解哪方面？",
+        "route": "身份(规则)",
+        "regex": true,
+        "judge": true,
+        "reason": "回答明确承认是AI助理，符合标准要点要求。",
+        "missing": [],
+        "forbidden": [],
+        "fallback": false,
+        "violations": [],
+        "seconds": 0.0
+      }
+    ]
+  }
+}

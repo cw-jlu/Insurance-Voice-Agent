@@ -1,0 +1,144 @@
+{
+  "version": "第八轮新方案（限时小模型首句 + 单次生成 + 同意门禁）",
+  "turns_ok": 2,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.758,
+      "p90": 1.124,
+      "max": 1.124,
+      "n": 2
+    },
+    "answer_text_ready_s": {
+      "p50": 1.753,
+      "p90": 1.804,
+      "max": 1.804,
+      "n": 2
+    },
+    "first_substantive_audio_s": {
+      "p50": 2.668,
+      "p90": 3.035,
+      "max": 3.035,
+      "n": 2
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.456,
+      "p90": 5.712,
+      "max": 5.712,
+      "n": 2
+    },
+    "answer_playback_end_s": {
+      "p50": 13.654,
+      "p90": 14.957,
+      "max": 14.957,
+      "n": 2
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 1.124,
+      "p90": 1.124,
+      "max": 1.124,
+      "n": 1
+    },
+    "answer_text_ready_s": {
+      "p50": 1.804,
+      "p90": 1.804,
+      "max": 1.804,
+      "n": 1
+    },
+    "first_substantive_audio_s": {
+      "p50": 3.035,
+      "p90": 3.035,
+      "max": 3.035,
+      "n": 1
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 5.712,
+      "p90": 5.712,
+      "max": 5.712,
+      "n": 1
+    },
+    "answer_playback_end_s": {
+      "p50": 14.957,
+      "p90": 14.957,
+      "max": 14.957,
+      "n": 1
+    }
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.758,
+      "p90": 0.758,
+      "max": 0.758,
+      "n": 1
+    },
+    "answer_text_ready_s": {
+      "p50": 1.753,
+      "p90": 1.753,
+      "max": 1.753,
+      "n": 1
+    },
+    "first_substantive_audio_s": {
+      "p50": 2.668,
+      "p90": 2.668,
+      "max": 2.668,
+      "n": 1
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.456,
+      "p90": 4.456,
+      "max": 4.456,
+      "n": 1
+    },
+    "answer_playback_end_s": {
+      "p50": 13.654,
+      "p90": 13.654,
+      "max": 13.654,
+      "n": 1
+    }
+  },
+  "over_10s_all_ready": 0,
+  "turns": [
+    {
+      "name": "免赔额",
+      "asr_text": "我自己先掏1万，剩下的是不是全包啊？",
+      "events": [
+        "回答:免赔额误解(规则)(Agent 0步)"
+      ],
+      "asr_endpoint_s": 0.444,
+      "first_response_s": 1.124,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.68,
+      "answer_text_ready_s": 1.804,
+      "first_substantive_audio_s": 3.035,
+      "answer_audio_all_ready_s": 5.712,
+      "answer_playback_end_s": 14.957,
+      "agent_steps": 0,
+      "answer_chars": 64,
+      "text": "不一定。一般医疗有1万元年免赔额，符合条件且用社保结算后按100%赔；有社保投保却未用社保结算则按60%。重大疾病医疗无免赔额。",
+      "recording": "experiments\\recordings\\v4_final2_r1_免赔额.wav"
+    },
+    {
+      "name": "复合4",
+      "asr_text": "急诊抢救花了5000，后来住院花了两万，一共能报多少？",
+      "events": [
+        "回答:合并费用条件(规则)(Agent 0步)"
+      ],
+      "asr_endpoint_s": 0.435,
+      "first_response_s": 0.758,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.322,
+      "answer_text_ready_s": 1.753,
+      "first_substantive_audio_s": 2.668,
+      "answer_audio_all_ready_s": 4.456,
+      "answer_playback_end_s": 13.654,
+      "agent_steps": 0,
+      "answer_chars": 63,
+      "text": "两笔费用不能直接相加算赔款。一般医疗有共享的1万元年免赔额，最终还要看急诊和住院费用是否属于约定责任、社保结算及实际合规费用。",
+      "recording": "experiments\\recordings\\v4_final2_r1_复合4.wav"
+    }
+  ]
+}

@@ -1,0 +1,148 @@
+{
+  "date": "2026-10-14",
+  "method": "Read-only aggregation of saved exp44 records and existing single-reviewer decisions. No model rerun or new independent review.",
+  "source_audit": "exp44_task_release/manual_audit.json",
+  "groups": {
+    "C": {
+      "correct_handling": 26,
+      "total": 30,
+      "handling_percent": 86.7,
+      "automatic_correct": 21,
+      "automatic_total": 25,
+      "automatic_percent": 84.0
+    },
+    "E": {
+      "correct_handling": 40,
+      "total": 40,
+      "handling_percent": 100.0,
+      "automatic_correct": 31,
+      "automatic_total": 31,
+      "automatic_percent": 100.0
+    },
+    "H": {
+      "correct_handling": 16,
+      "total": 16,
+      "handling_percent": 100.0,
+      "automatic_correct": 7,
+      "automatic_total": 7,
+      "automatic_percent": 100.0
+    },
+    "Y": {
+      "correct_handling": 35,
+      "total": 41,
+      "handling_percent": 85.4,
+      "automatic_correct": 28,
+      "automatic_total": 30,
+      "automatic_percent": 93.3
+    },
+    "N": {
+      "correct_handling": 16,
+      "total": 16,
+      "handling_percent": 100.0,
+      "automatic_correct": 15,
+      "automatic_total": 15,
+      "automatic_percent": 100.0
+    }
+  },
+  "voice": [
+    {
+      "id": "T01",
+      "first_audible_dac_s": 0.7605686333336052,
+      "waiting_pcm_s": 3.749089599999934,
+      "waiting_audible_dac_s": 3.850026533336859,
+      "main_output_dac_s": 6.3592870333322935,
+      "playback_end_s": 12.572898699998404,
+      "scope": "business_answer_or_clarification"
+    },
+    {
+      "id": "T02",
+      "first_audible_dac_s": 0.7329514333323459,
+      "waiting_pcm_s": 4.219473799999832,
+      "waiting_audible_dac_s": 4.33127503333526,
+      "main_output_dac_s": 7.271574700000201,
+      "playback_end_s": 45.58588893333399,
+      "scope": "business_answer_or_clarification"
+    },
+    {
+      "id": "T03",
+      "first_audible_dac_s": 0.6804513333336217,
+      "waiting_pcm_s": 4.052386999999726,
+      "waiting_audible_dac_s": 4.154474899996785,
+      "main_output_dac_s": 6.7480007333306276,
+      "playback_end_s": 49.699496833334706,
+      "scope": "business_answer_or_clarification"
+    },
+    {
+      "id": "T04",
+      "first_audible_dac_s": 0.8253402000009373,
+      "waiting_pcm_s": 4.414853899999798,
+      "waiting_audible_dac_s": 4.528433933333872,
+      "main_output_dac_s": 8.830168866667009,
+      "playback_end_s": 78.52324710000357,
+      "scope": "business_answer_or_clarification"
+    },
+    {
+      "id": "T05",
+      "first_audible_dac_s": 0.7764894333322445,
+      "waiting_pcm_s": 3.9700667999986763,
+      "waiting_audible_dac_s": 4.08550543333331,
+      "main_output_dac_s": 7.337850699997944,
+      "playback_end_s": 41.80985179999698,
+      "scope": "business_answer_or_clarification"
+    },
+    {
+      "id": "T06",
+      "first_audible_dac_s": 0.7455248333317286,
+      "waiting_pcm_s": 5.472939499999484,
+      "waiting_audible_dac_s": 5.582082166667533,
+      "main_output_dac_s": 10.049742133334803,
+      "playback_end_s": 12.327891900002214,
+      "scope": "fallback_without_business_answer"
+    },
+    {
+      "id": "T07",
+      "first_audible_dac_s": 0.7399227333335148,
+      "waiting_pcm_s": null,
+      "waiting_audible_dac_s": null,
+      "main_output_dac_s": 2.906488200002059,
+      "playback_end_s": 6.519835766666802,
+      "scope": "handoff_notice"
+    }
+  ],
+  "interrupt": {
+    "backchannel": {
+      "total": 10,
+      "errors": 1,
+      "stops": 2,
+      "valid": 9,
+      "median_s": 9.495792250000083,
+      "p90_nearest_rank_s": 9.69331630000008,
+      "within_500ms": null
+    },
+    "echo": {
+      "total": 8,
+      "errors": 0,
+      "stops": 1,
+      "valid": 8,
+      "median_s": null,
+      "p90_nearest_rank_s": null,
+      "within_500ms": null
+    },
+    "interrupt": {
+      "total": 20,
+      "errors": 0,
+      "stops": 20,
+      "valid": 20,
+      "median_s": 1.4663504499999092,
+      "p90_nearest_rank_s": 3.1841370999999072,
+      "within_500ms": 0
+    }
+  },
+  "service_error_cases": [
+    "Y003",
+    "Y004",
+    "Y005",
+    "Y006"
+  ],
+  "voice_after_exp45_retested": false
+}

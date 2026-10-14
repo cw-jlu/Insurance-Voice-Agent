@@ -149,6 +149,7 @@ DeepSeek 对照仅替换主回答模型，理解、分类、检索向量和 TTS 
 | `exp3_heldout.py` | 护栏保留集 1：v1 写完后编写，发现问题后参与了 v2 调整 |
 | `exp3_heldout2.py` | 护栏保留集 2：v2 调整前编写，调整期间未查看结果，只用于最终评估 |
 | `evidence.py` | 实验 3 共用的证据构造（与检索切片格式一致） |
+| `exp45_question_planning.py` | exp44历史待办重列专项：5个真实Qwen规划用例，只检验问项范围及ID；`--out`指定新结果文件，本机可用`--native-https`测试连接，不覆盖旧结果 |
 | `exp5_audio_v2.py` | 第八轮：真实音频打断扩大（40 打断 / 30 附和 / 24 回声 × 三种回声条件） |
 | `exp4_e2e_v5.py` | 第八轮：端到端语音时延扩大（30 句 × 2 轮），结果 `exp4_e2e_v4_expand*.json` |
 | `build_qa_v4.py` | 第八轮：150 道全新问答保留题（`data/qa_v4.json`）；运行 `exp2_qa_v2.py --data qa_v4.json --tag v4 --agent-steps 5` |

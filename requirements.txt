@@ -1,3 +1,9 @@
 pandas>=2.2
 scikit-learn>=1.5
 edge-tts>=7.0
+openai>=1.109,<3
+python-dotenv>=1.0
+dashscope>=1.25
+websockets>=12.0
+numpy>=2.0
+scipy>=1.13

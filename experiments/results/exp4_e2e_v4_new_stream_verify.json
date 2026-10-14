@@ -1,0 +1,153 @@
+{
+  "version": "第八轮新方案（限时小模型首句 + 单次生成 + 同意门禁）",
+  "tts_speech_rate": 1.5,
+  "turns_ok": 2,
+  "errors": [],
+  "all": {
+    "first_response_s": {
+      "p50": 0.908,
+      "p90": 1.205,
+      "max": 1.205,
+      "n": 2
+    },
+    "answer_text_ready_s": {
+      "p50": 2.971,
+      "p90": 4.464,
+      "max": 4.464,
+      "n": 2
+    },
+    "first_substantive_audio_s": {
+      "p50": 3.223,
+      "p90": 4.286,
+      "max": 4.286,
+      "n": 2
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.502,
+      "p90": 6.684,
+      "max": 6.684,
+      "n": 2
+    },
+    "answer_playback_end_s": {
+      "p50": 7.246,
+      "p90": 12.438,
+      "max": 12.438,
+      "n": 2
+    }
+  },
+  "simple": {
+    "first_response_s": {
+      "p50": 1.205,
+      "p90": 1.205,
+      "max": 1.205,
+      "n": 1
+    },
+    "answer_text_ready_s": {
+      "p50": 2.971,
+      "p90": 2.971,
+      "max": 2.971,
+      "n": 1
+    },
+    "first_substantive_audio_s": {
+      "p50": 3.223,
+      "p90": 3.223,
+      "max": 3.223,
+      "n": 1
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 4.502,
+      "p90": 4.502,
+      "max": 4.502,
+      "n": 1
+    },
+    "answer_playback_end_s": {
+      "p50": 7.246,
+      "p90": 7.246,
+      "max": 7.246,
+      "n": 1
+    }
+  },
+  "complex": {
+    "first_response_s": {
+      "p50": 0.908,
+      "p90": 0.908,
+      "max": 0.908,
+      "n": 1
+    },
+    "answer_text_ready_s": {
+      "p50": 4.464,
+      "p90": 4.464,
+      "max": 4.464,
+      "n": 1
+    },
+    "first_substantive_audio_s": {
+      "p50": 4.286,
+      "p90": 4.286,
+      "max": 4.286,
+      "n": 1
+    },
+    "answer_audio_all_ready_s": {
+      "p50": 6.684,
+      "p90": 6.684,
+      "max": 6.684,
+      "n": 1
+    },
+    "answer_playback_end_s": {
+      "p50": 12.438,
+      "p90": 12.438,
+      "max": 12.438,
+      "n": 1
+    }
+  },
+  "over_10s_all_ready": 0,
+  "turns": [
+    {
+      "name": "报价",
+      "asr_text": "我30岁，有社保，一年多少钱？",
+      "events": [
+        "回答:报价"
+      ],
+      "asr_endpoint_s": 0.501,
+      "first_response_s": 1.205,
+      "first_phrase": "好的，我帮您看一下。",
+      "first_path": "timeout_or_error",
+      "first_select_s": 0.704,
+      "answer_text_ready_s": 2.971,
+      "first_substantive_audio_s": 3.223,
+      "answer_audio_all_ready_s": 4.502,
+      "answer_playback_end_s": 7.246,
+      "agent_steps": 0,
+      "stream_sentences_before_text_ready": 0,
+      "streaming": true,
+      "same_text_serial_playback_end_s": 7.246,
+      "same_text_streaming_gain_s": -0.0,
+      "answer_chars": 27,
+      "text": "您30岁有社保，基础版一年318元，按月交每月31元。",
+      "recording": "experiments\\recordings\\v4_new_stream_verify_r1_报价.wav"
+    },
+    {
+      "name": "复合1",
+      "asr_text": "住院和看门诊分别怎么报？建ICU有没有补贴？",
+      "events": [
+        "回答:保障(Agent 1步)"
+      ],
+      "asr_endpoint_s": 0.484,
+      "first_response_s": 0.908,
+      "first_phrase": "好的，我查一下具体保障。",
+      "first_path": "model",
+      "first_select_s": 0.424,
+      "answer_text_ready_s": 4.464,
+      "first_substantive_audio_s": 4.286,
+      "answer_audio_all_ready_s": 6.684,
+      "answer_playback_end_s": 12.438,
+      "agent_steps": 1,
+      "stream_sentences_before_text_ready": 2,
+      "streaming": true,
+      "same_text_serial_playback_end_s": 12.854,
+      "same_text_streaming_gain_s": 0.416,
+      "answer_chars": 62,
+      "text": "住院和门诊费用都按1万元免赔额后100%报销，共享300万保额；ICU补贴需另购尊享住院津贴加油包，500元/天，0天免赔。",
+      "recording": "experiments\\recordings\\v4_new_stream_verify_r1_复合1.wav"
+    }
+  ]
+}

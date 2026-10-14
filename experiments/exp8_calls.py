@@ -258,11 +258,13 @@ def evaluate(call: dict, p: dict, client) -> dict:
             "latency_max": round(max(lat), 2) if lat else None, "profile": call["profile"]}
 
 
-def main(rounds: int = 2, tag: str = "v2", personas: list | None = None):
+def main(rounds: int = 2, tag: str = "v2", personas: list | None = None,
+         names: set[str] | None = None):
     client = cloud.llm_client()
     chunks = corpus(False)
     pipe = Pipeline(HybridRetriever(chunks, load(chunks, "clauses"), client=client), client=client)
-    jobs = [p for _ in range(rounds) for p in (personas or PERSONAS + PERSONAS_V2)]
+    jobs = [p for _ in range(rounds) for p in (personas if personas is not None else PERSONAS + PERSONAS_V2)
+            if names is None or p["name"] in names]
 
     def run(p):
         for attempt in range(3):

@@ -1,0 +1,14 @@
+[
+  {"id":"J01","question":"我爸61岁有医保，买基础版一年交多少？","facts":"61岁有社保年缴2563元","must":["2563"],"must_not":["679"],"context":{},"turns":null,"category":"报价","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J02","question":"同一个人给一家四口买，每个人能便宜百分之几？","facts":"家庭单4人每人优惠15%","must":["15\\s*%|十五"],"must_not":["10\\s*%"],"context":{},"turns":null,"category":"优惠","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J03","question":"我两年前做过胃切除手术，这份保险现在能让我买吗？","facts":"既往手术能否投保必须如实健康告知并以核保结果为准，资料缺核保规则","must":["核保|健康告知"],"must_not":["肯定能买|保证承保"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J04","question":"我本来就是按无社保身份投保，住院结算没走医保，也只赔60%吗？","facts":"未以社保身份投保的一般医疗，符合条件扣免赔后正常比例100%，60%特例仅针对有社保投保但未用社保结算","must":["100\\s*%|不是60|不按60"],"must_not":["只赔60%|按60%赔"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J05","question":"ICU里住一天给五百，这是基础版自动带的吗？","facts":"R15 ICU津贴500元/天属于尊享住院津贴加油包，需另外选购","must":["500|五百","加油包|另购|选购"],"must_not":["基础版自动包含"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J06","question":"质子重离子治疗这项最多能报六百万吗？","facts":"R05 恶性肿瘤先进疗法医疗责任保额600万元，仍须符合条款条件","must":["600\\s*万|六百万"],"must_not":["都能报"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J07","question":"重疾住院请护工，每天的给付标准是多少？","facts":"R08 重大疾病住院护工费用保险金给付标准500元/天，不是免赔额","must":["500\\s*元/天|每天500|一天500"],"must_not":["免赔额500"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J08","question":"今年这个保费，明年是不是照旧不变？","facts":"投保须知明确保费随投保年龄增长而变化，不应保证明年同价","must":["变|不同|届时"],"must_not":["保证不变|一直不变"],"context":{},"turns":null,"category":"价格变化","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J09","question":"你直接微信把保险条款发给我吧。","facts":"原型没有微信发条款能力，不可承诺；可提示以正式条款为准或转专员","must":["条款|专员|不能|无法"],"must_not":["给您发微信|发到微信|马上发您"],"context":{},"turns":null,"category":"能力","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J10","question":"我爸去年买过，今年已经67岁，能保证继续买吗？","facts":"资料没有保证续保规则，应以条款或专员确认，不能承诺","must":["条款|专员|不保证|无法确定"],"must_not":["肯定可以续|保证续"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J11","question":"新生儿才25天，还没满月能买这份吗？","facts":"出生满30天才可投保，25天尚不能","must":["30天|三十天","不能|未达到|还没"],"must_not":["25天就能买"],"context":{},"turns":null,"category":"投保条件","split":"fresh","source":"人工新题2","valid":true},
+  {"id":"J12","question":"这是录好的话吗，还是你是AI？","facts":"被问身份必须承认是AI","must":["AI|人工智能|机器人"],"must_not":["我是真人"],"context":{},"turns":null,"category":"身份","split":"fresh","source":"人工新题2","valid":true}
+]

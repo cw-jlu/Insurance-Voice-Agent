@@ -259,6 +259,8 @@ class CallSession:
             elif self.consultation:
                 consult.reopen(self.consultation,('age','has_social','gender','insured_with_social','remaining_deductible'))
         known = {**self.profile, "_history": hist}
+        if tracking:
+            known['_consultation'] = consult.model_context(self.consultation) if consult.pending(self.consultation) else {}
         self._hypothetical = bool(HYPOTHETICAL_AGE.search(user_text))
         self._comparison = bool(re.search(r"比(有|没有|没)?(社保|医保)|如果|要是|假如|万一", user_text))
         self._family_mention = (bool(re.search(r"(爸|妈|父亲|母亲|老人|家里人|亲戚).{0,6}(得过|得了|患|有.{0,4}病|病|癌|走了|去世)", user_text))
@@ -415,7 +417,10 @@ class CallSession:
             if tracking and not consult.pending(self.consultation):
                 self.consultation = consult.start(user_text,f'c{len(self.history)}')
             if tracking:
-                consult.add_questions(self.consultation,u.get('obligations',[]))
+                if 'obligation_plan' in u:
+                    consult.add_questions(self.consultation,u['obligation_plan'],user_text)
+                else:
+                    consult.add_questions(self.consultation,u.get('obligations',[]))
             known = {**self.profile, "_history": hist}
             if tracking:
                 known['_consultation'] = consult.model_context(self.consultation)

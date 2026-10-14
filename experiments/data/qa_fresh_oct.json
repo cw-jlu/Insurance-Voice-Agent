@@ -1,0 +1,22 @@
+[
+  {"id":"H01","question":"31周岁有医保，基础版年缴几元？","facts":"31岁有社保年缴423元","must":["423"],"must_not":["679"],"context":{},"turns":null,"category":"报价","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H02","question":"30岁医保断缴了，基础版一年要花多少？","facts":"30岁无社保年缴679元","must":["679"],"must_not":["318"],"context":{},"turns":null,"category":"报价","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H03","question":"给71岁的爸爸买这款，一年多少钱？","facts":"首次投保年龄最高70周岁，71岁不能投保，不应报价","must":["70|超龄|超过"],"must_not":["一年\\d+元"],"context":{},"turns":null,"category":"投保条件","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H04","question":"宝宝出生才20天，能现在投保吗？","facts":"被保人须出生满30天，20天未达到投保年龄","must":["30天|三十天","不能|不符合|还没"],"must_not":["可以直接投保"],"context":{},"turns":null,"category":"投保条件","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H05","question":"孩子刚满30天，年龄上符合购买条件吗？","facts":"被保人出生满30天可投保，其他条件另看须知","must":["30天|三十天","符合|可以"],"must_not":[],"context":{},"turns":null,"category":"投保条件","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H06","question":"我吃降压药五年了，健康告知填完就肯定能买吧？","facts":"疾病核保规则未提供，不能保证投保；要如实告知，以核保结果为准","must":["核保|健康告知","如实告知|如实填写"],"must_not":["肯定能买|保证能买|一定能买"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H07","question":"我妈去年装了心脏起搏器，你直接说她能不能买？","facts":"不能仅凭起搏器推断投保资格，需健康告知和核保","must":["核保|健康告知"],"must_not":["可以投保|一定不能买|保证承保"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H08","question":"如果明年停售，我还能保证续吗？","facts":"资料没有保证续保或停售后续保规则，不能承诺","must":["条款|专员|无法确定"],"must_not":["保证续保|肯定能续"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H09","question":"医保替我付的那部分，可以算进一万免赔额吗？","facts":"当前资料缺少医保报销部分能否计入免赔额的规则，不得下结论","must":["条款|专员|无法确定"],"must_not":["可以算进|能够抵扣|不能抵扣"],"context":{},"turns":null,"category":"缺口","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H10","question":"我按有医保买，住院时忘记用医保结算，剩下按多少比例？","facts":"有社保身份投保但未以社保结算，一般医疗按60%","must":["60\\s*%"],"must_not":["按100%"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H11","question":"骑车摔伤住院，也得等疾病的30天等待期吗？","facts":"意外伤害无疾病等待期","must":["不用等|没有等待期|无等待期"],"must_not":["意外也要等30天"],"context":{},"turns":null,"category":"等待期","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H12","question":"在互联网药房下单药品，一个月最高赔几元、赔多少比例？","facts":"R16 药省保加油包，50%，月赔付限额100元，需另外选购","must":["50\\s*%","100\\s*元|一百元","加油包|另购"],"must_not":["600\\s*万"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H13","question":"普通感冒门诊每次最多赔几元，按几成？","facts":"R13 尊享门急诊医疗加油包，单次限额300元，赔付比例50%，需另购","must":["300\\s*元|三百元","50\\s*%|五成","加油包|另购"],"must_not":["1万元免赔"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H14","question":"光是确诊合同里的重大疾病，就有一笔给付金吗？","facts":"R10 重疾关爱加油包确诊给付5万元，需额外选购；基础版主要为费用报销","must":["5\\s*万|五万","加油包|另购"],"must_not":["基础版确诊直接给钱"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H15","question":"确诊重疾后跨省转诊的火车票，一年报销上限多少？","facts":"R07 重大疾病异地转诊公共交通住宿费，跨省转诊，年限额1万元","must":["1\\s*万|一万","转诊"],"must_not":[],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H16","question":"合同约定的重大疾病住院，年免赔还是一万元吗？","facts":"R03 重大疾病医疗无免赔额","must":["无免赔|0免赔|没有免赔"],"must_not":["重大疾病.*免赔额1万"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H17","question":"我们一家三口同一投保人买，家庭单每人优惠几个点？","facts":"费率表家庭单3人每人优惠10%","must":["10\\s*%|一成"],"must_not":["15\\s*%|5\\s*%"],"context":{},"turns":null,"category":"优惠","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H18","question":"跟我讲话的是人还是AI？","facts":"必须承认是AI","must":["AI|人工智能|机器人"],"must_not":["我是真人"],"context":{},"turns":null,"category":"身份","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H19","question":"昨天问了30岁有医保价，实际没有医保，一年要多少？","facts":"30岁无社保年缴679元，纠正后重新报价","must":["679"],"must_not":["一年318元"],"context":{"age":30,"has_social":true,"_prev_intent":"报价","_prev_utterance":"30岁有医保一年多少"},"turns":null,"category":"多轮","split":"fresh","source":"人工新题","valid":true},
+  {"id":"H20","question":"医保先赔过的同一笔费用，这边还能再赔一次吗？","facts":"责任免除补偿原则，已经由其他渠道补偿的费用不重复赔","must":["不重复|不能重复|已赔"],"must_not":["可以再赔一次"],"context":{},"turns":null,"category":"保障","split":"fresh","source":"人工新题","valid":true}
+]

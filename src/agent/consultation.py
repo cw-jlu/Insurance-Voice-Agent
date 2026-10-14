@@ -32,7 +32,8 @@ def reopen(state, changed_fields=()):
     # A correction must not be answered using an obsolete confirmed condition.
     state['facts'] = [f for f in state.get('facts',[]) if f['name'] not in changed_fields]
     for task in state.get('tasks',[]):
-        if task['status'] == 'answered':
+        if task['status'] == 'answered' and (not changed_fields or
+                set(task.get('requires',[])) & set(changed_fields)):
             task['status'] = 'pending'
             task.pop('quoted_amount',None)
 
@@ -41,27 +42,70 @@ def model_context(state):
     return deepcopy(state)
 
 
-def add_questions(state,questions):
+def question_plan(value, current_text, previous=None):
+    """Accept new questions only with a literal quote from the current turn.
+
+    History resolves references; it cannot supply the quote for a new task.
+    Existing task IDs are hints from the planner, never invented IDs to insert.
+    """
+    if not isinstance(value,list):
+        return []
+    task_ids = {t['id'] for t in (previous or {}).get('tasks',[])}
+    plan = []
+    for entry in value:
+        if not isinstance(entry,dict):
+            continue
+        question, quote = entry.get('question'), entry.get('user_quote')
+        task_id = entry.get('task_id')
+        if (not isinstance(question,str) or not question.strip() or
+                not isinstance(quote,str) or not quote.strip() or quote not in current_text):
+            continue
+        if task_id not in (None,'') and (not isinstance(task_id,str) or task_id not in task_ids):
+            continue
+        item = {'question':question.strip(),'user_quote':quote,'task_id':task_id or None}
+        if item not in plan:
+            plan.append(item)
+    return plan[:8]
+
+
+def add_questions(state,questions,current_text=None):
     """Seed current questions from the independent small-model planner.
 
     Conditions-only replies contain no new questions. Seeded IDs become mandatory
     input tasks so the answer model cannot silently omit a compound question.
     """
-    existing={re.sub(r'[\s，,。！？?；;]','',t['question']) for t in state['tasks']}
+    if current_text is not None:
+        questions = question_plan(questions,current_text,state)
+    existing={re.sub(r'[\s，,。！？?；;]','',t['question']):t for t in state['tasks']}
     used_ids={t.get('id') for t in state['tasks']}
     for i,question in enumerate(questions,1):
+        entry = question if isinstance(question,dict) else None
+        question = entry['question'] if entry else question
         key=re.sub(r'[\s，,。！？?；;]','',question)
-        if not key or key in existing:continue
+        old = next((t for t in state['tasks'] if entry and t['id']==entry.get('task_id')),None)
+        old = old if old is not None else existing.get(key)
+        if not key:continue
+        if old is not None:
+            if entry:
+                old['seeded'] = True
+                old['user_quote'] = entry['user_quote']
+                if old['status'] in ('answered','cancelled'):
+                    old['status'] = 'needs_answer'
+                    old.pop('quoted_amount',None)
+            continue
         base_id=f"{state['id']}-u{state['revision']+1}-{i}"
         task_id=base_id
         suffix=2
         while task_id in used_ids:
             task_id=f"{base_id}-{suffix}"
             suffix+=1
-        state['tasks'].append({'id':task_id,
+        task = {'id':task_id,
             'question':question,'kind':'other','status':'needs_answer','requires':[],
-            'is_example':False,'seeded':True})
-        existing.add(key)
+            'is_example':False,'seeded':True}
+        if entry:
+            task['user_quote'] = entry['user_quote']
+        state['tasks'].append(task)
+        existing[key] = task
         used_ids.add(task_id)
 
 
@@ -87,6 +131,13 @@ def validate_progress(value, previous, user_texts, profile, current_text, condit
     if len({f.get('name') for f in facts}) != len(facts):
         raise ValueError('Duplicate condition name')
     faults = []
+    old_tasks = {t['id']:t for t in previous.get('tasks',[])}
+    for task in tasks:
+        old = old_tasks.get(task.get('id'),{})
+        # Model output cannot erase the independent planner's release contract.
+        for field in ('seeded','user_quote'):
+            if field in old:
+                task[field] = old[field]
     for f in facts:
         if not isinstance(f.get('name'),str) or not f['name'] or f.get('state') not in ('confirmed','missing','assumed'):
             raise ValueError('Invalid consultation fact')

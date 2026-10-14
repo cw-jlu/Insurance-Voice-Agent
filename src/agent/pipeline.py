@@ -721,14 +721,19 @@ def understand_split(question: str, known: dict, client=None, model: str | None 
                 "gaps": [g for g in d.get("gaps", []) if g in GAP_NAMES]}
 
     def items():
+        from agent.consultation import question_plan
+
+        consultation = known.get('_consultation',{})
+        task_context = json.dumps(consultation.get('tasks',[]),ensure_ascii=False)
         raw = cloud.chat(with_history([{"role": "system", "content": _SPLIT_ITEMS_SYS % {"topics": TOPIC_NAMES, "catalog": _catalog()}},
-                          {"role": "user", "content": ctx+f"用户：{question}"}],history,marker="【最近对话】\n"),
+                          {"role": "user", "content": ctx+f"【已有咨询待办】{task_context}\n【本轮用户原话】{question}"}],history,marker="【最近对话】\n"),
                          model=model, client=fast, temperature=0, response_format={"type": "json_object"})
         try:
             d = json.loads(raw)
         except json.JSONDecodeError:
             d = {}
-        return {"obligations": [q.strip() for q in d.get("obligations", []) if isinstance(q, str) and q.strip()][:8],
+        plan = question_plan(d.get('obligations'),question,consultation)
+        return {"obligations": [p['question'] for p in plan], "obligation_plan": plan,
                 "items": [i for i in d.get("items", []) if i in COVERAGE][:MAX_ITEMS],
                 "topics": [t for t in d.get("topics", []) if t in TOPIC_NAMES]}
 
@@ -765,8 +770,10 @@ gaps 可选 %(gaps)s，规则：
 - 条款清单：问重疾清单、特药清单、医院名单。
 没有就输出空列表。"""
 
-_SPLIT_ITEMS_SYS = """列出回答用户这句话需要查的保险责任和关键主题，只输出 JSON：{"items": [...], "topics": [...], "obligations": [...]}
-obligations：逐项列出用户实际问到的待答问题（字符串），并列的保障、金额、条件要拆开；年龄、社保等背景条件不是待答问题。不要增加用户没问的事项，不要写答案。核保不确定也须保留其他能回答的保障问题。
+_SPLIT_ITEMS_SYS = """列出回答本轮用户这句话需要查的保险责任和关键主题，只输出 JSON：{"items": [...], "topics": [...], "obligations": [{"question":"待答问题","user_quote":"本轮用户连续原话","task_id":null}]}
+obligations只拆【本轮用户原话】明确询问或要求重答的事项；每项user_quote必须逐字来自本轮，不能引用历史用户或坐席。并列的保障、金额、条件要拆开；年龄、社保等背景条件不是待答问题。仅补条件、附和或同意时obligations为空，程序已保存原咨询。不要增加用户没问的事项，不要写答案。核保不确定也须保留其他能回答的保障问题。
+历史只用于解析“这个”“刚才那个”等指代；不能重列历史的已答问题或坐席追问。当前问项若对应【已有咨询待办】中的同一问题，task_id填原id，复用问项；新问题填null，不能编造id。已完成问项只有本轮明确要求再次回答时才列出。
+例：历史问过靶向药，本轮“意外住院也要等30天吗”→只列意外等待期，quote取本轮问句。历史问过年/月价，本轮“她有医保”→空数组。本轮“刚才月缴那个再说一次”→quote取该本轮原话，task_id复用已有月缴任务。
 items 从下面责任目录中选编号，问到几项就列几项（最多 5 个），只列直接相关的；没问保障就为空。
 - 问免赔额以内、自己先掏的部分能不能报 → 含 R01、R12、R09；问确诊重病能不能直接拿钱 → 含 R10、R03；
 - 问门诊/急诊 → R02（基础版）；问门诊加油包 → R13；问住院津贴/ICU补贴 → R14、R15；问网上买药 → R16。

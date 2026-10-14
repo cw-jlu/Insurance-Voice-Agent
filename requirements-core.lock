@@ -1,0 +1,10 @@
+# Core snapshot: direct dependencies verified on 2026-10-14.
+pandas==2.2.3
+scikit-learn==1.9.0
+edge-tts==7.2.8
+openai==1.109.1
+python-dotenv==1.2.1
+dashscope==1.27.7
+websockets==15.0.1
+numpy==2.2.4
+scipy==1.16.1

@@ -1,0 +1,566 @@
+{
+  "source": "experiments\\results\\exp4_e2e_v4_new2.json",
+  "method": "Frozen answer text and upstream timings; actual cloud TTS per rate; simulated sequential playback using the full-chain scheduling logic.",
+  "baseline_full_chain": {
+    "rate": 1.15,
+    "p50_end_s": 13.461,
+    "p90_end_s": 18.578,
+    "max_end_s": 19.692,
+    "over_10s": 7
+  },
+  "rates": [
+    {
+      "rate": 1.15,
+      "p50_end_s": 12.488,
+      "p90_end_s": 18.335,
+      "max_end_s": 18.44,
+      "over_10s": 7,
+      "mean_audio_s": 10.518,
+      "turns": [
+        {
+          "name": "报价",
+          "answer_chars": 27,
+          "answer_playback_end_s": 7.722,
+          "first_substantive_audio_s": 2.612,
+          "answer_audio_all_ready_s": 2.852,
+          "spoken_audio_duration_s": 6.534
+        },
+        {
+          "name": "病史",
+          "answer_chars": 56,
+          "answer_playback_end_s": 12.488,
+          "first_substantive_audio_s": 3.311,
+          "answer_audio_all_ready_s": 5.155,
+          "spoken_audio_duration_s": 11.714
+        },
+        {
+          "name": "免赔额",
+          "answer_chars": 27,
+          "answer_playback_end_s": 7.597,
+          "first_substantive_audio_s": 2.765,
+          "answer_audio_all_ready_s": 3.218,
+          "spoken_audio_duration_s": 6.812
+        },
+        {
+          "name": "保障范围",
+          "answer_chars": 44,
+          "answer_playback_end_s": 12.498,
+          "first_substantive_audio_s": 5.719,
+          "answer_audio_all_ready_s": 7.415,
+          "spoken_audio_duration_s": 8.76
+        },
+        {
+          "name": "价格变化",
+          "answer_chars": 37,
+          "answer_playback_end_s": 9.019,
+          "first_substantive_audio_s": 2.554,
+          "answer_audio_all_ready_s": 3.261,
+          "spoken_audio_duration_s": 8.236
+        },
+        {
+          "name": "身份",
+          "answer_chars": 26,
+          "answer_playback_end_s": 7.574,
+          "first_substantive_audio_s": 2.85,
+          "answer_audio_all_ready_s": 2.673,
+          "spoken_audio_duration_s": 6.773
+        },
+        {
+          "name": "等待期",
+          "answer_chars": 50,
+          "answer_playback_end_s": 12.116,
+          "first_substantive_audio_s": 2.799,
+          "answer_audio_all_ready_s": 5.039,
+          "spoken_audio_duration_s": 11.297
+        },
+        {
+          "name": "加油包",
+          "answer_chars": 42,
+          "answer_playback_end_s": 9.906,
+          "first_substantive_audio_s": 2.746,
+          "answer_audio_all_ready_s": 4.053,
+          "spoken_audio_duration_s": 9.14
+        },
+        {
+          "name": "复合1",
+          "answer_chars": 66,
+          "answer_playback_end_s": 16.509,
+          "first_substantive_audio_s": 4.581,
+          "answer_audio_all_ready_s": 7.381,
+          "spoken_audio_duration_s": 13.908
+        },
+        {
+          "name": "复合2",
+          "answer_chars": 53,
+          "answer_playback_end_s": 15.66,
+          "first_substantive_audio_s": 4.498,
+          "answer_audio_all_ready_s": 7.094,
+          "spoken_audio_duration_s": 13.142
+        },
+        {
+          "name": "复合3",
+          "answer_chars": 70,
+          "answer_playback_end_s": 18.335,
+          "first_substantive_audio_s": 5.503,
+          "answer_audio_all_ready_s": 8.595,
+          "spoken_audio_duration_s": 14.812
+        },
+        {
+          "name": "复合4",
+          "answer_chars": 83,
+          "answer_playback_end_s": 18.44,
+          "first_substantive_audio_s": 5.33,
+          "answer_audio_all_ready_s": 8.812,
+          "spoken_audio_duration_s": 15.09
+        }
+      ]
+    },
+    {
+      "rate": 1.35,
+      "p50_end_s": 11.615,
+      "p90_end_s": 16.084,
+      "max_end_s": 17.933,
+      "over_10s": 7,
+      "mean_audio_s": 9.112,
+      "turns": [
+        {
+          "name": "报价",
+          "answer_chars": 27,
+          "answer_playback_end_s": 6.816,
+          "first_substantive_audio_s": 2.464,
+          "answer_audio_all_ready_s": 2.804,
+          "spoken_audio_duration_s": 5.628
+        },
+        {
+          "name": "病史",
+          "answer_chars": 56,
+          "answer_playback_end_s": 11.615,
+          "first_substantive_audio_s": 3.207,
+          "answer_audio_all_ready_s": 5.278,
+          "spoken_audio_duration_s": 10.509
+        },
+        {
+          "name": "免赔额",
+          "answer_chars": 27,
+          "answer_playback_end_s": 6.764,
+          "first_substantive_audio_s": 2.59,
+          "answer_audio_all_ready_s": 3.034,
+          "spoken_audio_duration_s": 5.979
+        },
+        {
+          "name": "保障范围",
+          "answer_chars": 44,
+          "answer_playback_end_s": 12.197,
+          "first_substantive_audio_s": 5.711,
+          "answer_audio_all_ready_s": 7.267,
+          "spoken_audio_duration_s": 8.29
+        },
+        {
+          "name": "价格变化",
+          "answer_chars": 37,
+          "answer_playback_end_s": 7.92,
+          "first_substantive_audio_s": 2.41,
+          "answer_audio_all_ready_s": 3.124,
+          "spoken_audio_duration_s": 7.137
+        },
+        {
+          "name": "身份",
+          "answer_chars": 26,
+          "answer_playback_end_s": 5.743,
+          "first_substantive_audio_s": 2.487,
+          "answer_audio_all_ready_s": 2.564,
+          "spoken_audio_duration_s": 4.942
+        },
+        {
+          "name": "等待期",
+          "answer_chars": 50,
+          "answer_playback_end_s": 10.667,
+          "first_substantive_audio_s": 2.791,
+          "answer_audio_all_ready_s": 4.96,
+          "spoken_audio_duration_s": 9.68
+        },
+        {
+          "name": "加油包",
+          "answer_chars": 42,
+          "answer_playback_end_s": 8.683,
+          "first_substantive_audio_s": 2.585,
+          "answer_audio_all_ready_s": 4.501,
+          "spoken_audio_duration_s": 7.903
+        },
+        {
+          "name": "复合1",
+          "answer_chars": 66,
+          "answer_playback_end_s": 14.954,
+          "first_substantive_audio_s": 4.558,
+          "answer_audio_all_ready_s": 7.276,
+          "spoken_audio_duration_s": 12.201
+        },
+        {
+          "name": "复合2",
+          "answer_chars": 53,
+          "answer_playback_end_s": 12.779,
+          "first_substantive_audio_s": 4.338,
+          "answer_audio_all_ready_s": 6.244,
+          "spoken_audio_duration_s": 10.246
+        },
+        {
+          "name": "复合3",
+          "answer_chars": 70,
+          "answer_playback_end_s": 16.084,
+          "first_substantive_audio_s": 5.45,
+          "answer_audio_all_ready_s": 8.484,
+          "spoken_audio_duration_s": 12.438
+        },
+        {
+          "name": "复合4",
+          "answer_chars": 83,
+          "answer_playback_end_s": 17.933,
+          "first_substantive_audio_s": 5.344,
+          "answer_audio_all_ready_s": 9.022,
+          "spoken_audio_duration_s": 14.394
+        }
+      ]
+    },
+    {
+      "rate": 1.5,
+      "p50_end_s": 10.766,
+      "p90_end_s": 14.533,
+      "max_end_s": 15.866,
+      "over_10s": 6,
+      "mean_audio_s": 8.135,
+      "turns": [
+        {
+          "name": "报价",
+          "answer_chars": 27,
+          "answer_playback_end_s": 6.354,
+          "first_substantive_audio_s": 2.491,
+          "answer_audio_all_ready_s": 3.026,
+          "spoken_audio_duration_s": 5.166
+        },
+        {
+          "name": "病史",
+          "answer_chars": 56,
+          "answer_playback_end_s": 10.766,
+          "first_substantive_audio_s": 3.2,
+          "answer_audio_all_ready_s": 5.542,
+          "spoken_audio_duration_s": 9.295
+        },
+        {
+          "name": "免赔额",
+          "answer_chars": 27,
+          "answer_playback_end_s": 6.271,
+          "first_substantive_audio_s": 2.461,
+          "answer_audio_all_ready_s": 3.277,
+          "spoken_audio_duration_s": 5.486
+        },
+        {
+          "name": "保障范围",
+          "answer_chars": 44,
+          "answer_playback_end_s": 11.776,
+          "first_substantive_audio_s": 5.673,
+          "answer_audio_all_ready_s": 7.245,
+          "spoken_audio_duration_s": 7.779
+        },
+        {
+          "name": "价格变化",
+          "answer_chars": 37,
+          "answer_playback_end_s": 7.198,
+          "first_substantive_audio_s": 2.193,
+          "answer_audio_all_ready_s": 3.171,
+          "spoken_audio_duration_s": 6.415
+        },
+        {
+          "name": "身份",
+          "answer_chars": 26,
+          "answer_playback_end_s": 5.35,
+          "first_substantive_audio_s": 2.211,
+          "answer_audio_all_ready_s": 2.288,
+          "spoken_audio_duration_s": 4.549
+        },
+        {
+          "name": "等待期",
+          "answer_chars": 50,
+          "answer_playback_end_s": 9.457,
+          "first_substantive_audio_s": 2.798,
+          "answer_audio_all_ready_s": 4.901,
+          "spoken_audio_duration_s": 8.335
+        },
+        {
+          "name": "加油包",
+          "answer_chars": 42,
+          "answer_playback_end_s": 8.506,
+          "first_substantive_audio_s": 2.647,
+          "answer_audio_all_ready_s": 4.572,
+          "spoken_audio_duration_s": 7.535
+        },
+        {
+          "name": "复合1",
+          "answer_chars": 66,
+          "answer_playback_end_s": 13.622,
+          "first_substantive_audio_s": 4.585,
+          "answer_audio_all_ready_s": 7.297,
+          "spoken_audio_duration_s": 10.712
+        },
+        {
+          "name": "复合2",
+          "answer_chars": 53,
+          "answer_playback_end_s": 12.215,
+          "first_substantive_audio_s": 4.565,
+          "answer_audio_all_ready_s": 6.508,
+          "spoken_audio_duration_s": 9.326
+        },
+        {
+          "name": "复合3",
+          "answer_chars": 70,
+          "answer_playback_end_s": 14.533,
+          "first_substantive_audio_s": 5.444,
+          "answer_audio_all_ready_s": 8.351,
+          "spoken_audio_duration_s": 10.766
+        },
+        {
+          "name": "复合4",
+          "answer_chars": 83,
+          "answer_playback_end_s": 15.866,
+          "first_substantive_audio_s": 5.283,
+          "answer_audio_all_ready_s": 8.318,
+          "spoken_audio_duration_s": 12.259
+        }
+      ]
+    },
+    {
+      "rate": 1.8,
+      "p50_end_s": 9.262,
+      "p90_end_s": 13.757,
+      "max_end_s": 13.785,
+      "over_10s": 5,
+      "mean_audio_s": 6.774,
+      "turns": [
+        {
+          "name": "报价",
+          "answer_chars": 27,
+          "answer_playback_end_s": 5.404,
+          "first_substantive_audio_s": 2.052,
+          "answer_audio_all_ready_s": 2.837,
+          "spoken_audio_duration_s": 4.216
+        },
+        {
+          "name": "病史",
+          "answer_chars": 56,
+          "answer_playback_end_s": 9.262,
+          "first_substantive_audio_s": 3.227,
+          "answer_audio_all_ready_s": 5.222,
+          "spoken_audio_duration_s": 7.699
+        },
+        {
+          "name": "免赔额",
+          "answer_chars": 27,
+          "answer_playback_end_s": 6.466,
+          "first_substantive_audio_s": 2.137,
+          "answer_audio_all_ready_s": 3.658,
+          "spoken_audio_duration_s": 5.681
+        },
+        {
+          "name": "保障范围",
+          "answer_chars": 44,
+          "answer_playback_end_s": 10.112,
+          "first_substantive_audio_s": 5.694,
+          "answer_audio_all_ready_s": 7.02,
+          "spoken_audio_duration_s": 5.77
+        },
+        {
+          "name": "价格变化",
+          "answer_chars": 37,
+          "answer_playback_end_s": 6.041,
+          "first_substantive_audio_s": 1.959,
+          "answer_audio_all_ready_s": 2.821,
+          "spoken_audio_duration_s": 5.258
+        },
+        {
+          "name": "身份",
+          "answer_chars": 26,
+          "answer_playback_end_s": 5.169,
+          "first_substantive_audio_s": 2.064,
+          "answer_audio_all_ready_s": 2.56,
+          "spoken_audio_duration_s": 4.368
+        },
+        {
+          "name": "等待期",
+          "answer_chars": 50,
+          "answer_playback_end_s": 8.796,
+          "first_substantive_audio_s": 2.805,
+          "answer_audio_all_ready_s": 4.983,
+          "spoken_audio_duration_s": 7.343
+        },
+        {
+          "name": "加油包",
+          "answer_chars": 42,
+          "answer_playback_end_s": 7.048,
+          "first_substantive_audio_s": 2.567,
+          "answer_audio_all_ready_s": 4.088,
+          "spoken_audio_duration_s": 5.833
+        },
+        {
+          "name": "复合1",
+          "answer_chars": 66,
+          "answer_playback_end_s": 11.602,
+          "first_substantive_audio_s": 4.606,
+          "answer_audio_all_ready_s": 7.399,
+          "spoken_audio_duration_s": 8.347
+        },
+        {
+          "name": "复合2",
+          "answer_chars": 53,
+          "answer_playback_end_s": 10.269,
+          "first_substantive_audio_s": 4.341,
+          "answer_audio_all_ready_s": 6.145,
+          "spoken_audio_duration_s": 7.281
+        },
+        {
+          "name": "复合3",
+          "answer_chars": 70,
+          "answer_playback_end_s": 13.757,
+          "first_substantive_audio_s": 5.428,
+          "answer_audio_all_ready_s": 8.415,
+          "spoken_audio_duration_s": 9.681
+        },
+        {
+          "name": "复合4",
+          "answer_chars": 83,
+          "answer_playback_end_s": 13.785,
+          "first_substantive_audio_s": 5.323,
+          "answer_audio_all_ready_s": 8.068,
+          "spoken_audio_duration_s": 9.814
+        }
+      ]
+    },
+    {
+      "rate": 2.0,
+      "p50_end_s": 9.18,
+      "p90_end_s": 12.864,
+      "max_end_s": 12.895,
+      "over_10s": 3,
+      "mean_audio_s": 5.998,
+      "turns": [
+        {
+          "name": "报价",
+          "answer_chars": 27,
+          "answer_playback_end_s": 4.937,
+          "first_substantive_audio_s": 2.002,
+          "answer_audio_all_ready_s": 2.871,
+          "spoken_audio_duration_s": 3.749
+        },
+        {
+          "name": "病史",
+          "answer_chars": 56,
+          "answer_playback_end_s": 9.18,
+          "first_substantive_audio_s": 3.191,
+          "answer_audio_all_ready_s": 5.956,
+          "spoken_audio_duration_s": 7.444
+        },
+        {
+          "name": "免赔额",
+          "answer_chars": 27,
+          "answer_playback_end_s": 5.497,
+          "first_substantive_audio_s": 2.082,
+          "answer_audio_all_ready_s": 3.511,
+          "spoken_audio_duration_s": 4.469
+        },
+        {
+          "name": "保障范围",
+          "answer_chars": 44,
+          "answer_playback_end_s": 9.715,
+          "first_substantive_audio_s": 5.741,
+          "answer_audio_all_ready_s": 7.395,
+          "spoken_audio_duration_s": 5.029
+        },
+        {
+          "name": "价格变化",
+          "answer_chars": 37,
+          "answer_playback_end_s": 5.707,
+          "first_substantive_audio_s": 1.877,
+          "answer_audio_all_ready_s": 3.163,
+          "spoken_audio_duration_s": 4.923
+        },
+        {
+          "name": "身份",
+          "answer_chars": 26,
+          "answer_playback_end_s": 4.165,
+          "first_substantive_audio_s": 1.936,
+          "answer_audio_all_ready_s": 2.209,
+          "spoken_audio_duration_s": 3.364
+        },
+        {
+          "name": "等待期",
+          "answer_chars": 50,
+          "answer_playback_end_s": 8.435,
+          "first_substantive_audio_s": 2.806,
+          "answer_audio_all_ready_s": 5.124,
+          "spoken_audio_duration_s": 6.684
+        },
+        {
+          "name": "加油包",
+          "answer_chars": 42,
+          "answer_playback_end_s": 6.572,
+          "first_substantive_audio_s": 2.583,
+          "answer_audio_all_ready_s": 4.401,
+          "spoken_audio_duration_s": 5.043
+        },
+        {
+          "name": "复合1",
+          "answer_chars": 66,
+          "answer_playback_end_s": 11.705,
+          "first_substantive_audio_s": 4.57,
+          "answer_audio_all_ready_s": 7.105,
+          "spoken_audio_duration_s": 8.189
+        },
+        {
+          "name": "复合2",
+          "answer_chars": 53,
+          "answer_playback_end_s": 9.291,
+          "first_substantive_audio_s": 4.356,
+          "answer_audio_all_ready_s": 6.334,
+          "spoken_audio_duration_s": 5.989
+        },
+        {
+          "name": "复合3",
+          "answer_chars": 70,
+          "answer_playback_end_s": 12.864,
+          "first_substantive_audio_s": 5.45,
+          "answer_audio_all_ready_s": 8.845,
+          "spoken_audio_duration_s": 8.469
+        },
+        {
+          "name": "复合4",
+          "answer_chars": 83,
+          "answer_playback_end_s": 12.895,
+          "first_substantive_audio_s": 5.32,
+          "answer_audio_all_ready_s": 9.006,
+          "spoken_audio_duration_s": 8.629
+        }
+      ]
+    }
+  ],
+  "asr_check_complex4": [
+    {
+      "rate": 1.15,
+      "reference": "好的，我查一下具体保障。一般医疗及外购药械费用医疗保险金保额300万（与一般门急诊医疗保险金共享300万保险金额），赔付比例100%，免赔额1万（与一般门急诊医疗保险金共享），等待期30天。",
+      "asr_transcript": "好的，我查一下具体保障，一般医疗及外购药械费用，医疗保险金保额300万，与一般门急诊医疗保险金共享300万保险金额，赔付比例100%，免赔额1万，与一般门急诊医疗保险金共享。等待期30天。",
+      "normalized_edit_distance": 0.0,
+      "audio_s": 15.09
+    },
+    {
+      "rate": 1.5,
+      "reference": "好的，我查一下具体保障。一般医疗及外购药械费用医疗保险金保额300万（与一般门急诊医疗保险金共享300万保险金额），赔付比例100%，免赔额1万（与一般门急诊医疗保险金共享），等待期30天。",
+      "asr_transcript": "好的，我查一下具体保障，一般医疗及外购药械费用，医疗保险金保额300万，与一般门急诊医疗保险金共享300万保险金额，赔付比例100%，免赔额1万，与一般门急诊医疗保险金共享，等待期30天。",
+      "normalized_edit_distance": 0.0,
+      "audio_s": 12.259
+    },
+    {
+      "rate": 2.0,
+      "reference": "好的，我查一下具体保障。一般医疗及外购药械费用医疗保险金保额300万（与一般门急诊医疗保险金共享300万保险金额），赔付比例100%，免赔额1万（与一般门急诊医疗保险金共享），等待期30天。",
+      "asr_transcript": "好的，我查一下具体保障，一般医疗及外购药械费用，医疗保险金保额300万，与一般门急诊医疗保险金共享300万保险金额，赔付比例100%，免赔额1万，与一般的急诊医疗保险金共享，等待期30天。",
+      "normalized_edit_distance": 0.012,
+      "audio_s": 8.629
+    }
+  ]
+}
