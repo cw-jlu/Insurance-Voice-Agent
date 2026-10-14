@@ -142,6 +142,9 @@ def create_app(store=None):
                     metrics=data.get('metrics')
                     if isinstance(metrics,dict):session.browser_metric(data.get('turn'),metrics)
                     await send({'type':'state','state':session.snapshot()})
+                elif kind=='voice_event':
+                    metrics=data.get('metrics')
+                    session.voice_event(data.get('turn'),data.get('kind'),data.get('text',''),metrics if isinstance(metrics,dict) else {})
                 elif kind=='stop':
                     session.stop()
                     if session.task is not None and not session.task.done():
@@ -191,7 +194,7 @@ def create_app(store=None):
                         result=item.get('result') or {}
                         if result.get('voice_text_str'):
                             await websocket.send_json({'type':'final' if result.get('slice_type')==2 else 'partial',
-                                                       'text':result['voice_text_str']})
+                                                       'text':result['voice_text_str'],'segment':result.get('index',0)})
                         if item.get('final')==1:
                             await websocket.send_json({'type':'done'});return
                 await asyncio.wait_for(asyncio.gather(sender(),receiver()),75)

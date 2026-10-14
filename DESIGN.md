@@ -10,11 +10,11 @@ Restrained palette. Primary seed `oklch(0.563 0.223 11)`; neutral surface `oklch
 
 ## Layout and typography
 
-Single system sans family with Chinese fallbacks. 14px base, 20px page title, 15px conversation text. Desktop has scenario navigation, consultation, and evidence inspector; at tablet width the inspector moves below the session, and at phone width scenarios become a horizontal selector.
+Single system sans family with Chinese fallbacks. 14px base, 20px page title, 16px conversation text (15px on mobile). The default screen is one centered conversation, up to 860px wide. Only voice on/off, stop, playback speed and text submission remain beside the composer. Settings and evidence are separate, initially hidden right panels. On large screens the open panel narrows the conversation; on smaller screens it overlays, with an explicit close control and backdrop. Measurements, provenance, profile, TODOs, history and rehearsal tools stay available through progressive disclosure.
 
 ## Components and behavior
 
-Native buttons, selects, textarea and disclosures. 8–12px radii, solid separators, no decorative shadows. Muted controls still use readable contrast. 180ms state transitions, reduced-motion support and visible keyboard focus. Loading, cancellation, service errors, unavailable microphone and text-only playback confirmations have explicit states.
+Native buttons, selects, textarea and disclosures. 8–14px radii, solid separators, no decorative shadows. Muted controls still use readable contrast. 180ms state transitions, reduced-motion support and visible keyboard focus. Continuous microphone status and partial transcription are visible in the composer. Local sustained speech pauses playback; recognized substantive speech cancels the old generation, while backchannels and likely echo resume it. Loading, cancellation, service errors, unavailable microphone and text-only playback confirmations have explicit states.
 
 ## Content rules
 

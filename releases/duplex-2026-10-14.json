@@ -1,0 +1,56 @@
+{
+  "tag": "v0.3.0-duplex-20261014",
+  "core_tag": "v0.1.0-core-20261014",
+  "date": "2026-10-14",
+  "tests": {
+    "python": 143,
+    "node": 7
+  },
+  "core_verified": true,
+  "interface": "single-column; optional settings and evidence panels",
+  "speech": {
+    "persistent_media_stream": true,
+    "cloud_asr_llm_tts_verified": true,
+    "test_provider": "qwen-comparison",
+    "input": "synthetic MediaStream",
+    "get_user_media_calls": 1,
+    "voice_turns": 2,
+    "interrupted_old_answer": true,
+    "old_unplayed_quote_excluded": true,
+    "corrected_yearly_quote": 971,
+    "asr_renewal_observed": true,
+    "microphone_released_on_stop": true,
+    "vad_pause_s": 0.1598,
+    "asr_confirm_s": 0.8941,
+    "human_aec_tested": false,
+    "live_deepseek_tested": false
+  },
+  "browser": {
+    "desktop": "1440x1000",
+    "mobile": "390x844",
+    "page_errors": 0,
+    "horizontal_overflow": false,
+    "production_csp_verified": true
+  },
+  "hash_normalization": "CRLF normalized to LF",
+  "files": {
+    "DESIGN.md": "a86fa63077f8a328e0df6b80a41a60c9a868535df217f1367b63dd876d000241",
+    "docs/33-简洁界面与持续语音交互.md": "fc42efd66382bb789d8da80c94d02d51159b458120c1ec9e9af364c83051f0dd",
+    "PRODUCT.md": "7e15cb47ad21fc09184ce0450cf02a0c6975225884a64194f861cf7e74cc8a5e",
+    "scripts/package_submission.py": "000a4c9a092ea6c0c6d0c1f5e82779779f79fba009b7f792a99530d1526761ff",
+    "scripts/reproduce_duplex.py": "2aeac7b2340f95f654272dabcc2322b488a7bd5bbc880de9222abf41a026ccc5",
+    "src/demo/__init__.py": "6b49c2e5f38d61dab2231e1ec6618c1157d74a30fd644dbbd9b3b0c49c2bfb5a",
+    "src/demo/app.py": "8e735907159d2f7a265d35ca5fbecb82021b320296c181c10b754e1041904cfa",
+    "src/demo/service.py": "fa566271756b60f1abd38b679be28632a35e48f1f1d0e1848f327b5aa1a38c55",
+    "src/demo/source_compat.py": "f418d2719f6ba4d7e15c5c90d61ea7ba7e9ab74d8c4183f41f4a320f4a2f2cc5",
+    "src/demo/telemetry.py": "72930c8cc6ca5b4e7112499ad4d1d384cea35d71b1ef24933032969baf9c874c",
+    "tests/duplex.test.cjs": "ca28aa424f28fd6e35a2b3eff10420d05ad9dcd19a0be77f6d7cae578d881a8c",
+    "tests/test_demo_observations.py": "7920cc4a5baa6efc73d16a2ea114b930eb9abd25da21ebbf9d5b70e1a2806ab8",
+    "web/app.js": "aa778e8d624686afa145a27b44529f18d18c8af6a689759ba5b460e85c505d5e",
+    "web/duplex.js": "42d7e91c8480b9e0a35fe01e86cfdcad4d12d87ba4d2c54bbf550003b83aa15a",
+    "web/favicon.svg": "356fd9eeaa71b02acee8c3eb7ac25d7c73c8401129fc117f84a5f21c80286866",
+    "web/index.html": "e466939ef0e113811849307a2eda494fc8643cecb947c1193bc45908a5bd6a40",
+    "web/microphone.js": "81d631609ddf577bacd9053613fe389bfffbe69e88f77dcef81b02b0a36010db",
+    "web/style.css": "6203c84516e608d6769239c9f851f9d4201f9750360005fb781dbaf20ffbfe14"
+  }
+}

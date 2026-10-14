@@ -2,56 +2,56 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="保险复杂咨询演示台：连续提问、条件更正、来源核对和语音交互。">
-  <title>知保 · 复杂咨询演示台</title>
+  <meta name="description" content="保险咨询：持续语音对话、自然插话、条件更正与原文核对。">
+  <title>知保 · 语音咨询</title>
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/duplex.js" defer></script>
   <script src="/assets/app.js" defer></script>
 </head>
 <body>
   <header class="topbar">
-    <a class="brand" href="/" aria-label="知保演示台首页"><span class="brand-mark">知</span><span>知保 <span class="brand-sub">咨询演示台</span></span></a>
-    <div class="top-actions"><span id="connection" class="connection">正在连接</span><button id="export" class="quiet">导出会话</button><button id="new-session" class="outline">新建会话</button></div>
+    <a class="brand" href="/" aria-label="知保首页"><span class="brand-mark">知</span><span>知保</span></a>
+    <div class="top-actions"><span id="connection" class="connection">正在连接</span><button id="open-settings" class="quiet" aria-controls="settings-panel" aria-expanded="false">设置</button><button id="open-inspector" class="quiet" aria-controls="inspector" aria-expanded="false">核对记录</button><button id="new-session" class="outline">新会话</button></div>
   </header>
   <main class="workspace">
-    <aside class="scenarios" aria-label="演示场景">
-      <div class="sidebar-heading"><h2>演示场景</h2><span>从一段咨询开始</span></div>
-      <nav id="scenarios"></nav>
-      <div class="session-settings">
-        <label for="mode">运行方式</label><select id="mode"><option value="replay">录制回放 · 无需云服务</option><option value="deepseek">实时咨询 · DeepSeek</option><option value="qwen">实时咨询 · Qwen 对照</option></select>
-        <label class="check"><input type="checkbox" id="speak" checked><span>朗读回答</span></label>
-        <label class="check"><input type="checkbox" id="cloud-voice" checked><span>使用云端语音</span></label>
-        <label for="playback-rate" class="speed-label">回答播放速度</label><select id="playback-rate"><option value="0.75">0.75 × · 慢速</option><option value="1" selected>1 × · 原速</option><option value="1.25">1.25 ×</option><option value="1.5">1.5 ×</option><option value="2">2 × · 快速</option></select>
-        <label class="check"><input type="checkbox" id="auto-send" checked><span>说完自动发送</span></label>
-        <p id="mode-note">正在载入演示配置。</p>
-      </div>
-      <div class="release"><span>核心冻结版</span><strong>2026.10.14</strong><small id="release-tag">v0.1.0-core-20261014</small></div>
-      <div class="rehearsal"><span>陈为 · 个人参赛</span><p id="rehearsal-time">总结呈现 · 03:00</p><button id="timer-toggle" class="outline">开始15分钟演练</button><button id="timer-reset" class="quiet">重置</button></div>
-    </aside>
     <section class="conversation" aria-label="咨询会话">
-      <div class="conversation-heading"><div><h1 id="scenario-title">现场自由提问</h1><p id="scenario-subtitle">语音提问，实时回答。每轮都有耗时与依据。</p></div><span id="session-mode" class="mode-label">准备连接</span></div>
+      <div class="conversation-heading"><div><h1 id="scenario-title">保险咨询</h1><p id="scenario-subtitle">保费、保障与理赔条件，都可以接着问。</p></div><span id="session-mode" class="mode-label">准备连接</span></div>
       <div id="messages" class="messages" role="log" aria-label="会话消息" aria-live="polite">
-        <div class="welcome" id="welcome"><span class="welcome-symbol">问</span><h2>把复杂问题，问清楚。</h2><p>从保费到理赔条件，看看助手如何跟进每个问题。右侧可以核对已确认信息、未完成事项和回答依据。</p><div class="welcome-note">回放保留原始实验中的失败与局限。实时咨询使用当前冻结链路。</div></div>
+        <div class="welcome" id="welcome"><h2>直接说，随时插话。</h2><p>开启语音后，麦克风持续监听。<br>也可以输入问题，或更正刚才的条件。</p><div class="welcome-note">每轮答复的依据和耗时，都在“核对记录”中。</div></div>
       </div>
       <div class="composer-wrap">
         <div id="notice" class="notice" role="status" hidden></div>
+        <div id="voice-status" class="voice-status" role="status"><span class="voice-dot"></span><span id="voice-state">语音未开启</span><span id="live-transcript" class="live-transcript"></span></div>
         <div id="suggestions" class="suggestions"></div>
-        <form id="composer" class="composer"><label class="sr-only" for="question">咨询问题</label><textarea id="question" rows="2" maxlength="2000" placeholder="输入问题，也可以补充或更正刚才的条件…"></textarea><div class="composer-actions"><div class="voice-actions"><button type="button" id="microphone" class="quiet" title="开始录音会显式停止当前播报">开始说话</button><button type="button" id="stop" class="quiet" disabled>停止回答</button><button type="button" id="seen" class="quiet" hidden>已读完，继续咨询</button></div><button id="send" type="submit" class="primary">发送问题 <span aria-hidden="true">↑</span></button></div></form>
-        <p class="composer-note" id="composer-note">麦克风与自动朗读可能需要浏览器授权。录音按钮采用显式打断。</p>
+        <form id="composer" class="composer"><label class="sr-only" for="question">咨询问题</label><textarea id="question" rows="1" maxlength="2000" placeholder="输入问题，或者开启语音…"></textarea><div class="composer-actions"><div class="voice-actions"><button type="button" id="microphone" class="primary">开启语音</button><button type="button" id="stop" class="quiet" disabled>停止回答</button><button type="button" id="seen" class="quiet" hidden>已读完</button></div><div class="send-actions"><label class="sr-only" for="playback-rate">回答播放速度</label><select id="playback-rate" aria-label="回答播放速度"><option value="0.75">0.75 ×</option><option value="1" selected>1 ×</option><option value="1.25">1.25 ×</option><option value="1.5">1.5 ×</option><option value="2">2 ×</option></select><button id="send" type="submit" class="outline">发送</button></div></div></form>
+        <p class="composer-note" id="composer-note">开启后可以边听边说。点击结束语音会释放麦克风。</p>
       </div>
     </section>
-    <aside class="inspector" aria-label="会话核对">
-      <div class="inspector-heading"><h2>会话核对</h2><span id="stage">准备回放</span></div>
-      <div class="inspector-content"><section><h3>已确认信息</h3><dl id="profile" class="facts"><div class="empty">随咨询补充年龄、医保等信息。</div></dl></section>
-        <section><div class="section-title"><h3>咨询待办</h3><span id="task-count">0</span></div><div id="tasks" class="tasks"><p class="empty">问题和未确认条件会保留在这里。</p></div></section>
-        <section><h3>本轮实测耗时</h3><dl id="latency" class="facts"><div class="empty">提问后实时展示。并行阶段不能相加。</div></dl><div id="timeline" class="timeline"></div><p class="measurement-note">首声与播完由浏览器事件计时；回放耗时单独标注。</p></section>
-        <section><h3>本轮回答依据</h3><div id="citations"><p class="empty">业务回答后可展开查看原文依据。</p></div></section>
-        <details class="trace" id="history-details"><summary>完整对话记录 <span id="history-count">0轮</span></summary><div id="history-log"><p class="empty">包括问题、生成正文、实际已播、耗时与来源。</p></div></details>
-        <details class="trace"><summary>处理记录</summary><pre id="events">开始咨询后显示处理过程。</pre></details>
-        <details class="limits"><summary>当前版本的验证范围</summary><p>复杂题正确处理26/30（86.7%）；复杂完整回答超过10秒。自然打断、来源支持和安全人工路由仍有缺口。</p><p>规划修复通过124项测试和5个真实模型用例，完整语音待复测。保存人工请求不代表已接通，短信发送尚未集成。</p><p>网页的句尾播放回执用于会话状态管理，不等价于声学DAC或真人电话验收。</p></details>
+    <aside id="settings-panel" class="side-panel" aria-label="咨询设置" hidden>
+      <div class="panel-heading"><h2>咨询设置</h2><button class="quiet" data-close-panel>关闭</button></div>
+      <div class="panel-content">
+        <div class="session-settings"><label for="mode">运行方式</label><select id="mode"><option value="replay">录制回放</option><option value="deepseek">实时 · DeepSeek</option><option value="qwen">实时 · Qwen 对照</option></select><p id="mode-note">正在载入配置。</p>
+          <label class="check"><input type="checkbox" id="speak" checked><span>朗读回答</span></label><label class="check"><input type="checkbox" id="cloud-voice" checked><span>云端语音</span></label><label class="check"><input type="checkbox" id="auto-send" checked><span>说完自动提交</span></label>
+        </div>
+        <section class="scenario-list"><h3>示例问题</h3><nav id="scenarios"></nav></section>
+        <details class="rehearsal"><summary>答辩演练 · 陈为</summary><p id="rehearsal-time">总结呈现 · 03:00</p><button id="timer-toggle" class="outline">开始15分钟演练</button><button id="timer-reset" class="quiet">重置</button></details>
+        <p class="release">冻结核心 <span id="release-tag">v0.1.0-core-20261014</span></p>
+      </div>
+    </aside>
+    <aside id="inspector" class="side-panel inspector" aria-label="会话核对" hidden>
+      <div class="panel-heading"><h2>核对记录</h2><button class="quiet" data-close-panel>关闭</button></div>
+      <div class="panel-content inspector-content"><div class="inspector-tools"><span id="stage">准备咨询</span><button id="export" class="outline">导出JSON</button></div>
+        <section><h3>本轮耗时</h3><dl id="latency" class="facts"><div class="empty">提问后记录，展开可看并行阶段。</div></dl><details><summary>全部处理阶段</summary><div id="timeline" class="timeline"></div></details><p class="measurement-note">浏览器播放事件计时，不等于声学DAC验收。并行阶段不可相加。</p></section>
+        <section><h3>回答依据</h3><div id="citations"><p class="empty">答复后可展开原文和定位。</p></div></section>
+        <details class="trace"><summary>已确认信息与咨询待办 <span id="task-count">0</span></summary><dl id="profile" class="facts"></dl><div id="tasks" class="tasks"></div></details>
+        <details class="trace" id="history-details"><summary>完整对话 <span id="history-count">0轮</span></summary><div id="history-log"></div></details>
+        <details class="trace"><summary>处理记录</summary><pre id="events">开始咨询后显示。</pre></details>
+        <details class="limits"><summary>验证范围</summary><p>复杂题正确处理26/30（86.7%），复杂完整回答超过10秒。来源支持、安全路由和自然打断的正式验收仍有缺口。</p><p>网页持续收音、VAD暂停和ASR确认插话不等于真人物理AEC已达标。使用耳机可减少外放回声，现场仍需预演。</p><p>人工和短信只记录请求，未实际接通或发送。</p></details>
       </div>
     </aside>
   </main>
-  <dialog id="reset-dialog"><h2>开始新会话？</h2><p>当前问题和条件不会带入新会话。需要保留记录，可以先导出。</p><div class="dialog-actions"><button id="reset-cancel" class="outline">继续当前会话</button><button id="reset-confirm" class="primary">开始新会话</button></div></dialog>
+  <button id="panel-backdrop" class="panel-backdrop" aria-label="关闭侧栏" hidden></button>
+  <dialog id="reset-dialog"><h2>开始新会话？</h2><p>新会话会清空当前条件。需要保留记录，可以先导出。</p><div class="dialog-actions"><button id="reset-cancel" class="outline">继续当前会话</button><button id="reset-confirm" class="primary">开始新会话</button></div></dialog>
 </body>
 </html>

@@ -16,6 +16,18 @@ from demo.telemetry import Timeline, ObservedClient
 
 
 class ObservationsTest(unittest.TestCase):
+    def test_voice_observations_are_bounded_and_do_not_mutate_business_history(self):
+        session=DemoSession()
+        self.assertFalse(session.voice_event(0,{'type':'invalid'}))
+        self.assertFalse(session.voice_event(9,'microphone_on'))
+        self.assertTrue(session.voice_event(0,'microphone_on'))
+        session.cancelled.set()
+        self.assertTrue(session.voice_event(0,'confirmed_interrupt','我没有医保',{'barge_confirm_s':.24,'untrusted':'x'}))
+        self.assertEqual(session.snapshot()['history'],[])
+        self.assertEqual(session.export()['voice_events'][-1]['metrics'],{'barge_confirm_s':.24})
+        for _ in range(600):session.voice_event(0,'asr_renew')
+        self.assertEqual(len(session.export()['voice_events']),512)
+
     def test_cancelled_synthesis_cannot_overlap_next_question_on_same_connection(self):
         session=DemoSession();entered=threading.Event();release=threading.Event();cancelled=threading.Event()
         order=[]

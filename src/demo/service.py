@@ -23,7 +23,7 @@ from demo.telemetry import Timeline, ObservedPipeline
 ROOT = Path(__file__).resolve().parents[2]
 REPLAY = ROOT / 'experiments/results/exp44_voice_current/voice'
 CORE_TAG = 'v0.1.0-core-20261014'
-DEMO_TAG = 'v0.2.0-defense-20261014'
+DEMO_TAG = 'v0.3.0-duplex-20261014'
 SCENARIOS = [
     {'id':'free','name':'现场自由提问','description':'评委提出新问题，实时识别、回答并查看全过程。','mode':'live'},
     {'id':'replay','name':'完整对话回放','description':'7轮已保存的真实实验，离线查看报价、更正与人工请求。','mode':'replay'},
@@ -125,6 +125,7 @@ class DemoSession:
         self.connected=False
         self.last_seen=time.monotonic()
         self.log=[]
+        self.voice_events=[]
         self.tts=None
         self.tts_lock=threading.Lock()
         self._generation_committed=False
@@ -152,7 +153,7 @@ class DemoSession:
                 'next_question':next_row['question'] if next_row else None,
                 'replay_step':self.replay_index,'turn_id':self.turn_id,
                 'played_text':self.heard(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG,
-                'turns':deepcopy(self.log)}
+                'turns':deepcopy(self.log),'voice_events':deepcopy(self.voice_events[-64:])}
 
     def receipt(self,turn,index):
         if turn!=self.turn_id or self.cancelled.is_set():
@@ -171,7 +172,7 @@ class DemoSession:
     def browser_metric(self, turn, data):
         if turn!=self.turn_id or not self.current_record or self.cancelled.is_set():return False
         import math
-        allowed=('first_sound_s','first_business_sound_s','playback_end_s','recording_s','asr_connect_s','asr_finalize_s','rate')
+        allowed=('first_sound_s','first_business_sound_s','playback_end_s','recording_s','asr_connect_s','asr_finalize_s','asr_endpoint_s','rate')
         valid={k:float(v) for k,v in data.items() if k in allowed and type(v) in (int,float)
                and math.isfinite(v) and 0<=v<=600}
         self.current_record.setdefault('browser_metrics',{}).update(valid)
@@ -198,8 +199,20 @@ class DemoSession:
             if self.timeline:self.current_record['stages']=self.timeline.snapshot()
 
     def export(self):
-        return {'session':self.snapshot(),'turns':deepcopy(self.log),
+        return {'session':self.snapshot(),'turns':deepcopy(self.log),'voice_events':deepcopy(self.voice_events),
                 'note':'回放为exp44历史记录；浏览器播放回执不是声学DAC验收。' }
+
+    def voice_event(self,turn,kind,text='',metrics=None):
+        allowed={'microphone_on','microphone_off','speech_pause','confirmed_interrupt','backchannel','echo','stop_only','asr_renew'}
+        if not isinstance(kind,str) or kind not in allowed or type(turn) is not int or turn!=self.turn_id:return False
+        if not isinstance(text,str) or len(text)>2000:return False
+        import math
+        clean={k:float(v) for k,v in (metrics or {}).items() if k in ('vad_pause_s','barge_confirm_s')
+               and type(v) in (int,float) and math.isfinite(v) and 0<=v<=600}
+        self.voice_events.append({'turn':turn,'kind':kind,'text':text,'metrics':clean,
+                                  'source':'browser','time':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime())})
+        self.voice_events=self.voice_events[-512:]
+        return True
 
     def synthesize(self,text,check,timeline,index):
         # A cancelled asyncio task cannot stop a blocking synth call. Serialize

@@ -9,12 +9,12 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 ROOT=Path(__file__).resolve().parents[1]
-TAG='v0.2.0-defense-20261014'
-PREFIX='ChenWei-InsuranceVoiceAgent-20261014'
+TAG='v0.3.0-duplex-20261014'
+PREFIX='ChenWei-InsuranceVoiceAgent-Duplex-20261014'
 
 README='''# 陈为｜保险复杂咨询语音 Agent
 
-个人参赛；命题OPEN-JS-01。演示版本v0.2.0-defense-20261014，核心v0.1.0-core-20261014。
+个人参赛；命题OPEN-JS-01。演示版本v0.3.0-duplex-20261014，核心v0.1.0-core-20261014。
 
 先看 docs/31-陈为个人参赛答辩与提交说明.md：3分钟总结、7分钟现场演示、5分钟答辩准备。
 正式指标见 docs/24-当前指标与验收口径.md；新包装不改变未达标项。
@@ -25,13 +25,13 @@ materials/ 保留截图和真实云连通结果；Qwen对照和合成麦克风�
 1. 解压整个包，不要只复制网页。安装Python（推荐3.12或更高版本）。
 2. 在解压目录执行 python scripts/verify_package.py 和 python scripts/verify_freeze.py。
 3. 执行 python -m pip install -r requirements-demo.txt（首次安装需要网络）。
-4. 执行 python -m unittest discover -s tests -q，预期142项通过。
+4. 执行 python -m unittest discover -s tests -q，预期143项通过；另可用Node运行 node --test tests/duplex.test.cjs（7项）。
 5. 执行 python scripts/run_demo.py，打开 http://127.0.0.1:8080。
 6. 无密钥时可顺序播放7轮已保存实验。T06失败和T07人工通知按原记录保留。
 7. 要现场问新问题，复制.env.demo.example为.env.demo并填写DeepSeek、Qwen、腾讯ASR配置。
    执行 python scripts/check_demo.py 检查配置，然后重启服务。默认DeepSeek，Qwen只是主动选择的对照。
    Windows若Python TLS异常，可使用 python scripts/run_demo.py --native-https。
-8. 语音需localhost或HTTPS、麦克风授权。每轮点击开始说话；默认在ASR判定句段结束后自动发送。
+8. 语音需localhost或HTTPS、麦克风授权。点击一次开启语音后持续收音，播报中可直接插话；默认在ASR句段结束后自动发送。
    可关自动发送，先核对文字再提交。播放速度0.75–2倍；网页查看耗时、来源、已播与生成记录并导出。
 
 ## 复核实测数据
@@ -45,7 +45,7 @@ experiments/results/exp44_voice_current/voice/ 是7轮真实云服务语音实�
 ## 当前边界
 
 复杂题26/30=86.7%，未达90%；复杂整轮播完仍超10秒。附和/回声误停、来源支持和人工漏转未清零。
-短信、真实人工接通、理赔进度接口未集成。浏览器回执不是DAC/声学验收，录音按钮为显式打断。
+短信、真实人工接通、理赔进度接口未集成。浏览器回执不是DAC/声学验收，持续收音、插话暂停与取消已有实测；真人自然打断与物理AEC仍待验收。
 当前机器尚缺DeepSeek密钥，答辩版DeepSeek完整现场链路待补配置预演；不能用Qwen成绩替代。
 Docker配置提供但未实际构建；直接依赖固定，不保证传递依赖或外部模型版本永久不变。
 外部服务的实时新结果可能与已保存实验不同。关闭服务会丢失内存会话，结束前导出JSON。
@@ -71,6 +71,8 @@ def selected_files():
 
 
 def demonstration_report():
+    latest=ROOT/'demo-runtime/continuous-browser-check.json'
+    if latest.exists():return duplex_report(latest)
     evidence_path=ROOT/'demo-runtime/defense-voice-check.json'
     if not evidence_path.exists():return None
     evidence=json.loads(evidence_path.read_text(encoding='utf-8'))
@@ -107,13 +109,45 @@ def demonstration_report():
       '<a href="http://127.0.0.1:8080/">本地演示台</a>。配置DeepSeek后可提出新问题；无需密钥可回放exp44。</p></html>').encode('utf-8')
 
 
+def duplex_report(path):
+    evidence=json.loads(path.read_text(encoding='utf-8'))
+    turns=evidence['export']['turns'];events=evidence['export']['voice_events']
+    conversation=''.join('<section><h2>第'+str(t['turn'])+'轮'+(' · 被插话取消' if t.get('cancelled') else '')+
+      '</h2><p><strong>识别问题：</strong>'+html.escape(t['question'])+'</p><p><strong>生成答复：</strong>'+html.escape(t['response'])+
+      '</p><p><strong>已播文本：</strong>'+html.escape(t['heard'])+'</p></section>' for t in turns)
+    observations=''.join('<tr><td>'+html.escape(e['kind'])+'</td><td>'+html.escape(e['text'])+'</td><td>'+
+      html.escape(json.dumps(e['metrics'],ensure_ascii=False))+'</td></tr>' for e in events)
+    last=turns[-1];metrics=last['browser_metrics']
+    sources=''.join('<details><summary>'+html.escape(c['id'])+'</summary><pre>'+html.escape(c.get('quote',''))+'</pre><pre>'+
+       html.escape(json.dumps(c.get('location',{}),ensure_ascii=False,indent=2))+'</pre></details>' for c in last['trace'].get('citations',[]))
+    return ('<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+      '<title>陈为｜持续语音演示材料</title><style>body{max-width:900px;margin:40px auto;padding:0 24px;font:16px/1.85 "Microsoft YaHei",system-ui;color:#292426}'
+      'h1{font-size:30px}h2{font-size:21px;margin-top:32px}table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #ddd;padding:10px;text-align:left}'
+      'pre{white-space:pre-wrap;overflow-wrap:anywhere;font:13px/1.7 "Microsoft YaHei",system-ui}a{color:#b60043}img{max-width:100%}</style>'
+      '<h1>一次开启，持续对话与插话</h1><p>陈为 · 个人参赛 · OPEN-JS-01 · v0.3.0-duplex-20261014</p>'
+      '<p>默认单列对话，设置和核对数据按需展开。一次开启麦克风，在AI播报时直接更正医保条件，取消旧回答并重新报价。</p>'
+      '<p>本材料使用真实腾讯ASR、Qwen对照和云TTS，输入通过合成音频注入MediaStream。现场主模型仍选择DeepSeek，当前密钥待补。没有真人AEC或正式自然打断成功率达标声明。</p>'
+      +conversation+'<h2>持续语音与插话观察</h2><p>getUserMedia调用一次、开启语音一次；同一音轨跨两轮与一次ASR续期，结束语音后释放。'
+      '本地人声候选暂停约0.160秒，ASR文本确认插话约0.894秒；起点为浏览器音量候选，不是声学验收计时。</p><table><tr><th>事件</th><th>识别文本</th><th>秒</th></tr>'+observations+'</table>'
+      '<h2>第二轮时延与溯源</h2><p>原速承接首声'+format(metrics['first_sound_s'],'.2f')+'秒，业务正文首声'+format(metrics['first_business_sound_s'],'.2f')+
+      '秒，整轮播完'+format(metrics['playback_end_s'],'.2f')+'秒；从文本提交起算，浏览器事件不等于实际DAC。全部调用和计时在JSON中保留。</p>'+sources+
+      '<h2>正式指标仍未全部通过</h2><p>exp44复杂题26/30＝86.7%，低于90%；复杂整轮≤10秒、逐条来源支持、安全路由、真人自然打断与物理AEC仍有缺口。'
+      '143项Python测试、7项Node状态测试和冻结哈希通过，不替代业务达标。</p>'
+      '<p><a href="continuous-voice-qwen.json">完整持续语音实测JSON</a> · <a href="../docs/33-简洁界面与持续语音交互.md">实现与验证范围</a> · '
+      '<a href="../docs/31-陈为个人参赛答辩与提交说明.md">讲稿与答辩准备</a> · <a href="../SUBMISSION_README.md">复现步骤</a></p>'
+      '<h2>新界面</h2><img src="screenshots/continuous-desktop.png" alt="持续语音简洁对话界面"><p>核对记录保持可展开；默认不挤占会话。</p>'
+      '<p>运行 python scripts/run_demo.py，打开 <a href="http://127.0.0.1:8080/">本地演示台</a>。DeepSeek需填写本地配置并重启；无密钥可离线回放。</p></html>').encode('utf-8')
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--output',default='demo-runtime/submission')
     args=parser.parse_args();out=(ROOT/args.output).resolve();out.mkdir(parents=True,exist_ok=True)
     payload=dict(selected_files())
     payload['SUBMISSION_README.md']=README.encode('utf-8')
     optional={'defense-live.png':'screenshots/live.png','defense-mobile-final.png':'screenshots/mobile.png',
-              'defense-browser-live.json':'browser-live-quote-qwen.json','defense-voice-check.json':'synthetic-voice-qwen.json'}
+              'defense-browser-live.json':'browser-live-quote-qwen.json','defense-voice-check.json':'synthetic-voice-qwen.json',
+              'continuous-browser-check.json':'continuous-voice-qwen.json','continuous-desktop-final.png':'screenshots/continuous-desktop.png',
+              'continuous-inspector-final.png':'screenshots/continuous-inspector.png','continuous-mobile-final.png':'screenshots/continuous-mobile.png'}
     for source,target in optional.items():
         path=ROOT/'demo-runtime'/source
         if path.exists():payload['materials/'+target]=path.read_bytes()
