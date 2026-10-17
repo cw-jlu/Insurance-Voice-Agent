@@ -6,6 +6,7 @@ import base64
 import io
 import json
 import os
+import re
 import threading
 import time
 import uuid
@@ -17,8 +18,12 @@ from pathlib import Path
 from agent import cloud
 from agent.evidence_answer import EvidenceAnswerer, grouped_evidence, source_registry
 from agent.evidence_pipeline import EvidencePipeline
-from agent.session import CallSession, HANDOFF, LINK_SENT, _sentences
+from agent.session import CallSession, TurnResult, HANDOFF, LINK_SENT, _sentences
+from agent import consultation as consult
+from agent.speech import extract_slots
 from demo.telemetry import Timeline, ObservedPipeline
+from demo.speech import OUTBOUND_OPENING, PRODUCT_INTRO, PRODUCT_DETAIL, SpeechCache, SpeechNotPreparedError, WebRealtimeTTS
+from demo.outbound import ACK, CLARIFY, select_action, script_remainder
 
 ROOT = Path(__file__).resolve().parents[2]
 REPLAY = ROOT / 'experiments/results/exp44_voice_current/voice'
@@ -47,7 +52,7 @@ def capabilities():
 
 class WebAnswerer(EvidenceAnswerer):
     def __init__(self,client,model):
-        super().__init__(client)
+        super().__init__(client.with_options(timeout=12,max_retries=0))
         self.model=model
         self._context=threading.local()
 
@@ -83,6 +88,7 @@ def clone(session):
 
 
 def demo_text(text):
+    text=text.replace('请问是给您自己买，还是给家人买？','请问您是为自己了解，还是帮家人了解？')
     for old,new in zip(_sentences(LINK_SENT),(
             '演示环境已记录投保链接请求，短信服务尚未接入。',
             '投保仍需在真实渠道完成健康告知。','本次演示到这里，感谢您的时间。')):
@@ -92,6 +98,18 @@ def demo_text(text):
             '后续仍需通过真实客服渠道核实。')):
         text=text.replace(old,new)
     return text
+
+
+def fixed_speech():
+    from agent.fast_lane import FAST_PHRASES
+    from agent.session import ASK, ASK_LINK, LIMITS, DISCLOSURE, RETAIN, GOODBYE, POST_HANDOFF
+    texts=[OUTBOUND_OPENING,PRODUCT_INTRO,PRODUCT_DETAIL,ACK,CLARIFY,'这部分已经介绍完了，您想具体了解哪一点？',
+           '保费主要按被保人的年龄和医保情况核对。请问被保人今年多少周岁？',
+           '请问被保人有基本医保吗？',
+           '请问您是首次投保必选计划个人单，还是续保、重新投保或其他计划？',
+           *FAST_PHRASES,*[demo_text(t) for t in ASK.values()],LIMITS,DISCLOSURE,ASK_LINK,RETAIN,
+           GOODBYE,POST_HANDOFF,demo_text(LINK_SENT),demo_text(HANDOFF)]
+    return list(dict.fromkeys(sentence for text in texts for sentence in _sentences(text)))
 
 
 def wav_base64(pcm):
@@ -109,9 +127,14 @@ class Speech:
 
 
 class DemoSession:
-    def __init__(self,mode='replay',provider='deepseek',pipe=None):
+    def __init__(self,mode='replay',provider='deepseek',pipe=None,scenario='consultation',speech_cache=None):
         self.id=uuid.uuid4().hex
         self.mode,self.provider=mode,provider
+        self.scenario=scenario
+        self.opening_started=False
+        self.outbound_step=0
+        self._outbound_next_step=None
+        self.speech_cache=speech_cache or SpeechCache()
         self.pipe=pipe
         self.session=CallSession(pipe,voice=True,playback_tracking=True) if pipe is not None else None
         self.replay_index=0
@@ -131,6 +154,7 @@ class DemoSession:
         self._generation_committed=False
         self.timeline=None
         self.current_record=None
+        self.turn_timeout_s=18
 
     def replay_row(self,index=None):
         index=self.replay_index if index is None else index
@@ -150,6 +174,8 @@ class DemoSession:
             state=deepcopy(self.replay_state) or {'history':[],'profile':{},'consultation':{},'ended':False,'stage':'准备回放'}
         next_row=self.replay_row() if self.mode=='replay' else None
         return {**deepcopy(state),'id':self.id,'mode':self.mode,'provider':self.provider,
+                'scenario':self.scenario,'opening_started':self.opening_started,
+                'outbound_step':self.outbound_step,
                 'next_question':next_row['question'] if next_row else None,
                 'replay_step':self.replay_index,'turn_id':self.turn_id,
                 'played_text':self.heard(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG,
@@ -183,6 +209,9 @@ class DemoSession:
             heard=self.heard()
             self.session.confirm_playback(self.result.playback_id,heard,
                 complete=heard==self.result.text)
+            if heard==self.result.text and self._outbound_next_step is not None:
+                self.outbound_step=self._outbound_next_step
+                self._outbound_next_step=None
 
     def stop(self):
         if self.cancelled.is_set():return
@@ -190,9 +219,9 @@ class DemoSession:
         if self.session is not None:
             if self.result is not None:
                 self.session.interrupt_playback(self.result.playback_id)
-            elif self.active_text and not self._generation_committed:
+            elif not self._generation_committed and (self.active_text or self.heard()):
                 # Discard pending clone mutations, retaining actual user input and completed speech.
-                self.session.history.append(('用户',self.active_text))
+                if self.active_text:self.session.history.append(('用户',self.active_text))
                 if self.heard():self.session.history.append(('坐席',self.heard()))
         if self.current_record and not self.current_record.get('playback_complete'):
             self.current_record.update(heard=self.heard(),cancelled=True)
@@ -215,13 +244,23 @@ class DemoSession:
         return True
 
     def synthesize(self,text,check,timeline,index):
+        check()
+        with timeline.span('语音缓存读取',category='tts',sentence=index) as cached_stage:
+            cached=self.speech_cache.get(text)
+            cached_stage['cache_hit']=cached is not None
+        if cached is not None:
+            check()
+            return cached
+        if text in fixed_speech():
+            # Never make an opening wait on a cloud request. Preparation runs separately.
+            raise SpeechNotPreparedError('Fixed speech is not prepared')
         # A cancelled asyncio task cannot stop a blocking synth call. Serialize
         # connection use so its late audio never mixes with the next question.
         with self.tts_lock:
             check()
             if self.tts is None:
                 with timeline.span('语音服务连接',category='tts'):
-                    self.tts=cloud.RealtimeTTS()
+                    self.tts=WebRealtimeTTS()
             check()
             with timeline.span('语音合成',category='tts',sentence=index) as stage:
                 first,total,pcm=self.tts.synth(text)
@@ -233,9 +272,18 @@ class DemoSession:
         with self.tts_lock:
             if self.tts is not None:self.tts.close();self.tts=None
 
-    async def run(self,text,send,cloud_voice=False):
+    async def run(self,text,send,cloud_voice=False,opening=False):
         if self.session is not None and self.session.ended:
             raise ValueError('会话已结束，请新建会话。')
+        if opening:
+            if self.mode!='live' or self.scenario!='outbound' or self.session is None:
+                raise ValueError('请在实时主动推销场景中开始演示。')
+            if self.opening_started or self.turn_id:
+                raise ValueError('本会话已开始，请继续对话或新建会话。')
+            self.opening_started=True
+            text=''
+        elif self.scenario=='outbound' and not self.opening_started:
+            raise ValueError('请先点击“开始推销演示”，由AI主动开场。')
         row=self.replay_row() if self.mode=='replay' else None
         if self.mode=='replay' and (row is None or text!=row['question']):
             raise ValueError('回放只能依次播放已录制问题；自由提问请选择实时咨询。')
@@ -243,15 +291,18 @@ class DemoSession:
         epoch=self.turn_id
         cancelled=self.cancelled=threading.Event()
         self.speech=[];self.active_text=text;self.result=None;self._generation_committed=False
+        self._outbound_next_step=None
         self.current_record={'turn':epoch,'question':text,'response':'','heard':'','cancelled':False,
+                             'kind':'opening' if opening else 'turn','scenario':self.scenario,
                              'created_at':time.strftime('%Y-%m-%dT%H:%M:%SZ',time.gmtime()),'mode':self.mode,
                              'provider':self.provider,'browser_metrics':{},'stages':[]}
         self.log.append(self.current_record)
-        await send({'type':'turn_start','turn':epoch,'question':text})
+        await send({'type':'turn_start','turn':epoch,'question':text,'kind':'opening' if opening else 'turn'})
         begin=time.perf_counter()
         loop=asyncio.get_running_loop()
         queue=asyncio.Queue()
         candidate=clone(self.session) if self.session is not None else None
+        outbound_next_step=None
         timeline=self.timeline=Timeline(lambda entry:loop.call_soon_threadsafe(queue.put_nowait,{'stage':entry}))
         if candidate is not None and isinstance(self.pipe,EvidencePipeline):
             candidate.pipe=ObservedPipeline(self.pipe,timeline,WebAnswerer)
@@ -266,9 +317,72 @@ class DemoSession:
                 loop.call_soon_threadsafe(queue.put_nowait,{'sentence':sentence,'kind':kind})
 
         def generate():
+            nonlocal outbound_next_step
             try:
                 check()
                 if candidate is not None:
+                    if opening:
+                        with timeline.span('主动推销开场',category='phase'):
+                            candidate.opening()
+                            speech=OUTBOUND_OPENING
+                            # This browser demo has playback receipts, not a call recorder.
+                            candidate.flags['recording']=False
+                            candidate._playback_records[candidate._playback_active]['generated']=speech
+                            emit(speech)
+                        return TurnResult(speech,candidate.stage,'主动开场',['主动推销:开场'],
+                                          playback_id=candidate._playback_active)
+                    decision={'tool':'answer_question'}
+                    if self.scenario=='outbound':
+                        with timeline.span('小模型选择会话工具',category='phase') as dispatch_stage:
+                            decision=select_action(text,candidate,self.log[:-1],self.outbound_step,candidate.pipe.client)
+                            dispatch_stage['tool']=decision['tool']
+                        check()
+                        self.current_record['dispatch']=decision
+                    tool=decision['tool']
+                    if tool=='collect_quote_conditions':
+                        if not re.search(r'如果|假如|假设|要是|万一|比有|比没',text):
+                            candidate._update_profile(extract_slots(text))
+                        user_texts=[t for speaker,t in candidate.history if speaker=='用户']+[text]
+                        if candidate.profile.get('age') is None:
+                            speech='保费主要按被保人的年龄和医保情况核对。请问被保人今年多少周岁？'
+                        elif candidate.profile.get('has_social') is None:
+                            speech='请问被保人有基本医保吗？'
+                        elif not consult.quote_scope_known(candidate.profile,user_texts):
+                            speech='请问您是首次投保必选计划个人单，还是续保、重新投保或其他计划？'
+                        else:tool='answer_question'
+                        if tool=='collect_quote_conditions':
+                            candidate.stage='报价条件'
+                            if not consult.pending(candidate.consultation):
+                                candidate.consultation=consult.start(text,f'web-{epoch}')
+                            self.session.consultation=deepcopy(candidate.consultation)
+                    if tool!='answer_question':
+                        if tool=='collect_quote_conditions':pass
+                        elif tool=='play_script':
+                            script_id=decision['script_id']
+                            speech=script_remainder(script_id,self.log[:-1],decision.get('restart',False))
+                            if speech:
+                                self.current_record['script_id']=script_id
+                                candidate.stage='产品介绍' if script_id=='product_intro' else '保障介绍'
+                                outbound_next_step=max(self.outbound_step,1 if script_id=='product_intro' else 2)
+                            else:speech='这部分已经介绍完了，您想具体了解哪一点？'
+                        elif tool=='end_call':
+                            speech='好的，不打扰您了，祝您生活愉快，再见。'
+                            candidate.stage='结束';candidate.ended=True
+                        elif tool=='recall_question':
+                            index=decision.get('question_index')
+                            speech=('您刚才说的是：“'+candidate.history[index][1]+'”'
+                                    if index is not None else '您刚才是在让我继续介绍产品，还没有提出具体的保险问题。')
+                        else:speech=ACK if tool=='acknowledge' else CLARIFY
+                        candidate.history.append(('用户',text))
+                        candidate._begin_playback()
+                        timeline.business_ready=True
+                        candidate._say(speech)
+                        emit(speech)
+                        return TurnResult(speech,candidate.stage,tool,
+                                          ['主动推销:小模型调度:'+tool],
+                                          playback_id=candidate._playback_active)
+                    if self.scenario=='outbound' and not consult.pending(self.session.consultation):
+                        self.session.consultation=consult.start(text,f'web-pending-{epoch}')
                     return candidate.turn(text,on_sentence=emit,cancel_check=check)
                 for piece in _sentences(row['session_text']):emit(piece)
                 return None
@@ -279,7 +393,10 @@ class DemoSession:
         future=loop.run_in_executor(None,generate)
         try:
             while True:
-                piece=await queue.get()
+                remaining=self.turn_timeout_s-(time.perf_counter()-begin)
+                if remaining<=0 and not future.done():raise asyncio.TimeoutError
+                piece=(await asyncio.wait_for(queue.get(),max(remaining,0.01))
+                       if not future.done() else await queue.get())
                 if piece is None:break
                 check()
                 if epoch!=self.turn_id:return
@@ -295,10 +412,11 @@ class DemoSession:
                         pcm=await asyncio.to_thread(self.synthesize,piece,check,timeline,index)
                         check()
                         await send({'type':'audio','turn':epoch,'index':index,'wav':wav_base64(pcm)})
-                    except Exception:
+                    except Exception as exc:
                         if cancelled.is_set():break
                         await send({'type':'audio_fallback','turn':epoch,'index':index,
-                                    'message':'云语音暂不可用，此句可用浏览器朗读。'})
+                                    'message':('固定话术音频正在准备，本句先用浏览器朗读。' if isinstance(exc,SpeechNotPreparedError)
+                                               else '云语音暂不可用，此句可用浏览器朗读。')})
                         if self.tts is not None:
                             await asyncio.to_thread(self.close_tts)
                 else:
@@ -314,6 +432,7 @@ class DemoSession:
                     candidate.flags['link']=False
                     result.events.append('演示适配:未集成动作只记录请求')
                 self.session=candidate;self.result=result;self._generation_committed=True
+                self._outbound_next_step=outbound_next_step
                 self._commit_receipt()
                 detail=result.timings.get('answer_detail',{}).get('evidence_result',{})
                 citations=[]
@@ -350,6 +469,11 @@ class DemoSession:
                                        heard=self.heard(),playback_complete=all(s.received for s in self.speech))
             await send({'type':'turn_done','turn':epoch,'text':response,'trace':trace,
                         'elapsed_s':round(time.perf_counter()-begin,3),'state':self.snapshot()})
+        except asyncio.TimeoutError:
+            self.stop()
+            future.add_done_callback(lambda f:f.exception() if not f.cancelled() else None)
+            await send({'type':'error','message':'本轮核对超时，已暂停。您的问题已保留，可以补充条件或重试。',
+                        'state':self.snapshot()})
         except asyncio.CancelledError:
             cancelled.set()
             # Observe background completion without releasing its result or leaking an exception.
@@ -374,8 +498,16 @@ class DemoStore:
     def __init__(self):
         self.sessions={}
         self.evidence=None
+        self.speech_cache=SpeechCache()
 
-    def create(self,mode,provider):
+    def warm_speech(self):
+        self.speech_cache.warm(fixed_speech())
+
+    def create(self,mode,provider,scenario='consultation'):
+        if scenario not in ('consultation','outbound'):
+            raise ValueError('不支持的业务场景。')
+        if mode=='replay' and scenario=='outbound':
+            raise ValueError('主动推销演示需要选择实时模型，历史回放仅支持咨询。')
         now=time.monotonic()
         expired=[key for key,s in self.sessions.items() if not s.connected and now-s.last_seen>3600]
         for key in expired:self.sessions.pop(key)
@@ -398,8 +530,9 @@ class DemoStore:
                 import httpx
                 sys.path.insert(0,str(ROOT/'experiments'))
                 from windows_https_transport import WindowsHttpsTransport
-                client=client.with_options(http_client=httpx.Client(transport=WindowsHttpsTransport()))
+                client=client.with_options(http_client=httpx.Client(transport=WindowsHttpsTransport(total_timeout=12)),
+                                           timeout=12,max_retries=0)
             pipe=EvidencePipeline(self.evidence,client=client,answerer=WebAnswerer(client,model))
-        session=DemoSession(mode,provider,pipe)
+        session=DemoSession(mode,provider,pipe,scenario,self.speech_cache)
         self.sessions[session.id]=session
         return session

@@ -3,7 +3,7 @@ const $ = id => document.getElementById(id);
 const welcomeTemplate = $('welcome').cloneNode(true);
 const ui = {session:null, socket:null, scenarios:[], selected:'free', health:null,
   busy:false, turn:0, agent:null, speech:new Map(), queue:[], speaking:false,
-  audio:null, audioUrl:null, speechGeneration:0, done:false, microphone:null, pendingMode:null,
+  audio:null, audioUrl:null, speechGeneration:0, done:false, microphone:null, pendingMode:null, pendingScenario:null,
   turnStart:0, stages:new Map(), metrics:{}, inputMetrics:{}, finishedTrace:null, played:new Set(), sentenceCount:0,
   ducked:false, reference:'', cancelledTurn:null, stopWait:null, resolveStop:null, voiceSerial:Promise.resolve()};
 
@@ -36,10 +36,24 @@ function message(role,text){
   node.append(header,body,state);$('messages').append(node);scroll();return{node,body,state};
 }
 function scroll(){ $('messages').scrollTop=$('messages').scrollHeight; }
-function busy(value){ui.busy=value;$('send').disabled=value||!ui.session;$('stop').disabled=!value&&!ui.speaking;$('question').readOnly=ui.session?.mode==='replay';}
+function outboundPending(){return ui.session?.scenario==='outbound'&&!ui.session.opening_started;}
+function busy(value){
+  ui.busy=value;
+  const unavailable=!ui.session||ui.session.ended||ui.socket?.readyState!==WebSocket.OPEN;
+  $('send').disabled=value||unavailable||outboundPending();
+  $('start-outbound').disabled=value||unavailable||ui.session?.opening_started;
+  $('stop').disabled=!value&&!ui.speaking;
+  $('question').readOnly=ui.session?.mode==='replay'||outboundPending();
+}
 
 function renderState(state){
   ui.session=state;$('stage').textContent=state.stage||'咨询中';
+  const outbound=state.scenario==='outbound';
+  $('start-outbound').hidden=!outbound;
+  $('sales-stage').hidden=!outbound;
+  $('sales-stage').textContent=state.ended?'会话已结束':state.opening_started?`当前阶段 · ${state.stage}`:'等待 AI 主动开场';
+  $('start-outbound').textContent=state.opening_started?'已开始推销':'开始推销演示';
+  busy(ui.busy);
   $('session-mode').textContent=state.mode==='replay'?'历史回放':state.provider==='qwen'?'实时 · Qwen对照':'实时 · DeepSeek';
   $('profile').replaceChildren();const labels={age:'被保人年龄',has_social:'基本医保',relation:'被保人关系',gender:'性别',pay:'缴费方式',family_size:'家庭人数'};
   for(const [key,value] of Object.entries(state.profile||{})){
@@ -51,7 +65,7 @@ function renderState(state){
   $('task-count').textContent=String(tasks.filter(t=>!['answered','cancelled'].includes(t.status)).length);
   for(const task of tasks){const row=element('div','task');row.append(element('div','task-title',task.question),element('span',`task-status ${task.status}`,status[task.status]||'待处理'));$('tasks').append(row);}
   if(!tasks.length)$('tasks').append(element('p','empty','问题和未确认条件会保留在这里。'));
-  $('question').readOnly=state.mode==='replay';
+  $('question').readOnly=state.mode==='replay'||outboundPending();
   if(state.mode==='replay')$('question').value=state.next_question||'';
   renderSuggestions();
   renderHistory(state.turns||[]);
@@ -80,7 +94,7 @@ function renderLatency(){
 function renderHistory(turns){
   $('history-count').textContent=`${turns.length}轮`;$('history-log').replaceChildren();
   for(const turn of turns){
-    const d=element('details','history-turn');d.append(element('summary','',`${turn.turn}. ${turn.question}${turn.cancelled?' · 已停止':''}`));
+    const d=element('details','history-turn');d.append(element('summary','',`${turn.turn}. ${turn.kind==='opening'?'AI 主动开场':turn.question}${turn.cancelled?' · 已停止':''}`));
     d.append(element('p','history-label','生成正文'),element('p','',turn.response||'生成未完成'),element('p','history-label','已播完句子'),element('p','',turn.heard||'尚无句尾播放回执'));
     if(turn.trace){const button=element('button','outline','查看本轮耗时与溯源');button.type='button';button.onclick=()=>{ui.stages=new Map((turn.stages||[]).map(s=>[s.id,s]));ui.metrics={...turn.browser_metrics};renderTrace(turn.trace);};d.append(button);}
     $('history-log').append(d);
@@ -89,8 +103,10 @@ function renderHistory(turns){
 function renderSuggestions(){
   $('suggestions').replaceChildren();
   const scenario=ui.scenarios.find(s=>s.id===ui.selected);
-  const choices=ui.session?.mode==='replay'?(ui.session.next_question?['播放下一轮录制问题']:[]):(scenario?.questions||[]);
-  choices.forEach((text,index)=>{const b=element('button','suggestion',text);b.type='button';b.addEventListener('click',()=>{if(ui.session?.mode!=='replay')$('question').value=scenario.questions[index];$('question').focus();});$('suggestions').append(b);});
+  const outboundChoices=ui.session?.outbound_step===0?['嗯，可以可以。','现在不方便。','住院和靶向药分别怎么赔？']:ui.session?.outbound_step===1?['你继续介绍。','一般住院怎么赔？','不需要，谢谢。']:['我想了解保费。','给自己了解，35岁，有医保，首次投保必选计划个人单。','转人工客服。'];
+  const quoteChoices=ui.session?.profile?.age==null?['35岁。','58岁。']:ui.session?.profile?.has_social==null?['有医保。','没有医保。']:['首次投保必选计划个人单。','我是重新投保。'];
+  const choices=ui.session?.mode==='replay'?(ui.session.next_question?['播放下一轮录制问题']:[]):ui.session?.scenario==='outbound'?(ui.session.stage==='报价条件'?quoteChoices:outboundChoices):(scenario?.questions||[]);
+  choices.forEach(text=>{const b=element('button','suggestion',text);b.type='button';b.disabled=outboundPending();b.addEventListener('click',()=>{if(ui.session?.mode!=='replay')$('question').value=text;$('question').focus();});$('suggestions').append(b);});
   if(ui.session?.mode==='replay')$('send').firstChild.textContent=ui.session.next_question?'播放本轮 ':'回放结束 ';
   else $('send').firstChild.textContent='发送问题 ';
 }
@@ -186,7 +202,9 @@ function socketEvent(data){
     ui.played.clear();ui.sentenceCount=0;
     ui.stages.clear();ui.finishedTrace=null;ui.metrics={...ui.inputMetrics};ui.inputMetrics={};renderLatency();
     send({type:'browser_metrics',turn:data.turn,metrics:ui.metrics});
-    ui.turn=data.turn;ui.done=false;stopSpeech();message('user',data.question);ui.agent=message('agent','');ui.agent.node.classList.add('pending');ui.agent.state.textContent='正在理解问题并核对材料';busy(true);$('seen').hidden=true;return;
+    ui.turn=data.turn;ui.done=false;stopSpeech();
+    if(data.kind==='opening'){ui.session.opening_started=true;}else message('user',data.question);
+    ui.agent=message('agent','');ui.agent.node.classList.add('pending');ui.agent.state.textContent=data.kind==='opening'?'AI 正在主动开场':'正在理解问题并核对材料';busy(true);$('seen').hidden=true;return;
   }
   if(data.type==='stopped'){
     renderState(data.state);busy(false);ui.resolveStop?.(true);ui.stopWait=null;ui.resolveStop=null;return;
@@ -212,13 +230,15 @@ async function newSession(){
   ui.resolveStop?.(false);ui.stopWait=null;ui.resolveStop=null;ui.cancelledTurn=null;
   if(old)await request(`/api/sessions/${old.id}`,{method:'DELETE'}).catch(()=>{});
   const mode=$('mode').value;
+  const outbound=$('business-scenario').value==='outbound';
   const selected=ui.scenarios.find(s=>s.id===ui.selected);
   if(selected?.mode!==(mode==='replay'?'replay':'live'))ui.selected=mode==='replay'?'replay':'free';
   const scenario=ui.scenarios.find(s=>s.id===ui.selected);
-  $('scenario-title').textContent=mode==='replay'?'历史回放':'保险咨询';$('scenario-subtitle').textContent=mode==='replay'?'查看已保存实验；实时模式可以直接提问。':'保费、保障与理赔条件，都可以接着问。';
+  $('scenario-title').textContent=outbound?'主动推销演示':mode==='replay'?'历史回放':'保险咨询';$('scenario-subtitle').textContent=outbound?'场景：浏览广告后未投保的外呼回访。先确认是否方便，再了解需求。':mode==='replay'?'查看已保存实验；实时模式可以直接提问。':'保费、保障与理赔条件，都可以接着问。';
   document.querySelectorAll('.scenario').forEach(n=>n.classList.toggle('active',n.dataset.scenario===ui.selected));
-  ui.session=await request('/api/sessions',{method:'POST',body:JSON.stringify({mode:mode==='replay'?'replay':'live',provider:mode==='replay'?'deepseek':mode})});
+  ui.session=await request('/api/sessions',{method:'POST',body:JSON.stringify({mode:mode==='replay'?'replay':'live',provider:mode==='replay'?'deepseek':mode,scenario:$('business-scenario').value})});
   $('messages').replaceChildren(welcomeTemplate.cloneNode(true));ui.agent=null;ui.done=false;$('seen').hidden=true;note();
+  if(outbound){$('welcome').querySelector('h2').textContent='让 AI 先开口。';$('welcome').querySelector('p').textContent='点击“开始推销演示”，AI 会先说明来意，询问您是否方便继续。开启语音后可以直接回应，也可以随时提问或拒绝。';}
   ui.metrics={};ui.inputMetrics={};ui.stages.clear();ui.finishedTrace=null;renderLatency();
   $('citations').replaceChildren(element('p','empty','业务回答后可展开查看原文依据。'));$('events').textContent='开始咨询后显示处理过程。';
   const url=new URL(`/api/sessions/${ui.session.id}/ws`,location.href);url.protocol=location.protocol==='https:'?'wss:':'ws:';
@@ -232,6 +252,8 @@ async function newSession(){
 }
 function updateModeNote(){
   const replay=$('mode').value==='replay';
+  $('business-scenario').querySelector('[value="outbound"]').disabled=replay;
+  $('mode').querySelector('[value="replay"]').disabled=$('business-scenario').value==='outbound';
   $('mode-note').textContent=replay?'回放来自exp44原始记录，不调用模型。自由提问请切换实时模式。':$('mode').value==='qwen'?'当前使用Qwen对照回答，不代表冻结版DeepSeek成绩。':'实时使用冻结咨询链路，外部服务仍可能失败。';
   $('microphone').disabled=!ui.health?.capabilities.asr;
   $('cloud-voice').disabled=replay||!ui.health?.capabilities.cloud_tts;
@@ -240,11 +262,18 @@ function updateModeNote(){
 }
 async function submit(){
   const text=$('question').value.trim();if(!text||ui.busy)return;
+  if(outboundPending()){note('请先点击“开始推销演示”，由 AI 主动开场。');return;}
   if(ui.speaking)stopAnswer();
   if(ui.stopWait){const ok=await ui.stopWait;if(!ok){note('停止回执未到达，请检查连接后再发送。');return;}}
   note();send({type:'turn',text,cloud_voice:$('cloud-voice').checked&&$('speak').checked});busy(true);
   ui.turnStart=performance.now();
   if(ui.session.mode!=='replay')$('question').value='';
+}
+
+async function startOutbound(){
+  if(ui.busy||!outboundPending()||ui.socket?.readyState!==WebSocket.OPEN)return;
+  note();ui.turnStart=performance.now();
+  send({type:'start',cloud_voice:$('cloud-voice').checked&&$('speak').checked});busy(true);
 }
 
 async function startMicrophone(){
@@ -280,15 +309,18 @@ $('panel-backdrop').addEventListener('click',()=>openPanel(null));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.dataset.panel){const name=document.body.dataset.panel;openPanel(null);$(name==='settings'?'open-settings':'open-inspector').focus();}});
 $('question').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey&&!e.isComposing){e.preventDefault();submit();}});
 $('stop').addEventListener('click',stopAnswer);
+$('start-outbound').addEventListener('click',startOutbound);
 $('microphone').addEventListener('click',()=>ui.microphone?endMicrophone():startMicrophone());
 $('playback-rate').addEventListener('change',()=>{const rate=Number($('playback-rate').value);if(ui.audio)ui.audio.playbackRate=rate;if(ui.turn)reportMetric('rate',rate);note(ui.audio?'已调整当前音频的播放速度。':'播放速度用于下一句浏览器朗读或云端音频。');});
 $('seen').addEventListener('click',()=>{stopSpeech();send({type:'seen'});$('seen').hidden=true;if(ui.agent)ui.agent.state.textContent='用户已确认读完文字；非声学播放验收。';});
 $('speak').addEventListener('change',()=>{if(!$('speak').checked){stopSpeech();if(ui.agent)$('seen').hidden=false;}});
 $('new-session').addEventListener('click',()=>$('reset-dialog').showModal());
-$('reset-cancel').addEventListener('click',()=>{$('reset-dialog').close();if(ui.pendingMode){$('mode').value=ui.session.mode==='replay'?'replay':ui.session.provider;ui.pendingMode=null;}});
-$('reset-dialog').addEventListener('cancel',()=>{if(ui.pendingMode&&ui.session){$('mode').value=ui.session.mode==='replay'?'replay':ui.session.provider;ui.pendingMode=null;}});
-$('reset-confirm').addEventListener('click',async()=>{$('reset-dialog').close();ui.pendingMode=null;try{await newSession();}catch(e){note(e.message);busy(false);}});
+function cancelReset(){if(ui.session){$('mode').value=ui.session.mode==='replay'?'replay':ui.session.provider;$('business-scenario').value=ui.session.scenario||'consultation';}ui.pendingMode=null;ui.pendingScenario=null;}
+$('reset-cancel').addEventListener('click',()=>{$('reset-dialog').close();cancelReset();});
+$('reset-dialog').addEventListener('cancel',cancelReset);
+$('reset-confirm').addEventListener('click',async()=>{$('reset-dialog').close();ui.pendingMode=null;ui.pendingScenario=null;try{await newSession();}catch(e){note(e.message);busy(false);}});
 $('mode').addEventListener('change',()=>{ui.pendingMode=$('mode').value;$('reset-dialog').showModal();});
+$('business-scenario').addEventListener('change',()=>{ui.pendingScenario=$('business-scenario').value;$('reset-dialog').showModal();});
 $('export').addEventListener('click',async()=>{if(!ui.session)return;try{const data=await request(`/api/sessions/${ui.session.id}/export`);const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));const a=element('a');a.href=url;a.download=`consultation-${ui.session.id.slice(0,8)}.json`;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}catch(e){note(e.message);}});
 window.addEventListener('beforeunload',()=>{stopSpeech();ui.socket?.close();if(ui.microphone)cleanupMicrophone(ui.microphone);});
 window.addEventListener('resize',()=>requestAnimationFrame(scroll));
@@ -298,6 +330,7 @@ async function init(){
     [ui.health,ui.scenarios]=await Promise.all([request('/api/health'),request('/api/scenarios')]);
     for(const provider of ['deepseek','qwen']){const option=$('mode').querySelector(`option[value="${provider}"]`);if(!ui.health.capabilities[provider]){option.disabled=true;option.textContent+=' · 未配置';}}
     $('mode').value=ui.health.capabilities.deepseek?'deepseek':'replay';
+    if(new URLSearchParams(location.search).get('scenario')==='outbound'&&$('mode').value!=='replay')$('business-scenario').value='outbound';
     if($('mode').value==='replay'){ui.selected='replay';$('scenario-title').textContent='完整对话回放';$('scenario-subtitle').textContent='DeepSeek尚未配置。补好本地密钥并重启后，可现场自由提问。';}
     for(const scenario of ui.scenarios){const b=element('button',`scenario${scenario.id===ui.selected?' active':''}`);b.dataset.scenario=scenario.id;b.append(element('strong','',scenario.name),element('span','',scenario.description));b.addEventListener('click',()=>{
       ui.selected=scenario.id;document.querySelectorAll('.scenario').forEach(n=>n.classList.remove('active'));b.classList.add('active');$('scenario-title').textContent=scenario.name;$('scenario-subtitle').textContent=scenario.description;

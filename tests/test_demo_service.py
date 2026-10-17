@@ -13,7 +13,7 @@ ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
 from fastapi.testclient import TestClient
 from demo.app import create_app
-from demo.service import DemoSession, DemoStore, demo_text
+from demo.service import DemoSession, DemoStore, demo_text, OUTBOUND_OPENING, PRODUCT_INTRO, PRODUCT_DETAIL
 from demo.source_compat import source_digest
 from agent.pipeline import Answer
 from agent.session import HANDOFF, LINK_SENT
@@ -48,13 +48,170 @@ class FakePipe:
 
 class FakeStore(DemoStore):
     def __init__(self,pipe):super().__init__();self.pipe=pipe
-    def create(self,mode,provider):
-        session=DemoSession(mode,provider,self.pipe)
+    def create(self,mode,provider,scenario='consultation'):
+        session=DemoSession(mode,provider,self.pipe,scenario)
         self.sessions[session.id]=session
         return session
 
 
 class DemoServiceTest(unittest.TestCase):
+    def test_outbound_opening_has_no_fabricated_user_and_requires_playback_receipts(self):
+        store=FakeStore(FakePipe())
+        with TestClient(create_app(store)) as client:
+            state=client.post('/api/sessions',json={'mode':'live','scenario':'outbound'}).json()
+            self.assertEqual(state['scenario'],'outbound')
+            with client.websocket_connect('/api/sessions/'+state['id']+'/ws') as ws:
+                ws.receive_json()
+                ws.send_json({'type':'turn','text':'你好'})
+                self.assertIn('先点击',receive_until(ws,'error')['message'])
+                ws.send_json({'type':'start'})
+                started=receive_until(ws,'turn_start')
+                self.assertEqual(started['kind'],'opening')
+                self.assertEqual(started['question'],'')
+                done=receive_until(ws,'turn_done')
+                self.assertEqual(done['text'],OUTBOUND_OPENING)
+                self.assertIn('方便',done['text'])
+                self.assertNotIn('录音',done['text'])
+                self.assertNotIn('之前了解过',done['text'])
+                self.assertFalse(store.sessions[state['id']].session.flags['recording'])
+                self.assertTrue(done['state']['opening_started'])
+                self.assertEqual(done['state']['history'],[['坐席','']])
+                self.assertEqual(done['state']['turns'][0]['kind'],'opening')
+                for index in range(len(store.sessions[state['id']].speech)):
+                    ws.send_json({'type':'receipt','turn':started['turn'],'index':index})
+                    receipt=receive_until(ws,'receipt')
+                    self.assertTrue(receipt['accepted'])
+                self.assertEqual(receipt['state']['history'],[['坐席',OUTBOUND_OPENING]])
+                ws.send_json({'type':'start'})
+                self.assertIn('已开始',receive_until(ws,'error')['message'])
+
+    def test_outbound_stop_keeps_only_heard_opening_then_accepts_customer_reply(self):
+        store=FakeStore(FakePipe())
+        with patch('demo.service.select_action',return_value={'tool':'answer_question'}),patch('agent.small_model.classify_act',return_value='提供信息'),TestClient(create_app(store)) as client:
+            state=client.post('/api/sessions',json={'mode':'live','scenario':'outbound'}).json()
+            with client.websocket_connect('/api/sessions/'+state['id']+'/ws') as ws:
+                ws.receive_json();ws.send_json({'type':'start'})
+                done=receive_until(ws,'turn_done')
+                session=store.sessions[state['id']]
+                first=session.speech[0].text
+                ws.send_json({'type':'receipt','turn':done['turn'],'index':0})
+                receive_until(ws,'receipt')
+                ws.send_json({'type':'stop'})
+                stopped=receive_until(ws,'stopped')
+                self.assertEqual(stopped['state']['history'],[['坐席',first]])
+                ws.send_json({'type':'turn','text':'给自己了解'})
+                reply=receive_until(ws,'turn_done')
+                self.assertIn(['用户','给自己了解'],reply['state']['history'])
+                self.assertEqual(reply['state']['stage'],'需求')
+                self.assertIn('为自己了解',reply['text'])
+
+    def test_willing_listener_gets_product_introduction_before_sales_questions(self):
+        session=DemoSession('live',pipe=FakePipe(),scenario='outbound')
+        async def send(event):pass
+        def confirm():
+            for index in range(len(session.speech)):self.assertTrue(session.receipt(session.turn_id,index))
+        choices=[{'tool':'play_script','script_id':'product_intro'},
+                 {'tool':'play_script','script_id':'coverage_detail'}]
+        with patch('demo.service.select_action',side_effect=choices),patch('agent.small_model.classify_act',side_effect=AssertionError('Script dispatch must not enter business classification')):
+            asyncio.run(session.run('',send,opening=True));confirm()
+            asyncio.run(session.run('嗯，可以可以。',send))
+            self.assertEqual(session.result.text,PRODUCT_INTRO)
+            self.assertNotIn('给您自己买',session.result.text)
+            self.assertEqual(session.outbound_step,0)
+            confirm();self.assertEqual(session.outbound_step,1)
+            asyncio.run(session.run('你继续介绍。',send))
+            self.assertEqual(session.result.text,PRODUCT_DETAIL)
+            confirm();self.assertEqual(session.outbound_step,2)
+            self.assertFalse(session.session.flags['consent'])
+
+    def test_interrupted_introduction_is_not_marked_delivered_and_refusal_closes(self):
+        session=DemoSession('live',pipe=FakePipe(),scenario='outbound')
+        async def send(event):pass
+        asyncio.run(session.run('',send,opening=True))
+        choices=[{'tool':'play_script','script_id':'product_intro'},
+                 {'tool':'play_script','script_id':'product_intro'}, {'tool':'end_call'}]
+        with patch('demo.service.select_action',side_effect=choices):
+            asyncio.run(session.run('可以',send));session.receipt(session.turn_id,0)
+            first=session.speech[0].text;session.stop()
+            self.assertEqual(session.outbound_step,0)
+            asyncio.run(session.run('继续',send))
+            self.assertEqual(session.result.text,PRODUCT_INTRO[len(first):])
+            session.stop()
+            asyncio.run(session.run('现在不方便，不想听了。',send))
+        self.assertTrue(session.session.ended)
+        self.assertIn('不打扰',session.result.text)
+
+    def test_model_can_continue_to_details_after_interrupted_intro_without_replaying_it(self):
+        session=DemoSession('live',pipe=FakePipe(),scenario='outbound')
+        async def send(event):pass
+        choices=[{'tool':'play_script','script_id':'product_intro'},
+                 {'tool':'play_script','script_id':'coverage_detail'}, {'tool':'acknowledge'}]
+        asyncio.run(session.run('',send,opening=True))
+        with patch('demo.service.select_action',side_effect=choices):
+            asyncio.run(session.run('嗯，可以可以。',send));session.receipt(session.turn_id,0);session.stop()
+            asyncio.run(session.run('你讲讲吧。',send))
+            self.assertEqual(session.result.text,PRODUCT_DETAIL)
+            session.stop()
+            asyncio.run(session.run('嗯。',send))
+            self.assertNotIn('平时小病',session.result.text)
+            self.assertNotIn('普通住院方面',session.result.text)
+
+    def test_recalling_a_question_uses_original_user_words_without_business_answering(self):
+        session=DemoSession('live',pipe=FakePipe(),scenario='outbound')
+        session.opening_started=True
+        session.session.history=[('用户','普通住院怎么赔？'),('用户','你讲讲吧。')]
+        async def send(event):pass
+        with patch('demo.service.select_action',return_value={'tool':'recall_question','question_index':0}):
+            asyncio.run(session.run('我刚刚的问题是什么？',send))
+        self.assertEqual(session.result.text,'您刚才说的是：“普通住院怎么赔？”')
+
+    def test_quote_intake_asks_conditions_without_main_answer_model(self):
+        session=DemoSession('live',pipe=FakePipe(),scenario='outbound');session.opening_started=True
+        async def send(event):pass
+        with patch('demo.service.select_action',return_value={'tool':'collect_quote_conditions'}),patch('agent.small_model.classify_act',side_effect=AssertionError('Must not enter slow chain')):
+            asyncio.run(session.run('嗯，具体了解一下保费。',send))
+            self.assertIn('多少周岁',session.result.text)
+            self.assertEqual(session.session.stage,'报价条件')
+            session.stop()
+            asyncio.run(session.run('女。',send))
+            self.assertIn('多少周岁',session.result.text)
+            self.assertNotIn('age',session.session.profile)
+            session.stop()
+            asyncio.run(session.run('35岁。',send))
+            self.assertEqual(session.session.profile['age'],35)
+            self.assertIn('基本医保',session.result.text)
+            session.stop()
+            asyncio.run(session.run('有医保。',send))
+            self.assertTrue(session.session.profile['has_social'])
+            self.assertIn('首次投保',session.result.text)
+
+    def test_slow_answer_has_deadline_and_cannot_commit_late_state(self):
+        pipe=FakePipe(blocked=True)
+        session=DemoSession('live',pipe=pipe,scenario='outbound');session.opening_started=True;session.turn_timeout_s=.1
+        events=[]
+        async def send(event):events.append(event)
+        async def scenario():
+            await session.run('普通住院怎么赔？',send)
+            self.assertTrue(any(e['type']=='error' and '超时' in e['message'] for e in events))
+            self.assertEqual(session.session.consultation['initial_question'],'普通住院怎么赔？')
+            self.assertNotIn('age',session.session.profile)
+            pipe.release.set()
+        with patch('demo.service.select_action',return_value={'tool':'answer_question'}),patch('agent.small_model.classify_act',return_value='提问'):
+            asyncio.run(scenario())
+        self.assertNotIn('age',session.session.profile)
+
+    def test_consultation_does_not_accept_sales_opening_and_replay_rejects_outbound(self):
+        store=FakeStore(FakePipe())
+        with TestClient(create_app(store)) as client:
+            state=client.post('/api/sessions',json={'mode':'live'}).json()
+            with client.websocket_connect('/api/sessions/'+state['id']+'/ws') as ws:
+                ws.receive_json();ws.send_json({'type':'start'})
+                self.assertIn('主动推销场景',receive_until(ws,'error')['message'])
+                self.assertFalse(store.sessions[state['id']].opening_started)
+        with TestClient(create_app()) as client:
+            self.assertEqual(client.post('/api/sessions',json={'mode':'replay','scenario':'outbound'}).status_code,400)
+            self.assertEqual(client.post('/api/sessions',json={'scenario':'invalid'}).status_code,422)
+
     def test_shell_and_static_assets_do_not_expose_configuration_files(self):
         with TestClient(create_app()) as client:
             for path in ('/','/assets/app.js','/assets/style.css','/assets/microphone.js'):

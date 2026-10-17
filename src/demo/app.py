@@ -26,14 +26,20 @@ from agent import cloud
 class CreateSession(BaseModel):
     mode: str = Field(default='replay',pattern='^(live|replay)$')
     provider: str = Field(default='deepseek',pattern='^(deepseek|qwen)$')
+    scenario: str = Field(default='consultation',pattern='^(consultation|outbound)$')
 
 
-def create_app(store=None):
+def create_app(store=None,prewarm=False):
     store=store or DemoStore()
 
     @asynccontextmanager
     async def lifespan(app):
+        warm_task=(asyncio.create_task(asyncio.to_thread(store.warm_speech))
+                   if prewarm and capabilities()['cloud_tts'] else None)
         yield
+        if warm_task is not None:
+            warm_task.cancel()
+            await asyncio.gather(warm_task,return_exceptions=True)
         await asyncio.gather(*(s.close() for s in store.sessions.values()),return_exceptions=True)
 
     app=FastAPI(title='保险复杂咨询演示台',lifespan=lifespan)
@@ -58,14 +64,15 @@ def create_app(store=None):
     def index():return FileResponse(ROOT/'web/index.html')
 
     @app.get('/api/health')
-    def health():return {'ok':True,'capabilities':capabilities(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG}
+    def health():return {'ok':True,'capabilities':capabilities(),'core_tag':CORE_TAG,'demo_tag':DEMO_TAG,
+                         'speech_cache':{'status':store.speech_cache.status,'error':store.speech_cache.error}}
 
     @app.get('/api/scenarios')
     def scenarios():return SCENARIOS
 
     @app.post('/api/sessions',status_code=201)
     def create_session(body:CreateSession):
-        try:return store.create(body.mode,body.provider).snapshot()
+        try:return store.create(body.mode,body.provider,body.scenario).snapshot()
         except ValueError as exc:raise HTTPException(400,str(exc)) from None
 
     def get_session(sid):
@@ -123,16 +130,17 @@ def create_app(store=None):
                 if not isinstance(data,dict):
                     await send({'type':'error','message':'请求格式无效。'});continue
                 kind=data.get('type')
-                if kind=='turn':
-                    text=data.get('text')
-                    if not isinstance(text,str) or not text.strip() or len(text)>2000:
+                if kind in ('turn','start'):
+                    opening=kind=='start'
+                    text='' if opening else data.get('text')
+                    if not opening and (not isinstance(text,str) or not text.strip() or len(text)>2000):
                         await send({'type':'error','message':'请输入1至2000字的问题。'});continue
                     if session.task is not None and not session.task.done():
                         await send({'type':'error','message':'请先停止当前回答。'});continue
                     if session.active_text and not session.cancelled.is_set() and any(not s.received for s in session.speech):
                         session.stop()
-                    async def work(text=text,voice=bool(data.get('cloud_voice'))):
-                        try:await session.run(text,send,voice)
+                    async def work(text=text,voice=bool(data.get('cloud_voice')),opening=opening):
+                        try:await session.run(text,send,voice,opening=opening)
                         except ValueError as exc:await send({'type':'error','message':str(exc)})
                     session.task=asyncio.create_task(work())
                 elif kind=='receipt':
@@ -210,4 +218,4 @@ def create_app(store=None):
     return app
 
 
-app=create_app()
+app=create_app(prewarm=True)

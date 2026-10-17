@@ -17,6 +17,7 @@
   <main class="workspace">
     <section class="conversation" aria-label="咨询会话">
       <div class="conversation-heading"><div><h1 id="scenario-title">保险咨询</h1><p id="scenario-subtitle">保费、保障与理赔条件，都可以接着问。</p></div><span id="session-mode" class="mode-label">准备连接</span></div>
+      <div class="business-controls"><label for="business-scenario">业务场景</label><select id="business-scenario"><option value="consultation">用户咨询</option><option value="outbound">主动推销</option></select><span id="sales-stage" class="mode-label" hidden></span><button id="start-outbound" class="primary" hidden disabled>开始推销演示</button></div>
       <div id="messages" class="messages" role="log" aria-label="会话消息" aria-live="polite">
         <div class="welcome" id="welcome"><h2>直接说，随时插话。</h2><p>开启语音后，麦克风持续监听。<br>也可以输入问题，或更正刚才的条件。</p><div class="welcome-note">每轮答复的依据和耗时，都在“核对记录”中。</div></div>
       </div>

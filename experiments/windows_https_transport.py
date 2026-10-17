@@ -10,6 +10,9 @@ import httpx
 
 
 class WindowsHttpsTransport(httpx.BaseTransport):
+    def __init__(self,total_timeout=None):
+        self.total_timeout=total_timeout
+
     def handle_request(self, request):
         timeouts = request.extensions.get('timeout',{})
         connect = timeouts.get('connect') or 30
@@ -22,8 +25,10 @@ class WindowsHttpsTransport(httpx.BaseTransport):
         body = request.read()
         if body:
             config.append(f'data-binary = {json.dumps(body.decode("utf-8"),ensure_ascii=False)}')
+        total=connect+read+write
+        if self.total_timeout is not None:total=min(total,self.total_timeout)
         process = subprocess.run(['curl.exe','--silent','--show-error','--include','--config','-',
-                                  '--connect-timeout',str(connect),'--max-time',str(connect+read+write)],
+                                  '--connect-timeout',str(min(connect,total)),'--max-time',str(total)],
                                  input=('\n'.join(config)+'\n').encode('utf-8'),
                                  capture_output=True,creationflags=subprocess.CREATE_NO_WINDOW)
         if process.returncode:
